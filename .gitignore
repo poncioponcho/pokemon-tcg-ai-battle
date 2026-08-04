@@ -1,0 +1,22 @@
+# ===== 数据文件（不纳入版本控制）=====
+# 大体积对局数据
+inference/TopRatedEpisodes/
+inference/leaderboard_replay/
+*.zip
+
+# 卡牌原始数据（大文件）
+pokemon-tcg-ai-battle-challenge-strategy/Card_ID
+
+# 对局回放/日志
+subm_rec*/
+replay_regression_test.py
+inference/subm_rec*/
+
+# ===== 构建产物 =====
+submission.tar.gz
+*.tar.gz
+__pycache__/
+*.pyc
+
+# ===== 系统文件 =====
+.DS_Store
