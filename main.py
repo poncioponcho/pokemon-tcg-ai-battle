@@ -1,6 +1,26 @@
 # -*- coding: utf-8 -*-
 """
-PTCG Battle Agent v22.6 — Mega Wall Push (メガガルーラex + イワパレス墙推)
+PTCG Battle Agent v23 — Mega Lucario ex 能量循环墙推 (メガルカリオex体系)
+
+v23 (2026-08-04) — 卡组重构为 0804 leaderboard Top3 实证构成:
+  [v23-fix1] 卡组切换: 756メガガルーラex墙推 → 678メガルカリオex能量循环体系
+    宝可梦: 678メガルカリオex×3 (340HP/Mega ex, メガブレイブ270+オーラジャブ130回收)
+           677リオル×3 (进化链) 675ルナトーン×2 (ルナサイクル弃能抽3)
+           676ソルロック×2 (コズミックビーム70无视效果) 673マクノシタ×2 674ハリテヤマ×2 (210破墙+免费抓人)
+    训练家: 1142ファイティングゴング×3 1227リーリエ×4 1152ポケパッド×3 1121ハイパーボール×3
+           1229ウォリー×2 1213ジャッジ×2 1182ボス×2 1141プレミアムパワープロ×2
+           1123いれかえ×2 1102ダークボール×2 1097ナイトストレッチャー×2 1159ヒーローマント×1 1252グラビティマウンテン×1
+    能量: 6斗×13 20ロック闘×4
+  [v23-fix2] 决策链重构 — Mega Lucario ex 优先级:
+    P3: 进化678メガルカリオex (核心打手)  P3.5: 进化674ハリテヤマ (破墙)
+    P4: 678满能(2斗)攻击 Mega Brave 270  P6: ゴング/リーリエ/ポケパッド/ジャッジ
+    P12: bench贴能优先678  P13: ABILITYルナサイクル弃能抽3
+    P16: 奖赏节奏切换 (678未成型避3Prize损失, 1Prize辅助过渡)
+  [v23-fix3] 盾牌耗牌策略 (P16.5): 打不动对手时用高HP盾硬耗光对手牌库
+    PTCG规则: 回合开始抽牌时牌库为空 → 该玩家输
+    触发: 我方无法KO + 678/674在场可抗 + 对方牌库比我方少(≤15)
+    打法: 有ジャッジ(1213)打出压缩牌库, 否则END结束回合让对手抽干
+  [v23-fix4] 破345墙: 678面对345墙(ex免疫) → 切674ハリテヤマ(210非ex破墙)
 
 v22.6 (2026-08-04) — 全量问题修复:
   [v22.6-fix1] 牌组单一来源: DECK 优先读 deck.csv (缺失/非法回退内联 _INLINE_DECK)
@@ -71,12 +91,11 @@ from collections import Counter, defaultdict
 #             ロケットファクトリー×1 バトルコロシアム×1
 # 能量   (13): 草×4 闘×2 ミスト×2 スパイク×2 グロウ草×2 ロック闘×1
 _INLINE_DECK = (
-    [756] * 3 + [344] * 4 + [345] * 3 + [117] * 2 +
-    [1] * 4 + [6] * 2 + [11] * 2 + [14] * 2 + [18] * 2 + [20] * 1 +
-    [1086] * 3 + [1121] * 4 + [1122] * 2 + [1123] * 3 + [1137] * 1 +
-    [1147] * 2 + [1159] * 1 + [1182] * 2 + [1194] * 2 + [1197] * 2 +
-    [1205] * 1 + [1219] * 2 + [1225] * 2 + [1227] * 4 + [1097] * 2 +
-    [1257] * 1 + [1264] * 1
+    [675] * 2 + [676] * 2 + [677] * 3 + [678] * 3 + [673] * 2 + [674] * 2 +
+    [1227] * 4 + [1142] * 3 + [1152] * 3 + [1121] * 3 + [1229] * 2 +
+    [1213] * 2 + [1182] * 2 + [1141] * 2 + [1123] * 2 + [1102] * 2 +
+    [1097] * 2 + [1159] * 1 + [1252] * 1 +
+    [6] * 13 + [20] * 4
 )
 
 
@@ -1218,10 +1237,23 @@ for _cid, _v in _GEN_CARD_DATA.items():
 del _cid, _v
 
 # ---- 我方牌组卡权威覆盖 (招式/能量需求/特性 人工确认, 覆盖生成数据) ----
+# [v23] Mega Lucario ex 能量循环墙推体系 (0804 Top3 实证构成)
 _CARD_DB[756] = {"hp": 300, "rule": "mega_ex", "moves": [(200, "マシンガンコンボ")], "can_attack": True, "power": 200, "needed_energy": 3, "min_energy": 3, "has_ability": True, "type": "無", "weakness": "闘"}
 _CARD_DB[344] = {"hp": 70, "moves": [(0, "かくせい")], "can_attack": True, "power": 0, "needed_energy": 1, "min_energy": 1, "evolves_to": 345, "type": "草", "weakness": "炎"}
 _CARD_DB[345] = {"hp": 150, "moves": [(120, "グレートシザー")], "can_attack": True, "power": 120, "needed_energy": 3, "min_energy": 3, "evolves_from": 344, "has_ability": True, "type": "草", "weakness": "炎"}
 _CARD_DB[117] = {"hp": 210, "rule": "ex", "moves": [(140, "ぶちやぶる")], "can_attack": True, "power": 140, "needed_energy": 3, "min_energy": 3, "has_ability": True, "type": "闘", "weakness": "草"}
+# 675 ルナトーン: 特性ルナサイクル (Solrock在场时弃1斗能抽3), パワージェム(斗斗50)
+_CARD_DB[675] = {"hp": 110, "moves": [(50, "パワージェム")], "can_attack": True, "power": 50, "needed_energy": 2, "min_energy": 2, "has_ability": True, "type": "闘", "weakness": "草"}
+# 676 ソルロック: コズミックビーム(斗70, 需Lunatone在场, 无视弱点/抵抗)
+_CARD_DB[676] = {"hp": 110, "moves": [(70, "コズミックビーム")], "can_attack": True, "power": 70, "needed_energy": 1, "min_energy": 1, "type": "闘", "weakness": "草"}
+# 677 リオル: アクセルブロー(斗30)
+_CARD_DB[677] = {"hp": 80, "moves": [(30, "アクセルブロー")], "can_attack": True, "power": 30, "needed_energy": 1, "min_energy": 1, "evolves_to": 678, "type": "闘", "weakness": "超"}
+# 678 メガルカリオex: オーラジャブ(斗130+弃牌回收3斗能贴bench), メガブレイブ(斗斗270, 下回合禁用)
+_CARD_DB[678] = {"hp": 340, "rule": "mega_ex", "moves": [(270, "メガブレイブ"), (130, "オーラジャブ")], "can_attack": True, "power": 270, "needed_energy": 2, "min_energy": 1, "evolves_from": 677, "type": "闘", "weakness": "超"}
+# 673 マクノシタ: ドリルくちばし(斗10), ふみつけ(斗斗30)
+_CARD_DB[673] = {"hp": 80, "moves": [(10, "ドリルくちばし"), (30, "ふみつけ")], "can_attack": True, "power": 30, "needed_energy": 1, "min_energy": 1, "evolves_to": 674, "type": "闘", "weakness": "超"}
+# 674 ハリテヤマ: 特性ヘイフーハンド (进化时免费拉对方bench), ワイルドプレス(斗斗斗210, 自伤70)
+_CARD_DB[674] = {"hp": 150, "moves": [(210, "ワイルドプレス")], "can_attack": True, "power": 210, "needed_energy": 3, "min_energy": 3, "evolves_from": 673, "has_ability": True, "type": "闘", "weakness": "超"}
 
 # ---- 类型名称归一化 (弱点/属性比较用, [v22.6-fix3]) ----
 _TYPE_NAME_MAP = {
@@ -1258,23 +1290,19 @@ def _norm_type_name(value):
 
 # === 训练家卡优先级（值越高越优先打出）===
 _TRAINER_PRIORITY = {
-    1086: 100,  # なかよしポフィン: ベンチ展開
+    1142: 100,  # ファイティングゴング: 斗系宝可梦/能量检索 [v23核心检索]
     1227: 95,   # リーリエの決心: 手札刷新
+    1152: 92,   # ポケパッド: 无规则盒宝可梦检索 [v23: 检索Lunatone/Solrock/Hariyama]
     1121: 90,   # ハイパーボール: ポケモン検索
-    1225: 88,   # トウコ: 進化ポケモン+エネルギー検索
-    1219: 85,   # ロケット団のラムダ: トレーナーズ検索
-    1122: 80,   # ポケギア3.0: サポート検索
-    1205: 78,   # シアノ: ポケモンex検索×3 [v2新增, 0731胜率差+9%]
-    1197: 75,   # クセロシキのたくらみ: 手札破壊
-    1182: 70,   # ボスの指令: 相手ベンチ引きずり
-    1097: 65,   # 夜のタンカ: トラッシュ回収
-    1194: 60,   # アクロマの執念: スタジアム+エネルギー検索
-    1147: 55,   # ジャンボアイス: HP80回復
-    1123: 50,   # ポケモンいれかえ: 交代
-    1137: 40,   # ツールスクラッパー: どうぐ破壊
-    1159: 35,   # ヒーローマント: HP+100 (ACE SPEC)
-    1257: 30,   # ロケット団のファクトリー: スタジアム
-    1264: 25,   # バトルコロシアム: スタジアム
+    1229: 88,   # ウォリーの思いやり: Mega进化治疗 [v23: 治疗678]
+    1213: 85,   # ジャッジ: 双方手牌洗回抽4 [v23: 干扰+磨牌库]
+    1182: 80,   # ボスの指令: 相手ベンチ引きずり
+    1141: 78,   # プレミアムパワープロ: 斗系伤害+30 [v23增伤]
+    1123: 75,   # ポケモンいれかえ: 交代
+    1102: 72,   # ダークボール: 看底7张检索 [v23补充检索]
+    1097: 65,   # ナイトストレッチャー: トラッシュ回収
+    1159: 35,   # ヒーローマント: HP+100 (ACE SPEC) [v23: 678 340→440]
+    1252: 25,   # グラビティマウンテン: スタジアム (Stage2撤退-2)
 }
 _TRAINER_IDS = set(_TRAINER_PRIORITY.keys())
 
@@ -1284,11 +1312,28 @@ _TRAINER_IDS = set(_TRAINER_PRIORITY.keys())
 #   345 -> 479  (9853次) イワパレス グレートシザー 120 (无视效果)
 #   117 -> 148  (391次)  オーガポンいしずえex ぶちやぶる 140 (无视弱点/效果)
 #   344 -> 478  (1102次) イシズマイ かくせい 0 (进化搜索, 非伤害)
+# [v23] 0804 leaderboard 反查:
+#   678 -> 982 (260次) メガルカリオex メガブレイブ 270 (斗斗, 下回合禁用)
+#   678 -> 983 (111次) メガルカリオex オーラジャブ 130 (斗, 弃牌回收3斗能)
+#   676 -> 980 (64次)  ソルロック コズミックビーム 70 (斗, 需Lunatone在场)
+#   677 -> 981 (24次)  リオル アクセルブロー 30
+#   674 -> 978 (7次)   ハリテヤマ ワイルドプレス 210 (斗斗斗, 自伤70)
+#   675 -> 979 (2次)   ルナトーン パワージェム 50
+#   673 -> 976 (3次)   マクノシタ ドリルくちばし 10 / 977 ふみつけ 30
 _ATTACK_ID_DMG = {
     1092: 200,  # 756 メガガルーラex マシンガンコンボ (期望 200+25, 保守按200)
     479: 120,   # 345 イワパレス グレートシザー
     148: 140,   # 117 オーガポン ぶちやぶる
     478: 0,     # 344 イシズマイ かくせい
+    # [v23] Mega Lucario ex 体系
+    982: 270,   # 678 メガブレイブ
+    983: 130,   # 678 オーラジャブ
+    980: 70,    # 676 コズミックビーム
+    981: 30,    # 677 アクセルブロー
+    978: 210,   # 674 ワイルドプレス
+    979: 50,    # 675 パワージェム
+    976: 10,    # 673 ドリルくちばし
+    977: 30,    # 673 ふみつけ
 }
 
 # ==================================================================
@@ -1374,17 +1419,18 @@ _SC_EVOLVES_TO = "EvolvesTo"
 _SC_EVOLVES_FROM = "EvolvesFrom"
 
 # [B3] 进化优先级排序（值越高越优先）
-_EVOLVE_PRIORITY = {345: 200}
+_EVOLVE_PRIORITY = {678: 200, 674: 150}  # [v23] 678メガルカリオex > 674ハリテヤマ
 
 # [B2] 奖赏卡冲刺阈值：剩余奖赏卡 <= 此值时进入冲刺模式
 _PRIZE_SPRINT_THRESHOLD = 2
 
 # [v19.3] 关键训练家卡 ID（用于时机判断）
-_TRAINER_POFIN = 1086      # なかよしポフィン: ベンチ展開
+_TRAINER_GONG = 1142     # ファイティングゴング: 斗系检索 [v23]
 _TRAINER_LILLIE = 1227     # リーリエの決心: 手札刷新
-_TRAINER_TOUKO = 1225      # トウコ: 進化+エネルギー検索
+_TRAINER_POKEPAD = 1152    # ポケパッド: 无规则盒检索 [v23]
 _TRAINER_BOSS = 1182       # ボスの指令: 相手引きずり
-_TRAINER_SIANO = 1205      # シアノ: ポケモンex検索×3 [v22.2]
+_TRAINER_JUDGE = 1213      # ジャッジ: 双方手牌洗回抽4 [v23]
+_TRAINER_WALLY = 1229      # ウォリーの思いやり: Mega治疗 [v23]
 
 # [v22.4] 撤退换墙意图标志: P16/P4.5 决定撤退换345墙时置位,
 # _handle_card 的 Switch/ToActive 场景据此优先选 345 上场 (否则默认选高power的756)
@@ -1831,8 +1877,8 @@ def _find_best_bench_attach(attach_bench_opts, bench, options):
 
 
 def _find_best_bench_attach_mega(attach_bench_opts, bench, options):
-    """[Mega Wall] 从 bench ATTACH 选项中找最优目标
-    优先级: 756メガガルーラex (推队准备) > 高power宝可梦 > 其他
+    """[v23] 从 bench ATTACH 选项中找最优目标
+    优先级: 678メガルカリオex (斩杀核心, 2能量) > 674ハリテヤマ (210破墙, 3能量) > 高power宝可梦
     """
     best_score = -1
     best_opt_idx = attach_bench_opts[0] if attach_bench_opts else 0
@@ -1843,8 +1889,11 @@ def _find_best_bench_attach_mega(attach_bench_opts, bench, options):
             bp = bench[in_play_index]
             if bp and isinstance(bp, dict):
                 bp_cid = _get_pokemon_card_id(bp)
-                # 756 最高优先 (推队核心)
-                if bp_cid == 756:
+                # 678 最高优先 (斩杀核心, 2能量即可Mega Brave 270)
+                if bp_cid == 678:
+                    return opt_idx
+                # 674 次优先 (210伤害破墙打手)
+                if bp_cid == 674:
                     return opt_idx
                 bp_power = _CARD_DB.get(bp_cid, {}).get("power", 0)
                 bp_can_attack = _CARD_DB.get(bp_cid, {}).get("can_attack", False)
@@ -1885,12 +1934,13 @@ def _find_best_evolve(evolve_idx_list, options, obs_current, my_idx):
 
 
 def _find_best_trainer_play(play_trainer_idx, hand, options, obs_current, my_idx):
-    """[v19.3] 训练家卡时机感知选择
+    """[v23] 训练家卡时机感知选择 (Mega Lucario ex 体系)
 
     根据游戏状态选择最佳训练家卡打出时机:
-    - ポフィン(1086): 早期 (turn<=3) 或 bench<2 时优先
+    - ファイティングゴング(1142): 缺斗系宝可梦/能量时优先
     - リーリエ(1227): 手牌少 (<=3) 时优先
-    - ふしぎなアメ(1079): 有进化选项时优先
+    - ポケパッド(1152): bench<3 时优先 (铺场)
+    - ジャッジ(1213): 手牌>=5 时优先 (干扰对手)
     - ボスの指令(1182): 对方 bench 有低 HP 宝可梦时优先
     """
     if not play_trainer_idx:
@@ -1906,7 +1956,7 @@ def _find_best_trainer_play(play_trainer_idx, hand, options, obs_current, my_idx
     bench_count = len(bench)
     hand_size = len(hand)
 
-    # 检查是否有进化选项可用（影响 ふしぎなアめ 优先级）
+    # 检查是否有进化选项可用 (影响 トウコ/ウォリー 优先级)
     has_evolve_option = False
     for opt in options:
         if isinstance(opt, dict) and _get_option_type(opt) == _OT_EVOLVE:
@@ -1932,14 +1982,18 @@ def _find_best_trainer_play(play_trainer_idx, hand, options, obs_current, my_idx
 
             # 时机加成
             timing_bonus = 0
-            if cid == _TRAINER_POFIN and (turn <= 3 or bench_count < 2):
-                timing_bonus = 50  # 早期ベンチ展開
+            if cid == _TRAINER_GONG and (turn <= 3 or bench_count < 2):
+                timing_bonus = 50  # 早期检索斗系铺场
             elif cid == _TRAINER_LILLIE and hand_size <= 3:
                 timing_bonus = 40  # 手牌少时刷新
-            elif cid == _TRAINER_TOUKO and has_evolve_option:
-                timing_bonus = 45  # 進化+エネルギー検索
+            elif cid == _TRAINER_POKEPAD and bench_count < 3:
+                timing_bonus = 45  # 铺场
+            elif cid == _TRAINER_JUDGE and hand_size >= 5:
+                timing_bonus = 35  # 手牌多时打, 压缩对手手牌
             elif cid == _TRAINER_BOSS and opp_has_low_hp:
                 timing_bonus = 35  # 有击杀目标
+            elif cid == _TRAINER_WALLY and has_evolve_option:
+                timing_bonus = 30  # 治疗Mega进化
 
             # [v22.4-fix] リーリエの決心: 手札が6枚になるように引く
             # 手牌 >= 6 时打出完全无收益(浪费 supporter), 直接排除
@@ -1959,28 +2013,29 @@ def _find_best_trainer_play(play_trainer_idx, hand, options, obs_current, my_idx
 # ==================================================================
 
 def _handle_main(options, max_count, context, obs_current, my_idx):
-    """MAIN(0)：主菜单 — Mega Wall Push 决策引擎
-    多核墙推策略决策链:
-      P1.  KO攻击 (含弱点×2) → ATTACK
-      P2.  bench空 → PLAY宝可梦 (防输)
-      P3.  进化345イワパレス → EVOLVE (墙成型关键)
-      P4.  756 active有3能量 → ATTACK (200+伤害推队)
-      P5.  冲刺模式(奖赏卡≤2)有攻击 → ATTACK
-      P6.  关键训练家卡时机 (ポフィン/リーリエ/トウコ)
-      P7.  进化任意宝可梦
-      P8.  active能量不足 → ATTACH to active
-      P9.  ATTACK (伤害≥60)
-      P10. PLAY训练家卡
-      P11. PLAY宝可梦到bench
-      P12. ATTACH to bench (优先756メガガルーラex)
-      P13. ABILITY (756のおつかいダッシュ等)
-      P14. ATTACK (弱攻击兜底)
-      P15. ATTACH to active (积攒)
-      P16. RETREAT/SWITCH (墙↔打手切换)
-      P17. END / DISCARD
-      P18. 兜底
+    """MAIN(0)：主菜单 — Mega Lucario ex 能量循环墙推决策引擎
+    [v23] 决策链 (基于 0804 Top3 实证 Lucario 组合):
+      P1.   KO攻击 (含弱点×2) → ATTACK
+      P2.   bench空 → PLAY宝可梦 (防输)
+      P3.   进化678メガルカリオex → EVOLVE (核心打手成型)
+      P3.5  进化674ハリテヤマ → EVOLVE (免费抓人+210破墙)
+      P4.   678 active有2能量 → ATTACK (Mega Brave 270 斩杀线)
+      P5.   冲刺模式(奖赏卡≤2)有攻击 → ATTACK
+      P6.   关键训练家卡时机 (ゴング/リーリエ/ポケパッド/ジャッジ)
+      P7.   进化任意宝可梦
+      P8.   active能量不足 → ATTACH to active
+      P9.   ATTACK (伤害≥60)
+      P10.  PLAY训练家卡
+      P11.  PLAY宝可梦到bench
+      P12.  ATTACH to bench (优先678メガルカリオex)
+      P13.  ABILITY (675ルナトーン ルナサイクル弃能抽3)
+      P14.  ATTACK (弱攻击兜底)
+      P15.  ATTACH to active (积攒)
+      P16.  RETREAT/SWITCH (打手↔辅助切换)
+      P17.  END / DISCARD
+      P18.  兜底
     """
-    global _PENDING_SWITCH_TO_WALL  # [v22.4] 换墙意图传递
+    global _PENDING_SWITCH_TO_WALL  # [v22.4] 换墙意图传递 (保留通用机制)
 
     n = len(options)
     if n == 0:
@@ -2010,35 +2065,27 @@ def _handle_main(options, max_count, context, obs_current, my_idx):
     my_needed_energy = my_card_data.get("needed_energy", 0)
     my_can_attack = my_card_data.get("can_attack", True)
 
-    # === 检查对方是否为ex宝可梦 (墙策略判断) ===
+    # === 检查对方是否为ex宝可梦 ===
     # [v22.6-fix2] 优先用卡库 rule 判断; 卡库未覆盖时才用 hp>=200 启发式
     opp_cid = _get_pokemon_card_id(opp_active) if opp_active else -1
     _opp_db = _CARD_DB.get(opp_cid, {})
     opp_is_ex = _opp_db.get("rule") in ("ex", "mega_ex") or (
         not _opp_db and opp_hp >= 200)
 
-    # === [v22.4] 对方 345 イワパレス 墙识别 (免疫 ex 伤害) ===
-    # 我方 ex 打手 (756/117) 对它的攻击无效, 必须换非ex的345攻击或用ボスの指令
+    # === [v23] 对方 345 イワパレス 墙识别 (免疫 ex 伤害) ===
+    # 我方 ex 打手 (678) 对它的攻击无效, 需用非ex的674/676攻击或用ボスの指令
     opp_is_wall = (opp_cid == 345)
     # 我方 ex 打手 ID 集 (攻击 345 墙无效)
-    my_ex_ids = (756, 117)
+    my_ex_ids = (678, 756, 117)
     my_is_ex_attacker = my_cid in my_ex_ids
 
-    # === 检查我方 345 墙是否可切换上场 ===
-    bench_has_345 = any(_get_pokemon_card_id(bp) == 345 for bp in bench if isinstance(bp, dict))
-
-    # === 检查bench是否有756 (推队准备) ===
-    bench_has_756 = any(_get_pokemon_card_id(bp) == 756 for bp in bench if isinstance(bp, dict))
-    bench_756_energy = 0
+    # === 检查 bench 是否有 678 (核心打手) / 674 (破墙打手) ===
+    bench_has_678 = any(_get_pokemon_card_id(bp) == 678 for bp in bench if isinstance(bp, dict))
+    bench_has_674 = any(_get_pokemon_card_id(bp) == 674 for bp in bench if isinstance(bp, dict))
+    bench_678_energy = 0
     for bp in bench:
-        if isinstance(bp, dict) and _get_pokemon_card_id(bp) == 756:
-            # [v22-bugfix] 多只756时取最大能量, 避免只查第一只漏判
-            bench_756_energy = max(bench_756_energy, _get_pokemon_energy_count(bp))
-
-    # [数据驱动] 756延迟推队: 满能但对方满血(>200)且345在bench → 换345磨血后再推
-    # win方756攻击时对方HP≈140(残血收割), loss方≈310(满血打不死被反杀)
-    delay_756_push = (my_cid == 756 and my_energy >= my_needed_energy
-                      and opp_hp > 200 and bench_has_345)
+        if isinstance(bp, dict) and _get_pokemon_card_id(bp) == 678:
+            bench_678_energy = max(bench_678_energy, _get_pokemon_energy_count(bp))
 
     # === 选项分类 (单次遍历) ===
     opt_buckets = defaultdict(list)
@@ -2098,7 +2145,47 @@ def _handle_main(options, max_count, context, obs_current, my_idx):
 
     ko_dmg = _calculate_ko_damage(best_attack_dmg, my_cid, opp_active) if opp_active else best_attack_dmg
 
-    # === Mega Wall Push 统一优先级链 ===
+    # === [v23] 盾牌耗牌策略预判 (P16.5 前置) ===
+    # 用户需求: "打不动对面的时候规则可以尝试使用盾牌耗光对手的卡牌"
+    # PTCG规则: 回合开始抽牌时牌库为空 → 该玩家输
+    # 触发: 我方无法KO + 678/674高HP盾在场可抗 + 对方牌库比我方少(≤15)
+    # 打法: 有ジャッジ(1213)打出压缩双方牌库, 否则END结束回合让对手抽干
+    try:
+        _players = obs_current.get("players", [])
+        _opp_idx = 1 - my_idx
+        my_deck = 60
+        opp_deck = 60
+        if _players and len(_players) > _opp_idx and isinstance(_players[_opp_idx], dict):
+            opp_deck = _players[_opp_idx].get("deckCount", 60)
+        if _players and len(_players) > my_idx and isinstance(_players[my_idx], dict):
+            my_deck = _players[my_idx].get("deckCount", 60)
+    except Exception:
+        opp_deck = 60
+        my_deck = 60
+    # 打不动判定: 我方最佳攻击无法KO且伤害<对方HP的50% (真正打不动)
+    cant_break = (opp_hp > 0 and best_attack_dmg > 0
+                  and ko_dmg < opp_hp
+                  and best_attack_dmg < opp_hp * 0.5)
+    # 我方有高HP盾在场可抗 (678 340HP 或 674 150HP)
+    have_shield = (my_cid in (678, 674) and my_max_hp >= 150)
+    # 对方牌库濒临耗尽的优势局面
+    deck_advantage = (opp_deck < my_deck and opp_deck <= 15)
+    mill_mode = cant_break and have_shield and deck_advantage
+    if mill_mode:
+        # 有ジャッジ(1213)在手 → 打出压缩对手牌库 (优先于End)
+        if play_trainer_idx:
+            for _i in play_trainer_idx:
+                _opt = options[_i] if _i < len(options) else {}
+                _hidx = _opt.get("index", -1) if isinstance(_opt, dict) else -1
+                if 0 <= _hidx < len(hand):
+                    _cid = hand[_hidx].get("id", -1) if isinstance(hand[_hidx], dict) else -1
+                    if _cid == _TRAINER_JUDGE:
+                        return _sanitize([_i], n, max_count)
+        # 结束回合让对手抽牌耗尽
+        if end_idx:
+            return _sanitize([end_idx[0]], n, max_count)
+
+    # === Mega Lucario ex 统一优先级链 ===
 
     # [v22.4] ex 打手面对 345 墙时攻击无效, 禁止所有攻击路径
     no_attack_wall = (opp_is_wall and my_is_ex_attacker)
@@ -2111,47 +2198,38 @@ def _handle_main(options, max_count, context, obs_current, my_idx):
     if play_pokemon_idx and bench_count == 0:
         return _sanitize([_find_best_play(play_pokemon_idx, hand, options)], n, max_count)
 
-    # P3. 进化345イワパレス → EVOLVE (墙成型关键)
+    # P3. 进化678メガルカリオex (核心打手成型, 340HP+270斩杀)
     if evolve_idx:
         best_evolve = _find_best_evolve(evolve_idx, options, obs_current, my_idx)
         if isinstance(best_evolve, int) and best_evolve < n:
             evolve_cid = _resolve_card_id_from_option(
                 options[best_evolve], obs_current, my_idx)
-            if evolve_cid == 345:
+            if evolve_cid == 678:
                 return _sanitize([best_evolve], n, max_count)
 
-    # P3.5 [v22.5] 换墙优先: ex打手面对(345墙 或 ex对手打不死) → 换345
-    # 数据支撑 (subm_rec12 s137): 756面对345墙时 ABILITY(P13) 抢占换墙 → 一直打不穿
-    # 用户需求: 对方ex上场时切上345 (345免疫ex伤害); 打不死对手时换墙防守
-    if retreat_idx and bench and bench_has_345:
-        # 345墙: 攻击必然无效(免疫ex伤害), 无条件换345破墙
-        if my_is_ex_attacker and opp_is_wall:
-            _PENDING_SWITCH_TO_WALL = True
-            return _sanitize([retreat_idx[0]], n, max_count)
-        # ex对手: 打不死才换墙防守 (能KO则保留攻击机会)
-        if my_is_ex_attacker and opp_is_ex and not (ko_dmg >= opp_hp):
-            _PENDING_SWITCH_TO_WALL = True
-            return _sanitize([retreat_idx[0]], n, max_count)
+    # P3.5 进化674ハリテヤマ (免费抓人+210伤害, 破345墙关键: 非ex不受免疫)
+    if evolve_idx:
+        best_evolve = _find_best_evolve(evolve_idx, options, obs_current, my_idx)
+        if isinstance(best_evolve, int) and best_evolve < n:
+            evolve_cid = _resolve_card_id_from_option(
+                options[best_evolve], obs_current, my_idx)
+            if evolve_cid == 674:
+                return _sanitize([best_evolve], n, max_count)
 
-    # P3.6 [v22.5] 换下345: 对方非ex非墙 + bench有756满能 → 切756推队
-    # 用户需求: 对方ex没上场时切下345 (345做墙失去意义, 756打200更强)
-    # 对方345墙时保持345对打(120有效), 不切756(ex被墙免疫)
-    if (retreat_idx and bench and my_cid == 345
-            and not opp_is_ex and not opp_is_wall
-            and bench_has_756 and bench_756_energy >= _MEGA_NEEDED):
+    # [v23] ex 打手面对 345 墙: 换非ex的674/676攻击 (210可破150墙, 70无视效果)
+    if no_attack_wall and retreat_idx and bench and bench_has_674:
+        _PENDING_SWITCH_TO_WALL = True  # 语义: 换非ex打手上场
         return _sanitize([retreat_idx[0]], n, max_count)
 
-    # P4. 756 active有3能量 → ATTACK (200+伤害推队)
-    # [数据驱动] 推队时机: win方756攻击时对方HP≈140(残血收割KO), loss方≈310(满血打不死被反杀)
-    # 对方满血(>200)且345在bench可磨血 → 延迟756出手, 交由P16换345消耗(120×2轮)
-    if attack_idx and my_cid == 756 and my_energy >= my_needed_energy and not delay_756_push and not no_attack_wall:
+    # P4. 678 active有2能量 → ATTACK (Mega Brave 270 斩杀线)
+    if attack_idx and my_cid == 678 and my_energy >= my_needed_energy and not no_attack_wall:
         return _sanitize([best_attack_idx], n, max_count)
 
     # P5. 冲刺模式有攻击 → ATTACK
     if sprint_mode and attack_idx and best_attack_dmg > 0:
         return _sanitize([best_attack_idx], n, max_count)
 
-    # P6. 关键训练家卡时机 (ポフィン/リーリエ/トウコ)
+    # P6. 关键训练家卡时机 (ゴング/リーリエ/ポケパッド/ジャッジ)
     if play_trainer_idx:
         best_trainer = _find_best_trainer_play(
             play_trainer_idx, hand, options, obs_current, my_idx)
@@ -2162,7 +2240,9 @@ def _handle_main(options, max_count, context, obs_current, my_idx):
                 best_trainer_cid = hand[best_trainer_hand_idx].get("id", -1) if isinstance(hand[best_trainer_hand_idx], dict) else -1
                 # [v22.4-fix] リーリエの決心 手牌>=6 无收益, 不强制打出
                 lillie_waste = best_trainer_cid == _TRAINER_LILLIE and len(hand) >= 6
-                if best_trainer_cid in (_TRAINER_POFIN, _TRAINER_LILLIE, _TRAINER_TOUKO, _TRAINER_SIANO) and not lillie_waste:
+                # [v23] ジャッジ: 手牌>=5时打(破坏对手手牌+压缩牌库)
+                judge_good = best_trainer_cid == _TRAINER_JUDGE and len(hand) >= 5
+                if best_trainer_cid in (_TRAINER_GONG, _TRAINER_LILLIE, _TRAINER_POKEPAD, _TRAINER_JUDGE) and not lillie_waste and (best_trainer_cid != _TRAINER_JUDGE or judge_good):
                     return _sanitize([best_trainer], n, max_count)
 
     # P7. 进化任意宝可梦 (进化链推进)
@@ -2171,13 +2251,11 @@ def _handle_main(options, max_count, context, obs_current, my_idx):
         return _sanitize([best_evolve], n, max_count)
 
     # P8. active能量不足 → ATTACH to active
-    # 特殊: 345イワパレス作为墙时也需能量(用于グレートシザー120伤害)
     if attach_active_idx and my_can_attack and my_energy < my_needed_energy:
         return _sanitize([attach_active_idx[0]], n, max_count)
 
     # P9. ATTACK (伤害≥60, 不浪费回合在弱攻击上)
-    # [数据驱动] 756满能+对方满血(>200)+345在场 → 延迟出手, 交由P16换345磨血
-    if attack_idx and best_attack_dmg >= 60 and not delay_756_push and not no_attack_wall:
+    if attack_idx and best_attack_dmg >= 60 and not no_attack_wall:
         return _sanitize([best_attack_idx], n, max_count)
 
     # P10. PLAY训练家卡
@@ -2201,18 +2279,17 @@ def _handle_main(options, max_count, context, obs_current, my_idx):
         best_play = _find_best_play(play_pokemon_idx, hand, options)
         return _sanitize([best_play], n, max_count)
 
-    # P12. ATTACH to bench (优先756メガガルーラex, 为推队做准备)
+    # P12. ATTACH to bench (优先678メガルカリオex, 为斩杀做准备)
     if attach_bench_idx:
-        # 优先给bench上的756贴能
         best_bench_attach = _find_best_bench_attach_mega(attach_bench_idx, bench, options)
         return _sanitize([best_bench_attach], n, max_count)
 
-    # P13. ABILITY (756のおつかいダッシュ等)
+    # P13. ABILITY (675ルナトーン ルナサイクル: 弃1斗能抽3, 能量加速核心)
     if ability_idx:
         return _sanitize([ability_idx[0]], n, max_count)
 
-    # P14. ATTACK (弱攻击也优于空过; 延迟推队时交给P16切换)
-    if attack_idx and not delay_756_push and not no_attack_wall:
+    # P14. ATTACK (弱攻击也优于空过)
+    if attack_idx and not no_attack_wall:
         return _sanitize([best_attack_idx], n, max_count)
 
     # P15. ATTACH to active (积攒能量备用)
@@ -2221,29 +2298,22 @@ def _handle_main(options, max_count, context, obs_current, my_idx):
     if attach_other_idx:
         return _sanitize([attach_other_idx[0]], n, max_count)
 
-    # P16. RETREAT/SWITCH (墙↔打手切换)
-    # 345作为墙被非ex打手克制时, 切换到756推队
-    # 756能量不足时, 切换到345做墙
-    # [数据驱动] 756满能但对方满血(>200)且345在场 → 换345磨血(120×2轮), 避免756打不死被反杀
+    # P16. RETREAT/SWITCH (打手↔辅助切换)
+    # [v23] 奖赏节奏: 678是Mega ex(3Prize), 未成型时避免暴露, 换1Prize的675/676/677过渡
     if retreat_idx and bench:
-        # [v22.4] ex打手(756/117)面对345墙: 攻击无效, 换我方345上场破墙
-        # 345 グレートシザー 120 可磨死 150HP 墙 (非ex不受免疫限制)
-        # [v22.5] 已被 P3.5 提前覆盖, 保留兜底
-        if my_is_ex_attacker and opp_is_wall and bench_has_345:
-            _PENDING_SWITCH_TO_WALL = True
-            return _sanitize([retreat_idx[0]], n, max_count)
-        # 345 active + 对方非ex非墙 + bench有756满能 → 切换推队
-        # [v22.5] 对方345墙时保持345对打(120有效), 切756反而无效(ex被墙免疫)
-        if my_cid == 345 and not opp_is_ex and not opp_is_wall \
-                and bench_has_756 and bench_756_energy >= _MEGA_NEEDED:
-            return _sanitize([retreat_idx[0]], n, max_count)
-        # 756 active + (能量不足 或 对方满血需345磨血) + bench有345 → 切换做墙
-        if my_cid == 756 and bench_has_345:
-            need_wall = (my_energy < my_needed_energy and opp_is_ex) or \
-                        (my_energy >= my_needed_energy and opp_hp > 200)
-            if need_wall:
-                _PENDING_SWITCH_TO_WALL = True
+        # [v23] 678 active 能量不足且面对ex对手 → 换辅助消耗 (不送3Prize)
+        if my_cid == 678 and my_energy < my_needed_energy and opp_is_ex:
+            bench_has_support = any(
+                _get_pokemon_card_id(bp) in (675, 676, 677, 673)
+                for bp in bench if isinstance(bp, dict))
+            if bench_has_support:
                 return _sanitize([retreat_idx[0]], n, max_count)
+        # [v23] 辅助 active + bench有678满能 → 切678斩杀
+        if my_cid in (675, 676, 677, 673) and bench_has_678 and bench_678_energy >= 2:
+            return _sanitize([retreat_idx[0]], n, max_count)
+        # [v23] 678 active 但对方345墙 (ex攻击无效) + bench有674 → 切674破墙
+        if my_cid == 678 and opp_is_wall and bench_has_674:
+            return _sanitize([retreat_idx[0]], n, max_count)
         # HP低于30% + bench有打手 → 撤退
         hp_ratio = my_hp / my_max_hp if my_max_hp > 0 else 0
         if hp_ratio < 0.3:
@@ -2319,9 +2389,10 @@ def _handle_card(options, max_count, context, obs_current, my_idx):
                    _SC_TO_ACTIVE, _SC_TO_BENCH, _SC_EVOLVES_FROM,
                    _SC_EVOLVES_TO, _SC_ATTACH_FROM):
         # [v22.4] 消费换墙意图: 撤退换墙时优先选 345 上场 (一次性)
+        # [v23] 语义扩展: 意图也可表示"换非ex打手674破墙"或"换678核心"
         switch_to_wall = switch_to_wall_intent
         # [v22.5] 被动换人(active阵亡): 对方 ex/345墙 在场时也优先选345墙
-        # subm_rec12 s95: 345被KO后 ToActive 选了756, 对方756(400HP)ex在场被打穿
+        # [v23] 改为: 对方 ex 在场时优先选678 (340HP主力), 对方345墙在场时优先选674 (210破墙)
         opp_act = _get_opp_active(obs_current, my_idx)
         opp_cid = _get_pokemon_card_id(opp_act) if opp_act else -1
         opp_hp = _get_pokemon_hp(opp_act)
@@ -2340,9 +2411,11 @@ def _handle_card(options, max_count, context, obs_current, my_idx):
             basic_bonus = 500 if is_basic else 0
             evolves_to = card_data.get("evolves_to", None)
             evolve_bonus = 50 if evolves_to else 0
-            # [v22.4/v22.5] 换墙意图或对方ex/墙在场: 345 加权确保优先
-            wall_bonus = 1000 if (prefer_wall and cid == 345) else 0
-            scored.append((power + basic_bonus + evolve_bonus + wall_bonus, hp, i))
+            # [v23] 对方ex在场或换墙意图: 优先678 (340HP核心打手)
+            luc_bonus = 1000 if (prefer_wall and cid == 678) else 0
+            # [v23] 对方345墙在场: 优先674 (210非ex破墙)
+            wall_bonus = 900 if (opp_is_wall_t and cid == 674) else 0
+            scored.append((power + basic_bonus + evolve_bonus + luc_bonus + wall_bonus, hp, i))
         scored.sort(reverse=True)
         return _sanitize([idx for _, _, idx in scored[:max_count]], n, max_count)
 
@@ -2479,13 +2552,18 @@ def _handle_energy(options, max_count, context, obs_current, my_idx):
 
 
 def _handle_evolve(options, max_count, context, obs_current, my_idx):
-    """EVOLVE(7)：选进化 — [v22] 优先进化为 345イワパレス (墙成型)"""
+    """EVOLVE(7)：选进化 — [v23] 优先进化为 678メガルカリオex (核心打手)"""
     n = len(options)
     if n == 0:
         return []
     for i, opt in enumerate(options):
         cid = _resolve_card_id_from_option(opt, obs_current, my_idx)
-        if cid == 345:
+        if cid == 678:
+            return _sanitize([i], n, max_count)
+    # 其次674ハリテヤマ (破墙+抓人)
+    for i, opt in enumerate(options):
+        cid = _resolve_card_id_from_option(opt, obs_current, my_idx)
+        if cid == 674:
             return _sanitize([i], n, max_count)
     return _sanitize([0], n, max_count)
 
