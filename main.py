@@ -2138,7 +2138,9 @@ def _handle_main(options, max_count, context, obs_current, my_idx):
     best_attack_dmg = -1
     for k, idx in enumerate(attack_idx):
         attack_id = options[idx].get("attackId") if isinstance(options[idx], dict) else None
-        dmg = _estimate_attack_damage(my_cid, attack_id)
+        # [v23-fix][BUG-2] my_cid<0 (active为空) 时攻击伤害应视为0, 防止
+        # _estimate_attack_damage 只查全局 attackId 表误判可攻击
+        dmg = _estimate_attack_damage(my_cid, attack_id) if my_cid >= 0 else 0
         if dmg > best_attack_dmg:
             best_attack_dmg = dmg
             best_attack_idx = idx
@@ -2288,8 +2290,8 @@ def _handle_main(options, max_count, context, obs_current, my_idx):
     if ability_idx:
         return _sanitize([ability_idx[0]], n, max_count)
 
-    # P14. ATTACK (弱攻击也优于空过)
-    if attack_idx and not no_attack_wall:
+    # P14. ATTACK (弱攻击也优于空过; [BUG-2] 需dmg>0, 防止active为空时误攻)
+    if attack_idx and best_attack_dmg > 0 and not no_attack_wall:
         return _sanitize([best_attack_idx], n, max_count)
 
     # P15. ATTACH to active (积攒能量备用)
@@ -2411,10 +2413,11 @@ def _handle_card(options, max_count, context, obs_current, my_idx):
             basic_bonus = 500 if is_basic else 0
             evolves_to = card_data.get("evolves_to", None)
             evolve_bonus = 50 if evolves_to else 0
-            # [v23] 对方ex在场或换墙意图: 优先678 (340HP核心打手)
-            luc_bonus = 1000 if (prefer_wall and cid == 678) else 0
-            # [v23] 对方345墙在场: 优先674 (210非ex破墙)
-            wall_bonus = 900 if (opp_is_wall_t and cid == 674) else 0
+            # [v23-fix][BUG-1] 对方345墙在场时678不得加分: 678是ex, 攻击345墙无效,
+            # 破墙必须选非ex的674(210伤害)。luc_bonus 仅限 对方ex在场 或 换墙意图(非破墙意图)。
+            luc_bonus = 1000 if (cid == 678 and (opp_is_ex_t or switch_to_wall) and not opp_is_wall_t) else 0
+            # [v23] 对方345墙在场: 优先674 (210非ex破墙), 权重必须高于678基础分
+            wall_bonus = 1100 if (opp_is_wall_t and cid == 674) else 0
             scored.append((power + basic_bonus + evolve_bonus + luc_bonus + wall_bonus, hp, i))
         scored.sort(reverse=True)
         return _sanitize([idx for _, _, idx in scored[:max_count]], n, max_count)
@@ -2622,6 +2625,10 @@ def agent(obs, config=None):
     """
     global _error_count
     global _PENDING_SWITCH_TO_WALL
+
+    # [v23-fix][BUG-3] obs=None 防御: 返回空列表, 防止 AttributeError 崩溃
+    if obs is None:
+        return []
 
     # ---- Phase 0: 初始上牌阶段 ----
     if obs.get("select") is None:
