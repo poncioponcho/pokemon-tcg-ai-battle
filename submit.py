@@ -108,7 +108,7 @@ def cmd_submit():
     submit_req = ApiCreateSubmissionRequest()
     submit_req.competition_name = COMPETITION
     submit_req.blob_file_tokens = blob_token
-    submit_req.submission_description = f"PTCG Agent v23 Mega Lucario ex 能量循环墙推 {time.strftime('%Y-%m-%d_%H:%M')}"
+    submit_req.submission_description = f"PTCG Agent v23.1 P1策略调优+bug修复 {time.strftime('%Y-%m-%d_%H:%M')}"
 
     submit_resp = api.create_submission(submit_req)
     print(f"  提交成功！")
