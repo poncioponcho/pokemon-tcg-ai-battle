@@ -32,21 +32,33 @@ rm -f submission.tar.gz
 # tar 从当前目录打包，保证 main.py / deck.csv 在压缩包顶层
 COPYFILE_DISABLE=1 tar -czf submission.tar.gz main.py deck.csv
 
-# ---- 3.5 交叉校验: main.py 内联 DECK 与 deck.csv 必须一致 ----
-# 引擎实际使用 agent 返回的牌组 (main.py DECK), deck.csv 是提交校验基准,
-# 双源漂移会导致"校验通过但实际打的是另一副牌"。
+# ---- 3.5 交叉校验: main.py DECK / deck.csv / 内联牌组 / 卡池 四源一致 ----
+# [审计-H3] 原校验把 DECK(由 deck.csv 加载) 与 deck.csv 对比, 是同义校验恒通过;
+# 现改为: (1) DECK==内联牌组 (2) 卡 ID 均在卡池 (3) 非能量卡同卡<=4 (4) 长度60
 TMPD=$(mktemp -d)
 tar -xzf submission.tar.gz -C "$TMPD"
 if ! (cd "$TMPD" && python3 -c "
+from collections import Counter
 import main
 deck = [int(l.strip()) for l in open('deck.csv') if l.strip()]
 if len(main.DECK) != 60 or len(deck) != 60:
     raise SystemExit(f'DECK/deck.csv 长度异常: {len(main.DECK)}/{len(deck)}')
 if sorted(main.DECK) != sorted(deck):
     raise SystemExit('main.py DECK 与 deck.csv 内容不一致!')
-print('[OK] main.py DECK 与 deck.csv 一致 (60 张)')
+if sorted(main.DECK) != sorted(main._INLINE_DECK):
+    raise SystemExit('deck.csv 与 main.py 内联牌组 _INLINE_DECK 漂移!')
+unknown = [cid for cid in set(main.DECK)
+           if cid not in main._CARD_DB and cid not in main._TRAINER_IDS]
+if unknown:
+    raise SystemExit(f'卡 ID 不在卡池中: {sorted(unknown)}')
+cnt = Counter(main.DECK)
+over = [(cid, n) for cid, n in cnt.items()
+        if not main._CARD_DB.get(cid, {}).get('is_energy') and n > 4]
+if over:
+    raise SystemExit(f'非能量卡超 4 张限制: {over}')
+print('[OK] DECK == deck.csv == _INLINE_DECK, 全部卡 ID 在卡池, 非能量卡<=4 (60 张)')
 "); then
-  echo "[错误] DECK/deck.csv 一致性校验失败"
+  echo "[错误] 牌组一致性/合法性校验失败"
   rm -rf "$TMPD"
   exit 1
 fi

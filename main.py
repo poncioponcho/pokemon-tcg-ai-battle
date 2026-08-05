@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-PTCG Battle Agent v23.1 — Mega Lucario ex 能量循环墙推 (メガルカリオex体系)
+PTCG Battle Agent v23.2 — Mega Lucario ex 能量循环墙推 (メガルカリオex体系)
 
 v23.1 (2026-08-04) — P1 策略调优 (基于评估报告):
   [v23.1-fix1] 节能KO: P1多个能KO的攻击选伤害最低 (678用Aura Jab 130收残血,
@@ -8,6 +8,10 @@ v23.1 (2026-08-04) — P1 策略调优 (基于评估报告):
   [v23.1-fix2] 能量改道: active是低攻辅助且bench有678时, 跳过贴active直接给678
     蓄能 (减少"贴辅助-干等"空转回合, 提升678成型速度)
   [v23.1-fix3] BUG修复集成: BUG-1 345墙换人选674 / BUG-2 active空误攻 / BUG-3 None崩溃
+
+v23.2 (2026-08-04) — 含羞苞节奏锁:
+  [v23.2-fix1] 牌组以1张含羞苞(235)替换情境性较强的重力山(1252)
+  [v23.2-fix2] 后攻起手优先含羞苞，主动含羞苞优先使用零能量痒痒花粉
 
 v23 (2026-08-04) — 卡组重构为 0804 leaderboard Top3 实证构成:
   [v23-fix1] 卡组切换: 756メガガルーラex墙推 → 678メガルカリオex能量循环体系
@@ -91,37 +95,47 @@ from collections import Counter, defaultdict
 #   [v2] +6闘基本エネルギー×2 (多系能量体系, +9%胜率差组)
 #   [v2] -1120クラッシュハンマー (硬币随机, 无正向证据)
 #   [v2] 特殊能量 11/14 3→2, 20 2→1 (07-31特殊能量弱化至82%)
-# 宝可梦 (12): 756メガガルーラex×3, 344イシズマイ×4, 345イワパレス×3, 117オーガポンいしずえex×2
-# 训练家 (35): ポフィン×3 ハイパーボール×4 ポケギア×2 いれかえ×3 ツールスクラッパー×1
-#             ジャンボアイス×2 ヒーローマント×1(ACE) ボス指令×2 アクロマ×2 クセロシキ×2
-#             シアノ×1 ラムダ×2 トウコ×2 リーリエ×4 夜のタンカ×2
-#             ロケットファクトリー×1 バトルコロシアム×1
-# 能量   (13): 草×4 闘×2 ミスト×2 スパイク×2 グロウ草×2 ロック闘×1
+# 宝可梦 (15): 675ルナトーン×2, 676ソルロック×2, 677リオル×3, 678メガルカリオex×3,
+#             673マクノシタ×2, 674ハリテヤマ×2, 235含羞苞×1
+# 训练家 (28): 1227リーリエ×4 1142ファイティングゴング×3 1152ポケパッド×3
+#             1121ハイパーボール×3 1229ウォリー×2 1213ジャッジ×2 1182ボス×2
+#             1141プレミアムパワープロ×2 1123いれかえ×2 1102ダークボール×2
+#             1097ナイトストレッチャー×2 1159ヒーローマント×1(ACE)
+# 能量   (17): 闘基本エネルギー×13 + ロック闘エネルギー×4
 _INLINE_DECK = (
     [675] * 2 + [676] * 2 + [677] * 3 + [678] * 3 + [673] * 2 + [674] * 2 +
     [1227] * 4 + [1142] * 3 + [1152] * 3 + [1121] * 3 + [1229] * 2 +
     [1213] * 2 + [1182] * 2 + [1141] * 2 + [1123] * 2 + [1102] * 2 +
-    [1097] * 2 + [1159] * 1 + [1252] * 1 +
+    [1097] * 2 + [1159] * 1 + [235] * 1 +
     [6] * 13 + [20] * 4
 )
 
 
 def _load_deck():
-    """[v22.6-fix1] 牌组单一来源: 优先读 deck.csv (60 行整数), 异常时回退内联。
+    """[v22.6-fix1] 牌组单一来源: 优先读 deck.csv (60 行正整数), 非法时回退内联。
 
-    避免 DECK 常量与 deck.csv 双源漂移 —— 引擎实际使用 agent 返回的牌组,
-    deck.csv 是提交校验与人工核对基准, 两者必须一致。
+    [审计-H2] 强化校验: 每行必须是正整数 (卡 ID), 数量恰为 60;
+    任何异常/非法值一律回退 _INLINE_DECK, 防止负数/0/越界 ID 污染 DECK
+    (卡 ID 存在性与同卡上限等深层校验由 pack.sh 在打包阶段完成)。
     """
     import os
+    import sys
     try:
         path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "deck.csv")
         with open(path, encoding="utf-8") as f:
-            deck = [int(line.strip()) for line in f if line.strip()]
+            raw_lines = [line.strip() for line in f if line.strip()]
+        deck = []
+        for line in raw_lines:
+            cid = int(line)
+            if cid <= 0:
+                raise ValueError(f"非法卡 ID: {line!r}")
+            deck.append(cid)
         if len(deck) == 60:
             return deck
-    except Exception:
-        pass
-    return list(_INLINE_DECK)
+        raise ValueError(f"deck.csv 应为 60 行, 实际 {len(deck)} 行")
+    except Exception as e:
+        sys.stderr.write(f"[PTCG Agent] deck.csv 校验失败, 回退内联牌组: {e}\n")
+        return list(_INLINE_DECK)
 
 
 DECK = _load_deck()
@@ -1261,6 +1275,13 @@ _CARD_DB[678] = {"hp": 340, "rule": "mega_ex", "moves": [(270, "メガブレイ�
 _CARD_DB[673] = {"hp": 80, "moves": [(10, "ドリルくちばし"), (30, "ふみつけ")], "can_attack": True, "power": 30, "needed_energy": 1, "min_energy": 1, "evolves_to": 674, "type": "闘", "weakness": "超"}
 # 674 ハリテヤマ: 特性ヘイフーハンド (进化时免费拉对方bench), ワイルドプレス(斗斗斗210, 自伤70)
 _CARD_DB[674] = {"hp": 150, "moves": [(210, "ワイルドプレス")], "can_attack": True, "power": 210, "needed_energy": 3, "min_energy": 3, "evolves_from": 673, "has_ability": True, "type": "闘", "weakness": "超"}
+# 235 含羞苞: 痒痒花粉无需能量，命中后封锁对手下回合手牌中的 Item。
+# 生成卡库只保存最大伤害，这里补齐显式招式与零能量元数据，供决策器识别。
+_CARD_DB[235] = {
+    "hp": 30, "moves": [(10, "痒痒花粉")], "can_attack": True,
+    "power": 10, "needed_energy": 0, "min_energy": 0,
+    "type": "草", "weakness": "炎",
+}
 
 # ---- 类型名称归一化 (弱点/属性比较用, [v22.6-fix3]) ----
 _TYPE_NAME_MAP = {
@@ -1339,6 +1360,7 @@ _ATTACK_ID_DMG = {
     981: 30,    # 677 アクセルブロー
     978: 210,   # 674 ワイルドプレス
     979: 50,    # 675 パワージェム
+    323: 10,    # 235 含羞苞 痒痒花粉 (下回合禁用 Item)
     976: 10,    # 673 ドリルくちばし
     977: 30,    # 673 ふみつけ
 }
@@ -1438,6 +1460,7 @@ _TRAINER_POKEPAD = 1152    # ポケパッド: 无规则盒检索 [v23]
 _TRAINER_BOSS = 1182       # ボスの指令: 相手引きずり
 _TRAINER_JUDGE = 1213      # ジャッジ: 双方手牌洗回抽4 [v23]
 _TRAINER_WALLY = 1229      # ウォリーの思いやり: Mega治疗 [v23]
+_BUDEW = 235               # 含羞苞: 痒痒花粉零能量 Item 封锁
 
 # [v22.4] 撤退换墙意图标志: P16/P4.5 决定撤退换345墙时置位,
 # _handle_card 的 Switch/ToActive 场景据此优先选 345 上场 (否则默认选高power的756)
@@ -1559,11 +1582,14 @@ def _resolve_card_id_from_option(opt, obs_current, my_idx):
         elif area == 4:  # active
             active = player.get("active", [])
             if isinstance(active, list) and active and isinstance(active[0], dict):
-                if index == 0 or "energies" in active[0]:
-                    return active[0].get("id", -1)
-                ec = active[0].get("energyCards", [])
-                if isinstance(ec, list) and ec and isinstance(ec[0], dict):
-                    return ec[0].get("id", -1)
+                # [审计-M3] index>0 表示选择 active 上的附属卡(能量/工具),
+                # 必须按 index 在 energies/energyCards 中查找, 避免把能量误判为宝可梦
+                if index > 0:
+                    for key in ("energies", "energyCards"):
+                        lst = active[0].get(key, [])
+                        if isinstance(lst, list) and index < len(lst) and isinstance(lst[index], dict):
+                            return lst[index].get("id", -1)
+                    return -1
                 return active[0].get("id", -1)
         elif area == 1:  # deck
             deck = player.get("deck", [])
@@ -1773,6 +1799,11 @@ def _calculate_ko_damage(base_dmg, my_cid, opp_pokemon):
     if base_dmg <= 0:
         return 0
 
+    # [BUG-8 fix] 676ソルロック コズミックビーム 无视弱点/抵抗 (效果无视),
+    # 不参与弱点×2, 否则会高估其斩杀线
+    if my_cid == 676:
+        return base_dmg
+
     my_data = _CARD_DB.get(my_cid, {})
     my_type = _norm_type_name(my_data.get("type", None))
 
@@ -1896,6 +1927,13 @@ def _find_best_bench_attach_mega(attach_bench_opts, bench, options):
             bp = bench[in_play_index]
             if bp and isinstance(bp, dict):
                 bp_cid = _get_pokemon_card_id(bp)
+                bp_energy = _get_pokemon_energy_count(bp)
+                # [BUG-6 fix] 678 已满能(2) / 674 已满能(3) 不再优先贴能,
+                # 能量转向其他需要充电的宝可梦, 避免溢出
+                if bp_cid == 678 and bp_energy >= 2:
+                    continue
+                if bp_cid == 674 and bp_energy >= 3:
+                    continue
                 # 678 最高优先 (斩杀核心, 2能量即可Mega Brave 270)
                 if bp_cid == 678:
                     return opt_idx
@@ -2026,6 +2064,7 @@ def _handle_main(options, max_count, context, obs_current, my_idx):
       P2.   bench空 → PLAY宝可梦 (防输)
       P3.   进化678メガルカリオex → EVOLVE (核心打手成型)
       P3.5  进化674ハリテヤマ → EVOLVE (免费抓人+210破墙)
+      P3.6  主动235含羞苞 → ATTACK (痒痒花粉封锁对手下回合 Item)
       P4.   678 active有2能量 → ATTACK (Mega Brave 270 斩杀线)
       P5.   冲刺模式(奖赏卡≤2)有攻击 → ATTACK
       P6.   关键训练家卡时机 (ゴング/リーリエ/ポケパッド/ジャッジ)
@@ -2072,6 +2111,10 @@ def _handle_main(options, max_count, context, obs_current, my_idx):
     my_needed_energy = my_card_data.get("needed_energy", 0)
     my_can_attack = my_card_data.get("can_attack", True)
 
+    # [BUG-7 fix] 674 ワイルドプレス 自伤70: HP<=70 时攻击等于自杀,
+    # 非 KO 攻击一律不打出 (P5/P9/P14 门控), 由 P16 撤退兜底
+    dying_674 = (my_cid == 674 and my_hp <= 70)
+
     # === 检查对方是否为ex宝可梦 ===
     # [v22.6-fix2] 优先用卡库 rule 判断; 卡库未覆盖时才用 hp>=200 启发式
     opp_cid = _get_pokemon_card_id(opp_active) if opp_active else -1
@@ -2086,9 +2129,14 @@ def _handle_main(options, max_count, context, obs_current, my_idx):
     my_ex_ids = (678, 756, 117)
     my_is_ex_attacker = my_cid in my_ex_ids
 
-    # === 检查 bench 是否有 678 (核心打手) / 674 (破墙打手) ===
+    # === 检查 bench 是否有 678 (核心打手) ===
     bench_has_678 = any(_get_pokemon_card_id(bp) == 678 for bp in bench if isinstance(bp, dict))
-    bench_has_674 = any(_get_pokemon_card_id(bp) == 674 for bp in bench if isinstance(bp, dict))
+    # [BUG-2 fix] bench 是否有非 ex 打手 (可对 345 墙造成伤害: 674/676/675/677/673)
+    bench_has_non_ex = any(
+        _CARD_DB.get(_get_pokemon_card_id(bp), {}).get("rule") not in ("ex", "mega_ex")
+        and _CARD_DB.get(_get_pokemon_card_id(bp), {}).get("can_attack", False)
+        for bp in bench if isinstance(bp, dict)
+    )
     bench_678_energy = 0
     for bp in bench:
         if isinstance(bp, dict) and _get_pokemon_card_id(bp) == 678:
@@ -2143,7 +2191,7 @@ def _handle_main(options, max_count, context, obs_current, my_idx):
     # === 计算最佳可用攻击伤害 ===
     best_attack_idx = -1
     best_attack_dmg = -1
-    for k, idx in enumerate(attack_idx):
+    for idx in attack_idx:
         attack_id = options[idx].get("attackId") if isinstance(options[idx], dict) else None
         # [v23-fix][BUG-2] my_cid<0 (active为空) 时攻击伤害应视为0, 防止
         # _estimate_attack_damage 只查全局 attackId 表误判可攻击
@@ -2235,8 +2283,13 @@ def _handle_main(options, max_count, context, obs_current, my_idx):
             if evolve_cid == 674:
                 return _sanitize([best_evolve], n, max_count)
 
-    # [v23] ex 打手面对 345 墙: 换非ex的674/676攻击 (210可破150墙, 70无视效果)
-    if no_attack_wall and retreat_idx and bench and bench_has_674:
+    # [v23.2] 含羞苞的价值来自封锁，而不是10点伤害；铺出替补后立即发动痒痒花粉。
+    if my_cid == _BUDEW and attack_idx and best_attack_idx >= 0:
+        return _sanitize([best_attack_idx], n, max_count)
+
+    # [BUG-2 fix] ex 打手面对 345 墙: 换非 ex 打手上场 (674 破墙 / 676 无视效果 /
+    # 675/677/673 均可对墙造成伤害), 不再只认 674
+    if no_attack_wall and retreat_idx and bench and bench_has_non_ex:
         _PENDING_SWITCH_TO_WALL = True  # 语义: 换非ex打手上场
         return _sanitize([retreat_idx[0]], n, max_count)
 
@@ -2244,8 +2297,9 @@ def _handle_main(options, max_count, context, obs_current, my_idx):
     if attack_idx and my_cid == 678 and my_energy >= my_needed_energy and not no_attack_wall:
         return _sanitize([best_attack_idx], n, max_count)
 
-    # P5. 冲刺模式有攻击 → ATTACK
-    if sprint_mode and attack_idx and best_attack_dmg > 0:
+    # [BUG-3 fix] P5. 冲刺模式有攻击 → ATTACK (必须受 no_attack_wall 门控,
+    # 否则冲刺时会对 ex 免疫的 345 墙发动无效攻击白送回合)
+    if sprint_mode and attack_idx and best_attack_dmg > 0 and not no_attack_wall and not dying_674:
         return _sanitize([best_attack_idx], n, max_count)
 
     # P6. 关键训练家卡时机 (ゴング/リーリエ/ポケパッド/ジャッジ)
@@ -2279,12 +2333,19 @@ def _handle_main(options, max_count, context, obs_current, my_idx):
             best_bench_attach = _find_best_bench_attach_mega(attach_bench_idx, bench, options)
             return _sanitize([best_bench_attach], n, max_count)
 
+    # [BUG-5 fix] P7.8 切换斩杀: 辅助 active + bench 678 已满能(>=2斗) →
+    # 立即撤退换 678 上场 (优先于 P8 贴能给辅助 / P9 弱攻击, 否则 270 斩杀
+    # 打手被晾在 bench 干等, 能量还浪费在 50 伤害的辅助上)
+    if (my_cid in (675, 676, 677, 673) and bench_has_678
+            and bench_678_energy >= 2 and retreat_idx and not opp_is_wall):
+        return _sanitize([retreat_idx[0]], n, max_count)
+
     # P8. active能量不足 → ATTACH to active
     if attach_active_idx and my_can_attack and my_energy < my_needed_energy:
         return _sanitize([attach_active_idx[0]], n, max_count)
 
-    # P9. ATTACK (伤害≥60, 不浪费回合在弱攻击上)
-    if attack_idx and best_attack_dmg >= 60 and not no_attack_wall:
+    # P9. ATTACK (伤害≥60, 不浪费回合在弱攻击上; [BUG-7] 674自杀线不攻)
+    if attack_idx and best_attack_dmg >= 60 and not no_attack_wall and not dying_674:
         return _sanitize([best_attack_idx], n, max_count)
 
     # P10. PLAY训练家卡
@@ -2317,8 +2378,9 @@ def _handle_main(options, max_count, context, obs_current, my_idx):
     if ability_idx:
         return _sanitize([ability_idx[0]], n, max_count)
 
-    # P14. ATTACK (弱攻击也优于空过; [BUG-2] 需dmg>0, 防止active为空时误攻)
-    if attack_idx and best_attack_dmg > 0 and not no_attack_wall:
+    # P14. ATTACK (弱攻击也优于空过; [BUG-2] 需dmg>0, 防止active为空时误攻;
+    # [BUG-7] 674自杀线不攻)
+    if attack_idx and best_attack_dmg > 0 and not no_attack_wall and not dying_674:
         return _sanitize([best_attack_idx], n, max_count)
 
     # P15. ATTACH to active (积攒能量备用)
@@ -2337,11 +2399,13 @@ def _handle_main(options, max_count, context, obs_current, my_idx):
                 for bp in bench if isinstance(bp, dict))
             if bench_has_support:
                 return _sanitize([retreat_idx[0]], n, max_count)
-        # [v23] 辅助 active + bench有678满能 → 切678斩杀
-        if my_cid in (675, 676, 677, 673) and bench_has_678 and bench_678_energy >= 2:
+        # [v23] 辅助 active + bench有678满能 → 已由 P7.8 前置处理 (避免 P8贴能/P9弱攻截胡)
+        # [BUG-2 fix] 678 active 但对方345墙 (ex攻击无效) + bench有非ex打手 → 切非ex破墙
+        if my_cid == 678 and opp_is_wall and bench_has_non_ex:
             return _sanitize([retreat_idx[0]], n, max_count)
-        # [v23] 678 active 但对方345墙 (ex攻击无效) + bench有674 → 切674破墙
-        if my_cid == 678 and opp_is_wall and bench_has_674:
+        # [BUG-7 fix] 674 ワイルドプレス 自伤70: HP<=70 时不自杀式攻击,
+        # 有替补就撤退换人, 避免打出210后自我KO轻敌
+        if my_cid == 674 and my_hp <= 70 and bench_has_non_ex:
             return _sanitize([retreat_idx[0]], n, max_count)
         # HP低于30% + bench有打手 → 撤退
         hp_ratio = my_hp / my_max_hp if my_max_hp > 0 else 0
@@ -2383,6 +2447,14 @@ def _handle_card(options, max_count, context, obs_current, my_idx):
     switch_to_wall_intent = _PENDING_SWITCH_TO_WALL
     _PENDING_SWITCH_TO_WALL = False
 
+    # [v23.2] 后攻起手主动含羞苞可在第一回合直接封锁 Item；先手不能攻击时不强行选它。
+    if context == _SC_SETUP_ACTIVE:
+        first_player = obs_current.get("firstPlayer") if isinstance(obs_current, dict) else None
+        if isinstance(first_player, int) and first_player in (0, 1) and first_player != my_idx:
+            for i, opt in enumerate(options):
+                if _resolve_card_id_from_option(opt, obs_current, my_idx) == _BUDEW:
+                    return _sanitize([i], n, max_count)
+
     # [B4] Switch/ToActive 场景：判断是 ボスの指令（对方）还是 撤退（我方）
     if context in (_SC_SWITCH, _SC_TO_ACTIVE):
         targets_opp = False
@@ -2413,15 +2485,15 @@ def _handle_card(options, max_count, context, obs_current, my_idx):
             return _sanitize([idx for _, idx in scored[:max_count]], n, max_count)
         # else: 撤退（我方换人），fall through 到 power+HP 排序
 
-    # 通用逻辑：setup/switch/toActive/toBench/evolvesFrom 按 power+hp 排序
+    # 通用逻辑：setup 按 power+hp 排序; switch/toActive/toBench/evolvesTo
+    # 按 打手优先级 排序 ([BUG-1 fix] 禁止 basic_bonus 让基础宝可梦碾压已进化打手)
     if context in (_SC_SETUP_ACTIVE, _SC_SETUP_BENCH, _SC_SWITCH,
                    _SC_TO_ACTIVE, _SC_TO_BENCH, _SC_EVOLVES_FROM,
                    _SC_EVOLVES_TO, _SC_ATTACH_FROM):
-        # [v22.4] 消费换墙意图: 撤退换墙时优先选 345 上场 (一次性)
-        # [v23] 语义扩展: 意图也可表示"换非ex打手674破墙"或"换678核心"
+        # [v22.4] 消费换墙意图 (一次性, 防止跨决策/跨局泄漏)
         switch_to_wall = switch_to_wall_intent
-        # [v22.5] 被动换人(active阵亡): 对方 ex/345墙 在场时也优先选345墙
-        # [v23] 改为: 对方 ex 在场时优先选678 (340HP主力), 对方345墙在场时优先选674 (210破墙)
+        # [v22.5] 被动换人(active阵亡): 对方 ex 在场时优先678 (340HP主力),
+        # 对方345墙在场时优先674 (210非ex破墙) / 非ex打手兜底
         opp_act = _get_opp_active(obs_current, my_idx)
         opp_cid = _get_pokemon_card_id(opp_act) if opp_act else -1
         opp_hp = _get_pokemon_hp(opp_act)
@@ -2429,23 +2501,33 @@ def _handle_card(options, max_count, context, obs_current, my_idx):
         opp_is_ex_t = _opp_db.get("rule") in ("ex", "mega_ex") or (
             not _opp_db and opp_hp >= 200)
         opp_is_wall_t = (opp_cid == 345)
-        prefer_wall = switch_to_wall or opp_is_ex_t or opp_is_wall_t
+        # 只有"选谁上场/选谁进化"才用打手优先级; AttachFrom/EvolvesFrom 等
+        # 场景 (选能量来源等) 保持 power 排序, 避免把 678/674 选为能量移出方
+        pick_attacker = context in (_SC_SWITCH, _SC_TO_ACTIVE, _SC_TO_BENCH,
+                                    _SC_EVOLVES_TO)
         scored = []
         for i, opt in enumerate(options):
             cid = _resolve_card_id_from_option(opt, obs_current, my_idx)
             card_data = _CARD_DB.get(cid, {}) if cid >= 0 else {}
             power = card_data.get("power", 0)
             hp = card_data.get("hp", 0)
-            is_basic = "evolves_from" not in card_data
-            basic_bonus = 500 if is_basic else 0
-            evolves_to = card_data.get("evolves_to", None)
-            evolve_bonus = 50 if evolves_to else 0
-            # [v23-fix][BUG-1] 对方345墙在场时678不得加分: 678是ex, 攻击345墙无效,
-            # 破墙必须选非ex的674(210伤害)。luc_bonus 仅限 对方ex在场 或 换墙意图(非破墙意图)。
-            luc_bonus = 1000 if (cid == 678 and (opp_is_ex_t or switch_to_wall) and not opp_is_wall_t) else 0
-            # [v23] 对方345墙在场: 优先674 (210非ex破墙), 权重必须高于678基础分
-            wall_bonus = 1100 if (opp_is_wall_t and cid == 674) else 0
-            scored.append((power + basic_bonus + evolve_bonus + luc_bonus + wall_bonus, hp, i))
+            if not pick_attacker:
+                # 起手选位/能量来源: 只有基础宝可梦可上场时基本卡加分,
+                # 进化链卡加 50 鼓励铺链
+                is_basic = "evolves_from" not in card_data
+                basic_bonus = 500 if is_basic else 0
+                evolves_to = card_data.get("evolves_to", None)
+                evolve_bonus = 50 if evolves_to else 0
+                score = power + basic_bonus + evolve_bonus
+            else:
+                # [BUG-1 fix] 切换/替补上场: 核心打手 678 (对面非345墙时) >
+                # 674 破墙打手 > 非ex打手(对345墙) > 其余按 power
+                core_bonus = 2000 if (cid == 678 and not opp_is_wall_t) else 0
+                breaker_bonus = 1500 if cid == 674 else 0
+                wall_bonus = 1100 if (opp_is_wall_t and cid == 674) else 0
+                wall_fallback = 900 if (opp_is_wall_t and cid in (676, 675, 677, 673)) else 0
+                score = power + core_bonus + breaker_bonus + wall_bonus + wall_fallback
+            scored.append((score, hp, i))
         scored.sort(reverse=True)
         return _sanitize([idx for _, _, idx in scored[:max_count]], n, max_count)
 
@@ -2546,25 +2628,34 @@ def _handle_yes_no(options, max_count, context, obs_current, my_idx):
         elif ot == _OT_NO and no_idx is None:
             no_idx = i
 
-    if context == _SC_MULLIGAN:
+    # [v22.6-fix5] Mulligan(重开) 按场景决策: 手牌可见时按有无基础宝可梦决策;
+    # 手牌不可见(空)时默认 No 保留 (维持卡差, 见 BUG-4 注释)。
+    # [审计-M4] 重构为显式分支, 消除三态标志与 fallthrough 的歧义。
+    if context == _SC_MULLIGAN and (yes_idx is not None or no_idx is not None):
         hand = _get_my_hand(obs_current, my_idx)
         has_basic = False
-        for c in hand:
-            if not isinstance(c, dict):
-                continue
-            cid = c.get("id", -1)
-            data = _CARD_DB.get(cid, {}) if isinstance(cid, int) else {}
-            # 仅在卡库中且非能量、非进化卡的才算基础宝可梦 (训练家不在卡库)
-            if not data or data.get("is_energy") is True or "evolves_from" in data:
-                continue
-            has_basic = True
-            break
+        if hand:
+            for c in hand:
+                if not isinstance(c, dict):
+                    continue
+                cid = c.get("id", -1)
+                data = _CARD_DB.get(cid, {}) if isinstance(cid, int) else {}
+                # 仅在卡库中且非能量、非进化卡的才算基础宝可梦 (训练家不在卡库)
+                if not data or data.get("is_energy") is True or "evolves_from" in data:
+                    continue
+                has_basic = True
+                break
         if has_basic:
+            # 手牌可见且有基础 → 保留
             if no_idx is not None:
                 return _sanitize([no_idx], n, max_count)
-        else:
+        elif hand:
+            # 手牌可见但无基础 (全是训练家/能量) → 重开找基础
             if yes_idx is not None:
                 return _sanitize([yes_idx], n, max_count)
+        elif no_idx is not None:
+            # 手牌不可见(空) → 无法判定, 默认保留
+            return _sanitize([no_idx], n, max_count)
 
     # 先手/特性激活/首个效果/硬币等 → 一律 Yes
     if yes_idx is not None:
@@ -2665,6 +2756,10 @@ def agent(obs, config=None):
     try:
         select = obs["select"]
         options = select.get("option", [])
+        # [审计-H1] option 必须是 list, 否则按空处理 —— 防止 dict/None 等
+        # 异常结构在主路径上产生非法下标动作
+        if not isinstance(options, list):
+            return []
         max_count = select.get("maxCount", 1)
         sel_type = _norm_select_type(select.get("type", None))
         context = _norm_context(select.get("context", None))
@@ -2710,22 +2805,22 @@ def agent(obs, config=None):
         _error_count += 1
         _error_types[type(e).__name__] += 1
         try:
-            import sys
             sys.stderr.write(f"[PTCG Agent] Error #{_error_count}: {type(e).__name__}: {e}\n")
         except Exception:
             pass
 
         # [P0] 修复: 异常处理器使用确定性选择（前 N 个选项），不再使用 random.sample
+        # [审计-H1] 兜底必须先验证 option 是非空 list, 否则返回 [] ——
+        # 杜绝在 options 为 None/非法时返回不存在的下标 (违反动作铁律)
         try:
             select = obs.get("select", {})
             options = select.get("option", [])
-            n = len(options)
-            if n == 0:
+            if not isinstance(options, list) or not options:
                 return []
+            n = len(options)
             max_count = select.get("maxCount", 1)
             if not isinstance(max_count, int) or max_count <= 0:
                 max_count = 1
-            max_count = min(max_count, n)
-            return list(range(max_count))
+            return list(range(min(max_count, n)))
         except Exception:
-            return [0]
+            return []

@@ -12,6 +12,13 @@ subm_rec*/
 replay_regression_test.py
 inference/subm_rec*/
 
+# Replay MLOps generated artifacts
+inference/dataset/data/
+inference/dataset/logs/
+inference/dataset/splits/
+inference/dataset/manifest.csv
+inference/dataset/mlops_state.json
+
 # ===== 构建产物 =====
 submission.tar.gz
 *.tar.gz
@@ -20,3 +27,11 @@ __pycache__/
 
 # ===== 系统文件 =====
 .DS_Store
+
+# ===== 凭据/密钥（禁止提交）=====
+.env
+.env.*
+*.key
+*.pem
+kaggle_oauth.json
+access_token

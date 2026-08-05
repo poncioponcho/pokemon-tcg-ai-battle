@@ -34,8 +34,13 @@ def get_token():
     token = os.environ.get("KAGGLE_API_TOKEN")
     if token:
         return token.strip()
-    with open(TOKEN_FILE) as f:
-        return f.read().strip()
+    try:
+        with open(TOKEN_FILE) as f:
+            return f.read().strip()
+    except OSError as e:
+        print(f"错误：无法读取 token 文件 {TOKEN_FILE}: {e}")
+        print("请设置环境变量 KAGGLE_API_TOKEN，或确认 ~/.kaggle/access_token 存在且可读。")
+        raise SystemExit(1)
 
 
 def get_client():
@@ -79,7 +84,10 @@ def cmd_submit():
     upload_resp = api.start_submission_upload(upload_req)
     blob_token = upload_resp.token
     create_url = upload_resp.create_url
-    print(f"  获取成功 → token: {blob_token[:20]}...")
+    # [审计-M1] 不输出令牌内容, 仅输出长度与指纹
+    import hashlib
+    token_fp = hashlib.sha256(blob_token.encode("utf-8")).hexdigest()[:8]
+    print(f"  获取成功 → 上传令牌: {len(blob_token)} chars (sha256:{token_fp})")
     print()
 
     # ---- Step 2: PUT 上传文件 ----
