@@ -2710,6 +2710,214 @@ def _handle_count(options, max_count, context, obs_current, my_idx):
 
 
 # ==================================================================
+# 5.5 NN Advisor — 蒸馏 student 的纯 numpy 推理（失败自动降级纯规则）
+# ==================================================================
+# 模型文件: model_student.npz（与 main.py 同目录，由 pack.sh 一并打包；
+# 缺失/损坏/numpy 不可用时 _NN['ok']=False，行为与纯规则版完全一致）。
+# 策略 _NN_MODE:
+#   'rerank'  (默认) 规则为主；NN 与规则首选分歧且 top1-top2 间隔 > _NN_GAP 时接管
+#   'nn_first'        NN 输出直接采用（非法值过滤后），规则仅作异常兜底
+#   'off'             停用 NN
+# 仅对 Main/Card/Attack 三类高价值决策启用，其余 context 规则已足够稳定。
+_NN_MODE = 'rerank'
+_NN_GAP = 1.0
+_NN_SEL_TYPES = (_ST_MAIN, _ST_CARD, _ST_ATTACK)
+_NN = {'tried': False, 'ok': False, 'w': None, 'lut': None, 'np': None, 'card_dim': 0}
+
+
+def _nn_lazy_load():
+    """首次调用时加载 npz；任何异常都返回 False（纯规则降级）。"""
+    if _NN['tried']:
+        return _NN['ok']
+    _NN['tried'] = True
+    try:
+        import os
+        import numpy as np
+        base = os.path.dirname(os.path.abspath(__file__))
+        path = os.path.join(base, 'model_student.npz')
+        if not os.path.exists(path):
+            return False
+        z = np.load(path)
+        w = {k: z[k].astype(np.float32) for k in
+             ('enc0', 'enc0b', 'enc2', 'enc2b', 'enc4', 'enc4b',
+              'head0', 'head0b', 'head2', 'head2b')}
+        w['div'] = z['div'].astype(np.float32)
+        card_ids = z['card_ids'].astype(np.int64)
+        lut = np.zeros(int(card_ids.max()) + 1, dtype=np.int64)
+        lut[card_ids] = np.arange(1, len(card_ids) + 1, dtype=np.int64)
+        _NN.update(ok=True, w=w, lut=lut, np=np, card_dim=int(len(card_ids) + 1))
+        return True
+    except Exception:
+        return False
+
+
+def _nn_card_idx(cid):
+    """卡 ID -> vocab 下标（未知/越界 -> 0），O(1) LUT 查表。"""
+    try:
+        cid = int(cid)
+        lut = _NN['lut']
+        if 0 <= cid < len(lut):
+            return int(lut[cid])
+    except Exception:
+        pass
+    return 0
+
+
+def _nn_build_features(obs):
+    """与 inference/dataset/agent.py build_state_obs 完全同构的 numpy 版。"""
+    np = _NN['np']
+    D = _NN['card_dim']
+    K, O_DIM = 64, 52
+    N_CTX, N_STYPE = 45, 10
+    AREA_MAX, STYPE_MAX = 12, 15
+    sel = obs.get('select') or {}
+    cur = obs.get('current')
+    st = np.zeros(11 * D, dtype=np.float32)
+    sc = np.zeros(90, dtype=np.float32)
+    o = np.zeros((K, O_DIM), dtype=np.float32)
+    mk = np.zeros(K, dtype=np.float32)
+    opts = sel.get('option') or []
+    n_opts = len(opts)
+    for k in range(min(K, n_opts)):
+        mk[k] = 1.0
+        op = opts[k] if isinstance(opts[k], dict) else {}
+        base = 0
+        v = op.get('type')
+        if v is not None and 0 <= int(v) < STYPE_MAX + 1:
+            o[k, base + int(v)] = 1.0
+        base += STYPE_MAX + 1
+        v = op.get('area')
+        if v is not None and 0 <= int(v) < AREA_MAX + 1:
+            o[k, base + int(v)] = 1.0
+        base += AREA_MAX + 1
+        v = op.get('inPlayArea')
+        if v is not None and 0 <= int(v) < AREA_MAX + 1:
+            o[k, base + int(v)] = 1.0
+        base += AREA_MAX + 1
+        for name in ('playerIndex', 'index', 'inPlayIndex', 'attackId',
+                     'count', 'number', 'serial', 'energyIndex', 'toolIndex', 'cardId'):
+            v = op.get(name)
+            if name == 'cardId':
+                o[k, base] = min(_nn_card_idx(v), 255)
+            elif isinstance(v, (int, float)) and v >= 0:
+                o[k, base] = min(int(v), 255)
+            base += 1
+    if cur is None:
+        return st, sc, o, mk, n_opts
+    ps = cur.get('players') or []
+    yi = cur.get('yourIndex', 0)
+    if len(ps) < 2:
+        ps = [{'active': [], 'bench': [], 'hand': [], 'discard': []} for _ in range(2)]
+    mine, opp = ps[yi % len(ps)], ps[(yi + 1) % len(ps)]
+    for c in mine.get('hand') or []:
+        if isinstance(c, dict) and c.get('id') is not None:
+            st[_nn_card_idx(c['id'])] += 1.0
+    for p, off in ((mine, D), (opp, 2 * D)):
+        for c in p.get('discard') or []:
+            if isinstance(c, dict) and c.get('id') is not None:
+                st[off + _nn_card_idx(c['id'])] += 1.0
+    cnt = np.zeros(D, dtype=np.float32)
+    for cid in DECK:
+        cnt[_nn_card_idx(cid)] += 1.0
+    st[3 * D:4 * D] = cnt
+    for p, off, attr in ((mine, 5 * D, 'active'), (opp, 6 * D, 'active'),
+                         (mine, 7 * D, 'bench'), (opp, 8 * D, 'bench')):
+        for c in p.get(attr) or []:
+            if isinstance(c, dict) and c.get('id') is not None:
+                st[off + _nn_card_idx(c['id'])] += 1.0
+    for p, off in ((mine, 9 * D), (opp, 10 * D)):
+        for pm in (p.get('active') or []) + (p.get('bench') or []):
+            if isinstance(pm, dict):
+                for e in pm.get('energies') or []:
+                    if isinstance(e, int):
+                        st[off + _nn_card_idx(e)] += 1.0
+    m_a = (mine.get('active') or [None])[0]
+    o_a = (opp.get('active') or [None])[0]
+    m_a = m_a if isinstance(m_a, dict) else None
+    o_a = o_a if isinstance(o_a, dict) else None
+    mh, mmh = (m_a.get('hp', 0), m_a.get('maxHp', 1)) if m_a else (0, 1)
+    oh, omh = (o_a.get('hp', 0), o_a.get('maxHp', 1)) if o_a else (0, 1)
+    sc[0] = mh; sc[1] = mh / mmh; sc[2] = oh; sc[3] = oh / omh
+    sc[4] = len(m_a.get('energies', [])) if m_a else 0
+    sc[5] = len(o_a.get('energies', [])) if o_a else 0
+    sc[6] = len(mine.get('bench', [])); sc[7] = len(opp.get('bench', []))
+    sc[8] = len(mine.get('hand', [])); sc[9] = mine.get('deckCount', 0)
+    sc[10] = opp.get('deckCount', 0)
+    sc[11] = len(mine.get('prize', [])); sc[12] = len(opp.get('prize', []))
+    for i, s_name in enumerate(('asleep', 'burned', 'confused', 'paralyzed', 'poisoned')):
+        sc[13 + i] = 1 if mine.get(s_name) else 0
+        sc[18 + i] = 1 if opp.get(s_name) else 0
+    sc[23] = cur.get('turn', 0); sc[24] = cur.get('turnActionCount', 0)
+    for j, fl in enumerate(('energyAttached', 'supporterPlayed', 'stadiumPlayed', 'retreated')):
+        sc[25 + j] = 1 if cur.get(fl) else 0
+    sc[29] = cur.get('firstPlayer', 0); sc[30] = yi
+    v = sel.get('context')
+    if v is not None and 0 <= int(v) < N_CTX:
+        sc[31 + int(v)] = 1.0
+    v = sel.get('type')
+    if v is not None and 0 <= int(v) < N_STYPE:
+        sc[31 + N_CTX + int(v)] = 1.0
+    sc[31 + N_CTX + N_STYPE] = sel.get('maxCount', 1)
+    sc[32 + N_CTX + N_STYPE] = sel.get('minCount', 1)
+    sc[33 + N_CTX + N_STYPE] = sel.get('remainDamageCounter', 0)
+    sc[34 + N_CTX + N_STYPE] = sel.get('remainEnergyCost', 0)
+    return st, sc, o, mk, n_opts
+
+
+def _nn_forward(st, sc, o, mk):
+    """PolicyStudent 前向的纯 numpy 复刻（与 export_student.py 自检一致）。"""
+    np = _NN['np']
+    w = _NN['w']
+    # fp16 派生 fp32 权重的大矩阵乘会触发 numpy 良性 BLAS 警告（结果仍有限），
+    # 用 errstate 抑制以免污染 Kaggle 提交日志。
+    with np.errstate(divide='ignore', over='ignore', invalid='ignore'):
+        return _nn_forward_core(np, w, st, sc, o, mk)
+
+
+def _nn_forward_core(np, w, st, sc, o, mk):
+    x = np.concatenate([st[None, :] / w['div'], sc[None, :]], axis=1)
+    h = np.maximum(x @ w['enc0'].T + w['enc0b'], 0)
+    h = np.maximum(h @ w['enc2'].T + w['enc2b'], 0)
+    e = np.maximum(h @ w['enc4'].T + w['enc4b'], 0)          # (1, out)
+    be = np.repeat(e[:, None, :], o.shape[0], axis=1)        # (1, K, out)
+    z = np.concatenate([be, o[None, :, :]], axis=2)
+    g = np.maximum(z @ w['head0'].T + w['head0b'], 0)
+    logits = (g @ w['head2'].T + w['head2b']).reshape(-1)    # (K,)
+    return np.where(mk == 0, -np.inf, logits)
+
+
+def _nn_consult(obs, sel_type, options, max_count, rule_action):
+    """混合决策：规则动作为锚，NN 高置信分歧时纠偏。永不抛异常。"""
+    if _NN_MODE == 'off' or sel_type not in _NN_SEL_TYPES:
+        return rule_action
+    if not _nn_lazy_load():
+        return rule_action
+    try:
+        np = _NN['np']
+        st, sc, o, mk, n_opts = _nn_build_features(obs)
+        if n_opts == 0:
+            return rule_action
+        logits = _nn_forward(st, sc, o, mk)
+        order = np.argsort(-logits)
+        nn_act = [int(i) for i in order[:max_count]
+                  if 0 <= int(i) < n_opts and np.isfinite(logits[int(i)])]
+        if not nn_act:
+            return rule_action
+        if _NN_MODE == 'nn_first':
+            return nn_act[:max_count]
+        if rule_action and rule_action[0] in (int(x) for x in order[:3]):
+            return rule_action
+        top1 = float(logits[int(order[0])])
+        second = logits[int(order[1])] if len(order) > 1 else -np.inf
+        gap = top1 - float(second) if np.isfinite(second) else float('inf')
+        if gap > _NN_GAP:
+            return nn_act[:max_count]
+        return rule_action
+    except Exception:
+        return rule_action
+
+
+# ==================================================================
 # 6. Agent 入口
 # ==================================================================
 
@@ -2791,7 +2999,9 @@ def agent(obs, config=None):
         # [A2] 字典分发路由
         handler = _HANDLERS.get(sel_type)
         if handler:
-            return handler(options, max_count, context, obs_current, my_idx)
+            _rule_action = handler(options, max_count, context, obs_current, my_idx)
+            # [v24] NN Advisor: 规则为锚, NN 高置信分歧时纠偏; 任何异常内部消化
+            return _nn_consult(obs, sel_type, options, max_count, _rule_action)
 
         if sel_type == _ST_NONE:
             return _sanitize(list(range(min(max_count, n))), n, max_count)

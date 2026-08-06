@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PTCG Deck v7 全超系优化分析报告</title>
+<style>
+:root {
+  --bg: #0f0f1a;
+  --card-bg: #1a1a2e;
+  --accent: #a855f7;
+  --accent2: #ec4899;
+  --text: #e0e0e0;
+  --text-dim: #8888aa;
+  --green: #22c55e;
+  --red: #ef4444;
+  --yellow: #eab308;
+  --border: #2a2a4a;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, "Noto Sans CJK SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  line-height: 1.7;
+  padding: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+h1 {
+  font-size: 1.8em;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 8px;
+}
+h2 {
+  font-size: 1.3em;
+  color: var(--accent);
+  margin: 30px 0 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+h3 { font-size: 1.05em; color: var(--text); margin: 16px 0 8px; }
+.subtitle { color: var(--text-dim); font-size: 0.9em; margin-bottom: 24px; }
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin: 12px 0;
+}
+.card.highlight {
+  border-color: var(--accent);
+  box-shadow: 0 0 12px rgba(168, 85, 247, 0.15);
+}
+.tag {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.8em;
+  font-weight: 600;
+  margin-right: 4px;
+}
+.tag-psychic { background: rgba(168, 85, 247, 0.2); color: #c084fc; }
+.tag-colorless { background: rgba(200, 200, 200, 0.15); color: #ccc; }
+.tag-ex { background: rgba(236, 72, 153, 0.2); color: #f472b6; }
+.tag-energy { background: rgba(34, 197, 94, 0.15); color: #4ade80; }
+.tag-trainer { background: rgba(234, 179, 8, 0.15); color: #facc15; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0;
+  font-size: 0.88em;
+}
+th, td {
+  padding: 8px 10px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+th { color: var(--accent); font-weight: 600; }
+tr:hover { background: rgba(168, 85, 247, 0.05); }
+.stat-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin: 12px 0;
+}
+.stat-box {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 16px;
+  min-width: 120px;
+  text-align: center;
+}
+.stat-num { font-size: 1.8em; font-weight: 700; color: var(--accent); }
+.stat-label { font-size: 0.8em; color: var(--text-dim); }
+.comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 16px 0;
+}
+.comparison-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+}
+.comparison-card.old { border-color: var(--red); }
+.comparison-card.new { border-color: var(--green); }
+.comparison-card h3 { margin-bottom: 8px; }
+ul { padding-left: 20px; }
+li { margin: 4px 0; }
+.code-block {
+  background: #0d0d18;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  font-family: "SF Mono", "Fira Code", monospace;
+  font-size: 0.82em;
+  overflow-x: auto;
+  margin: 8px 0;
+}
+.dmg-high { color: var(--green); font-weight: 600; }
+.dmg-low { color: var(--red); }
+.note {
+  background: rgba(234, 179, 8, 0.08);
+  border-left: 3px solid var(--yellow);
+  padding: 10px 16px;
+  margin: 12px 0;
+  border-radius: 0 6px 6px 0;
+  font-size: 0.9em;
+}
+.recommendation {
+  background: rgba(34, 197, 94, 0.08);
+  border-left: 3px solid var(--green);
+  padding: 10px 16px;
+  margin: 12px 0;
+  border-radius: 0 6px 6px 0;
+}
+</style>
+</head>
+<body>
+
+<h1>PTCG Deck v7 全超系优化分析报告</h1>
+<p class="subtitle">基于 JP_Card_Data_Cleaned.csv (1267 张卡) 的完整筛选与 deck 重构方案 | 2026-08-02</p>
+
+<!-- ==================== v6 问题分析 ==================== -->
+<h2>一、当前 Deck v6 问题诊断</h2>
+
+<div class="card old" style="border-color: var(--red);">
+<h3 style="color: var(--red);">v6 牌组构成（60 张）</h3>
+<div class="code-block">
+331 ゼルネアスex ×4  : 超系主力 HP210, ライジングホーン 120
+554 タブンネ       ×4  : 無系副攻 HP100, おんがえし 30
+157 カムカメ       ×4  : 無系副攻 HP80,  ずつき 60
+532 イシズマイ     ×4  : 無系肉盾 HP70,  じたばた 10
+9  ブーメラン能量   ×2  : 無色特殊能量
+5  超能量          ×42 : 基本超能量
+</div>
+</div>
+
+<table>
+<tr><th>问题</th><th>影响</th><th>严重度</th></tr>
+<tr><td>能量类型错配</td><td>42 张超能量只能贴 331，554/157/532 虽可用超能量但非最优</td><td style="color:var(--red);">高</td></tr>
+<tr><td>副攻伤害过低</td><td>554(30 dmg)、532(10/20 dmg) 输出极低，几乎无法 KO 对手</td><td style="color:var(--red);">高</td></tr>
+<tr><td>无搜牌/加速机制</td><td>纯靠抽牌运气，无法主动找 331 或加速贴能</td><td style="color:var(--yellow);">中</td></tr>
+<tr><td>HP 分布不合理</td><td>532(HP70) 上场即送 Prize，肉盾价值低</td><td style="color:var(--yellow);">中</td></tr>
+<tr><td>撤退成本高</td><td>无撤退减费手段，被卡在 active 时损失大</td><td style="color:var(--yellow);">中</td></tr>
+</table>
+
+<!-- ==================== 候选卡分析 ==================== -->
+<h2>二、超系基础宝可梦候选（CSV 筛选结果）</h2>
+
+<div class="stat-row">
+<div class="stat-box"><div class="stat-num">61</div><div class="stat-label">超系基础 (HP≥70)</div></div>
+<div class="stat-box"><div class="stat-num">30</div><div class="stat-label">超系基础 HP≥100</div></div>
+<div class="stat-box"><div class="stat-num">3</div><div class="stat-label">主力级 HP≥200 伤害≥120</div></div>
+<div class="stat-box"><div class="stat-num">54</div><div class="stat-label">无系基础 (HP≥70)</div></div>
+</div>
+
+<h3>主力候选（超系基础 ex, HP≥200, 伤害≥120）</h3>
+<table>
+<tr><th>ID</th><th>卡名</th><th>HP</th><th>最大伤害</th><th>能量成本</th><th>撤退</th><th>弱点</th><th>核心优势</th></tr>
+<tr>
+  <td>184</td>
+  <td><span class="tag tag-psychic">超</span><span class="tag tag-ex">ex</span> ラティアスex</td>
+  <td>210</td>
+  <td class="dmg-high">200</td>
+  <td>超超● (3)</td>
+  <td>2→0</td>
+  <td>悪</td>
+  <td><b>特性スカイライン</b>: 全场たねポケモン撤退费归零</td>
+</tr>
+<tr>
+  <td>331</td>
+  <td><span class="tag tag-psychic">超</span><span class="tag tag-ex">ex</span> ゼルネアスex</td>
+  <td>210</td>
+  <td class="dmg-high">120+100</td>
+  <td>超超● (3)</td>
+  <td>1→0</td>
+  <td>鋼</td>
+  <td>对 ex 追加 100 伤害 (=220)，可每回合攻击</td>
+</tr>
+<tr>
+  <td>431</td>
+  <td><span class="tag tag-psychic">超</span><span class="tag tag-ex">ex</span> ロケット団のミュウツーex</td>
+  <td>280</td>
+  <td class="dmg-high">160</td>
+  <td>超超● (3)</td>
+  <td>3→0</td>
+  <td>悪</td>
+  <td>HP 最高 280，但需场上有 ≥4 ロケット団ポケモン</td>
+</tr>
+</table>
+
+<h3>辅助候选（超系基础, 自带搜牌/加速）</h3>
+<table>
+<tr><th>ID</th><th>卡名</th><th>HP</th><th>功能</th><th>成本</th><th>效果</th></tr>
+<tr>
+  <td>764</td>
+  <td><span class="tag tag-psychic">超</span> クレセリア</td>
+  <td>120</td>
+  <td><b>能量加速</b></td>
+  <td>超 (1)</td>
+  <td>从牌组搜 2 张基本超能量贴给自身 → 净赚 +2 能量</td>
+</tr>
+<tr>
+  <td>751</td>
+  <td><span class="tag tag-psychic">超</span> ゼルネアス</td>
+  <td>120</td>
+  <td><b>宝可梦搜索</b></td>
+  <td>超 (1)</td>
+  <td>从牌组搜 3 张超系たねポケモン上场 → 瞬间填满 bench</td>
+</tr>
+<tr>
+  <td>969</td>
+  <td><span class="tag tag-psychic">超</span><span class="tag tag-ex">ex</span> サケブシッポex</td>
+  <td>190</td>
+  <td><b>副攻+干扰</b></td>
+  <td>超●● (3)</td>
+  <td>120 伤害 + 弃对手 1 能量；先攻封锁サポート</td>
+</tr>
+</table>
+
+<h3>特殊能量卡</h3>
+<table>
+<tr><th>ID</th><th>卡名</th><th>类型</th><th>效果</th></tr>
+<tr>
+  <td>19</td>
+  <td><span class="tag tag-energy">能量</span> テレパス【超】エネルギー</td>
+  <td>特殊超能量</td>
+  <td>作为超能量；贴给超系ポケモン时，从牌组搜 2 张超系たね上场</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><span class="tag tag-energy">能量</span> ブーメランエネルギー</td>
+  <td>特殊無色能量</td>
+  <td>作为無色能量；被招式效果弃除时自动贴回</td>
+</tr>
+</table>
+
+<!-- ==================== 训练师卡 ==================== -->
+<h2>三、训练师卡筛选结果</h2>
+
+<div class="note">
+共筛选出 77 张グッズ、61 张サポート、27 张どうぐ、26 张スタジアム。
+以下为 deck v7 备选训练师卡（完整效果已从 CSV 确认）。
+</div>
+
+<h3>抽牌/搜索类（推荐）</h3>
+<table>
+<tr><th>ID</th><th>卡名</th><th>种类</th><th>效果</th></tr>
+<tr><td>1121</td><td>ハイパーボール</td><td>グッズ</td><td>弃 2 手牌 → 从牌组搜任意 1 张ポケモン</td></tr>
+<tr><td>1227</td><td>リーリエの決心</td><td>サポート</td><td>手牌洗回 → 抽 6 张（己方 Prize=6 时抽 8）</td></tr>
+<tr><td>1199</td><td>タロ</td><td>サポート</td><td>手牌洗回 → 抽 4 张（对手 Prize≤3 时抽 8）</td></tr>
+<tr><td>1185</td><td>探検家の先導</td><td>サポート</td><td>看牌组上方 6 张 → 选 2 张入手，余弃</td></tr>
+<tr><td>1187</td><td>マツバの確信</td><td>サポート</td><td>弃 1 手牌 → 抽等于对手 bench 数的牌</td></tr>
+<tr><td>1086</td><td>なかよしポフィン</td><td>グッズ</td><td>从牌组搜 ≤2 张 HP≤70 的たねポケモン上场</td></tr>
+</table>
+
+<h3>控制/回复类</h3>
+<table>
+<tr><th>ID</th><th>卡名</th><th>种类</th><th>效果</th></tr>
+<tr><td>1182</td><td>ボスの指令</td><td>サポート</td><td>将对手 bench 1 张ポケモン拉到 active</td></tr>
+<tr><td>1118</td><td>エネルギー回収</td><td>グッズ</td><td>从トラッシュ回收 ≤2 张基本能量到手牌</td></tr>
+<tr><td>1117</td><td>きずぐすり</td><td>グッズ</td><td>回复 1 匹ポケモン 30 HP</td></tr>
+</table>
+
+<!-- ==================== Deck v7 方案 ==================== -->
+<h2>四、Deck v7 推荐方案</h2>
+
+<div class="recommendation">
+<h3 style="color: var(--green);">方案 A：纯超系无训练师（推荐 — 稳定优先）</h3>
+<p>不引入训练师卡，利用ポケモン自带能力实现搜牌/加速，agent 逻辑改动最小。</p>
+</div>
+
+<div class="card highlight">
+<div class="code-block">
+# Deck v7 — 全超系（60 张）
+
+# 主力 ×8
+184 ラティアスex ×4  : HP210, むげんのやいば 200 dmg (超超●)
+                        特性スカイライン: 全场たね撤退费→0
+331 ゼルネアスex ×4  : HP210, ライジングホーン 120+100 dmg vs ex (超超●)
+
+# 辅助 ×8
+764 クレセリア    ×4  : HP120, みなぎるひかり 搜2超能量贴自身 (超)
+                        オーロラビーム 90 dmg (超超●)
+751 ゼルネアス    ×4  : HP120, ジオゲート 搜3超系たね上场 (超)
+                        ブライトホーン 120 dmg (超超●)
+
+# 能量 ×44
+9  ブーメラン能量  ×2  : 無色特殊能量（被弃后自动贴回）
+5  基本超能量     ×42  : 喂全部ポケモン
+</div>
+</div>
+
+<div class="comparison">
+<div class="comparison-card old">
+<h3 style="color: var(--red);">v6 对比</h3>
+<ul>
+<li>主力: 仅 331 (120 dmg)</li>
+<li>副攻: 554(30), 157(60), 532(10/20) — 伤害极低</li>
+<li>能量错配: 42 超能量只能喂 331</li>
+<li>无搜牌/加速机制</li>
+<li>撤退费: 1-2 (无减免)</li>
+<li>最高单次伤害: 120</li>
+</ul>
+</div>
+<div class="comparison-card new">
+<h3 style="color: var(--green);">v7 优势</h3>
+<ul>
+<li>主力: 184(200) + 331(120+100=220) — 双核</li>
+<li>辅助: 764 能量加速(+2/回合), 751 bench 填充(+3)</li>
+<li>全超系: 42 超能量喂全场，零错配</li>
+<li>ポケモン自带搜牌: 764 搜能量, 751 搜ポケモン</li>
+<li>撤退费: 全场 0 (184 特性)</li>
+<li>最高单次伤害: 220 (331 vs ex)</li>
+</ul>
+</div>
+</div>
+
+<h3>方案 B：含训练师卡（进阶 — 需 agent 更新）</h3>
+<div class="card">
+<div class="code-block">
+184 ラティアスex ×4, 331 ゼルネアスex ×4, 764 クレセリア ×3, 751 ゼルネアス ×3
+19 テレパス超能量 ×2, 5 基本超能量 ×36
+1121 ハイパーボール ×2, 1182 ボスの指令 ×2
+1227 リーリエの決心 ×2, 1118 エネルギー回収 ×2
+</div>
+<p style="color: var(--text-dim); font-size: 0.85em; margin-top: 8px;">
+注意：训练师卡需要 agent 处理多步选择（如ハイパーボール的弃牌→选牌），当前 agent 的 PLAY handler 仅选第一个选项，可能无法正确执行。建议方案 A 先行验证，确认稳定后再升级方案 B。
+</p>
+</div>
+
+<!-- ==================== attackId 策略 ==================== -->
+<h2>五、attackId 映射策略</h2>
+
+<div class="card">
+<h3>问题背景</h3>
+<p>引擎的 <code>attackId</code> 是<b>全局招式 ID</b>，非卡内索引。从 replay 反查确认：</p>
+<div class="code-block">
+554 タブンネ  → attackId=791 (おんがえし, 30 dmg)
+532 イシズマイ → attackId=760 (じたばた, 10 dmg)
+532 イシズマイ → attackId=761 (ツメをたてる, 20 dmg)
+</div>
+<p>全局 ID 无法从卡 ID 推导，新卡 (184/764/751/969) 的 attackId 未知。</p>
+</div>
+
+<h3>三级 fallback 策略（保持现有机制）</h3>
+<table>
+<tr><th>层级</th><th>条件</th><th>策略</th><th>准确性</th></tr>
+<tr><td>1</td><td>attackId 在 _ATTACK_ID_DMG 中</td><td>直接返回已知伤害</td><td style="color:var(--green);">精确</td></tr>
+<tr><td>2</td><td>attackId 作为卡内索引 (0/1) 可用</td><td>用 _CARD_DB[card_id].moves[attackId]</td><td style="color:var(--yellow);">可能正确</td></tr>
+<tr><td>3</td><td>以上均失败</td><td>返回该卡最大伤害（保守）</td><td style="color:var(--red);">高估但安全</td></tr>
+</table>
+
+<div class="note">
+<b>执行计划：</b>
+1. v7 提交时在 _CARD_DB 中添加新卡数据 (184/764/751)
+2. _ATTACK_ID_DMG 暂保留 v6 已知映射 (791/760/761)
+3. 新卡依赖 Level 2/3 fallback — 若 attackId 恰好为 0/1 则命中 Level 2
+4. 提交后查 replay，将新卡 attackId 反查后补入 _ATTACK_ID_DMG
+5. 下一次提交即可精确计算新卡伤害
+</div>
+
+<!-- ==================== 代码变更 ==================== -->
+<h2>六、main.py 代码变更清单</h2>
+
+<div class="card">
+<h3>1. DECK 更新</h3>
+<div class="code-block">
+# v6 (旧)
+DECK = [331]*4 + [554]*4 + [157]*4 + [532]*4 + [9]*2 + [5]*42
+
+# v7 (新)
+DECK = [184]*4 + [331]*4 + [764]*4 + [751]*4 + [9]*2 + [5]*42
+</div>
+</div>
+
+<div class="card">
+<h3>2. _CARD_DB 更新</h3>
+<div class="code-block">
+_CARD_DB = {
+    184: {"hp": 210, "moves": [(200, "むげんのやいば")]},  # 新增
+    331: {"hp": 210, "moves": [(50, "オーロラビーム"), (120, "ライジングホーン")]},
+    764: {"hp": 120, "moves": [(0, "みなぎるひかり"), (90, "オーロラビーム")]},  # 新增
+    751: {"hp": 120, "moves": [(0, "ジオゲート"), (120, "ブライトホーン")]},  # 新增
+    # 移除: 77, 157, 408, 528, 532, 554
+}
+</div>
+</div>
+
+<div class="card">
+<h3>3. _handle_main 决策优化</h3>
+<p>现有逻辑无需大改，关键改进点：</p>
+<ul>
+<li>新增卡 764/751 的 0 伤害招式（搜牌）会被 _estimate_attack_damage 返回 0</li>
+<li>决策步骤 3 中 <code>if best_dmg > 0</code> 会跳过 0 伤害招式，转入发育（ATTACH）</li>
+<li>当 764/751 在 active 且只有 1 能量时，不会误选 0 伤害招式攻击</li>
+<li>184 的 200 伤害会被正确识别为最高伤害攻击</li>
+</ul>
+</div>
+
+<!-- ==================== 风险评估 ==================== -->
+<h2>七、风险评估</h2>
+
+<table>
+<tr><th>风险</th><th>概率</th><th>影响</th><th>缓解</th></tr>
+<tr><td>新卡 attackId 不在 _ATTACK_ID_DMG，伤害估算偏差</td><td style="color:var(--yellow);">中</td><td>KO 判断可能失误</td><td>Level 2/3 fallback 兜底；提交后 replay 反查修正</td></tr>
+<tr><td>184 ラティアスex 攻击后跳一回合</td><td style="color:var(--green);">低</td><td>200 dmg 后空转一回合</td><td>331 可接力攻击；或 184 在 bench 蓄能后上场一击</td></tr>
+<tr><td>764/751 HP=120 易被 KO</td><td style="color:var(--yellow);">中</td><td>送 Prize</td><td>仅作辅助，不上 active；184 特性让撤退费=0 可随时换人</td></tr>
+<tr><td>训练师卡缺失导致手牌卡死</td><td style="color:var(--green);">低</td><td>无法搜牌</td><td>764/751 自带搜牌能力替代训练师卡</td></tr>
+</table>
+
+<!-- ==================== 下一步 ==================== -->
+<h2>八、下一步执行计划</h2>
+
+<div class="recommendation">
+<ol>
+<li><b>更新 main.py</b> — 替换 DECK + _CARD_DB，保留 _estimate_attack_damage fallback</li>
+<li><b>更新 deck.csv</b> — 生成 v7 牌组文件</li>
+<li><b>打包提交</b> — pack.sh 生成 submission.tar.gz → submit.sh submit</li>
+<li><b>查 replay</b> — 5 分钟后 submit.sh status，下载 replay 分析新卡 attackId</li>
+<li><b>修正 _ATTACK_ID_DMG</b> — 将 replay 反查的 184/764/751 attackId 补入映射表</li>
+<li><b>迭代 v7.1</b> — 根据实战表现微调决策逻辑</li>
+</ol>
+</div>
+
+</body>
+</html>

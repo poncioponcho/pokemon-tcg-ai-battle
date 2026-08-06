@@ -1,0 +1,90 @@
+[{"stream_name":"stdout","time":0.850329906,"data":"ERROR: 未找到训练张量（ptcg-tensors 未挂载或文件名异常）\n"}
+,{"stream_name":"stdout","time":0.850400298,"data":"下面打印 /kaggle/input 实际挂载内容：\n"}
+,{"stream_name":"stdout","time":0.850481169,"data":"/\n"}
+,{"stream_name":"stdout","time":0.850640082,"data":"  datasets/\n"}
+,{"stream_name":"stdout","time":0.850778717,"data":"    daniel1547/\n"}
+,{"stream_name":"stdout","time":0.851385984,"data":"      ptcg-code/\n"}
+,{"stream_name":"stdout","time":0.851393916,"data":"        card_vocab.py\n"}
+,{"stream_name":"stdout","time":0.851397529,"data":"        card_vocab_v1.json\n"}
+,{"stream_name":"stdout","time":0.851401023,"data":"        export_student.py\n"}
+,{"stream_name":"stdout","time":0.85140601,"data":"        mlops_registry.py\n"}
+,{"stream_name":"stdout","time":0.851412883,"data":"        model_v2.py\n"}
+,{"stream_name":"stdout","time":0.851415311,"data":"        train_bc.py\n"}
+,{"stream_name":"stdout","time":0.851417495,"data":"        train_v2.py\n"}
+,{"stream_name":"stdout","time":0.852033817,"data":"        inference/\n"}
+,{"stream_name":"stdout","time":0.85268672,"data":"          dataset/\n"}
+,{"stream_name":"stdout","time":0.853259372,"data":"            splits/\n"}
+,{"stream_name":"stdout","time":0.853266506,"data":"              episode_splits.jsonl\n"}
+,{"stream_name":"stdout","time":0.853270028,"data":"              rolling_canary.json\n"}
+,{"stream_name":"stdout","time":0.853853847,"data":"      ptcg-tensors/\n"}
+,{"stream_name":"stdout","time":0.853865683,"data":"        episode_ids.npy\n"}
+,{"stream_name":"stdout","time":0.853869811,"data":"        labels.npy\n"}
+,{"stream_name":"stdout","time":0.853873156,"data":"        masks.npy\n"}
+,{"stream_name":"stdout","time":0.853876427,"data":"        meta.json\n"}
+,{"stream_name":"stdout","time":0.853879532,"data":"        meta.npy\n"}
+,{"stream_name":"stdout","time":0.853882746,"data":"        opts_u8.npy\n"}
+,{"stream_name":"stdout","time":0.853886051,"data":"        scalars.npy\n"}
+,{"stream_name":"stdout","time":0.853889246,"data":"        states_u8.npy\n"}
+,{"stream_name":"stdout","time":0.854020183,"data":"  competitions/\n"}
+,{"stream_name":"stdout","time":0.854641378,"data":"    pokemon-tcg-ai-battle/\n"}
+,{"stream_name":"stdout","time":0.854652398,"data":"      Card_ID List_EN_.pdf\n"}
+,{"stream_name":"stdout","time":0.854656008,"data":"      Card_ID List_JP_.pdf\n"}
+,{"stream_name":"stdout","time":0.854659348,"data":"      EN Card Data.csv\n"}
+,{"stream_name":"stdout","time":0.854662575,"data":"      JP Card Data.csv\n"}
+,{"stream_name":"stdout","time":0.855295203,"data":"      sample_submission/\n"}
+,{"stream_name":"stdout","time":0.855908577,"data":"        sample_submission/\n"}
+,{"stream_name":"stdout","time":0.855918797,"data":"          deck.csv\n"}
+,{"stream_name":"stdout","time":0.855922272,"data":"          main.py\n"}
+,{"stream_name":"stdout","time":0.856478283,"data":"          cg/\n"}
+,{"stream_name":"stdout","time":0.856485733,"data":"            __init__.py\n"}
+,{"stream_name":"stdout","time":0.856489913,"data":"            api.py\n"}
+,{"stream_name":"stdout","time":0.856493211,"data":"            cg.dll\n"}
+,{"stream_name":"stdout","time":0.856496374,"data":"            game.py\n"}
+,{"stream_name":"stdout","time":0.856499655,"data":"            libcg-arm64.so\n"}
+,{"stream_name":"stdout","time":0.856503048,"data":"            libcg.dylib\n"}
+,{"stream_name":"stdout","time":0.856543995,"data":"            libcg.so\n"}
+,{"stream_name":"stdout","time":0.856558643,"data":"            sim.py\n"}
+,{"stream_name":"stdout","time":0.856562549,"data":"            utils.py\n"}
+,{"stream_name":"stdout","time":0.857089427,"data":"      ptcg_engine/\n"}
+,{"stream_name":"stdout","time":0.85760754,"data":"        ptcgProgram 22/\n"}
+,{"stream_name":"stdout","time":0.85762134,"data":"          ActivateInfo.h\n"}
+,{"stream_name":"stdout","time":0.857626169,"data":"          AddLog.h\n"}
+,{"stream_name":"stdout","time":0.857630481,"data":"          AddOption.h\n"}
+,{"stream_name":"stdout","time":0.85763486,"data":"          All.h\n"}
+,{"stream_name":"stdout","time":0.857639302,"data":"          Api.h\n"}
+,{"stream_name":"stdout","time":0.857643534,"data":"          ApiData.h\n"}
+,{"stream_name":"stdout","time":0.857648135,"data":"          ApiJson.h\n"}
+,{"stream_name":"stdout","time":0.8576523,"data":"          ApiType.h\n"}
+,{"stream_name":"stdout","time":0.857656735,"data":"          BattleData.h\n"}
+,{"stream_name":"stdout","time":0.857661136,"data":"          Binary.h\n"}
+,{"stream_name":"stdout","time":0.857669609,"data":"          Card.h\n"}
+,{"stream_name":"stdout","time":0.857674014,"data":"          CardImpl.h\n"}
+,{"stream_name":"stdout","time":0.857678428,"data":"          CardMove.h\n"}
+,{"stream_name":"stdout","time":0.857682784,"data":"          Core.h\n"}
+,{"stream_name":"stdout","time":0.857687089,"data":"          CreateCard.h\n"}
+,{"stream_name":"stdout","time":0.857691278,"data":"          EffectContinual.h\n"}
+,{"stream_name":"stdout","time":0.857695669,"data":"          EffectInstant.h\n"}
+,{"stream_name":"stdout","time":0.857700647,"data":"          EffectProc.h\n"}
+,{"stream_name":"stdout","time":0.857705141,"data":"          Export.cpp\n"}
+,{"stream_name":"stdout","time":0.857709451,"data":"          FixedList.h\n"}
+,{"stream_name":"stdout","time":0.857715386,"data":"          Framework.h\n"}
+,{"stream_name":"stdout","time":0.857719024,"data":"          Game.h\n"}
+,{"stream_name":"stdout","time":0.857723105,"data":"          GameFunction.h\n"}
+,{"stream_name":"stdout","time":0.857726937,"data":"          GameProc.h\n"}
+,{"stream_name":"stdout","time":0.857730709,"data":"          GameUtil.h\n"}
+,{"stream_name":"stdout","time":0.857734528,"data":"          InitializeCard.h\n"}
+,{"stream_name":"stdout","time":0.857737944,"data":"          JsonBuilder.h\n"}
+,{"stream_name":"stdout","time":0.857741218,"data":"          PlayerState.h\n"}
+,{"stream_name":"stdout","time":0.8577446,"data":"          PullTrigger.h\n"}
+,{"stream_name":"stdout","time":0.857747889,"data":"          README.md\n"}
+,{"stream_name":"stdout","time":0.857752027,"data":"          ...(14 more)\n"}
+,{"stream_name":"stdout","time":0.85843068,"data":"          LICENSES/\n"}
+,{"stream_name":"stdout","time":0.858437647,"data":"            LicenseRef-PTCG-ABC-Competition-Use-Only.txt\n"}
+,{"stream_name":"stderr","time":0.85849679,"data":"missing tensors: 请对照上方目录树排查。Kaggle 会把上传的 .tar.gz 自动解包成平铺文件，脚本已兼容两种情况（解包目录 / tar.gz 原样）。\n"}
+,{"stream_name":"stderr","time":3.284973414,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":3.284997616,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":3.60347222,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":3.60353791,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":4.892497768,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":6.111613211,"data":"[NbConvertApp] Writing 314191 bytes to __results__.html\n"}
+]

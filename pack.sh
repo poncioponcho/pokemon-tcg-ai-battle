@@ -30,7 +30,14 @@ fi
 rm -f submission.tar.gz
 # [v19 修复] 使用 COPYFILE_DISABLE=1 排除 macOS 元数据文件 (._*)
 # tar 从当前目录打包，保证 main.py / deck.csv 在压缩包顶层
-COPYFILE_DISABLE=1 tar -czf submission.tar.gz main.py deck.csv
+# [v24] 若存在 model_student.npz（蒸馏 student 模型）则随包提交；
+#       main.py 的 NN Advisor 会在同目录找到它；缺失时自动降级纯规则。
+EXTRA_FILES=()
+if [[ -f model_student.npz ]]; then
+  EXTRA_FILES=(model_student.npz)
+  echo "[信息] 检测到 model_student.npz，随包提交 NN student 模型"
+fi
+COPYFILE_DISABLE=1 tar -czf submission.tar.gz main.py deck.csv ${EXTRA_FILES[@]+"${EXTRA_FILES[@]}"}
 
 # ---- 3.5 交叉校验: main.py DECK / deck.csv / 内联牌组 / 卡池 四源一致 ----
 # [审计-H3] 原校验把 DECK(由 deck.csv 加载) 与 deck.csv 对比, 是同义校验恒通过;

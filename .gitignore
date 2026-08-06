@@ -5,7 +5,14 @@ inference/leaderboard_replay/
 *.zip
 
 # 卡牌原始数据（大文件）
-pokemon-tcg-ai-battle-challenge-strategy/Card_ID
+pokemon-tcg-ai-battle-challenge-strategy/Card_ID*
+pokemon-tcg-ai-battle-challenge-strategy/card_pages/
+
+# 报告内嵌的第三方 JS 库（mermaid/echarts 等）
+_shared/
+
+# Kaggle 竞赛 SDK（可重新下载，非本项目代码）
+sdk/
 
 # 对局回放/日志
 subm_rec*/
@@ -22,8 +29,14 @@ inference/dataset/mlops_state.json
 # ===== 构建产物 =====
 submission.tar.gz
 *.tar.gz
+*.zst
+*.partial
 __pycache__/
 *.pyc
+
+# ===== 本地工具状态（不入库）=====
+.workbuddy/
+.kaggle_kernel/
 
 # ===== 系统文件 =====
 .DS_Store
@@ -35,3 +48,4 @@ __pycache__/
 *.pem
 kaggle_oauth.json
 access_token
+inference/backup_to_baidu/

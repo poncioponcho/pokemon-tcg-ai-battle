@@ -1,0 +1,132 @@
+2026-08-04 17:17:28,085 INFO 排行榜分页 1: 累计 200 支（还有下一页）
+2026-08-04 17:17:38,396 INFO 排行榜分页 2: 累计 400 支（还有下一页）
+2026-08-04 17:17:49,439 INFO 排行榜分页 3: 累计 600 支（还有下一页）
+2026-08-04 17:17:59,957 INFO 排行榜分页 4: 累计 800 支（还有下一页）
+2026-08-04 17:18:11,895 INFO 排行榜分页 5: 累计 1000 支（还有下一页）
+2026-08-04 17:18:21,347 INFO 排行榜分页 6: 累计 1200 支（还有下一页）
+2026-08-04 17:18:31,486 INFO 排行榜分页 7: 累计 1400 支（还有下一页）
+2026-08-04 17:18:43,449 INFO 排行榜分页 8: 累计 1600 支（还有下一页）
+2026-08-04 17:18:53,858 INFO 排行榜分页 9: 累计 1800 支（还有下一页）
+2026-08-04 17:19:03,626 INFO 排行榜分页 10: 累计 2000 支（还有下一页）
+2026-08-04 17:19:13,374 INFO 排行榜分页 11: 累计 2200 支（还有下一页）
+2026-08-04 17:19:23,251 INFO 排行榜分页 12: 累计 2400 支（还有下一页）
+2026-08-04 17:19:32,214 INFO 排行榜分页 13: 累计 2600 支（还有下一页）
+2026-08-04 17:19:42,781 INFO 排行榜分页 14: 累计 2800 支（还有下一页）
+2026-08-04 17:19:53,435 INFO 排行榜分页 15: 累计 2999 支（还有下一页）
+2026-08-04 17:20:03,678 INFO 排行榜分页 16: 累计 3199 支（还有下一页）
+2026-08-04 17:20:14,369 INFO 排行榜分页 17: 累计 3399 支（还有下一页）
+2026-08-04 17:20:25,388 INFO 排行榜分页 18: 累计 3599 支（还有下一页）
+2026-08-04 17:20:36,173 INFO 排行榜分页 19: 累计 3798 支（还有下一页）
+2026-08-04 17:20:46,620 INFO 排行榜分页 20: 累计 3997 支（还有下一页）
+2026-08-04 17:20:58,584 INFO 排行榜分页 21: 累计 4194 支（还有下一页）
+2026-08-04 17:21:08,596 INFO 排行榜分页 22: 累计 4393 支（还有下一页）
+2026-08-04 17:21:18,749 INFO 排行榜分页 23: 累计 4592 支（还有下一页）
+2026-08-04 17:21:28,558 INFO 排行榜分页 24: 累计 4791 支（还有下一页）
+2026-08-04 17:21:39,354 INFO 排行榜分页 25: 累计 4990 支（还有下一页）
+2026-08-04 17:21:49,900 INFO 排行榜分页 26: 累计 5190 支（还有下一页）
+2026-08-04 17:22:00,930 INFO 排行榜分页 27: 累计 5390 支（还有下一页）
+2026-08-04 17:22:12,867 INFO 排行榜分页 28: 累计 5590 支（还有下一页）
+2026-08-04 17:22:22,346 INFO 排行榜分页 29: 累计 5789 支（还有下一页）
+2026-08-04 17:22:33,968 INFO 排行榜分页 30: 累计 5989 支（还有下一页）
+2026-08-04 17:22:45,039 INFO 排行榜分页 31: 累计 6189 支（还有下一页）
+2026-08-04 17:22:58,585 INFO 排行榜分页 32: 累计 6230 支（最后一页）
+2026-08-04 17:22:58,589 INFO 排行榜共 6230 支队伍 → 选取 2692 支（分数区间 600.0~800.0）
+2026-08-04 17:22:58,602 INFO 待处理队伍 2000 / 2692
+2026-08-04 17:24:24,592 INFO   ✔ [#884] EunchaeSong 完成，本队 5 局，累计 5
+2026-08-04 17:24:25,043 INFO   ✔ [#880] MasaPokemon 完成，本队 5 局，累计 10
+2026-08-04 17:25:42,339 INFO   ✔ [#888] rinov321 完成，本队 5 局，累计 15
+2026-08-04 17:25:44,209 INFO   ✔ [#887] 【共逐荣光】Timmy Juicehouse 完成，本队 5 局，累计 20
+2026-08-04 17:26:45,704 WARNING 限流/网络错误，8s 后重试 (1/4): Traceback (most recent call last):
+  File "/opt/anaconda3/lib/python3.13/site-packages/urllib3/connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+    ~~~~~~~~~~~~~~~~~~~^^^^^
+2026-08-04 17:26:49,501 INFO   ✔ [#891] L-WALID 完成，本队 5 局，累计 25
+2026-08-04 17:27:27,596 INFO   ✔ [#893] Ravindra 完成，本队 5 局，累计 30
+2026-08-04 17:28:13,351 INFO   ✔ [#894] djschmit 完成，本队 5 局，累计 35
+2026-08-04 17:28:48,000 INFO   ✔ [#896] nopoly1k 完成，本队 5 局，累计 40
+2026-08-04 17:29:38,889 INFO   ✔ [#897] Ryuto Yoda 完成，本队 5 局，累计 45
+2026-08-04 17:30:07,846 INFO   ✔ [#898] mtskggle 完成，本队 5 局，累计 50
+2026-08-04 17:30:51,276 INFO   ✔ [#900] Lin Jing 完成，本队 5 局，累计 55
+2026-08-04 17:31:34,489 INFO   ✔ [#901] YasunagaTkcNkmr 完成，本队 5 局，累计 60
+2026-08-04 17:32:16,006 INFO   ✔ [#902] mimi 完成，本队 5 局，累计 65
+2026-08-04 17:33:05,238 INFO   ✔ [#907] nashu 完成，本队 5 局，累计 70
+2026-08-04 17:33:44,856 INFO   ✔ [#913] aidy 完成，本队 5 局，累计 75
+2026-08-04 17:34:37,535 INFO   ✔ [#914] keita 完成，本队 5 局，累计 80
+2026-08-04 17:35:13,705 INFO   ✔ [#915] lingheng 完成，本队 5 局，累计 85
+2026-08-04 17:36:03,946 INFO   ✔ [#919] Sally777777 完成，本队 5 局，累计 90
+2026-08-04 17:36:22,880 INFO   ✔ [#920] すーぱーひとで 完成，本队 5 局，累计 95
+2026-08-04 17:37:18,434 INFO   ✔ [#921] ごんさくよねきち 完成，本队 5 局，累计 100
+2026-08-04 17:37:38,163 INFO   ✔ [#922] Rotation Theory 完成，本队 5 局，累计 105
+2026-08-04 17:38:32,027 INFO   ✔ [#928] ninini 完成，本队 5 局，累计 110
+2026-08-04 17:38:50,604 INFO   ✔ [#943] dajiaohuang 完成，本队 5 局，累计 115
+2026-08-04 17:39:44,404 INFO   ✔ [#946] ylab_liva 完成，本队 5 局，累计 120
+2026-08-04 17:40:04,251 INFO   ✔ [#952] knomura03 完成，本队 5 局，累计 125
+2026-08-04 17:40:04,252 INFO   — 进度: 25/2000 队, 125 局
+2026-08-04 17:40:56,723 INFO   ✔ [#954] persn 完成，本队 5 局，累计 130
+2026-08-04 17:41:22,859 INFO   ✔ [#955] SHR & Lithium 完成，本队 5 局，累计 135
+2026-08-04 17:41:55,786 INFO   ✔ [#956] Davide 完成，本队 5 局，累计 140
+2026-08-04 17:42:31,203 INFO   ✔ [#957] paistieco 完成，本队 5 局，累计 145
+2026-08-04 17:43:09,547 INFO   ✔ [#966] qliqian 完成，本队 5 局，累计 150
+2026-08-04 17:43:59,235 INFO   ✔ [#967] mhiro2 完成，本队 5 局，累计 155
+2026-08-04 17:44:27,173 INFO   ✔ [#973] Anton Sinitsin 完成，本队 5 局，累计 160
+2026-08-04 17:45:22,265 INFO   ✔ [#976] law625 完成，本队 5 局，累计 165
+2026-08-04 17:45:45,196 INFO   ✔ [#978] yasu 完成，本队 5 局，累计 170
+2026-08-04 17:46:36,778 INFO   ✔ [#980] MCH 完成，本队 5 局，累计 175
+2026-08-04 17:46:53,829 INFO   ✔ [#984] Misaka Mikoto 完成，本队 5 局，累计 180
+2026-08-04 17:47:39,934 INFO   ✔ [#987] Pascal 完成，本队 5 局，累计 185
+2026-08-04 17:48:13,375 INFO   ✔ [#990] pipi14ramu 完成，本队 5 局，累计 190
+2026-08-04 17:48:57,268 INFO   ✔ [#1000] Shigu Marimo 完成，本队 5 局，累计 195
+2026-08-04 17:49:28,211 INFO   ✔ [#1011] jp_nerdery 完成，本队 5 局，累计 200
+2026-08-04 17:50:12,868 INFO   ✔ [#1023] maximoming 完成，本队 5 局，累计 205
+2026-08-04 17:50:44,246 INFO   ✔ [#1025] TakamaruEX 完成，本队 5 局，累计 210
+2026-08-04 17:51:31,870 INFO   ✔ [#1031] kiyomiya-k 完成，本队 5 局，累计 215
+2026-08-04 17:52:00,773 INFO   ✔ [#1034] MMA 完成，本队 5 局，累计 220
+2026-08-04 17:52:47,444 INFO   ✔ [#1035] Soichiro Kuribayashi 完成，本队 5 局，累计 225
+2026-08-04 17:53:12,285 INFO   ✔ [#1043] 我脑子不太好 完成，本队 5 局，累计 230
+2026-08-04 17:53:59,183 INFO   ✔ [#1105] senkin13 完成，本队 5 局，累计 235
+2026-08-04 17:54:24,184 INFO   ✔ [#1110] LaiCxm 完成，本队 5 局，累计 240
+2026-08-04 17:55:14,664 WARNING 限流/网络错误，8s 后重试 (1/4): 429 Client Error: Too Many Requests for url: https://api.kaggle.com/v1/competitions.CompetitionApiService/GetEpisodeReplay
+2026-08-04 17:55:15,448 WARNING 限流/网络错误，8s 后重试 (1/4): 429 Client Error: Too Many Requests for url: https://api.kaggle.com/v1/competitions.CompetitionApiService/GetEpisodeReplay
+2026-08-04 17:55:31,863 WARNING 连续 3 次限流，长冷却 600s 后再试
+2026-08-04 17:55:32,582 WARNING 连续 4 次限流，长冷却 600s 后再试
+2026-08-04 18:05:42,470 INFO   ✔ [#1137] Rahul Jiwane 完成，本队 5 局，累计 245
+2026-08-04 18:06:07,479 INFO   ✔ [#1150] yuji y 完成，本队 5 局，累计 250
+2026-08-04 18:06:07,479 INFO   — 进度: 50/2000 队, 250 局
+2026-08-04 18:06:58,659 INFO   ✔ [#1156] Aaron Samuel 完成，本队 5 局，累计 255
+2026-08-04 18:07:19,847 INFO   ✔ [#1169] Agent 33 完成，本队 5 局，累计 260
+2026-08-04 18:08:11,701 INFO   ✔ [#1171] showtree 完成，本队 5 局，累计 265
+2026-08-04 18:08:31,733 INFO   ✔ [#1218] qiuqiu 完成，本队 5 局，累计 270
+2026-08-04 18:09:21,496 WARNING 限流/网络错误，8s 后重试 (1/4): 429 Client Error: Too Many Requests for url: https://api.kaggle.com/v1/competitions.CompetitionApiService/GetEpisodeReplay
+2026-08-04 18:09:21,902 INFO   ✔ [#1226] Yudai Ueno 完成，本队 5 局，累计 275
+2026-08-04 18:09:40,037 WARNING 限流/网络错误，16s 后重试 (2/4): 429 Client Error: Too Many Requests for url: https://api.kaggle.com/v1/competitions.CompetitionApiService/GetEpisodeReplay
+2026-08-04 18:09:54,088 WARNING 限流/网络错误，8s 后重试 (1/4): 429 Client Error: Too Many Requests for url: https://api.kaggle.com/v1/competitions.CompetitionApiService/GetEpisodeReplay
+2026-08-04 18:10:05,721 WARNING 限流/网络错误，32s 后重试 (3/4): 429 Client Error: Too Many Requests for url: https://api.kaggle.com/v1/competitions.CompetitionApiService/GetEpisodeReplay
+2026-08-04 18:10:11,830 WARNING 连续 3 次限流，长冷却 600s 后再试
+2026-08-04 18:10:46,922 WARNING 连续 4 次限流，长冷却 600s 后再试
+2026-08-04 18:20:46,919 ERROR 重试 4 次仍失败: kaggle competitions replay 89904408 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+2026-08-04 18:20:46,920 WARNING   [#1241] fredpk replay 下载失败: episode 89904408
+2026-08-04 18:20:57,696 INFO   ✔ [#1241] fredpk 完成，本队 4 局，累计 279
+2026-08-04 18:21:07,475 INFO   ✔ [#1310] jin hiratsuka 完成，本队 5 局，累计 284
+2026-08-04 18:22:13,525 INFO   ✔ [#1322] KentoKuri 完成，本队 5 局，累计 289
+2026-08-04 18:22:18,519 INFO   ✔ [#1341] r1ck.sync 完成，本队 5 局，累计 294
+2026-08-04 18:23:17,269 INFO   ✔ [#1345] Leocthl 完成，本队 5 局，累计 299
+2026-08-04 18:23:32,023 INFO   ✔ [#1351] matcha110 完成，本队 5 局，累计 304
+2026-08-04 18:24:29,450 INFO   ✔ [#1357] joinus 完成，本队 5 局，累计 309
+2026-08-04 18:24:46,509 WARNING 限流/网络错误，8s 后重试 (1/4): 429 Client Error: Too Many Requests for url: https://api.kaggle.com/v1/competitions.CompetitionApiService/GetEpisodeReplay
+2026-08-04 18:25:00,029 WARNING 限流/网络错误，8s 后重试 (1/4): 429 Client Error: Too Many Requests for url: https://api.kaggle.com/v1/competitions.CompetitionApiService/GetEpisodeReplay
+2026-08-04 18:25:07,559 WARNING 限流/网络错误，16s 后重试 (2/4): 429 Client Error: Too Many Requests for url: https://api.kaggle.com/v1/competitions.CompetitionApiService/GetEpisodeReplay
+2026-08-04 18:25:18,393 WARNING 连续 3 次限流，长冷却 600s 后再试
+2026-08-04 18:25:33,422 WARNING 连续 4 次限流，长冷却 600s 后再试
+2026-08-04 18:35:42,653 INFO   ✔ [#1381] Eesh saxena 完成，本队 5 局，累计 314
+2026-08-04 18:35:59,298 INFO   ✔ [#1384] SHICHIES 完成，本队 5 局，累计 319
+2026-08-04 18:36:36,110 WARNING 限流/网络错误，8s 后重试 (1/4): ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-08-04 18:37:19,525 INFO   ✔ [#1408] Zulqar 完成，本队 5 局，累计 324
+2026-08-04 18:37:32,314 INFO   ✔ [#1396] Kalypheus 完成，本队 5 局，累计 329
+2026-08-04 18:38:37,524 INFO   ✔ [#1417] Panoptes 完成，本队 5 局，累计 334
+2026-08-04 18:38:48,076 INFO   ✔ [#1418] Biubiu 完成，本队 5 局，累计 339
+2026-08-04 18:39:51,451 INFO   ✔ [#1425] seiya.n21 完成，本队 5 局，累计 344
+2026-08-04 18:40:00,143 WARNING 限流/网络错误，8s 后重试 (1/4): 429 Client Error: Too Many Requests for url: https://api.kaggle.com/v1/competitions.CompetitionApiService/GetEpisodeReplay
+2026-08-04 18:40:18,439 WARNING 限流/网络错误，16s 后重试 (2/4): 429 Client Error: Too Many Requests for url: https://api.kaggle.com/v1/competitions.CompetitionApiService/GetEpisodeReplay
+2026-08-04 18:40:26,759 WARNING 限流/网络错误，8s 后重试 (1/4): 429 Client Error: Too Many Requests for url: https://api.kaggle.com/v1/competitions.CompetitionApiService/GetEpisodeReplay
+2026-08-04 18:40:46,689 WARNING 连续 3 次限流，长冷却 600s 后再试
+2026-08-04 18:40:46,819 WARNING 连续 4 次限流，长冷却 600s 后再试

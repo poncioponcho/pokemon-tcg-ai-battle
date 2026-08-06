@@ -1,0 +1,30 @@
+,{"stream_name":"stdout","time":0.97645328,"data":"      ptcg-code/\n"}
+,{"stream_name":"stdout","time":0.976466013,"data":"        card_vocab.py\n"}
+,{"stream_name":"stdout","time":0.976469813,"data":"        card_vocab_v1.json\n"}
+,{"stream_name":"stdout","time":0.976473213,"data":"        export_student.py\n"}
+,{"stream_name":"stdout","time":0.976477273,"data":"        mlops_registry.py\n"}
+,{"stream_name":"stdout","time":0.976500004,"data":"        model_v2.py\n"}
+,{"stream_name":"stdout","time":0.976503621,"data":"        train_bc.py\n"}
+,{"stream_name":"stdout","time":0.976508783,"data":"        train_v2.py\n"}
+,{"stream_name":"stdout","time":0.977668784,"data":"        inference/\n"}
+,{"stream_name":"stdout","time":0.978790598,"data":"          dataset/\n"}
+,{"stream_name":"stdout","time":0.97988699,"data":"            splits/\n"}
+,{"stream_name":"stdout","time":0.979899653,"data":"              episode_splits.jsonl\n"}
+,{"stream_name":"stdout","time":0.979903862,"data":"              rolling_canary.json\n"}
+,{"stream_name":"stdout","time":0.981124036,"data":"      ptcg-tensors/\n"}
+,{"stream_name":"stdout","time":0.98113697,"data":"        episode_ids.npy\n"}
+,{"stream_name":"stdout","time":0.981139586,"data":"        labels.npy\n"}
+,{"stream_name":"stdout","time":0.981142083,"data":"        masks.npy\n"}
+,{"stream_name":"stdout","time":0.981144388,"data":"        meta.json\n"}
+,{"stream_name":"stdout","time":0.981146678,"data":"        meta.npy\n"}
+,{"stream_name":"stdout","time":0.981149044,"data":"        opts_u8.npy\n"}
+,{"stream_name":"stdout","time":0.981151313,"data":"        scalars.npy\n"}
+,{"stream_name":"stdout","time":0.981153651,"data":"        states_u8.npy\n"}
+,{"stream_name":"stderr","time":0.981412906,"data":"missing tensors: 请对照上方目录树排查。Kaggle 会把上传的 .tar.gz 自动解包成平铺文件，脚本已兼容两种情况（解包目录 / tar.gz 原样）。\n"}
+,{"stream_name":"stderr","time":3.363704066,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":3.363754721,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":3.676189662,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":3.676238837,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":5.060925263,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":6.319074859,"data":"[NbConvertApp] Writing 318092 bytes to __results__.html\n"}
+]

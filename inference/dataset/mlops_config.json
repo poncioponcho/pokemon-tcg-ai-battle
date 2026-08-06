@@ -1,0 +1,27 @@
+{
+  "split": {
+    "fixed_test_fraction": 0.1,
+    "canary_episodes": 100
+  },
+  "thresholds": {
+    "growth_fraction": 0.1,
+    "minimum_new_episodes": 100,
+    "minimum_canary_episodes": 100,
+    "action_accuracy_drop": 0.05,
+    "psi": 0.2
+  },
+  "calibration": {
+    "minimum_windows": 5,
+    "quantile": 0.95,
+    "safety_multiplier": 1.25
+  },
+  "schedule": {
+    "early_poll_hours": 24,
+    "mid_poll_hours": 6,
+    "final_poll_hours": 1,
+    "early_retrain_cooldown_hours": 168,
+    "mid_retrain_cooldown_hours": 24,
+    "final_retrain_cooldown_hours": 6,
+    "final_days": 2
+  }
+}

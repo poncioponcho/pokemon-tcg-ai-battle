@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kaggle Notebook 策略分析报告</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --card: #1a1d27;
+    --border: #2a2d3a;
+    --text: #e4e4e7;
+    --dim: #9ca3af;
+    --green: #22c55e;
+    --green-bg: rgba(34,197,94,0.1);
+    --yellow: #eab308;
+    --yellow-bg: rgba(234,179,8,0.1);
+    --blue: #3b82f6;
+    --blue-bg: rgba(59,130,246,0.1);
+    --purple: #a855f7;
+    --purple-bg: rgba(168,85,247,0.1);
+    --red: #ef4444;
+    --red-bg: rgba(239,68,68,0.1);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  h1 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, var(--blue), var(--purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .subtitle { color: var(--dim); margin-bottom: 2rem; font-size: 0.9rem; }
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .stat {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem;
+    text-align: center;
+  }
+  .stat .v { font-size: 1.8rem; font-weight: 700; color: var(--green); }
+  .stat .l { font-size: 0.75rem; color: var(--dim); }
+  .nb-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.2rem;
+    border-left: 4px solid var(--blue);
+  }
+  .nb-card.highlight { border-left-color: var(--purple); }
+  .nb-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.8rem;
+  }
+  .nb-title { font-size: 1.05rem; font-weight: 600; }
+  .nb-meta { font-size: 0.78rem; color: var(--dim); }
+  .tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin: 0.5rem 0; }
+  .tag {
+    font-size: 0.7rem;
+    padding: 0.15rem 0.6rem;
+    border-radius: 12px;
+    font-weight: 500;
+  }
+  .tag-mcts { background: var(--blue-bg); color: var(--blue); }
+  .tag-ppo { background: var(--purple-bg); color: var(--purple); }
+  .tag-nn { background: var(--green-bg); color: var(--green); }
+  .tag-rule { background: var(--yellow-bg); color: var(--yellow); }
+  .tag-eda { background: rgba(236,72,153,0.1); color: #ec4899; }
+  .section { margin: 1rem 0; }
+  .section h4 {
+    font-size: 0.85rem;
+    color: var(--blue);
+    margin: 0.8rem 0 0.3rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .section p, .section li { font-size: 0.88rem; color: var(--dim); }
+  .section ul { padding-left: 1.2rem; }
+  .section li { margin: 0.25rem 0; }
+  .code-block {
+    background: #0d0f14;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.8rem 1rem;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 0.8rem;
+    color: #a5b4fc;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    margin: 0.5rem 0;
+  }
+  .comparison {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    font-size: 0.82rem;
+  }
+  .comparison th, .comparison td {
+    padding: 0.6rem 0.8rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .comparison th { color: var(--dim); font-weight: 500; background: var(--card); }
+  .comparison td:first-child { font-weight: 600; }
+  .prio {
+    display: inline-block;
+    padding: 0.1rem 0.5rem;
+    border-radius: 10px;
+    font-size: 0.7rem;
+    font-weight: 700;
+  }
+  .prio-p0 { background: var(--green-bg); color: var(--green); }
+  .prio-p1 { background: var(--yellow-bg); color: var(--yellow); }
+  .prio-p2 { background: rgba(236,72,153,0.1); color: #ec4899; }
+  .insight-box {
+    background: linear-gradient(135deg, rgba(168,85,247,0.08), rgba(59,130,246,0.08));
+    border: 1px solid rgba(168,85,247,0.3);
+    border-radius: 12px;
+    padding: 1.2rem 1.5rem;
+    margin: 1.5rem 0;
+  }
+  .insight-box h3 { color: var(--purple); margin-bottom: 0.5rem; }
+  .insight-box ol { padding-left: 1.3rem; }
+  .insight-box li { margin: 0.3rem 0; font-size: 0.9rem; }
+  .warn {
+    background: var(--red-bg);
+    border: 1px solid rgba(239,68,68,0.3);
+    border-radius: 8px;
+    padding: 0.8rem 1rem;
+    font-size: 0.85rem;
+    color: #fca5a5;
+    margin: 0.5rem 0;
+  }
+</style>
+</head>
+<body>
+
+<h1>Kaggle Notebook 策略分析报告</h1>
+<p class="subtitle">Pokémon TCG AI Battle Challenge — inference/ 文件夹 6 个高赞 Notebook 分析 | 2026-08-02</p>
+
+<div class="stats">
+  <div class="stat"><div class="v">6</div><div class="l">Notebook 数量</div></div>
+  <div class="stat"><div class="v">133</div><div class="l">总单元格数</div></div>
+  <div class="stat"><div class="v">4</div><div class="l">策略/算法类</div></div>
+  <div class="stat"><div class="v">2</div><div class="l">EDA/分析类</div></div>
+</div>
+
+<h2 style="font-size:1.3rem; margin-bottom:1rem;">📓 Notebook 概览</h2>
+
+<div class="nb-card highlight">
+  <div class="nb-head">
+    <span class="nb-title">[6] ptcg-strategy-mri-2-022-cards-to-60-decis-66517c.ipynb ⭐ 最高价值</span>
+    <span class="nb-meta">113.4KB | 31 cells | 修改 11:43</span>
+  </div>
+  <div class="tags">
+    <span class="tag tag-mcts">MCTS</span>
+    <span class="tag tag-nn">数学优化</span>
+    <span class="tag tag-rule">决策策略</span>
+  </div>
+  <div class="section">
+    <h4>核心论点</h4>
+    <p>"强卡组不是单卡强度排序，而是一个受约束的控制系统——其价值来自在隐藏信息（抽牌）下能够合法触发的可达行动序列。"</p>
+  </div>
+  <div class="section">
+    <h4>关键方法</h4>
+    <ul>
+      <li><strong>有界解析</strong>：伤害仅接受无条件整数，含 ×/+ 的标记为 uncertain，不强行转数值</li>
+      <li><strong>Pareto 前沿</strong>：用 scipy.optimize.milp 整数规划做 60 卡组约束优化（角色配额、复制上限、进化链）</li>
+      <li><strong>开局一致性</strong>：容斥原理精确计算 7 张手牌含基础宝可梦+能量的概率，蒙特卡洛只作交叉验证</li>
+      <li><strong>决策策略排序</strong>：<span class="code-block" style="display:inline;padding:0.1rem 0.4rem;">legal actions → forced actions → immediate wins → loss shields → value/progress → deterministic fallback</span></li>
+    </ul>
+  </div>
+  <div class="section">
+    <h4>可借鉴性</h4>
+    <ul>
+      <li>✅ <strong>决策门控策略</strong>：6 级优先级可直接复用到 Agent 的动作选择</li>
+      <li>✅ <strong>文件校验</strong>：绑定 CSV 的 SHA256 哈希防篡改（与我们的 protect_data.py 思路一致）</li>
+      <li>✅ <strong>卡组配额约束</strong>：MILP 优化比启发式组卡更严谨</li>
+      <li>⚠️ 60 卡组以教学场景为主，非最高分冲刺</li>
+    </ul>
+  </div>
+</div>
+
+<div class="nb-card">
+  <div class="nb-head">
+    <span class="nb-title">[1] an-lisis-estrat-gico-y-simulaci-n-de-montecarlo.ipynb</span>
+    <span class="nb-meta">142.1KB | 7 cells | 修改 12:02</span>
+  </div>
+  <div class="tags">
+    <span class="tag tag-mcts">MCTS</span>
+    <span class="tag tag-eda">数据清洗</span>
+  </div>
+  <div class="section">
+    <h4>内容</h4>
+    <ul>
+      <li>卡组战略分析与蒙特卡洛模拟工具（西班牙语）</li>
+      <li>能量类型映射表 {G}→草 {R}→炎，按 Card ID 去重</li>
+      <li><code>assign_role()</code> 按卡名映射战斗角色（主攻/辅助/能量）</li>
+      <li>60 卡标准卡组模拟，蒙特卡洛模拟起手数千次，绘制一致性曲线并输出最优组合</li>
+    </ul>
+  </div>
+  <div class="section">
+    <h4>可借鉴性</h4>
+    <ul>
+      <li>✅ 起手一致性模拟思路可用（但我们已有 MRI 的精确公式版）</li>
+      <li>✅ 卡牌角色分类函数可参考</li>
+      <li>⚠️ 蒙特卡洛纯随机，无剪枝，效率低</li>
+    </ul>
+  </div>
+</div>
+
+<div class="nb-card">
+  <div class="nb-head">
+    <span class="nb-title">[3] pok-mon-tcg-ai-battle-challenge-ppo-agent.ipynb</span>
+    <span class="nb-meta">50.7KB | 7 cells | 修改 11:44</span>
+  </div>
+  <div class="tags">
+    <span class="tag tag-ppo">PPO</span>
+    <span class="tag tag-nn">脚手架</span>
+  </div>
+  <div class="section">
+    <h4>内容</h4>
+    <p>明确标注"不是可直接提交的解法"，而是<strong>可复用的基础脚手架/数据层</strong>：</p>
+    <ul>
+      <li><code>CardMeta</code>：卡牌元数据 dataclass（HP、阶段、进化链、攻击成本、伤害）</li>
+      <li><code>PokemonInPlay</code> / <code>PlayerState</code>：场上状态与抽牌逻辑</li>
+      <li><code>ActionType(Enum)</code> / <code>Action</code>：动作空间定义</li>
+      <li>60 张火系/喷火龙卡组示例</li>
+      <li><strong>缺</strong>：PPO 训练循环、环境接口、策略网络</li>
+    </ul>
+  </div>
+  <div class="section">
+    <h4>可借鉴性</h4>
+    <ul>
+      <li>✅ <strong>数据层脚手架</strong>：卡牌解析、状态表示、动作空间定义可直接复用</li>
+      <li>⚠️ 无训练代码，需自建环境</li>
+    </ul>
+  </div>
+</div>
+
+<div class="nb-card">
+  <div class="nb-head">
+    <span class="nb-title">[5] pokemon-tcg-eda-deck-engine.ipynb</span>
+    <span class="nb-meta">348.6KB | 31 cells | 修改 11:48</span>
+  </div>
+  <div class="tags">
+    <span class="tag tag-eda">EDA</span>
+    <span class="tag tag-rule">组卡引擎</span>
+  </div>
+  <div class="section">
+    <h4>内容</h4>
+    <ul>
+      <li>系统化 EDA：卡牌去重（多招式多行 → 卡牌级属性）、HP 分布、撤退成本、弱点热力图</li>
+      <li>关键洞察：<strong>Dragon 系无弱点</strong>（免疫属性双倍伤害）；火/斗系最易被克制</li>
+      <li>DPE（Damage-per-Energy）分析：最高能量效率攻击排名</li>
+      <li><code>TCGDeckBuilder</code> 类：递归组卡引擎，验证 60 卡合法性（总数、复制上限、进化链、稀有卡规则）</li>
+    </ul>
+  </div>
+  <div class="section">
+    <h4>可借鉴性</h4>
+    <ul>
+      <li>✅ DPE 指标可作为卡牌价值评估维度</li>
+      <li>✅ 弱点热力图：对战前 Agent 可预判克制关系</li>
+      <li>✅ 组卡合法性验证逻辑（60 卡、4 复制上限、进化链完整性）</li>
+      <li>⚠️ 无 Agent 决策代码，仅分析层</li>
+    </ul>
+  </div>
+</div>
+
+<div class="nb-card">
+  <div class="nb-head">
+    <span class="nb-title">[2] kaggle-pok-mon.ipynb</span>
+    <span class="nb-meta">2001.8KB | 29 cells | 修改 11:56</span>
+  </div>
+  <div class="tags">
+    <span class="tag tag-eda">EDA</span>
+    <span class="tag tag-eda">可视化</span>
+  </div>
+  <div class="section">
+    <h4>内容</h4>
+    <ul>
+      <li>By Marília (mpwolke)，2025-07-01 发布，最大文件（2MB）</li>
+      <li>数据探索：wordcloud、plotly 交互图、sklearn</li>
+      <li>以"这是什么宝可梦？"趣味视角做卡池分析</li>
+    </ul>
+  </div>
+  <div class="section">
+    <h4>可借鉴性</h4>
+    <ul>
+      <li>✅ 可视化技巧（词云、交互图）适合做汇报材料</li>
+      <li>⚠️ 无策略/Agent 内容，参考价值低</li>
+    </ul>
+  </div>
+</div>
+
+<div class="nb-card">
+  <div class="nb-head">
+    <span class="nb-title">[4] pok-mon-tcg-ai-strategy-analysis.ipynb</span>
+    <span class="nb-meta">109.9KB | 28 cells | 修改 11:55</span>
+  </div>
+  <div class="tags">
+    <span class="tag tag-rule">策略分析</span>
+    <span class="tag tag-eda">数据探索</span>
+  </div>
+  <div class="section">
+    <h4>内容</h4>
+    <ul>
+      <li>配置与数据加载 → 卡牌数据库探索 → 卡组组成分析</li>
+      <li>使用 ast/pickle 序列化卡牌数据</li>
+      <li>策略分析框架（偏数据侧）</li>
+    </ul>
+  </div>
+  <div class="section">
+    <h4>可借鉴性</h4>
+    <ul>
+      <li>✅ 数据探索流程参考</li>
+      <li>⚠️ 无明确 Agent 决策方法</li>
+    </ul>
+  </div>
+</div>
+
+<h2 style="font-size:1.3rem; margin:2rem 0 1rem;">📊 策略对比矩阵</h2>
+
+<table class="comparison">
+  <tr>
+    <th>Notebook</th>
+    <th>类型</th>
+    <th>核心贡献</th>
+    <th>直接复用度</th>
+    <th>风险</th>
+  </tr>
+  <tr>
+    <td>ptcg-strategy-mri</td>
+    <td><span class="tag tag-mcts">数学优化</span></td>
+    <td>决策门控 + MILP 组卡 + 开局概率</td>
+    <td style="color:var(--green)">★★★ 高</td>
+    <td>教学场景，非冲刺方案</td>
+  </tr>
+  <tr>
+    <td>ppo-agent</td>
+    <td><span class="tag tag-ppo">PPO 脚手架</span></td>
+    <td>数据层/状态/动作空间定义</td>
+    <td style="color:var(--green)">★★★ 高</td>
+    <td>无训练循环，需自建</td>
+  </tr>
+  <tr>
+    <td>eda-deck-engine</td>
+    <td><span class="tag tag-eda">EDA+组卡</span></td>
+    <td>DPE 指标 + 弱点热力图 + 组卡校验</td>
+    <td style="color:var(--yellow)">★★ 中</td>
+    <td>仅分析层</td>
+  </tr>
+  <tr>
+    <td>montecarlo</td>
+    <td><span class="tag tag-mcts">MCTS</span></td>
+    <td>起手一致性模拟 + 角色分类</td>
+    <td style="color:var(--yellow)">★★ 中</td>
+    <td>纯随机效率低</td>
+  </tr>
+  <tr>
+    <td>kaggle-pok-mon</td>
+    <td><span class="tag tag-eda">EDA</span></td>
+    <td>可视化技巧</td>
+    <td style="color:var(--red)">★ 低</td>
+    <td>无策略内容</td>
+  </tr>
+  <tr>
+    <td>strategy-analysis</td>
+    <td><span class="tag tag-eda">数据探索</span></td>
+    <td>数据探索流程</td>
+    <td style="color:var(--red)">★ 低</td>
+    <td>无明确方法</td>
+  </tr>
+</table>
+
+<h2 style="font-size:1.3rem; margin:2rem 0 1rem;">🎯 推荐优先级</h2>
+
+<div class="insight-box">
+  <h3>对 Agent 开发的核心启示</h3>
+  <ol>
+    <li><span class="prio prio-p0">P0</span> <strong>决策门控策略</strong>（来自 MRI）：<span class="code-block" style="display:inline;padding:0.1rem 0.4rem;">legal → forced → immediate win → loss shield → value → fallback</span> 作为 Agent 动作选择主框架</li>
+    <li><span class="prio prio-p0">P0</span> <strong>有界伤害解析</strong>（来自 MRI）：只信任无条件整数伤害，×/+/- 格式交给规则引擎而非数值化——与我们 damage_parser.py 的设计一致</li>
+    <li><span class="prio prio-p1">P1</span> <strong>数据层脚手架</strong>（来自 PPO agent）：CardMeta/PokemonInPlay/Action 三个 dataclass 直接复用为 Agent 数据结构</li>
+    <li><span class="prio prio-p1">P1</span> <strong>DPE + 弱点热力图</strong>（来自 EDA Deck Engine）：卡牌价值评估与对战克制预判</li>
+    <li><span class="prio prio-p2">P2</span> <strong>MILP 组卡优化</strong>（来自 MRI）：卡组构筑阶段用整数规划替代启发式</li>
+  </ol>
+</div>
+
+<div class="warn">
+  ⚠️ <strong>注意</strong>：所有 Notebook 均为"分析/教学"性质，无官方 SDK 调用或可提交的完整 Agent。最高价值在于思路复用，而非代码直接套用。
+</div>
+
+</body>
+</html>

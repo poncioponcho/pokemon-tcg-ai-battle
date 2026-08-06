@@ -1,0 +1,30 @@
+,{"stream_name":"stdout","time":0.857674014,"data":"          CardImpl.h\n"}
+,{"stream_name":"stdout","time":0.857678428,"data":"          CardMove.h\n"}
+,{"stream_name":"stdout","time":0.857682784,"data":"          Core.h\n"}
+,{"stream_name":"stdout","time":0.857687089,"data":"          CreateCard.h\n"}
+,{"stream_name":"stdout","time":0.857691278,"data":"          EffectContinual.h\n"}
+,{"stream_name":"stdout","time":0.857695669,"data":"          EffectInstant.h\n"}
+,{"stream_name":"stdout","time":0.857700647,"data":"          EffectProc.h\n"}
+,{"stream_name":"stdout","time":0.857705141,"data":"          Export.cpp\n"}
+,{"stream_name":"stdout","time":0.857709451,"data":"          FixedList.h\n"}
+,{"stream_name":"stdout","time":0.857715386,"data":"          Framework.h\n"}
+,{"stream_name":"stdout","time":0.857719024,"data":"          Game.h\n"}
+,{"stream_name":"stdout","time":0.857723105,"data":"          GameFunction.h\n"}
+,{"stream_name":"stdout","time":0.857726937,"data":"          GameProc.h\n"}
+,{"stream_name":"stdout","time":0.857730709,"data":"          GameUtil.h\n"}
+,{"stream_name":"stdout","time":0.857734528,"data":"          InitializeCard.h\n"}
+,{"stream_name":"stdout","time":0.857737944,"data":"          JsonBuilder.h\n"}
+,{"stream_name":"stdout","time":0.857741218,"data":"          PlayerState.h\n"}
+,{"stream_name":"stdout","time":0.8577446,"data":"          PullTrigger.h\n"}
+,{"stream_name":"stdout","time":0.857747889,"data":"          README.md\n"}
+,{"stream_name":"stdout","time":0.857752027,"data":"          ...(14 more)\n"}
+,{"stream_name":"stdout","time":0.85843068,"data":"          LICENSES/\n"}
+,{"stream_name":"stdout","time":0.858437647,"data":"            LicenseRef-PTCG-ABC-Competition-Use-Only.txt\n"}
+,{"stream_name":"stderr","time":0.85849679,"data":"missing tensors: 请对照上方目录树排查。Kaggle 会把上传的 .tar.gz 自动解包成平铺文件，脚本已兼容两种情况（解包目录 / tar.gz 原样）。\n"}
+,{"stream_name":"stderr","time":3.284973414,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":3.284997616,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":3.60347222,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":3.60353791,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":4.892497768,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":6.111613211,"data":"[NbConvertApp] Writing 314191 bytes to __results__.html\n"}
+]

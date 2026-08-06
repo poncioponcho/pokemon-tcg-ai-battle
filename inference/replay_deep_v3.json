@@ -1,0 +1,4018 @@
+[
+  {
+    "name": "subm_rec1",
+    "rewards": [
+      -1,
+      1
+    ],
+    "win": false,
+    "total_steps": 227,
+    "deck": {
+      "5": 30,
+      "9": 2,
+      "77": 4,
+      "157": 4,
+      "331": 4,
+      "408": 4,
+      "528": 4,
+      "532": 4,
+      "554": 4
+    },
+    "deck_size": 60,
+    "decisions_count": 31,
+    "type_dist": {
+      "DECK": 4,
+      "MAIN": 14,
+      "ATTACK": 13
+    },
+    "ctx_dist": {
+      "DECK_SELECT": 1,
+      "CHOOSE_ACTIVE": 2,
+      "CHOOSE_BENCH": 2,
+      "TURN_END": 3,
+      "PLAY_CARD": 1,
+      "ATTACK_ACTION": 13,
+      "ATTACH_ENERGY": 9
+    },
+    "attacks": [
+      {
+        "step": 37,
+        "turn": 13,
+        "action": [
+          2
+        ],
+        "num_opts": 2,
+        "opts": [
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          }
+        ],
+        "my_card": 528,
+        "my_energy": 2,
+        "opp_card": 532,
+        "opp_hp": 40
+      },
+      {
+        "step": 38,
+        "turn": 13,
+        "action": [
+          1
+        ],
+        "num_opts": 1,
+        "opts": [
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          }
+        ],
+        "my_card": 528,
+        "my_energy": 1,
+        "opp_card": 532,
+        "opp_hp": 40
+      },
+      {
+        "step": 100,
+        "turn": 45,
+        "action": [
+          0
+        ],
+        "num_opts": 1,
+        "opts": [
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          }
+        ],
+        "my_card": 408,
+        "my_energy": 1,
+        "opp_card": 157,
+        "opp_hp": 80
+      },
+      {
+        "step": 110,
+        "turn": 49,
+        "action": [
+          0
+        ],
+        "num_opts": 2,
+        "opts": [
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          }
+        ],
+        "my_card": 408,
+        "my_energy": 2,
+        "opp_card": 157,
+        "opp_hp": 80
+      },
+      {
+        "step": 138,
+        "turn": 63,
+        "action": [
+          0
+        ],
+        "num_opts": 2,
+        "opts": [
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          }
+        ],
+        "my_card": 77,
+        "my_energy": 2,
+        "opp_card": 408,
+        "opp_hp": 70
+      },
+      {
+        "step": 139,
+        "turn": 63,
+        "action": [
+          0
+        ],
+        "num_opts": 1,
+        "opts": [
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          }
+        ],
+        "my_card": 77,
+        "my_energy": 1,
+        "opp_card": 408,
+        "opp_hp": 70
+      },
+      {
+        "step": 156,
+        "turn": 69,
+        "action": [
+          0
+        ],
+        "num_opts": 2,
+        "opts": [
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          }
+        ],
+        "my_card": 408,
+        "my_energy": 2,
+        "opp_card": 77,
+        "opp_hp": 70
+      },
+      {
+        "step": 167,
+        "turn": 71,
+        "action": [
+          0
+        ],
+        "num_opts": 1,
+        "opts": [
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          }
+        ],
+        "my_card": 408,
+        "my_energy": 1,
+        "opp_card": 408,
+        "opp_hp": 70
+      },
+      {
+        "step": 175,
+        "turn": 73,
+        "action": [
+          0
+        ],
+        "num_opts": 6,
+        "opts": [
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          }
+        ],
+        "my_card": 528,
+        "my_energy": 6,
+        "opp_card": 77,
+        "opp_hp": 70
+      },
+      {
+        "step": 176,
+        "turn": 73,
+        "action": [
+          4
+        ],
+        "num_opts": 5,
+        "opts": [
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          }
+        ],
+        "my_card": 528,
+        "my_energy": 5,
+        "opp_card": 77,
+        "opp_hp": 70
+      },
+      {
+        "step": 185,
+        "turn": 75,
+        "action": [
+          0
+        ],
+        "num_opts": 2,
+        "opts": [
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          }
+        ],
+        "my_card": 77,
+        "my_energy": 2,
+        "opp_card": 157,
+        "opp_hp": 80
+      },
+      {
+        "step": 186,
+        "turn": 75,
+        "action": [
+          0
+        ],
+        "num_opts": 1,
+        "opts": [
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          }
+        ],
+        "my_card": 77,
+        "my_energy": 1,
+        "opp_card": 157,
+        "opp_hp": 80
+      },
+      {
+        "step": 209,
+        "turn": 87,
+        "action": [
+          0
+        ],
+        "num_opts": 1,
+        "opts": [
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          }
+        ],
+        "my_card": 408,
+        "my_energy": 1,
+        "opp_card": 157,
+        "opp_hp": 80
+      }
+    ],
+    "energies": [
+      {
+        "step": 39,
+        "turn": 13,
+        "action": [
+          0
+        ],
+        "num_opts": 3,
+        "opts": [
+          {
+            "type": 3,
+            "area": 5,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 1,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 2,
+            "playerIndex": 0
+          }
+        ],
+        "my_active_energy": 0,
+        "my_active_card": 528,
+        "bench_cards": [
+          408,
+          528,
+          408
+        ]
+      },
+      {
+        "step": 101,
+        "turn": 45,
+        "action": [
+          0
+        ],
+        "num_opts": 5,
+        "opts": [
+          {
+            "type": 3,
+            "area": 5,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 1,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 2,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 3,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 4,
+            "playerIndex": 0
+          }
+        ],
+        "my_active_energy": 0,
+        "my_active_card": 408,
+        "bench_cards": [
+          408,
+          528,
+          528,
+          77,
+          77
+        ]
+      },
+      {
+        "step": 111,
+        "turn": 49,
+        "action": [
+          0
+        ],
+        "num_opts": 5,
+        "opts": [
+          {
+            "type": 3,
+            "area": 5,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 1,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 2,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 3,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 4,
+            "playerIndex": 0
+          }
+        ],
+        "my_active_energy": 1,
+        "my_active_card": 408,
+        "bench_cards": [
+          408,
+          528,
+          528,
+          77,
+          77
+        ]
+      },
+      {
+        "step": 140,
+        "turn": 63,
+        "action": [
+          0
+        ],
+        "num_opts": 5,
+        "opts": [
+          {
+            "type": 3,
+            "area": 5,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 1,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 2,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 3,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 4,
+            "playerIndex": 0
+          }
+        ],
+        "my_active_energy": 0,
+        "my_active_card": 77,
+        "bench_cards": [
+          408,
+          528,
+          528,
+          408,
+          77
+        ]
+      },
+      {
+        "step": 157,
+        "turn": 69,
+        "action": [
+          1
+        ],
+        "num_opts": 5,
+        "opts": [
+          {
+            "type": 3,
+            "area": 5,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 1,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 2,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 3,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 4,
+            "playerIndex": 0
+          }
+        ],
+        "my_active_energy": 1,
+        "my_active_card": 408,
+        "bench_cards": [
+          408,
+          528,
+          528,
+          77,
+          77
+        ]
+      },
+      {
+        "step": 168,
+        "turn": 71,
+        "action": [
+          0
+        ],
+        "num_opts": 5,
+        "opts": [
+          {
+            "type": 3,
+            "area": 5,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 1,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 2,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 3,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 4,
+            "playerIndex": 0
+          }
+        ],
+        "my_active_energy": 0,
+        "my_active_card": 408,
+        "bench_cards": [
+          408,
+          528,
+          528,
+          77,
+          77
+        ]
+      },
+      {
+        "step": 177,
+        "turn": 73,
+        "action": [
+          2
+        ],
+        "num_opts": 5,
+        "opts": [
+          {
+            "type": 3,
+            "area": 5,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 1,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 2,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 3,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 4,
+            "playerIndex": 0
+          }
+        ],
+        "my_active_energy": 4,
+        "my_active_card": 528,
+        "bench_cards": [
+          408,
+          408,
+          528,
+          77,
+          77
+        ]
+      },
+      {
+        "step": 187,
+        "turn": 75,
+        "action": [
+          0
+        ],
+        "num_opts": 5,
+        "opts": [
+          {
+            "type": 3,
+            "area": 5,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 1,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 2,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 3,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 4,
+            "playerIndex": 0
+          }
+        ],
+        "my_active_energy": 0,
+        "my_active_card": 77,
+        "bench_cards": [
+          408,
+          408,
+          528,
+          77,
+          528
+        ]
+      },
+      {
+        "step": 210,
+        "turn": 87,
+        "action": [
+          0
+        ],
+        "num_opts": 5,
+        "opts": [
+          {
+            "type": 3,
+            "area": 5,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 1,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 2,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 3,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 4,
+            "playerIndex": 0
+          }
+        ],
+        "my_active_energy": 0,
+        "my_active_card": 408,
+        "bench_cards": [
+          408,
+          77,
+          528,
+          77,
+          528
+        ]
+      }
+    ],
+    "plays": [
+      {
+        "step": 19,
+        "turn": 6,
+        "action": [],
+        "num_opts": 1,
+        "opts": [
+          {
+            "type": 3,
+            "area": 5,
+            "index": 0,
+            "playerIndex": 0
+          }
+        ],
+        "hand_size": 5
+      }
+    ],
+    "hp_timeline": [
+      {
+        "step": 12,
+        "turn": 3,
+        "my_card": 554,
+        "my_hp": 100,
+        "my_energy": 1,
+        "opp_card": 532,
+        "opp_hp": 40
+      },
+      {
+        "step": 13,
+        "turn": 3,
+        "my_card": 554,
+        "my_hp": 100,
+        "my_energy": 1,
+        "opp_card": 532,
+        "opp_hp": 40
+      },
+      {
+        "step": 14,
+        "turn": 3,
+        "my_card": 554,
+        "my_hp": 100,
+        "my_energy": 1,
+        "opp_card": 532,
+        "opp_hp": 40
+      },
+      {
+        "step": 19,
+        "turn": 6,
+        "my_card": null,
+        "my_hp": null,
+        "my_energy": 0,
+        "opp_card": 532,
+        "opp_hp": 40
+      },
+      {
+        "step": 37,
+        "turn": 13,
+        "my_card": 528,
+        "my_hp": 40,
+        "my_energy": 2,
+        "opp_card": 532,
+        "opp_hp": 40
+      },
+      {
+        "step": 38,
+        "turn": 13,
+        "my_card": 528,
+        "my_hp": 40,
+        "my_energy": 1,
+        "opp_card": 532,
+        "opp_hp": 40
+      },
+      {
+        "step": 39,
+        "turn": 13,
+        "my_card": 528,
+        "my_hp": 40,
+        "my_energy": 0,
+        "opp_card": 532,
+        "opp_hp": 40
+      },
+      {
+        "step": 100,
+        "turn": 45,
+        "my_card": 408,
+        "my_hp": 70,
+        "my_energy": 1,
+        "opp_card": 157,
+        "opp_hp": 80
+      },
+      {
+        "step": 101,
+        "turn": 45,
+        "my_card": 408,
+        "my_hp": 70,
+        "my_energy": 0,
+        "opp_card": 157,
+        "opp_hp": 80
+      },
+      {
+        "step": 110,
+        "turn": 49,
+        "my_card": 408,
+        "my_hp": 70,
+        "my_energy": 2,
+        "opp_card": 157,
+        "opp_hp": 80
+      },
+      {
+        "step": 111,
+        "turn": 49,
+        "my_card": 408,
+        "my_hp": 70,
+        "my_energy": 1,
+        "opp_card": 157,
+        "opp_hp": 80
+      },
+      {
+        "step": 138,
+        "turn": 63,
+        "my_card": 77,
+        "my_hp": 70,
+        "my_energy": 2,
+        "opp_card": 408,
+        "opp_hp": 70
+      },
+      {
+        "step": 139,
+        "turn": 63,
+        "my_card": 77,
+        "my_hp": 70,
+        "my_energy": 1,
+        "opp_card": 408,
+        "opp_hp": 70
+      },
+      {
+        "step": 140,
+        "turn": 63,
+        "my_card": 77,
+        "my_hp": 70,
+        "my_energy": 0,
+        "opp_card": 408,
+        "opp_hp": 70
+      },
+      {
+        "step": 156,
+        "turn": 69,
+        "my_card": 408,
+        "my_hp": 70,
+        "my_energy": 2,
+        "opp_card": 77,
+        "opp_hp": 70
+      },
+      {
+        "step": 157,
+        "turn": 69,
+        "my_card": 408,
+        "my_hp": 70,
+        "my_energy": 1,
+        "opp_card": 77,
+        "opp_hp": 70
+      },
+      {
+        "step": 167,
+        "turn": 71,
+        "my_card": 408,
+        "my_hp": 70,
+        "my_energy": 1,
+        "opp_card": 408,
+        "opp_hp": 70
+      },
+      {
+        "step": 168,
+        "turn": 71,
+        "my_card": 408,
+        "my_hp": 70,
+        "my_energy": 0,
+        "opp_card": 408,
+        "opp_hp": 70
+      },
+      {
+        "step": 175,
+        "turn": 73,
+        "my_card": 528,
+        "my_hp": 70,
+        "my_energy": 6,
+        "opp_card": 77,
+        "opp_hp": 70
+      },
+      {
+        "step": 176,
+        "turn": 73,
+        "my_card": 528,
+        "my_hp": 70,
+        "my_energy": 5,
+        "opp_card": 77,
+        "opp_hp": 70
+      },
+      {
+        "step": 177,
+        "turn": 73,
+        "my_card": 528,
+        "my_hp": 70,
+        "my_energy": 4,
+        "opp_card": 77,
+        "opp_hp": 70
+      },
+      {
+        "step": 185,
+        "turn": 75,
+        "my_card": 77,
+        "my_hp": 70,
+        "my_energy": 2,
+        "opp_card": 157,
+        "opp_hp": 80
+      },
+      {
+        "step": 186,
+        "turn": 75,
+        "my_card": 77,
+        "my_hp": 70,
+        "my_energy": 1,
+        "opp_card": 157,
+        "opp_hp": 80
+      },
+      {
+        "step": 187,
+        "turn": 75,
+        "my_card": 77,
+        "my_hp": 70,
+        "my_energy": 0,
+        "opp_card": 157,
+        "opp_hp": 80
+      },
+      {
+        "step": 209,
+        "turn": 87,
+        "my_card": 408,
+        "my_hp": 70,
+        "my_energy": 1,
+        "opp_card": 157,
+        "opp_hp": 80
+      },
+      {
+        "step": 210,
+        "turn": 87,
+        "my_card": 408,
+        "my_hp": 70,
+        "my_energy": 0,
+        "opp_card": 157,
+        "opp_hp": 80
+      }
+    ],
+    "prize_prog": [
+      {
+        "step": 1,
+        "turn": 0,
+        "my_prizes": 0,
+        "opp_prizes": 0,
+        "event": "我拿奖"
+      },
+      {
+        "step": 4,
+        "turn": 0,
+        "my_prizes": 6,
+        "opp_prizes": 6,
+        "event": "变化"
+      },
+      {
+        "step": 19,
+        "turn": 6,
+        "my_prizes": 6,
+        "opp_prizes": 5,
+        "event": "我拿奖"
+      }
+    ],
+    "misses": [],
+    "first_turn": 0,
+    "last_turn": 87
+  },
+  {
+    "name": "subm_rec2",
+    "rewards": [
+      -1,
+      1
+    ],
+    "win": false,
+    "total_steps": 132,
+    "deck": {
+      "5": 30,
+      "9": 2,
+      "77": 4,
+      "157": 4,
+      "331": 4,
+      "408": 4,
+      "528": 4,
+      "532": 4,
+      "554": 4
+    },
+    "deck_size": 60,
+    "decisions_count": 37,
+    "type_dist": {
+      "DECK": 1,
+      "MAIN": 21,
+      "ATTACK": 15
+    },
+    "ctx_dist": {
+      "DECK_SELECT": 1,
+      "CHOOSE_ACTIVE": 2,
+      "CHOOSE_BENCH": 2,
+      "ATTACK_ACTION": 15,
+      "ATTACH_ENERGY": 14,
+      "PLAY_CARD": 3
+    },
+    "attacks": [
+      {
+        "step": 9,
+        "turn": 1,
+        "action": [
+          0
+        ],
+        "num_opts": 1,
+        "opts": [
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          }
+        ],
+        "my_card": 331,
+        "my_energy": 1,
+        "opp_card": 331,
+        "opp_hp": 210
+      },
+      {
+        "step": 20,
+        "turn": 3,
+        "action": [
+          0
+        ],
+        "num_opts": 1,
+        "opts": [
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          }
+        ],
+        "my_card": 331,
+        "my_energy": 1,
+        "opp_card": 554,
+        "opp_hp": 100
+      },
+      {
+        "step": 26,
+        "turn": 5,
+        "action": [
+          0
+        ],
+        "num_opts": 1,
+        "opts": [
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          }
+        ],
+        "my_card": 331,
+        "my_energy": 1,
+        "opp_card": 554,
+        "opp_hp": 100
+      },
+      {
+        "step": 32,
+        "turn": 7,
+        "action": [
+          0
+        ],
+        "num_opts": 1,
+        "opts": [
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          }
+        ],
+        "my_card": 331,
+        "my_energy": 1,
+        "opp_card": 554,
+        "opp_hp": 100
+      },
+      {
+        "step": 38,
+        "turn": 9,
+        "action": [
+          0
+        ],
+        "num_opts": 1,
+        "opts": [
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          }
+        ],
+        "my_card": 331,
+        "my_energy": 1,
+        "opp_card": 554,
+        "opp_hp": 100
+      },
+      {
+        "step": 50,
+        "turn": 15,
+        "action": [
+          0
+        ],
+        "num_opts": 1,
+        "opts": [
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          }
+        ],
+        "my_card": 331,
+        "my_energy": 1,
+        "opp_card": 554,
+        "opp_hp": 100
+      },
+      {
+        "step": 56,
+        "turn": 17,
+        "action": [
+          0
+        ],
+        "num_opts": 1,
+        "opts": [
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          }
+        ],
+        "my_card": 331,
+        "my_energy": 1,
+        "opp_card": 554,
+        "opp_hp": 100
+      },
+      {
+        "step": 62,
+        "turn": 19,
+        "action": [
+          0
+        ],
+        "num_opts": 1,
+        "opts": [
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          }
+        ],
+        "my_card": 331,
+        "my_energy": 1,
+        "opp_card": 554,
+        "opp_hp": 100
+      },
+      {
+        "step": 68,
+        "turn": 21,
+        "action": [
+          0
+        ],
+        "num_opts": 1,
+        "opts": [
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          }
+        ],
+        "my_card": 331,
+        "my_energy": 1,
+        "opp_card": 554,
+        "opp_hp": 100
+      },
+      {
+        "step": 74,
+        "turn": 23,
+        "action": [
+          0
+        ],
+        "num_opts": 1,
+        "opts": [
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          }
+        ],
+        "my_card": 331,
+        "my_energy": 1,
+        "opp_card": 554,
+        "opp_hp": 100
+      },
+      {
+        "step": 82,
+        "turn": 27,
+        "action": [
+          0
+        ],
+        "num_opts": 1,
+        "opts": [
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          }
+        ],
+        "my_card": 331,
+        "my_energy": 1,
+        "opp_card": 554,
+        "opp_hp": 100
+      },
+      {
+        "step": 93,
+        "turn": 31,
+        "action": [
+          0
+        ],
+        "num_opts": 1,
+        "opts": [
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          }
+        ],
+        "my_card": 331,
+        "my_energy": 1,
+        "opp_card": 554,
+        "opp_hp": 100
+      },
+      {
+        "step": 102,
+        "turn": 35,
+        "action": [
+          0
+        ],
+        "num_opts": 2,
+        "opts": [
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          }
+        ],
+        "my_card": 528,
+        "my_energy": 2,
+        "opp_card": 554,
+        "opp_hp": 100
+      },
+      {
+        "step": 103,
+        "turn": 35,
+        "action": [
+          0
+        ],
+        "num_opts": 1,
+        "opts": [
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          }
+        ],
+        "my_card": 528,
+        "my_energy": 1,
+        "opp_card": 554,
+        "opp_hp": 100
+      },
+      {
+        "step": 111,
+        "turn": 39,
+        "action": [
+          0
+        ],
+        "num_opts": 1,
+        "opts": [
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          }
+        ],
+        "my_card": 331,
+        "my_energy": 1,
+        "opp_card": 554,
+        "opp_hp": 100
+      }
+    ],
+    "energies": [
+      {
+        "step": 10,
+        "turn": 1,
+        "action": [
+          0
+        ],
+        "num_opts": 4,
+        "opts": [
+          {
+            "type": 3,
+            "area": 5,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 1,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 2,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 3,
+            "playerIndex": 0
+          }
+        ],
+        "my_active_energy": 0,
+        "my_active_card": 331,
+        "bench_cards": [
+          331,
+          528,
+          157,
+          408
+        ]
+      },
+      {
+        "step": 21,
+        "turn": 3,
+        "action": [
+          0
+        ],
+        "num_opts": 5,
+        "opts": [
+          {
+            "type": 3,
+            "area": 5,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 1,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 2,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 3,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 4,
+            "playerIndex": 0
+          }
+        ],
+        "my_active_energy": 0,
+        "my_active_card": 331,
+        "bench_cards": [
+          331,
+          528,
+          157,
+          408,
+          554
+        ]
+      },
+      {
+        "step": 27,
+        "turn": 5,
+        "action": [
+          0
+        ],
+        "num_opts": 5,
+        "opts": [
+          {
+            "type": 3,
+            "area": 5,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 1,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 2,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 3,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 4,
+            "playerIndex": 0
+          }
+        ],
+        "my_active_energy": 0,
+        "my_active_card": 331,
+        "bench_cards": [
+          331,
+          528,
+          157,
+          408,
+          554
+        ]
+      },
+      {
+        "step": 33,
+        "turn": 7,
+        "action": [
+          0
+        ],
+        "num_opts": 5,
+        "opts": [
+          {
+            "type": 3,
+            "area": 5,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 1,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 2,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 3,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 4,
+            "playerIndex": 0
+          }
+        ],
+        "my_active_energy": 0,
+        "my_active_card": 331,
+        "bench_cards": [
+          331,
+          528,
+          157,
+          408,
+          554
+        ]
+      },
+      {
+        "step": 39,
+        "turn": 9,
+        "action": [
+          0
+        ],
+        "num_opts": 5,
+        "opts": [
+          {
+            "type": 3,
+            "area": 5,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 1,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 2,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 3,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 4,
+            "playerIndex": 0
+          }
+        ],
+        "my_active_energy": 0,
+        "my_active_card": 331,
+        "bench_cards": [
+          331,
+          528,
+          157,
+          408,
+          554
+        ]
+      },
+      {
+        "step": 51,
+        "turn": 15,
+        "action": [
+          0
+        ],
+        "num_opts": 5,
+        "opts": [
+          {
+            "type": 3,
+            "area": 5,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 1,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 2,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 3,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 4,
+            "playerIndex": 0
+          }
+        ],
+        "my_active_energy": 0,
+        "my_active_card": 331,
+        "bench_cards": [
+          331,
+          528,
+          157,
+          408,
+          554
+        ]
+      },
+      {
+        "step": 57,
+        "turn": 17,
+        "action": [
+          0
+        ],
+        "num_opts": 5,
+        "opts": [
+          {
+            "type": 3,
+            "area": 5,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 1,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 2,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 3,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 4,
+            "playerIndex": 0
+          }
+        ],
+        "my_active_energy": 0,
+        "my_active_card": 331,
+        "bench_cards": [
+          331,
+          528,
+          157,
+          408,
+          554
+        ]
+      },
+      {
+        "step": 63,
+        "turn": 19,
+        "action": [
+          0
+        ],
+        "num_opts": 5,
+        "opts": [
+          {
+            "type": 3,
+            "area": 5,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 1,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 2,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 3,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 4,
+            "playerIndex": 0
+          }
+        ],
+        "my_active_energy": 0,
+        "my_active_card": 331,
+        "bench_cards": [
+          331,
+          528,
+          157,
+          408,
+          554
+        ]
+      },
+      {
+        "step": 69,
+        "turn": 21,
+        "action": [
+          0
+        ],
+        "num_opts": 5,
+        "opts": [
+          {
+            "type": 3,
+            "area": 5,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 1,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 2,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 3,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 4,
+            "playerIndex": 0
+          }
+        ],
+        "my_active_energy": 0,
+        "my_active_card": 331,
+        "bench_cards": [
+          331,
+          528,
+          157,
+          408,
+          554
+        ]
+      },
+      {
+        "step": 75,
+        "turn": 23,
+        "action": [
+          0
+        ],
+        "num_opts": 5,
+        "opts": [
+          {
+            "type": 3,
+            "area": 5,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 1,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 2,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 3,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 4,
+            "playerIndex": 0
+          }
+        ],
+        "my_active_energy": 0,
+        "my_active_card": 331,
+        "bench_cards": [
+          331,
+          528,
+          157,
+          408,
+          554
+        ]
+      },
+      {
+        "step": 83,
+        "turn": 27,
+        "action": [
+          0
+        ],
+        "num_opts": 5,
+        "opts": [
+          {
+            "type": 3,
+            "area": 5,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 1,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 2,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 3,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 4,
+            "playerIndex": 0
+          }
+        ],
+        "my_active_energy": 0,
+        "my_active_card": 331,
+        "bench_cards": [
+          331,
+          528,
+          157,
+          408,
+          554
+        ]
+      },
+      {
+        "step": 94,
+        "turn": 31,
+        "action": [
+          0
+        ],
+        "num_opts": 5,
+        "opts": [
+          {
+            "type": 3,
+            "area": 5,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 1,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 2,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 3,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 4,
+            "playerIndex": 0
+          }
+        ],
+        "my_active_energy": 0,
+        "my_active_card": 331,
+        "bench_cards": [
+          528,
+          157,
+          408,
+          554,
+          528
+        ]
+      },
+      {
+        "step": 104,
+        "turn": 35,
+        "action": [
+          0
+        ],
+        "num_opts": 5,
+        "opts": [
+          {
+            "type": 3,
+            "area": 5,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 1,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 2,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 3,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 4,
+            "playerIndex": 0
+          }
+        ],
+        "my_active_energy": 0,
+        "my_active_card": 528,
+        "bench_cards": [
+          331,
+          157,
+          408,
+          554,
+          528
+        ]
+      },
+      {
+        "step": 112,
+        "turn": 39,
+        "action": [
+          0
+        ],
+        "num_opts": 5,
+        "opts": [
+          {
+            "type": 3,
+            "area": 5,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 1,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 2,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 3,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 4,
+            "playerIndex": 0
+          }
+        ],
+        "my_active_energy": 0,
+        "my_active_card": 331,
+        "bench_cards": [
+          528,
+          157,
+          408,
+          554,
+          528
+        ]
+      }
+    ],
+    "plays": [
+      {
+        "step": 89,
+        "turn": 30,
+        "action": [],
+        "num_opts": 5,
+        "opts": [
+          {
+            "type": 3,
+            "area": 5,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 1,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 2,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 3,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 4,
+            "playerIndex": 0
+          }
+        ],
+        "hand_size": 5
+      },
+      {
+        "step": 116,
+        "turn": 40,
+        "action": [],
+        "num_opts": 5,
+        "opts": [
+          {
+            "type": 3,
+            "area": 5,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 1,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 2,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 3,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 4,
+            "playerIndex": 0
+          }
+        ],
+        "hand_size": 5
+      },
+      {
+        "step": 121,
+        "turn": 42,
+        "action": [],
+        "num_opts": 5,
+        "opts": [
+          {
+            "type": 3,
+            "area": 5,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 1,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 2,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 3,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 4,
+            "playerIndex": 0
+          }
+        ],
+        "hand_size": 5
+      }
+    ],
+    "hp_timeline": [
+      {
+        "step": 9,
+        "turn": 1,
+        "my_card": 331,
+        "my_hp": 210,
+        "my_energy": 1,
+        "opp_card": 331,
+        "opp_hp": 210
+      },
+      {
+        "step": 10,
+        "turn": 1,
+        "my_card": 331,
+        "my_hp": 210,
+        "my_energy": 0,
+        "opp_card": 331,
+        "opp_hp": 210
+      },
+      {
+        "step": 20,
+        "turn": 3,
+        "my_card": 331,
+        "my_hp": 210,
+        "my_energy": 1,
+        "opp_card": 554,
+        "opp_hp": 100
+      },
+      {
+        "step": 21,
+        "turn": 3,
+        "my_card": 331,
+        "my_hp": 210,
+        "my_energy": 0,
+        "opp_card": 554,
+        "opp_hp": 100
+      },
+      {
+        "step": 26,
+        "turn": 5,
+        "my_card": 331,
+        "my_hp": 210,
+        "my_energy": 1,
+        "opp_card": 554,
+        "opp_hp": 100
+      },
+      {
+        "step": 27,
+        "turn": 5,
+        "my_card": 331,
+        "my_hp": 210,
+        "my_energy": 0,
+        "opp_card": 554,
+        "opp_hp": 100
+      },
+      {
+        "step": 32,
+        "turn": 7,
+        "my_card": 331,
+        "my_hp": 210,
+        "my_energy": 1,
+        "opp_card": 554,
+        "opp_hp": 100
+      },
+      {
+        "step": 33,
+        "turn": 7,
+        "my_card": 331,
+        "my_hp": 210,
+        "my_energy": 0,
+        "opp_card": 554,
+        "opp_hp": 100
+      },
+      {
+        "step": 38,
+        "turn": 9,
+        "my_card": 331,
+        "my_hp": 210,
+        "my_energy": 1,
+        "opp_card": 554,
+        "opp_hp": 100
+      },
+      {
+        "step": 39,
+        "turn": 9,
+        "my_card": 331,
+        "my_hp": 210,
+        "my_energy": 0,
+        "opp_card": 554,
+        "opp_hp": 100
+      },
+      {
+        "step": 50,
+        "turn": 15,
+        "my_card": 331,
+        "my_hp": 120,
+        "my_energy": 1,
+        "opp_card": 554,
+        "opp_hp": 100
+      },
+      {
+        "step": 51,
+        "turn": 15,
+        "my_card": 331,
+        "my_hp": 120,
+        "my_energy": 0,
+        "opp_card": 554,
+        "opp_hp": 100
+      },
+      {
+        "step": 56,
+        "turn": 17,
+        "my_card": 331,
+        "my_hp": 180,
+        "my_energy": 1,
+        "opp_card": 554,
+        "opp_hp": 100
+      },
+      {
+        "step": 57,
+        "turn": 17,
+        "my_card": 331,
+        "my_hp": 180,
+        "my_energy": 0,
+        "opp_card": 554,
+        "opp_hp": 100
+      },
+      {
+        "step": 62,
+        "turn": 19,
+        "my_card": 331,
+        "my_hp": 90,
+        "my_energy": 1,
+        "opp_card": 554,
+        "opp_hp": 100
+      },
+      {
+        "step": 63,
+        "turn": 19,
+        "my_card": 331,
+        "my_hp": 90,
+        "my_energy": 0,
+        "opp_card": 554,
+        "opp_hp": 100
+      },
+      {
+        "step": 68,
+        "turn": 21,
+        "my_card": 331,
+        "my_hp": 150,
+        "my_energy": 1,
+        "opp_card": 554,
+        "opp_hp": 100
+      },
+      {
+        "step": 69,
+        "turn": 21,
+        "my_card": 331,
+        "my_hp": 150,
+        "my_energy": 0,
+        "opp_card": 554,
+        "opp_hp": 100
+      },
+      {
+        "step": 74,
+        "turn": 23,
+        "my_card": 331,
+        "my_hp": 60,
+        "my_energy": 1,
+        "opp_card": 554,
+        "opp_hp": 100
+      },
+      {
+        "step": 75,
+        "turn": 23,
+        "my_card": 331,
+        "my_hp": 60,
+        "my_energy": 0,
+        "opp_card": 554,
+        "opp_hp": 100
+      },
+      {
+        "step": 82,
+        "turn": 27,
+        "my_card": 331,
+        "my_hp": 90,
+        "my_energy": 1,
+        "opp_card": 554,
+        "opp_hp": 100
+      },
+      {
+        "step": 83,
+        "turn": 27,
+        "my_card": 331,
+        "my_hp": 90,
+        "my_energy": 0,
+        "opp_card": 554,
+        "opp_hp": 100
+      },
+      {
+        "step": 89,
+        "turn": 30,
+        "my_card": null,
+        "my_hp": null,
+        "my_energy": 0,
+        "opp_card": 554,
+        "opp_hp": 100
+      },
+      {
+        "step": 93,
+        "turn": 31,
+        "my_card": 331,
+        "my_hp": 90,
+        "my_energy": 1,
+        "opp_card": 554,
+        "opp_hp": 100
+      },
+      {
+        "step": 94,
+        "turn": 31,
+        "my_card": 331,
+        "my_hp": 90,
+        "my_energy": 0,
+        "opp_card": 554,
+        "opp_hp": 100
+      },
+      {
+        "step": 102,
+        "turn": 35,
+        "my_card": 528,
+        "my_hp": 10,
+        "my_energy": 2,
+        "opp_card": 554,
+        "opp_hp": 100
+      },
+      {
+        "step": 103,
+        "turn": 35,
+        "my_card": 528,
+        "my_hp": 10,
+        "my_energy": 1,
+        "opp_card": 554,
+        "opp_hp": 100
+      },
+      {
+        "step": 104,
+        "turn": 35,
+        "my_card": 528,
+        "my_hp": 10,
+        "my_energy": 0,
+        "opp_card": 554,
+        "opp_hp": 100
+      },
+      {
+        "step": 111,
+        "turn": 39,
+        "my_card": 331,
+        "my_hp": 30,
+        "my_energy": 1,
+        "opp_card": 554,
+        "opp_hp": 100
+      },
+      {
+        "step": 112,
+        "turn": 39,
+        "my_card": 331,
+        "my_hp": 30,
+        "my_energy": 0,
+        "opp_card": 554,
+        "opp_hp": 100
+      },
+      {
+        "step": 116,
+        "turn": 40,
+        "my_card": null,
+        "my_hp": null,
+        "my_energy": 0,
+        "opp_card": 554,
+        "opp_hp": 100
+      },
+      {
+        "step": 121,
+        "turn": 42,
+        "my_card": null,
+        "my_hp": null,
+        "my_energy": 0,
+        "opp_card": 554,
+        "opp_hp": 100
+      }
+    ],
+    "prize_prog": [
+      {
+        "step": 1,
+        "turn": 0,
+        "my_prizes": 0,
+        "opp_prizes": 0,
+        "event": "我拿奖"
+      },
+      {
+        "step": 4,
+        "turn": 0,
+        "my_prizes": 6,
+        "opp_prizes": 6,
+        "event": "变化"
+      },
+      {
+        "step": 89,
+        "turn": 30,
+        "my_prizes": 6,
+        "opp_prizes": 4,
+        "event": "我拿奖"
+      },
+      {
+        "step": 116,
+        "turn": 40,
+        "my_prizes": 6,
+        "opp_prizes": 3,
+        "event": "我拿奖"
+      },
+      {
+        "step": 121,
+        "turn": 42,
+        "my_prizes": 6,
+        "opp_prizes": 1,
+        "event": "我拿奖"
+      }
+    ],
+    "misses": [],
+    "first_turn": 0,
+    "last_turn": 42
+  },
+  {
+    "name": "subm_rec3",
+    "rewards": [
+      -1,
+      1
+    ],
+    "win": false,
+    "total_steps": 162,
+    "deck": {
+      "5": 28,
+      "9": 4,
+      "77": 4,
+      "157": 4,
+      "331": 4,
+      "408": 4,
+      "528": 4,
+      "532": 4,
+      "554": 4
+    },
+    "deck_size": 60,
+    "decisions_count": 30,
+    "type_dist": {
+      "DECK": 4,
+      "MAIN": 21,
+      "ATTACK": 5
+    },
+    "ctx_dist": {
+      "DECK_SELECT": 1,
+      "CHOOSE_ACTIVE": 2,
+      "CHOOSE_BENCH": 2,
+      "TURN_END": 3,
+      "PLAY_CARD": 4,
+      "ATTACK_ACTION": 5,
+      "ATTACH_ENERGY": 3,
+      "ATTACK_SELECT": 10
+    },
+    "attacks": [
+      {
+        "step": 48,
+        "turn": 17,
+        "action": [
+          0
+        ],
+        "num_opts": 2,
+        "opts": [
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          }
+        ],
+        "my_card": 157,
+        "my_energy": 2,
+        "opp_card": 331,
+        "opp_hp": 150
+      },
+      {
+        "step": 49,
+        "turn": 17,
+        "action": [
+          0
+        ],
+        "num_opts": 1,
+        "opts": [
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          }
+        ],
+        "my_card": 157,
+        "my_energy": 1,
+        "opp_card": 331,
+        "opp_hp": 150
+      },
+      {
+        "step": 74,
+        "turn": 29,
+        "action": [
+          61
+        ],
+        "num_opts": 2,
+        "opts": [
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          }
+        ],
+        "my_card": 331,
+        "my_energy": 2,
+        "opp_card": 157,
+        "opp_hp": 80
+      },
+      {
+        "step": 82,
+        "turn": 31,
+        "action": [
+          0
+        ],
+        "num_opts": 2,
+        "opts": [
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          }
+        ],
+        "my_card": 157,
+        "my_energy": 2,
+        "opp_card": 157,
+        "opp_hp": 80
+      },
+      {
+        "step": 83,
+        "turn": 31,
+        "action": [
+          0
+        ],
+        "num_opts": 1,
+        "opts": [
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          }
+        ],
+        "my_card": 157,
+        "my_energy": 1,
+        "opp_card": 157,
+        "opp_hp": 80
+      }
+    ],
+    "energies": [
+      {
+        "step": 50,
+        "turn": 17,
+        "action": [
+          0
+        ],
+        "num_opts": 5,
+        "opts": [
+          {
+            "type": 3,
+            "area": 5,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 1,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 2,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 3,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 4,
+            "playerIndex": 0
+          }
+        ],
+        "my_active_energy": 0,
+        "my_active_card": 157,
+        "bench_cards": [
+          408,
+          77,
+          528,
+          331,
+          532
+        ]
+      },
+      {
+        "step": 75,
+        "turn": 29,
+        "action": [
+          0
+        ],
+        "num_opts": 5,
+        "opts": [
+          {
+            "type": 3,
+            "area": 5,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 1,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 2,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 3,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 4,
+            "playerIndex": 0
+          }
+        ],
+        "my_active_energy": 1,
+        "my_active_card": 331,
+        "bench_cards": [
+          408,
+          77,
+          528,
+          157,
+          532
+        ]
+      },
+      {
+        "step": 84,
+        "turn": 31,
+        "action": [
+          0
+        ],
+        "num_opts": 5,
+        "opts": [
+          {
+            "type": 3,
+            "area": 5,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 1,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 2,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 3,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 4,
+            "playerIndex": 0
+          }
+        ],
+        "my_active_energy": 0,
+        "my_active_card": 157,
+        "bench_cards": [
+          408,
+          77,
+          528,
+          331,
+          532
+        ]
+      }
+    ],
+    "plays": [
+      {
+        "step": 39,
+        "turn": 14,
+        "action": [],
+        "num_opts": 3,
+        "opts": [
+          {
+            "type": 3,
+            "area": 5,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 1,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 2,
+            "playerIndex": 0
+          }
+        ],
+        "hand_size": 11
+      },
+      {
+        "step": 89,
+        "turn": 32,
+        "action": [],
+        "num_opts": 5,
+        "opts": [
+          {
+            "type": 3,
+            "area": 5,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 1,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 2,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 3,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 4,
+            "playerIndex": 0
+          }
+        ],
+        "hand_size": 14
+      },
+      {
+        "step": 95,
+        "turn": 34,
+        "action": [],
+        "num_opts": 5,
+        "opts": [
+          {
+            "type": 3,
+            "area": 5,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 1,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 2,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 3,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 4,
+            "playerIndex": 0
+          }
+        ],
+        "hand_size": 13
+      },
+      {
+        "step": 102,
+        "turn": 38,
+        "action": [],
+        "num_opts": 4,
+        "opts": [
+          {
+            "type": 3,
+            "area": 5,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 1,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 2,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 3,
+            "playerIndex": 0
+          }
+        ],
+        "hand_size": 14
+      }
+    ],
+    "hp_timeline": [
+      {
+        "step": 12,
+        "turn": 3,
+        "my_card": 554,
+        "my_hp": 100,
+        "my_energy": 1,
+        "opp_card": 157,
+        "opp_hp": 50
+      },
+      {
+        "step": 13,
+        "turn": 3,
+        "my_card": 554,
+        "my_hp": 100,
+        "my_energy": 1,
+        "opp_card": 157,
+        "opp_hp": 50
+      },
+      {
+        "step": 14,
+        "turn": 3,
+        "my_card": 554,
+        "my_hp": 100,
+        "my_energy": 1,
+        "opp_card": 157,
+        "opp_hp": 50
+      },
+      {
+        "step": 39,
+        "turn": 14,
+        "my_card": null,
+        "my_hp": null,
+        "my_energy": 0,
+        "opp_card": 331,
+        "opp_hp": 150
+      },
+      {
+        "step": 48,
+        "turn": 17,
+        "my_card": 157,
+        "my_hp": 30,
+        "my_energy": 2,
+        "opp_card": 331,
+        "opp_hp": 150
+      },
+      {
+        "step": 49,
+        "turn": 17,
+        "my_card": 157,
+        "my_hp": 30,
+        "my_energy": 1,
+        "opp_card": 331,
+        "opp_hp": 150
+      },
+      {
+        "step": 50,
+        "turn": 17,
+        "my_card": 157,
+        "my_hp": 30,
+        "my_energy": 0,
+        "opp_card": 331,
+        "opp_hp": 150
+      },
+      {
+        "step": 62,
+        "turn": 25,
+        "my_card": 331,
+        "my_hp": 10,
+        "my_energy": 2,
+        "opp_card": null,
+        "opp_hp": null
+      },
+      {
+        "step": 63,
+        "turn": 25,
+        "my_card": 331,
+        "my_hp": 10,
+        "my_energy": 2,
+        "opp_card": null,
+        "opp_hp": null
+      },
+      {
+        "step": 64,
+        "turn": 25,
+        "my_card": 331,
+        "my_hp": 10,
+        "my_energy": 2,
+        "opp_card": null,
+        "opp_hp": null
+      },
+      {
+        "step": 65,
+        "turn": 25,
+        "my_card": 331,
+        "my_hp": 10,
+        "my_energy": 2,
+        "opp_card": null,
+        "opp_hp": null
+      },
+      {
+        "step": 66,
+        "turn": 25,
+        "my_card": 331,
+        "my_hp": 10,
+        "my_energy": 2,
+        "opp_card": null,
+        "opp_hp": null
+      },
+      {
+        "step": 68,
+        "turn": 27,
+        "my_card": 331,
+        "my_hp": 10,
+        "my_energy": 2,
+        "opp_card": null,
+        "opp_hp": null
+      },
+      {
+        "step": 69,
+        "turn": 27,
+        "my_card": 331,
+        "my_hp": 10,
+        "my_energy": 2,
+        "opp_card": null,
+        "opp_hp": null
+      },
+      {
+        "step": 70,
+        "turn": 27,
+        "my_card": 331,
+        "my_hp": 10,
+        "my_energy": 2,
+        "opp_card": null,
+        "opp_hp": null
+      },
+      {
+        "step": 71,
+        "turn": 27,
+        "my_card": 331,
+        "my_hp": 10,
+        "my_energy": 2,
+        "opp_card": null,
+        "opp_hp": null
+      },
+      {
+        "step": 72,
+        "turn": 27,
+        "my_card": 331,
+        "my_hp": 10,
+        "my_energy": 2,
+        "opp_card": null,
+        "opp_hp": null
+      },
+      {
+        "step": 74,
+        "turn": 29,
+        "my_card": 331,
+        "my_hp": 10,
+        "my_energy": 2,
+        "opp_card": 157,
+        "opp_hp": 80
+      },
+      {
+        "step": 75,
+        "turn": 29,
+        "my_card": 331,
+        "my_hp": 10,
+        "my_energy": 1,
+        "opp_card": 157,
+        "opp_hp": 80
+      },
+      {
+        "step": 82,
+        "turn": 31,
+        "my_card": 157,
+        "my_hp": 30,
+        "my_energy": 2,
+        "opp_card": 157,
+        "opp_hp": 80
+      },
+      {
+        "step": 83,
+        "turn": 31,
+        "my_card": 157,
+        "my_hp": 30,
+        "my_energy": 1,
+        "opp_card": 157,
+        "opp_hp": 80
+      },
+      {
+        "step": 84,
+        "turn": 31,
+        "my_card": 157,
+        "my_hp": 30,
+        "my_energy": 0,
+        "opp_card": 157,
+        "opp_hp": 80
+      },
+      {
+        "step": 89,
+        "turn": 32,
+        "my_card": null,
+        "my_hp": null,
+        "my_energy": 0,
+        "opp_card": 157,
+        "opp_hp": 80
+      },
+      {
+        "step": 95,
+        "turn": 34,
+        "my_card": null,
+        "my_hp": null,
+        "my_energy": 0,
+        "opp_card": 157,
+        "opp_hp": 80
+      },
+      {
+        "step": 102,
+        "turn": 38,
+        "my_card": null,
+        "my_hp": null,
+        "my_energy": 0,
+        "opp_card": 157,
+        "opp_hp": 20
+      }
+    ],
+    "prize_prog": [
+      {
+        "step": 1,
+        "turn": 0,
+        "my_prizes": 0,
+        "opp_prizes": 0,
+        "event": "我拿奖"
+      },
+      {
+        "step": 4,
+        "turn": 0,
+        "my_prizes": 6,
+        "opp_prizes": 6,
+        "event": "变化"
+      },
+      {
+        "step": 39,
+        "turn": 14,
+        "my_prizes": 6,
+        "opp_prizes": 5,
+        "event": "我拿奖"
+      },
+      {
+        "step": 68,
+        "turn": 27,
+        "my_prizes": 4,
+        "opp_prizes": 5,
+        "event": "对手拿奖"
+      },
+      {
+        "step": 74,
+        "turn": 29,
+        "my_prizes": 3,
+        "opp_prizes": 5,
+        "event": "对手拿奖"
+      },
+      {
+        "step": 89,
+        "turn": 32,
+        "my_prizes": 3,
+        "opp_prizes": 3,
+        "event": "我拿奖"
+      },
+      {
+        "step": 95,
+        "turn": 34,
+        "my_prizes": 3,
+        "opp_prizes": 2,
+        "event": "我拿奖"
+      },
+      {
+        "step": 102,
+        "turn": 38,
+        "my_prizes": 3,
+        "opp_prizes": 1,
+        "event": "我拿奖"
+      }
+    ],
+    "misses": [],
+    "first_turn": 0,
+    "last_turn": 38
+  },
+  {
+    "name": "subm_rec4",
+    "rewards": [
+      -1,
+      1
+    ],
+    "win": false,
+    "total_steps": 86,
+    "deck": {
+      "5": 28,
+      "9": 4,
+      "77": 4,
+      "157": 4,
+      "331": 4,
+      "408": 4,
+      "528": 4,
+      "532": 4,
+      "554": 4
+    },
+    "deck_size": 60,
+    "decisions_count": 24,
+    "type_dist": {
+      "DECK": 1,
+      "MAIN": 19,
+      "ATTACK": 4
+    },
+    "ctx_dist": {
+      "DECK_SELECT": 1,
+      "CHOOSE_ACTIVE": 2,
+      "CHOOSE_BENCH": 2,
+      "PLAY_CARD": 5,
+      "ATTACK_ACTION": 4,
+      "ATTACH_ENERGY": 2,
+      "ATTACK_SELECT": 8
+    },
+    "attacks": [
+      {
+        "step": 37,
+        "turn": 13,
+        "action": [
+          0
+        ],
+        "num_opts": 2,
+        "opts": [
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          }
+        ],
+        "my_card": 157,
+        "my_energy": 2,
+        "opp_card": 157,
+        "opp_hp": 40
+      },
+      {
+        "step": 38,
+        "turn": 13,
+        "action": [
+          0
+        ],
+        "num_opts": 1,
+        "opts": [
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          }
+        ],
+        "my_card": 157,
+        "my_energy": 1,
+        "opp_card": 157,
+        "opp_hp": 40
+      },
+      {
+        "step": 66,
+        "turn": 21,
+        "action": [
+          0
+        ],
+        "num_opts": 2,
+        "opts": [
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          }
+        ],
+        "my_card": 157,
+        "my_energy": 2,
+        "opp_card": 157,
+        "opp_hp": 40
+      },
+      {
+        "step": 67,
+        "turn": 21,
+        "action": [
+          0
+        ],
+        "num_opts": 1,
+        "opts": [
+          {
+            "type": 6,
+            "area": 4,
+            "index": 0,
+            "playerIndex": 0
+          }
+        ],
+        "my_card": 157,
+        "my_energy": 1,
+        "opp_card": 157,
+        "opp_hp": 40
+      }
+    ],
+    "energies": [
+      {
+        "step": 39,
+        "turn": 13,
+        "action": [
+          0
+        ],
+        "num_opts": 3,
+        "opts": [
+          {
+            "type": 3,
+            "area": 5,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 1,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 2,
+            "playerIndex": 0
+          }
+        ],
+        "my_active_energy": 0,
+        "my_active_card": 157,
+        "bench_cards": [
+          528,
+          528,
+          532
+        ]
+      },
+      {
+        "step": 68,
+        "turn": 21,
+        "action": [
+          0
+        ],
+        "num_opts": 4,
+        "opts": [
+          {
+            "type": 3,
+            "area": 5,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 1,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 2,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 3,
+            "playerIndex": 0
+          }
+        ],
+        "my_active_energy": 0,
+        "my_active_card": 157,
+        "bench_cards": [
+          528,
+          528,
+          532,
+          408
+        ]
+      }
+    ],
+    "plays": [
+      {
+        "step": 20,
+        "turn": 6,
+        "action": [],
+        "num_opts": 2,
+        "opts": [
+          {
+            "type": 3,
+            "area": 5,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 1,
+            "playerIndex": 0
+          }
+        ],
+        "hand_size": 4
+      },
+      {
+        "step": 30,
+        "turn": 10,
+        "action": [],
+        "num_opts": 3,
+        "opts": [
+          {
+            "type": 3,
+            "area": 5,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 1,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 2,
+            "playerIndex": 0
+          }
+        ],
+        "hand_size": 2
+      },
+      {
+        "step": 63,
+        "turn": 20,
+        "action": [],
+        "num_opts": 5,
+        "opts": [
+          {
+            "type": 3,
+            "area": 5,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 1,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 2,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 3,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 4,
+            "playerIndex": 0
+          }
+        ],
+        "hand_size": 0
+      },
+      {
+        "step": 75,
+        "turn": 24,
+        "action": [],
+        "num_opts": 5,
+        "opts": [
+          {
+            "type": 3,
+            "area": 5,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 1,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 2,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 3,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 4,
+            "playerIndex": 0
+          }
+        ],
+        "hand_size": 0
+      },
+      {
+        "step": 80,
+        "turn": 26,
+        "action": [],
+        "num_opts": 4,
+        "opts": [
+          {
+            "type": 3,
+            "area": 5,
+            "index": 0,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 1,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 2,
+            "playerIndex": 0
+          },
+          {
+            "type": 3,
+            "area": 5,
+            "index": 3,
+            "playerIndex": 0
+          }
+        ],
+        "hand_size": 0
+      }
+    ],
+    "hp_timeline": [
+      {
+        "step": 20,
+        "turn": 6,
+        "my_card": null,
+        "my_hp": null,
+        "my_energy": 0,
+        "opp_card": 157,
+        "opp_hp": 80
+      },
+      {
+        "step": 30,
+        "turn": 10,
+        "my_card": null,
+        "my_hp": null,
+        "my_energy": 0,
+        "opp_card": 157,
+        "opp_hp": 40
+      },
+      {
+        "step": 37,
+        "turn": 13,
+        "my_card": 157,
+        "my_hp": 20,
+        "my_energy": 2,
+        "opp_card": 157,
+        "opp_hp": 40
+      },
+      {
+        "step": 38,
+        "turn": 13,
+        "my_card": 157,
+        "my_hp": 20,
+        "my_energy": 1,
+        "opp_card": 157,
+        "opp_hp": 40
+      },
+      {
+        "step": 39,
+        "turn": 13,
+        "my_card": 157,
+        "my_hp": 20,
+        "my_energy": 0,
+        "opp_card": 157,
+        "opp_hp": 40
+      },
+      {
+        "step": 45,
+        "turn": 15,
+        "my_card": 532,
+        "my_hp": 10,
+        "my_energy": 1,
+        "opp_card": null,
+        "opp_hp": null
+      },
+      {
+        "step": 46,
+        "turn": 15,
+        "my_card": 532,
+        "my_hp": 10,
+        "my_energy": 1,
+        "opp_card": null,
+        "opp_hp": null
+      },
+      {
+        "step": 47,
+        "turn": 15,
+        "my_card": 532,
+        "my_hp": 10,
+        "my_energy": 1,
+        "opp_card": null,
+        "opp_hp": null
+      },
+      {
+        "step": 48,
+        "turn": 15,
+        "my_card": 532,
+        "my_hp": 10,
+        "my_energy": 1,
+        "opp_card": null,
+        "opp_hp": null
+      },
+      {
+        "step": 49,
+        "turn": 15,
+        "my_card": 532,
+        "my_hp": 10,
+        "my_energy": 1,
+        "opp_card": null,
+        "opp_hp": null
+      },
+      {
+        "step": 50,
+        "turn": 15,
+        "my_card": 532,
+        "my_hp": 10,
+        "my_energy": 1,
+        "opp_card": null,
+        "opp_hp": null
+      },
+      {
+        "step": 51,
+        "turn": 15,
+        "my_card": 532,
+        "my_hp": 10,
+        "my_energy": 1,
+        "opp_card": null,
+        "opp_hp": null
+      },
+      {
+        "step": 52,
+        "turn": 15,
+        "my_card": 532,
+        "my_hp": 10,
+        "my_energy": 1,
+        "opp_card": null,
+        "opp_hp": null
+      },
+      {
+        "step": 63,
+        "turn": 20,
+        "my_card": null,
+        "my_hp": null,
+        "my_energy": 0,
+        "opp_card": 157,
+        "opp_hp": 40
+      },
+      {
+        "step": 66,
+        "turn": 21,
+        "my_card": 157,
+        "my_hp": 20,
+        "my_energy": 2,
+        "opp_card": 157,
+        "opp_hp": 40
+      },
+      {
+        "step": 67,
+        "turn": 21,
+        "my_card": 157,
+        "my_hp": 20,
+        "my_energy": 1,
+        "opp_card": 157,
+        "opp_hp": 40
+      },
+      {
+        "step": 68,
+        "turn": 21,
+        "my_card": 157,
+        "my_hp": 20,
+        "my_energy": 0,
+        "opp_card": 157,
+        "opp_hp": 40
+      },
+      {
+        "step": 75,
+        "turn": 24,
+        "my_card": null,
+        "my_hp": null,
+        "my_energy": 0,
+        "opp_card": 157,
+        "opp_hp": 40
+      },
+      {
+        "step": 80,
+        "turn": 26,
+        "my_card": null,
+        "my_hp": null,
+        "my_energy": 0,
+        "opp_card": 157,
+        "opp_hp": 40
+      }
+    ],
+    "prize_prog": [
+      {
+        "step": 1,
+        "turn": 0,
+        "my_prizes": 0,
+        "opp_prizes": 0,
+        "event": "我拿奖"
+      },
+      {
+        "step": 4,
+        "turn": 0,
+        "my_prizes": 6,
+        "opp_prizes": 6,
+        "event": "变化"
+      },
+      {
+        "step": 20,
+        "turn": 6,
+        "my_prizes": 6,
+        "opp_prizes": 5,
+        "event": "我拿奖"
+      },
+      {
+        "step": 30,
+        "turn": 10,
+        "my_prizes": 6,
+        "opp_prizes": 4,
+        "event": "我拿奖"
+      },
+      {
+        "step": 63,
+        "turn": 20,
+        "my_prizes": 5,
+        "opp_prizes": 3,
+        "event": "我拿奖"
+      },
+      {
+        "step": 75,
+        "turn": 24,
+        "my_prizes": 5,
+        "opp_prizes": 2,
+        "event": "我拿奖"
+      },
+      {
+        "step": 80,
+        "turn": 26,
+        "my_prizes": 5,
+        "opp_prizes": 1,
+        "event": "我拿奖"
+      }
+    ],
+    "misses": [],
+    "first_turn": 0,
+    "last_turn": 26
+  },
+  {
+    "name": "subm_rec5",
+    "rewards": [
+      1,
+      -1
+    ],
+    "win": true,
+    "total_steps": 23,
+    "deck": {
+      "5": 40,
+      "9": 4,
+      "111": 4,
+      "223": 4,
+      "331": 4,
+      "554": 4
+    },
+    "deck_size": 60,
+    "decisions_count": 11,
+    "type_dist": {
+      "DECK": 1,
+      "MAIN": 10
+    },
+    "ctx_dist": {
+      "DECK_SELECT": 1,
+      "CHOOSE_ACTIVE": 3,
+      "ATTACK_SELECT": 7
+    },
+    "attacks": [],
+    "energies": [],
+    "plays": [],
+    "hp_timeline": [
+      {
+        "step": 15,
+        "turn": 5,
+        "my_card": 331,
+        "my_hp": 160,
+        "my_energy": 3,
+        "opp_card": null,
+        "opp_hp": null
+      },
+      {
+        "step": 16,
+        "turn": 5,
+        "my_card": 331,
+        "my_hp": 160,
+        "my_energy": 3,
+        "opp_card": null,
+        "opp_hp": null
+      },
+      {
+        "step": 17,
+        "turn": 5,
+        "my_card": 331,
+        "my_hp": 160,
+        "my_energy": 3,
+        "opp_card": null,
+        "opp_hp": null
+      },
+      {
+        "step": 18,
+        "turn": 5,
+        "my_card": 331,
+        "my_hp": 160,
+        "my_energy": 3,
+        "opp_card": null,
+        "opp_hp": null
+      },
+      {
+        "step": 19,
+        "turn": 5,
+        "my_card": 331,
+        "my_hp": 160,
+        "my_energy": 3,
+        "opp_card": null,
+        "opp_hp": null
+      },
+      {
+        "step": 21,
+        "turn": 7,
+        "my_card": 331,
+        "my_hp": 130,
+        "my_energy": 3,
+        "opp_card": null,
+        "opp_hp": null
+      },
+      {
+        "step": 22,
+        "turn": 7,
+        "my_card": 331,
+        "my_hp": 130,
+        "my_energy": 3,
+        "opp_card": null,
+        "opp_hp": null
+      }
+    ],
+    "prize_prog": [
+      {
+        "step": 1,
+        "turn": 0,
+        "my_prizes": 0,
+        "opp_prizes": 0,
+        "event": "我拿奖"
+      },
+      {
+        "step": 15,
+        "turn": 5,
+        "my_prizes": 6,
+        "opp_prizes": 6,
+        "event": "变化"
+      },
+      {
+        "step": 21,
+        "turn": 7,
+        "my_prizes": 4,
+        "opp_prizes": 6,
+        "event": "对手拿奖"
+      }
+    ],
+    "misses": [],
+    "first_turn": 0,
+    "last_turn": 7
+  }
+]

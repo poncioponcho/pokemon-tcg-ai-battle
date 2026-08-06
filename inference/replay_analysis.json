@@ -1,0 +1,692 @@
+[
+  {
+    "name": "subm_rec1",
+    "basic": {
+      "rewards": [
+        -1,
+        1
+      ],
+      "statuses": [
+        "DONE",
+        "DONE"
+      ],
+      "agents": [
+        {
+          "Name": "Daniel1547",
+          "ThumbnailUrl": null
+        },
+        {
+          "Name": "Daniel1547",
+          "ThumbnailUrl": null
+        }
+      ],
+      "episode_id": 89487710,
+      "num_steps": 227
+    },
+    "total_steps": 227,
+    "a0_decisions": {
+      "9": 4,
+      "1": 14,
+      "4": 13
+    },
+    "a1_decisions": {
+      "1": 16,
+      "4": 12
+    },
+    "a0_contexts": {
+      "41": 1,
+      "1": 2,
+      "2": 2,
+      "0": 195,
+      "43": 3,
+      "4": 1,
+      "30": 13,
+      "3": 9
+    },
+    "a1_contexts": {
+      "1": 2,
+      "2": 3,
+      "0": 196,
+      "7": 4,
+      "30": 12,
+      "3": 7
+    },
+    "key_decisions": [],
+    "a0_errors": [],
+    "a1_errors": [],
+    "final_state": {
+      "agent0": {
+        "turn": null,
+        "my_active_hp": null,
+        "my_prizes": null,
+        "opp_prizes": null,
+        "my_bench": null,
+        "my_hand": null
+      },
+      "agent1": {
+        "turn": null,
+        "my_active_hp": null,
+        "my_prizes": null,
+        "opp_prizes": null,
+        "my_bench": null,
+        "my_hand": null
+      }
+    }
+  },
+  {
+    "name": "subm_rec2",
+    "basic": {
+      "rewards": [
+        -1,
+        1
+      ],
+      "statuses": [
+        "DONE",
+        "DONE"
+      ],
+      "agents": [
+        {
+          "Name": "Daniel1547",
+          "ThumbnailUrl": null
+        },
+        {
+          "Name": "Daniel1547",
+          "ThumbnailUrl": null
+        }
+      ],
+      "episode_id": 89489896,
+      "num_steps": 132
+    },
+    "total_steps": 132,
+    "a0_decisions": {
+      "9": 1,
+      "1": 21,
+      "4": 15
+    },
+    "a1_decisions": {
+      "1": 28,
+      "4": 1,
+      "9": 2
+    },
+    "a0_contexts": {
+      "41": 1,
+      "1": 2,
+      "2": 2,
+      "0": 94,
+      "30": 15,
+      "3": 14,
+      "4": 3
+    },
+    "a1_contexts": {
+      "1": 2,
+      "2": 7,
+      "0": 98,
+      "30": 1,
+      "3": 1,
+      "43": 2,
+      "7": 18
+    },
+    "key_decisions": [],
+    "a0_errors": [],
+    "a1_errors": [],
+    "final_state": {
+      "agent0": {
+        "turn": null,
+        "my_active_hp": null,
+        "my_prizes": null,
+        "opp_prizes": null,
+        "my_bench": null,
+        "my_hand": null
+      },
+      "agent1": {
+        "turn": null,
+        "my_active_hp": null,
+        "my_prizes": null,
+        "opp_prizes": null,
+        "my_bench": null,
+        "my_hand": null
+      }
+    }
+  },
+  {
+    "name": "subm_rec3",
+    "basic": {
+      "rewards": [
+        -1,
+        1
+      ],
+      "statuses": [
+        "DONE",
+        "DONE"
+      ],
+      "agents": [
+        {
+          "Name": "Daniel1547",
+          "ThumbnailUrl": null
+        },
+        {
+          "Name": "Daniel1547",
+          "ThumbnailUrl": null
+        }
+      ],
+      "episode_id": 89502928,
+      "num_steps": 162
+    },
+    "total_steps": 162,
+    "a0_decisions": {
+      "9": 4,
+      "1": 21,
+      "4": 5
+    },
+    "a1_decisions": {
+      "1": 31,
+      "4": 6
+    },
+    "a0_contexts": {
+      "41": 1,
+      "1": 2,
+      "2": 2,
+      "0": 131,
+      "43": 3,
+      "4": 4,
+      "30": 5,
+      "3": 3,
+      "7": 10
+    },
+    "a1_contexts": {
+      "1": 2,
+      "2": 4,
+      "0": 122,
+      "30": 6,
+      "3": 3,
+      "7": 20,
+      "4": 2
+    },
+    "key_decisions": [
+      {
+        "step": 62,
+        "agent": 0,
+        "type": 1,
+        "context": 7,
+        "action": [
+          48
+        ],
+        "num_options": 6,
+        "turn": null,
+        "my_active_hp": null,
+        "opp_active_hp": null,
+        "my_energy": null
+      },
+      {
+        "step": 63,
+        "agent": 0,
+        "type": 1,
+        "context": 7,
+        "action": [
+          0,
+          1
+        ],
+        "num_options": 6,
+        "turn": null,
+        "my_active_hp": null,
+        "opp_active_hp": null,
+        "my_energy": null
+      },
+      {
+        "step": 64,
+        "agent": 0,
+        "type": 1,
+        "context": 7,
+        "action": [],
+        "num_options": 6,
+        "turn": null,
+        "my_active_hp": null,
+        "opp_active_hp": null,
+        "my_energy": null
+      },
+      {
+        "step": 65,
+        "agent": 0,
+        "type": 1,
+        "context": 7,
+        "action": [],
+        "num_options": 6,
+        "turn": null,
+        "my_active_hp": null,
+        "opp_active_hp": null,
+        "my_energy": null
+      },
+      {
+        "step": 66,
+        "agent": 0,
+        "type": 1,
+        "context": 7,
+        "action": [],
+        "num_options": 6,
+        "turn": null,
+        "my_active_hp": null,
+        "opp_active_hp": null,
+        "my_energy": null
+      },
+      {
+        "step": 68,
+        "agent": 0,
+        "type": 1,
+        "context": 7,
+        "action": [
+          48
+        ],
+        "num_options": 4,
+        "turn": null,
+        "my_active_hp": null,
+        "opp_active_hp": null,
+        "my_energy": null
+      },
+      {
+        "step": 69,
+        "agent": 0,
+        "type": 1,
+        "context": 7,
+        "action": [
+          0
+        ],
+        "num_options": 4,
+        "turn": null,
+        "my_active_hp": null,
+        "opp_active_hp": null,
+        "my_energy": null
+      },
+      {
+        "step": 70,
+        "agent": 0,
+        "type": 1,
+        "context": 7,
+        "action": [],
+        "num_options": 4,
+        "turn": null,
+        "my_active_hp": null,
+        "opp_active_hp": null,
+        "my_energy": null
+      },
+      {
+        "step": 71,
+        "agent": 0,
+        "type": 1,
+        "context": 7,
+        "action": [],
+        "num_options": 4,
+        "turn": null,
+        "my_active_hp": null,
+        "opp_active_hp": null,
+        "my_energy": null
+      },
+      {
+        "step": 72,
+        "agent": 0,
+        "type": 1,
+        "context": 7,
+        "action": [],
+        "num_options": 4,
+        "turn": null,
+        "my_active_hp": null,
+        "opp_active_hp": null,
+        "my_energy": null
+      }
+    ],
+    "a0_errors": [],
+    "a1_errors": [],
+    "final_state": {
+      "agent0": {
+        "turn": null,
+        "my_active_hp": null,
+        "my_prizes": null,
+        "opp_prizes": null,
+        "my_bench": null,
+        "my_hand": null
+      },
+      "agent1": {
+        "turn": null,
+        "my_active_hp": null,
+        "my_prizes": null,
+        "opp_prizes": null,
+        "my_bench": null,
+        "my_hand": null
+      }
+    }
+  },
+  {
+    "name": "subm_rec4",
+    "basic": {
+      "rewards": [
+        -1,
+        1
+      ],
+      "statuses": [
+        "DONE",
+        "DONE"
+      ],
+      "agents": [
+        {
+          "Name": "Daniel1547",
+          "ThumbnailUrl": null
+        },
+        {
+          "Name": "Daniel1547",
+          "ThumbnailUrl": null
+        }
+      ],
+      "episode_id": 89507297,
+      "num_steps": 86
+    },
+    "total_steps": 86,
+    "a0_decisions": {
+      "9": 1,
+      "1": 19,
+      "4": 4
+    },
+    "a1_decisions": {
+      "1": 35
+    },
+    "a0_contexts": {
+      "41": 1,
+      "1": 2,
+      "2": 2,
+      "0": 61,
+      "4": 5,
+      "30": 4,
+      "3": 2,
+      "7": 8
+    },
+    "a1_contexts": {
+      "1": 2,
+      "2": 4,
+      "0": 48,
+      "7": 28,
+      "4": 1
+    },
+    "key_decisions": [
+      {
+        "step": 45,
+        "agent": 0,
+        "type": 1,
+        "context": 7,
+        "action": [
+          0
+        ],
+        "num_options": 6,
+        "turn": null,
+        "my_active_hp": null,
+        "opp_active_hp": null,
+        "my_energy": null
+      },
+      {
+        "step": 46,
+        "agent": 0,
+        "type": 1,
+        "context": 7,
+        "action": [
+          0
+        ],
+        "num_options": 6,
+        "turn": null,
+        "my_active_hp": null,
+        "opp_active_hp": null,
+        "my_energy": null
+      },
+      {
+        "step": 47,
+        "agent": 0,
+        "type": 1,
+        "context": 7,
+        "action": [],
+        "num_options": 6,
+        "turn": null,
+        "my_active_hp": null,
+        "opp_active_hp": null,
+        "my_energy": null
+      },
+      {
+        "step": 48,
+        "agent": 0,
+        "type": 1,
+        "context": 7,
+        "action": [],
+        "num_options": 6,
+        "turn": null,
+        "my_active_hp": null,
+        "opp_active_hp": null,
+        "my_energy": null
+      },
+      {
+        "step": 49,
+        "agent": 0,
+        "type": 1,
+        "context": 7,
+        "action": [],
+        "num_options": 6,
+        "turn": null,
+        "my_active_hp": null,
+        "opp_active_hp": null,
+        "my_energy": null
+      },
+      {
+        "step": 50,
+        "agent": 0,
+        "type": 1,
+        "context": 7,
+        "action": [],
+        "num_options": 6,
+        "turn": null,
+        "my_active_hp": null,
+        "opp_active_hp": null,
+        "my_energy": null
+      },
+      {
+        "step": 51,
+        "agent": 0,
+        "type": 1,
+        "context": 7,
+        "action": [],
+        "num_options": 6,
+        "turn": null,
+        "my_active_hp": null,
+        "opp_active_hp": null,
+        "my_energy": null
+      },
+      {
+        "step": 52,
+        "agent": 0,
+        "type": 1,
+        "context": 7,
+        "action": [],
+        "num_options": 6,
+        "turn": null,
+        "my_active_hp": null,
+        "opp_active_hp": null,
+        "my_energy": null
+      }
+    ],
+    "a0_errors": [],
+    "a1_errors": [],
+    "final_state": {
+      "agent0": {
+        "turn": null,
+        "my_active_hp": null,
+        "my_prizes": null,
+        "opp_prizes": null,
+        "my_bench": null,
+        "my_hand": null
+      },
+      "agent1": {
+        "turn": null,
+        "my_active_hp": null,
+        "my_prizes": null,
+        "opp_prizes": null,
+        "my_bench": null,
+        "my_hand": null
+      }
+    }
+  },
+  {
+    "name": "subm_rec5",
+    "basic": {
+      "rewards": [
+        1,
+        -1
+      ],
+      "statuses": [
+        "DONE",
+        "DONE"
+      ],
+      "agents": [
+        {
+          "Name": "Daniel1547",
+          "ThumbnailUrl": null
+        },
+        {
+          "Name": "Daniel1547",
+          "ThumbnailUrl": null
+        }
+      ],
+      "episode_id": 89514380,
+      "num_steps": 23
+    },
+    "total_steps": 23,
+    "a0_decisions": {
+      "9": 1,
+      "1": 10
+    },
+    "a1_decisions": {
+      "1": 5,
+      "9": 4
+    },
+    "a0_contexts": {
+      "41": 1,
+      "1": 3,
+      "0": 11,
+      "7": 7
+    },
+    "a1_contexts": {
+      "1": 1,
+      "2": 3,
+      "0": 11,
+      "4": 1,
+      "43": 4
+    },
+    "key_decisions": [
+      {
+        "step": 15,
+        "agent": 0,
+        "type": 1,
+        "context": 7,
+        "action": [
+          1
+        ],
+        "num_options": 6,
+        "turn": null,
+        "my_active_hp": null,
+        "opp_active_hp": null,
+        "my_energy": null
+      },
+      {
+        "step": 16,
+        "agent": 0,
+        "type": 1,
+        "context": 7,
+        "action": [
+          0,
+          1
+        ],
+        "num_options": 6,
+        "turn": null,
+        "my_active_hp": null,
+        "opp_active_hp": null,
+        "my_energy": null
+      },
+      {
+        "step": 17,
+        "agent": 0,
+        "type": 1,
+        "context": 7,
+        "action": [],
+        "num_options": 6,
+        "turn": null,
+        "my_active_hp": null,
+        "opp_active_hp": null,
+        "my_energy": null
+      },
+      {
+        "step": 18,
+        "agent": 0,
+        "type": 1,
+        "context": 7,
+        "action": [],
+        "num_options": 6,
+        "turn": null,
+        "my_active_hp": null,
+        "opp_active_hp": null,
+        "my_energy": null
+      },
+      {
+        "step": 19,
+        "agent": 0,
+        "type": 1,
+        "context": 7,
+        "action": [],
+        "num_options": 6,
+        "turn": null,
+        "my_active_hp": null,
+        "opp_active_hp": null,
+        "my_energy": null
+      },
+      {
+        "step": 21,
+        "agent": 0,
+        "type": 1,
+        "context": 7,
+        "action": [
+          8
+        ],
+        "num_options": 4,
+        "turn": null,
+        "my_active_hp": null,
+        "opp_active_hp": null,
+        "my_energy": null
+      },
+      {
+        "step": 22,
+        "agent": 0,
+        "type": 1,
+        "context": 7,
+        "action": [
+          0
+        ],
+        "num_options": 4,
+        "turn": null,
+        "my_active_hp": null,
+        "opp_active_hp": null,
+        "my_energy": null
+      }
+    ],
+    "a0_errors": [],
+    "a1_errors": [],
+    "final_state": {
+      "agent0": {
+        "turn": null,
+        "my_active_hp": null,
+        "my_prizes": null,
+        "opp_prizes": null,
+        "my_bench": null,
+        "my_hand": null
+      },
+      "agent1": {
+        "turn": null,
+        "my_active_hp": null,
+        "my_prizes": null,
+        "opp_prizes": null,
+        "my_bench": null,
+        "my_hand": null
+      }
+    }
+  }
+]

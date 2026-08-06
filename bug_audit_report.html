@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PTCG Agent v7 — Bug 审查报告</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --card-bg: #1a1d29;
+    --border: #2a2d3a;
+    --text: #e4e4e7;
+    --text-dim: #9ca3af;
+    --accent: #6366f1;
+    --critical: #ef4444;
+    --high: #f59e0b;
+    --medium: #eab308;
+    --low: #3b82f6;
+    --deck: #8b5cf6;
+    --ok: #22c55e;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans CJK SC", sans-serif;
+    line-height: 1.6;
+    padding: 24px;
+  }
+  .container { max-width: 1100px; margin: 0 auto; }
+  h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .subtitle { color: var(--text-dim); font-size: 14px; margin-bottom: 32px; }
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  .summary-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 20px;
+    text-align: center;
+  }
+  .summary-card .count {
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 1.2;
+  }
+  .summary-card .label {
+    font-size: 12px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 4px;
+  }
+  .bug-section { margin-bottom: 28px; }
+  .bug-section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  .severity-badge {
+    display: inline-block;
+    padding: 3px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .severity-badge.critical { background: rgba(239,68,68,0.15); color: var(--critical); border: 1px solid rgba(239,68,68,0.3); }
+  .severity-badge.high { background: rgba(245,158,11,0.15); color: var(--high); border: 1px solid rgba(245,158,11,0.3); }
+  .severity-badge.medium { background: rgba(234,179,8,0.15); color: var(--medium); border: 1px solid rgba(234,179,8,0.3); }
+  .severity-badge.low { background: rgba(59,130,246,0.15); color: var(--low); border: 1px solid rgba(59,130,246,0.3); }
+  .severity-badge.deck { background: rgba(139,92,246,0.15); color: var(--deck); border: 1px solid rgba(139,92,246,0.3); }
+  .section-title { font-size: 18px; font-weight: 700; }
+  .bug-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 14px;
+    transition: border-color 0.2s;
+  }
+  .bug-card:hover { border-color: var(--accent); }
+  .bug-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .bug-id {
+    color: var(--text-dim);
+    font-size: 12px;
+    font-weight: 400;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .bug-desc { color: var(--text-dim); font-size: 13px; margin-bottom: 12px; }
+  .bug-detail {
+    background: #0d0f15;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 10px;
+  }
+  .bug-detail .label {
+    font-size: 11px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+  .bug-detail .content { font-size: 13px; }
+  .bug-detail code {
+    background: rgba(99,102,241,0.1);
+    color: #a5b4fc;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: "SF Mono", "Fira Code", monospace;
+  }
+  pre {
+    background: #0d0f15;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 16px;
+    overflow-x: auto;
+    font-size: 12px;
+    line-height: 1.5;
+    margin: 8px 0;
+    color: #c4b5fd;
+  }
+  pre code { font-family: "SF Mono", "Fira Code", monospace; }
+  .impact-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
+    font-size: 13px;
+  }
+  .impact-table th {
+    text-align: left;
+    padding: 8px 12px;
+    border-bottom: 2px solid var(--border);
+    color: var(--text-dim);
+    font-size: 11px;
+    text-transform: uppercase;
+  }
+  .impact-table td {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .impact-table tr:last-child td { border-bottom: none; }
+  .tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-right: 4px;
+  }
+  .tag.replay { background: rgba(34,197,94,0.15); color: var(--ok); }
+  .tag.csv { background: rgba(139,92,246,0.15); color: var(--deck); }
+  .tag.logic { background: rgba(99,102,241,0.15); color: #a5b4fc; }
+  .tag.deck { background: rgba(245,158,11,0.15); color: var(--high); }
+  .fix-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    background: rgba(34,197,94,0.15);
+    color: var(--ok);
+  }
+  .recommendation {
+    background: rgba(99,102,241,0.08);
+    border: 1px solid rgba(99,102,241,0.2);
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 24px;
+  }
+  .recommendation h2 { font-size: 18px; margin-bottom: 12px; }
+  .recommendation ol { padding-left: 20px; }
+  .recommendation li { margin-bottom: 8px; font-size: 14px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>PTCG Agent v7 — Bug 审查报告</h1>
+  <p class="subtitle">审查日期：2026-08-03 ｜ 基于 main.py v7 + deck.csv + subm_rec2 replay + JP_Card_Data_Cleaned.csv</p>
+
+  <div class="summary-grid">
+    <div class="summary-card"><div class="count" style="color:var(--critical)">2</div><div class="label">Critical</div></div>
+    <div class="summary-card"><div class="count" style="color:var(--high)">4</div><div class="label">High</div></div>
+    <div class="summary-card"><div class="count" style="color:var(--medium)">4</div><div class="label">Medium</div></div>
+    <div class="summary-card"><div class="count" style="color:var(--low)">3</div><div class="label">Low</div></div>
+    <div class="summary-card"><div class="count" style="color:var(--deck)">3</div><div class="label">Deck 设计</div></div>
+    <div class="summary-card"><div class="count" style="color:var(--text)">16</div><div class="label">总计</div></div>
+  </div>
+
+  <!-- CRITICAL -->
+  <div class="bug-section">
+    <div class="bug-section-header">
+      <span class="severity-badge critical">Critical</span>
+      <span class="section-title">会导致输掉比赛的致命 bug</span>
+    </div>
+
+    <div class="bug-card">
+      <div class="bug-title">
+        <span class="bug-id">#C1</span>
+        0 伤害设置招式被完全跳过 — 牌组核心搜牌/加速机制瘫痪
+      </div>
+      <div class="bug-desc">
+        <span class="tag logic">逻辑</span><span class="tag csv">CSV验证</span>
+        卡片 764 クレセリア的「みなぎるひかり」(1 能量, 搜 2 超能量贴自身) 和 751 ゼルネアス的「ジオゲート」(1 能量, 搜 3 超系たね上场) 是 0 伤害攻击，但它们是牌组唯一的搜牌/加速手段。代码中 <code>if best_dmg &gt; 0</code> 条件导致这些招式永远不会被选中。
+      </div>
+      <div class="bug-detail">
+        <div class="label">问题代码位置 (line ~418)</div>
+        <div class="content">
+<pre><code># 3. 有攻击选项且 my_active 有能量 → 攻击（选伤害最高的）
+if not chosen and attack_idx and my_energy &gt; 0:
+    best_idx = attack_idx[0]
+    best_dmg = -1
+    for k, idx in enumerate(attack_idx):
+        ...
+        if dmg &gt; best_dmg:
+            best_dmg = dmg
+            best_idx = idx
+    if best_dmg &gt; 0:          <span style="color:var(--critical)">← BUG: 0伤害攻击被跳过</span>
+        chosen.append(best_idx)</code></pre>
+        </div>
+      </div>
+      <div class="bug-detail">
+        <div class="label">Replay 证据</div>
+        <div class="content">
+          subm_rec2 中 card 554 (タブンネ) 仅需 1 能量即可攻击 (attackId=791, 30dmg)，70 个 MAIN 阶段均有 ATTACK 选项。同理，v7 的 764/751 只需 1 超能量即可使用 0 伤害招式。但当前逻辑会跳过这些招式，转而 ATTACH 能量（不能同时攻击）。
+        </div>
+      </div>
+      <div class="bug-detail">
+        <div class="label">能量成本 (CSV 确认)</div>
+        <div class="content">
+          <table class="impact-table">
+            <tr><th>卡片</th><th>招式</th><th>成本</th><th>伤害</th><th>效果</th></tr>
+            <tr><td>764 クレセリア</td><td>みなぎるひかり</td><td>超 (1能)</td><td>0</td><td>搜2超能量贴自身</td></tr>
+            <tr><td>751 ゼルネアス</td><td>ジオゲート</td><td>超 (1能)</td><td>0</td><td>搜3超系たね上场</td></tr>
+            <tr><td>331 ゼルネアスex</td><td>オーロラビーム</td><td>超● (2能)</td><td>50</td><td>-</td></tr>
+            <tr><td>184 ラティアスex</td><td>むげんのやいば</td><td>超超● (3能)</td><td>200</td><td>下回合不能攻击</td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="bug-detail">
+        <div class="label">修复方案</div>
+        <div class="content">
+          将 <code>if best_dmg &gt; 0</code> 改为 <code>if best_dmg &gt;= 0</code>，并在无高伤害攻击时优先选择 0 伤害设置招式（搜索/加速）。或者增加判断：当无 2+ 能量的高伤害攻击可用时，优先使用 1 能量的设置招式。
+        </div>
+      </div>
+    </div>
+
+    <div class="bug-card">
+      <div class="bug-title">
+        <span class="bug-id">#C2</span>
+        331 ライジングホーン 对 ex 宝可梦 +100 伤害未计入 — 错过 KO 机会
+      </div>
+      <div class="bug-desc">
+        <span class="tag csv">CSV验证</span><span class="tag logic">逻辑</span>
+        CSV 显示 ライジングホーン 伤害为 120，但效果说明为「相手のバトルポケモンが『ポケモン【ex】』なら、100ダメージ追加」。当对手是 ex 宝可梦时实际伤害为 220，但 <code>_CARD_DB</code> 只存了 120。
+      </div>
+      <div class="bug-detail">
+        <div class="label">问题数据 (line ~48)</div>
+        <div class="content">
+<pre><code>_CARD_DB = {
+    331: {"hp": 210, "moves": [(50, "オーロラビーム"), (120, "ライジングホーン")]},
+                                     <span style="color:var(--critical)">↑ 应为 220 vs ex (120+100)</span>
+}</code></pre>
+        </div>
+      </div>
+      <div class="bug-detail">
+        <div class="label">影响</div>
+        <div class="content">
+          KO 检测逻辑 <code>if dmg &gt;= opp_hp</code> 会误判：对手 ex 宝可梦 HP=200 时，实际 220 可 KO 但代码估算 120 不可 KO → 选择发育而非攻击 → 下回合被对手反杀。
+        </div>
+      </div>
+      <div class="bug-detail">
+        <div class="label">修复方案</div>
+        <div class="content">
+          在 <code>_CARD_DB</code> 中添加条件伤害字段，或在 <code>_estimate_attack_damage</code> 中检查对手是否为 ex：<code>if opp is ex: dmg += 100</code>。判断 ex 可通过 <code>_CARD_DB[opp_cid]</code> 是否存在 "ex" 标记，或在 DB 中添加 <code>"rule": "ex"</code> 字段。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HIGH -->
+  <div class="bug-section">
+    <div class="bug-section-header">
+      <span class="severity-badge high">High</span>
+      <span class="section-title">严重影响对战性能</span>
+    </div>
+
+    <div class="bug-card">
+      <div class="bug-title">
+        <span class="bug-id">#H1</span>
+        my_energy &gt; 0 检查冗余且有误判风险
+      </div>
+      <div class="bug-desc">
+        <span class="tag logic">逻辑</span><span class="tag replay">Replay验证</span>
+        引擎已预过滤合法选项：ATTACK 出现在 options 中即代表能量足够。<code>my_energy &gt; 0</code> 检查是多余的，且当 <code>_get_pokemon_energy_count</code> 解析失败返回 0 时，会错误跳过合法攻击。
+      </div>
+      <div class="bug-detail">
+        <div class="label">问题代码 (line ~409)</div>
+        <div class="content">
+<pre><code>if not chosen and attack_idx and my_energy &gt; 0:  <span style="color:var(--high)">← 移除 my_energy &gt; 0</span>
+    ...</code></pre>
+        </div>
+      </div>
+      <div class="bug-detail">
+        <div class="label">Replay 证据</div>
+        <div class="content">subm_rec2 step 42: active 554 有 1 能量，ATTACK 选项出现且合法。如果 <code>energies</code> 字段解析出错返回 0，Agent 会跳过攻击选择 ATTACH，浪费一回合。</div>
+      </div>
+      <div class="bug-detail">
+        <div class="label">修复方案</div>
+        <div class="content">改为 <code>if not chosen and attack_idx:</code> — 引擎保证 ATTACK 选项合法。</div>
+      </div>
+    </div>
+
+    <div class="bug-card">
+      <div class="bug-title">
+        <span class="bug-id">#H2</span>
+        184 ラティアスex 特性「スカイライン」未记录 — 撤退费判断错误
+      </div>
+      <div class="bug-desc">
+        <span class="tag csv">CSV验证</span>
+        CSV 显示 184 有特性 [特性]スカイライン：「このポケモンがいるかぎり、自分の【たね】ポケモン全員の【にげる】ためのエネルギーは、すべてなくなる」。即全场たね宝可梦撤退费→0。但 <code>_CARD_DB</code> 完全没有记录此特性。
+      </div>
+      <div class="bug-detail">
+        <div class="label">影响</div>
+        <div class="content">
+          牌组全部 4 种ポケモン都是たね（基本），184 上场后所有ポケモン撤退费应为 0。Agent 不知此特性，可能在 HP 危急时不撤退（误以为撤退费太高），或不优先上场 184。
+        </div>
+      </div>
+      <div class="bug-detail">
+        <div class="label">修复方案</div>
+        <div class="content">
+          在 <code>_CARD_DB[184]</code> 添加 <code>"ability": "skyline"</code>，并在撤退决策中检查场上是否有 184（如有，撤退费=0，应更积极撤退）。
+        </div>
+      </div>
+    </div>
+
+    <div class="bug-card">
+      <div class="bug-title">
+        <span class="bug-id">#H3</span>
+        RETREAT 优先级过高 — 健康 Pokémon 也撤退
+      </div>
+      <div class="bug-desc">
+        <span class="tag replay">Replay验证</span>
+        Priority 5 在无更好动作时总是选择 RETREAT 而非 END。但撤退会浪费已贴能量，且换上 bench Pokémon 可能更弱。
+      </div>
+      <div class="bug-detail">
+        <div class="label">Replay 证据</div>
+        <div class="content">
+          subm_rec2 step 8: active 331 (HP=210/210, 1 能量) 仅有 [RETREAT, END] 两个选项。Agent 选了 RETREAT → 撤退到 bench 上可能无能量的ポケモン → 浪费 1 已贴能量 + 暴露更弱ポケモン。
+        </div>
+      </div>
+      <div class="bug-detail">
+        <div class="label">修复方案</div>
+        <div class="content">
+          Priority 5 增加条件：仅在 <code>my_hp &lt; max_hp * 0.3</code> 或 active 无能量且 bench 有能量ポケモン时才撤退。否则选 END 保留能量。
+        </div>
+      </div>
+    </div>
+
+    <div class="bug-card">
+      <div class="bug-title">
+        <span class="bug-id">#H4</span>
+        _ATTACK_ID_DMG 对 v7 新卡完全为空 — 伤害估算全部依赖 fallback
+      </div>
+      <div class="bug-desc">
+        <span class="tag logic">逻辑</span>
+        v7 新卡 (184/331/764/751) 的全局 attackId 未知，<code>_ATTACK_ID_DMG</code> 仅包含 v6 旧卡映射。所有伤害估算依赖 <code>option_idx</code> fallback，假设「CSV 招式顺序 = 引擎选项顺序」。此假设仅由 v6 卡 532 验证过，v7 卡未验证。
+      </div>
+      <div class="bug-detail">
+        <div class="label">风险</div>
+        <div class="content">
+          若顺序不匹配：331 的 オーロラビーム(50) 和 ライジングホーン(120) 可能被反转 → Agent 选低伤害招式而非高伤害 → 严重降低输出。
+        </div>
+      </div>
+      <div class="bug-detail">
+        <div class="label">修复方案</div>
+        <div class="content">
+          提交后从 replay 反查 v7 卡的 attackId 并补入 <code>_ATTACK_ID_DMG</code>。临时方案：在 <code>_handle_attack</code> 中增加日志（stderr 输出 attackId+card_id），提交后从 agent logs 提取。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MEDIUM -->
+  <div class="bug-section">
+    <div class="bug-section-header">
+      <span class="severity-badge medium">Medium</span>
+      <span class="section-title">有一定影响的中等 bug</span>
+    </div>
+
+    <div class="bug-card">
+      <div class="bug-title">
+        <span class="bug-id">#M1</span>
+        context=7 (CARD+area=6) 未特殊处理 — 选择结果可能不优
+      </div>
+      <div class="bug-desc">
+        <span class="tag replay">Replay验证</span>
+        Replay 中 type=1 (CARD) + context=7 出现 18 次，选项 area=6（可能是弃牌区/奖品区），maxCount=2。当前代码走默认路径返回前 maxCount 个，可能不是最优选择。
+      </div>
+      <div class="bug-detail">
+        <div class="label">Replay 数据</div>
+        <div class="content">
+<pre><code>// Step 88, Agent 1 — CARD ctx=7, maxCount=2
+// 6 options, all area=6 (opponent/self field area)
+[0]: {"area": 6, "index": 0, "playerIndex": 1, "type": 3}
+[1]: {"area": 6, "index": 1, "playerIndex": 1, "type": 3}
+...</code></pre>
+        </div>
+      </div>
+      <div class="bug-detail">
+        <div class="label">修复方案</div>
+        <div class="content">暂无法确定 context=7 语义，保持默认行为但添加注释标记。提交后从 replay 分析该上下文的实际效果。</div>
+      </div>
+    </div>
+
+    <div class="bug-card">
+      <div class="bug-title">
+        <span class="bug-id">#M2</span>
+        ATTACH 总是贴给 active — 忽略 bench 能量需求
+      </div>
+      <div class="bug-desc">
+        <span class="tag logic">逻辑</span>
+        <code>_handle_main</code> priority 4 选择第一个 ATTACH 选项，该选项总是 <code>inPlayArea=4</code>（active位）。当 active 已有足够能量时，应转贴 bench ポケモン。
+      </div>
+      <div class="bug-detail">
+        <div class="label">修复方案</div>
+        <div class="content">在 priority 4 中检查：若 active 能量 ≥ 3（满足全部招式需求），优先选择 <code>inPlayArea=5</code>（bench）的 ATTACH 选项。</div>
+      </div>
+    </div>
+
+    <div class="bug-card">
+      <div class="bug-title">
+        <span class="bug-id">#M3</span>
+        _resolve_card_id_from_option 不处理 area=6
+      </div>
+      <div class="bug-desc">
+        <span class="tag logic">逻辑</span><span class="tag replay">Replay验证</span>
+        函数仅处理 area=2(手牌)/5(bench)/4(场上能量)，不处理 area=6。当 context=7 的 CARD 选项含 area=6 时，<code>_resolve_card_id_from_option</code> 返回 -1，导致 HP 排序失效。
+      </div>
+      <div class="bug-detail">
+        <div class="label">修复方案</div>
+        <div class="content">添加 area=6 分支，查表 <code>players[my_idx]</code> 的 discard 或 prize 列表。或保持默认行为（前 maxCount 个），因为 area=6 选择通常不影响核心战斗。</div>
+      </div>
+    </div>
+
+    <div class="bug-card">
+      <div class="bug-title">
+        <span class="bug-id">#M4</span>
+        ABILITY 优先级最低 — 764/751 的特性被忽略
+      </div>
+      <div class="bug-desc">
+        <span class="tag logic">逻辑</span>
+        Priority 4 中 ABILITY 排在最后（ATTACH &gt; EVOLVE &gt; PLAY &gt; ABILITY）。但 764/751 的特性/招式是牌组核心搜牌手段，应优先使用。
+      </div>
+      <div class="bug-detail">
+        <div class="label">注意</div>
+        <div class="content">需区分「特性」(ABILITY, type=10) 和「0伤害攻击」(ATTACK, type=13)。764/751 的 みなぎるひかり/ジオゲート 在 CSV 中是「ワザ」（攻击），在引擎中可能表现为 ATTACK 而非 ABILITY。需 replay 确认。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOW -->
+  <div class="bug-section">
+    <div class="bug-section-header">
+      <span class="severity-badge low">Low</span>
+      <span class="section-title">轻微问题（不影响运行但应修复）</span>
+    </div>
+
+    <div class="bug-card">
+      <div class="bug-title">
+        <span class="bug-id">#L1</span>
+        未使用的 import os
+      </div>
+      <div class="bug-desc">
+        line 21: <code>import os</code> 从未使用。虽不影响运行，但增加文件体积且不符合简洁原则。
+      </div>
+      <div class="bug-detail">
+        <div class="label">修复</div>
+        <div class="content">删除 <code>import os</code> 行。</div>
+      </div>
+    </div>
+
+    <div class="bug-card">
+      <div class="bug-title">
+        <span class="bug-id">#L2</span>
+        异常兜底 random.sample 可能接受负数 max_count
+      </div>
+      <div class="bug-desc">
+        line 681: <code>random.sample(range(n), max_count)</code> — 若 max_count 为负数会抛 ValueError。虽被外层 except 捕获返回 []，但不够健壮。
+      </div>
+      <div class="bug-detail">
+        <div class="label">修复</div>
+        <div class="content">添加 <code>max_count = max(0, min(max_count, n))</code> 在 random.sample 前。</div>
+      </div>
+    </div>
+
+    <div class="bug-card">
+      <div class="bug-title">
+        <span class="bug-id">#L3</span>
+        _SC_ATTACH_FROM / _SC_ATTACH_TO 定义但未使用
+      </div>
+      <div class="bug-desc">
+        line 108-109: <code>_SC_ATTACH_FROM = 21</code> 和 <code>_SC_ATTACH_TO = 22</code> 定义后从未引用。Replay 显示 ENERGY 选择使用 context=30，而非 21/22。
+      </div>
+      <div class="bug-detail">
+        <div class="label">修复</div>
+        <div class="content">删除未使用的常量，或添加 <code>_SC_ENERGY_ATTACH = 30</code> 并在 _handle_energy 中引用。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DECK DESIGN -->
+  <div class="bug-section">
+    <div class="bug-section-header">
+      <span class="severity-badge deck">Deck 设计</span>
+      <span class="section-title">牌组构建问题（非代码 bug 但严重影响胜率）</span>
+    </div>
+
+    <div class="bug-card">
+      <div class="bug-title">
+        <span class="bug-id">#D1</span>
+        42 张基本能量严重过多 — 能量洪水
+      </div>
+      <div class="bug-desc">
+        <span class="tag deck">牌组</span>
+        deck.csv 中 id=5 (基本超能量) 有 42 张，占牌组 70%。标准 PTCG 牌组能量占比 15-25%（8-15 张）。42 张能量导致：
+      </div>
+      <div class="bug-detail">
+        <div class="label">影响分析</div>
+        <div class="content">
+          <table class="impact-table">
+            <tr><th>指标</th><th>当前 (42能量)</th><th>标准 (12能量)</th></tr>
+            <tr><td>能量占比</td><td>70%</td><td>20%</td></tr>
+            <tr><td>起手无基础概率</td><td>~10%</td><td>~5%</td></tr>
+            <tr><td>每回合抽到能量概率</td><td>70%</td><td>20%</td></tr>
+            <tr><td>手牌能量洪水</td><td>严重</td><td>正常</td></tr>
+            <tr><td>可用地雷区</td><td>几乎无限</td><td>需精打细算</td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="bug-detail">
+        <div class="label">修复方案</div>
+        <div class="content">将能量减至 12-14 张，释放 28-30 个卡位给训练家卡（搜牌/抽牌）和更多ポケモン。</div>
+      </div>
+    </div>
+
+    <div class="bug-card">
+      <div class="bug-title">
+        <span class="bug-id">#D2</span>
+        零训练家卡 — 无搜牌/抽牌/回收手段
+      </div>
+      <div class="bug-desc">
+        <span class="tag deck">牌组</span>
+        牌组仅含 ポケモン (16张) + 能量 (44张)，无任何训练家卡。PTCG 中训练家卡是核心引擎：
+      </div>
+      <div class="bug-detail">
+        <div class="label">缺失的关键功能</div>
+        <div class="content">
+          <table class="impact-table">
+            <tr><th>功能</th><th>训练家卡示例</th><th>当前替代</th></tr>
+            <tr><td>抽牌</td><td>博士の研究, ナンジャモ</td><td>无</td></tr>
+            <tr><td>ポケモン搜牌</td><td>クイックボール, ネストボール</td><td>仅 751 ジオゲート (1能/回合)</td></tr>
+            <tr><td>能量搜牌</td><td>エネルギー転送, ミライトンex</td><td>仅 764 みなぎるひかり (1能/回合)</td></tr>
+            <tr><td>回收</td><td>ふかそうのタネ, スーパーボール</td><td>无</td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="bug-detail">
+        <div class="label">修复方案</div>
+        <div class="content">添加 8-12 张训练家卡（如 クイックボール×4, ナンジャモ×2, 博士の研究×2 等），相应减少能量。</div>
+      </div>
+    </div>
+
+    <div class="bug-card">
+      <div class="bug-title">
+        <span class="bug-id">#D3</span>
+        16 张ポケモン偏少 — prize 区耗尽风险
+      </div>
+      <div class="bug-desc">
+        <span class="tag deck">牌组</span>
+        16 张ポケモン（4 种各 4 张）在 6 prize 比赛中可能不够。若 3-4 只被 KO，剩余ポケモン不足以支撑后期。
+      </div>
+      <div class="bug-detail">
+        <div class="label">修复方案</div>
+        <div class="content">在减少能量的同时增加 4-8 张ポケモン（可加 1-2 种不同超系基础ポケモ梦），总计 20-24 张ポケモン。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 修复优先级建议 -->
+  <div class="recommendation">
+    <h2>修复优先级建议</h2>
+    <ol>
+      <li><strong>#C1 — 0 伤害设置招式跳过</strong>：最关键，直接影响牌组核心机制。改 <code>&gt; 0</code> 为 <code>&gt;= 0</code> 并增加设置招式优先逻辑。</li>
+      <li><strong>#H1 — 移除 my_energy &gt; 0</strong>：一行修改，消除误判风险。</li>
+      <li><strong>#C2 — ライジングホーン ex 加成</strong>：添加对手 ex 检测，+100 伤害。</li>
+      <li><strong>#H3 — RETREAT 优先级</strong>：增加 HP/bench 条件，避免无意义撤退。</li>
+      <li><strong>#H2 — スカイライン特性</strong>：添加特性数据，优化撤退决策。</li>
+      <li><strong>#D1-D2 — 牌组重构</strong>：减少能量至 12-14 张，添加训练家卡。预计胜率提升最大。</li>
+      <li><strong>#H4 — attackId 补全</strong>：提交后从 replay 反查，填入 _ATTACK_ID_DMG。</li>
+      <li><strong>#L1-L3 — 代码清理</strong>：低优先级，可批量修复。</li>
+    </ol>
+  </div>
+
+</div>
+</body>
+</html>

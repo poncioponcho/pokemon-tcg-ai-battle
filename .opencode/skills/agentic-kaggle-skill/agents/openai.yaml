@@ -1,0 +1,4 @@
+interface:
+  display_name: "Agentic Kaggle Skill"
+  short_description: "Kaggle workflows through scored submissions"
+  default_prompt: "Use $agentic-kaggle-skill to run a Kaggle competition workflow through validation, execution, and scored submission."

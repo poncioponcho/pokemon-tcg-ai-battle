@@ -1,0 +1,1540 @@
+2026-08-05 08:15:07,214 INFO 今日(UTC)请求预算: 0/3000（续用）
+2026-08-05 08:15:25,549 INFO 排行榜分页 1: 累计 200 支（还有下一页）
+2026-08-05 08:15:34,665 INFO 排行榜分页 2: 累计 400 支（还有下一页）
+2026-08-05 08:15:43,758 INFO 排行榜分页 3: 累计 600 支（还有下一页）
+2026-08-05 08:15:53,508 INFO 排行榜分页 4: 累计 800 支（还有下一页）
+2026-08-05 08:16:02,634 INFO 排行榜分页 5: 累计 1000 支（还有下一页）
+2026-08-05 08:16:12,236 INFO 排行榜分页 6: 累计 1200 支（还有下一页）
+2026-08-05 08:16:20,861 INFO 排行榜分页 7: 累计 1399 支（还有下一页）
+2026-08-05 08:16:29,973 INFO 排行榜分页 8: 累计 1599 支（还有下一页）
+2026-08-05 08:16:39,053 INFO 排行榜分页 9: 累计 1799 支（还有下一页）
+2026-08-05 08:16:48,189 INFO 排行榜分页 10: 累计 1999 支（还有下一页）
+2026-08-05 08:16:56,780 INFO 排行榜分页 11: 累计 2199 支（还有下一页）
+2026-08-05 08:17:05,342 INFO 排行榜分页 12: 累计 2399 支（还有下一页）
+2026-08-05 08:17:14,544 INFO 排行榜分页 13: 累计 2599 支（还有下一页）
+2026-08-05 08:17:23,144 INFO 排行榜分页 14: 累计 2799 支（还有下一页）
+2026-08-05 08:17:32,306 INFO 排行榜分页 15: 累计 2995 支（还有下一页）
+2026-08-05 08:17:41,355 INFO 排行榜分页 16: 累计 3193 支（还有下一页）
+2026-08-05 08:17:50,519 INFO 排行榜分页 17: 累计 3390 支（还有下一页）
+2026-08-05 08:17:59,887 INFO 排行榜分页 18: 累计 3586 支（还有下一页）
+2026-08-05 08:18:09,439 INFO 排行榜分页 19: 累计 3786 支（还有下一页）
+2026-08-05 08:18:19,020 INFO 排行榜分页 20: 累计 3986 支（还有下一页）
+2026-08-05 08:18:28,086 INFO 排行榜分页 21: 累计 4186 支（还有下一页）
+2026-08-05 08:18:37,289 INFO 排行榜分页 22: 累计 4386 支（还有下一页）
+2026-08-05 08:18:46,440 INFO 排行榜分页 23: 累计 4586 支（还有下一页）
+2026-08-05 08:18:46,441 INFO 请求预算进度: 25/3000
+2026-08-05 08:18:55,495 INFO 排行榜分页 24: 累计 4786 支（还有下一页）
+2026-08-05 08:19:05,123 INFO 排行榜分页 25: 累计 4986 支（还有下一页）
+2026-08-05 08:19:14,250 INFO 排行榜分页 26: 累计 5186 支（还有下一页）
+2026-08-05 08:19:23,990 INFO 排行榜分页 27: 累计 5386 支（还有下一页）
+2026-08-05 08:19:33,092 INFO 排行榜分页 28: 累计 5586 支（还有下一页）
+2026-08-05 08:19:42,790 INFO 排行榜分页 29: 累计 5786 支（还有下一页）
+2026-08-05 08:19:51,936 INFO 排行榜分页 30: 累计 5986 支（还有下一页）
+2026-08-05 08:20:01,556 INFO 排行榜分页 31: 累计 6186 支（还有下一页）
+2026-08-05 08:20:10,723 INFO 排行榜分页 32: 累计 6262 支（最后一页）
+2026-08-05 08:20:10,723 INFO 排行榜共 6262 支队伍 → 选取 3472 支（分数区间 600.0~1000.0）
+2026-08-05 08:20:10,758 INFO catalog 4432 局 / raw 现存 4432 局
+2026-08-05 08:20:10,758 INFO 竞赛阶段=early，更新策略={'phase': 'early', 'poll_hours': 24, 'retrain_cooldown_hours': 168}
+2026-08-05 08:20:10,758 INFO [#85] Evgeniy Zdoronok (score=998.8, team=16595297)
+2026-08-05 08:20:27,880 INFO   对局数: 15（补卡上限 15）
+2026-08-05 08:22:41,283 INFO 请求预算进度: 50/3000
+2026-08-05 08:22:50,822 INFO   ✔ 本队完成，本队新增 15 个对局
+2026-08-05 08:22:50,823 INFO [#86] JB Bryant (score=998.5, team=16422381)
+2026-08-05 08:23:09,310 INFO   对局数: 15（补卡上限 15）
+2026-08-05 08:25:32,783 INFO   ✔ 本队完成，本队新增 15 个对局
+2026-08-05 08:25:32,784 INFO [#87] NIWATORI (score=998.1, team=16446951)
+2026-08-05 08:25:51,585 INFO   对局数: 15（补卡上限 15）
+2026-08-05 08:26:40,225 INFO 请求预算进度: 75/3000
+2026-08-05 08:28:17,163 INFO   ✔ 本队完成，本队新增 15 个对局
+2026-08-05 08:28:17,164 INFO [#88] Lior Toledano (score=997.9, team=16473278)
+2026-08-05 08:28:34,745 INFO   对局数: 15（补卡上限 15）
+2026-08-05 08:30:41,138 INFO 请求预算进度: 100/3000
+2026-08-05 08:31:00,201 INFO   ✔ 本队完成，本队新增 15 个对局
+2026-08-05 08:31:00,201 INFO [#89] Shuhan Yang (score=997.9, team=16635068)
+2026-08-05 08:31:18,322 INFO   对局数: 15（补卡上限 15）
+2026-08-05 08:33:43,968 INFO   ✔ 本队完成，本队新增 15 个对局
+2026-08-05 08:33:43,969 INFO [#90] yoshitaka agent (score=996.6, team=16487165)
+2026-08-05 08:34:03,275 INFO   对局数: 6（补卡上限 15）
+2026-08-05 08:34:42,526 INFO 请求预算进度: 125/3000
+2026-08-05 08:35:00,881 ERROR 命令失败 (rc=2): kaggle competitions replay Use "kaggle competitions replay <episode_id>" to download a replay -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: usage: kaggle competitions replay [-h] [-p PATH] [-q] episode_id
+kaggle competitions replay: error: argument episode_id: invalid int value: 'Use "kaggle competitions replay <episode_id>" to download a replay'
+2026-08-05 08:35:00,881 WARNING   replay 下载失败: episode Use "kaggle competitions replay <episode_id>" to download a replay
+2026-08-05 08:35:00,882 INFO   ✔ 本队完成，本队新增 5 个对局
+2026-08-05 08:35:00,882 INFO [#91] Hancang Mi (score=996.2, team=16514878)
+2026-08-05 08:35:17,952 INFO   对局数: 15（补卡上限 15）
+2026-08-05 08:37:47,499 INFO   ✔ 本队完成，本队新增 15 个对局
+2026-08-05 08:37:47,500 INFO [#92] Benarg (score=996.0, team=16401597)
+2026-08-05 08:38:06,909 INFO   对局数: 15（补卡上限 15）
+2026-08-05 08:38:48,049 INFO 请求预算进度: 150/3000
+2026-08-05 08:40:35,861 INFO   ✔ 本队完成，本队新增 15 个对局
+2026-08-05 08:40:35,861 INFO [#93] beeyan (score=995.6, team=16514497)
+2026-08-05 08:40:54,715 INFO   对局数: 15（补卡上限 15）
+2026-08-05 09:09:40,166 INFO 今日(UTC)请求预算: 150/3000（续用）
+2026-08-05 09:10:00,698 INFO 排行榜分页 1: 累计 200 支（还有下一页）
+2026-08-05 09:10:11,531 INFO 排行榜分页 2: 累计 400 支（还有下一页）
+2026-08-05 09:10:21,788 INFO 排行榜分页 3: 累计 600 支（还有下一页）
+2026-08-05 09:10:32,361 INFO 排行榜分页 4: 累计 800 支（还有下一页）
+2026-08-05 09:10:42,255 INFO 排行榜分页 5: 累计 1000 支（还有下一页）
+2026-08-05 09:10:52,325 INFO 排行榜分页 6: 累计 1200 支（还有下一页）
+2026-08-05 09:11:01,728 INFO 排行榜分页 7: 累计 1400 支（还有下一页）
+2026-08-05 09:11:11,690 INFO 排行榜分页 8: 累计 1600 支（还有下一页）
+2026-08-05 09:11:21,273 INFO 排行榜分页 9: 累计 1800 支（还有下一页）
+2026-08-05 09:11:31,905 INFO 排行榜分页 10: 累计 2000 支（还有下一页）
+2026-08-05 09:11:42,697 INFO 排行榜分页 11: 累计 2200 支（还有下一页）
+2026-08-05 09:11:53,001 INFO 排行榜分页 12: 累计 2400 支（还有下一页）
+2026-08-05 09:12:02,868 INFO 排行榜分页 13: 累计 2599 支（还有下一页）
+2026-08-05 09:12:13,328 INFO 排行榜分页 14: 累计 2799 支（还有下一页）
+2026-08-05 09:12:23,733 INFO 排行榜分页 15: 累计 2999 支（还有下一页）
+2026-08-05 09:12:33,923 INFO 排行榜分页 16: 累计 3199 支（还有下一页）
+2026-08-05 09:12:43,932 INFO 排行榜分页 17: 累计 3399 支（还有下一页）
+2026-08-05 09:12:53,605 INFO 排行榜分页 18: 累计 3598 支（还有下一页）
+2026-08-05 09:13:03,371 INFO 排行榜分页 19: 累计 3798 支（还有下一页）
+2026-08-05 09:13:12,699 INFO 排行榜分页 20: 累计 3998 支（还有下一页）
+2026-08-05 09:13:22,458 INFO 排行榜分页 21: 累计 4198 支（还有下一页）
+2026-08-05 09:13:31,903 INFO 排行榜分页 22: 累计 4396 支（还有下一页）
+2026-08-05 09:13:41,232 INFO 排行榜分页 23: 累计 4594 支（还有下一页）
+2026-08-05 09:13:41,233 INFO 请求预算进度: 175/3000
+2026-08-05 09:13:51,283 INFO 排行榜分页 24: 累计 4793 支（还有下一页）
+2026-08-05 09:14:00,653 INFO 排行榜分页 25: 累计 4993 支（还有下一页）
+2026-08-05 09:14:10,450 INFO 排行榜分页 26: 累计 5193 支（还有下一页）
+2026-08-05 09:14:19,607 INFO 排行榜分页 27: 累计 5393 支（还有下一页）
+2026-08-05 09:14:28,766 INFO 排行榜分页 28: 累计 5593 支（还有下一页）
+2026-08-05 09:14:37,572 INFO 排行榜分页 29: 累计 5793 支（还有下一页）
+2026-08-05 09:14:48,058 INFO 排行榜分页 30: 累计 5993 支（还有下一页）
+2026-08-05 09:14:57,879 INFO 排行榜分页 31: 累计 6193 支（还有下一页）
+2026-08-05 09:15:07,202 INFO 排行榜分页 32: 累计 6272 支（最后一页）
+2026-08-05 09:15:07,204 INFO 排行榜共 6272 支队伍 → 选取 3481 支（分数区间 600.0~1000.0）
+2026-08-05 09:15:07,243 INFO catalog 4544 局 / raw 现存 4544 局
+2026-08-05 09:15:07,243 INFO 竞赛阶段=early，更新策略={'phase': 'early', 'poll_hours': 24, 'retrain_cooldown_hours': 168}
+2026-08-05 09:15:07,243 INFO [#93] MoriBob (score=999.9, team=16381755)
+2026-08-05 09:15:26,308 INFO   对局数: 15（补卡上限 15）
+2026-08-05 09:17:45,378 INFO   ✔ 本队完成，本队新增 14 个对局
+2026-08-05 09:17:45,378 INFO [#94] Team (score=999.4, team=16382518)
+2026-08-05 09:17:45,378 INFO 请求预算进度: 200/3000
+2026-08-05 09:18:04,990 INFO   对局数: 15（补卡上限 15）
+2026-08-05 09:20:23,880 INFO   ✔ 本队完成，本队新增 14 个对局
+2026-08-05 09:20:23,880 INFO [#95] Evgeniy Zdoronok (score=998.8, team=16595297)
+2026-08-05 09:20:33,901 INFO   提交未变 (55242459)，仍检查 episode ID 增量
+2026-08-05 09:20:42,611 INFO   对局数: 15（补卡上限 15）
+2026-08-05 09:20:42,668 INFO [#96] Trainer*3 (score=997.6, team=16559688)
+2026-08-05 09:21:02,062 INFO   对局数: 15（补卡上限 15）
+2026-08-05 09:21:49,489 INFO 请求预算进度: 225/3000
+2026-08-05 09:22:30,132 WARNING 限流，8s 后重试 (1/4): Traceback (most recent call last):
+  File "/opt/anaconda3/lib/python3.13/site-packages/urllib3/connectionpool.py", line 464, in _make_request
+    self._validate
+2026-08-05 09:24:56,690 INFO   ✔ 本队完成，本队新增 15 个对局
+2026-08-05 09:24:56,690 INFO [#97] S4nkurero (score=997.5, team=16372517)
+2026-08-05 09:25:15,872 INFO   对局数: 15（补卡上限 15）
+2026-08-05 09:27:14,193 INFO 请求预算进度: 250/3000
+2026-08-05 09:27:43,948 INFO   ✔ 本队完成，本队新增 15 个对局
+2026-08-05 09:27:43,948 INFO [#98] TTT Is All You Need (score=996.5, team=16372102)
+2026-08-05 09:28:01,897 INFO   对局数: 15（补卡上限 15）
+2026-08-05 09:30:06,127 INFO   ✔ 本队完成，本队新增 13 个对局
+2026-08-05 09:30:06,129 INFO [#99] Battle Data Base (score=996.4, team=16378002)
+2026-08-05 09:30:24,582 INFO   对局数: 15（补卡上限 15）
+2026-08-05 09:31:25,676 INFO 请求预算进度: 275/3000
+2026-08-05 09:33:22,210 INFO   ✔ 本队完成，本队新增 15 个对局
+2026-08-05 09:33:22,212 INFO [#100] Dominic Peel (score=995.5, team=16514272)
+2026-08-05 09:33:44,023 INFO   对局数: 15（补卡上限 15）
+2026-08-05 09:36:05,481 INFO 请求预算进度: 300/3000
+2026-08-05 09:36:15,533 INFO   ✔ 本队完成，本队新增 14 个对局
+2026-08-05 09:36:15,534 INFO [#101] aaa (score=995.2, team=16378476)
+2026-08-05 09:36:35,084 INFO   对局数: 15（补卡上限 15）
+2026-08-05 09:39:04,234 INFO   ✔ 本队完成，本队新增 15 个对局
+2026-08-05 09:39:04,234 INFO [#102] ヌメルゴンex (score=994.8, team=16371479)
+2026-08-05 09:39:23,760 INFO   对局数: 15（补卡上限 15）
+2026-08-05 09:40:11,288 INFO 请求预算进度: 325/3000
+2026-08-05 09:41:39,652 INFO   ✔ 本队完成，本队新增 14 个对局
+2026-08-05 09:41:39,653 INFO [#103] Charmander & Meowth (score=994.0, team=16603508)
+2026-08-05 09:41:58,486 INFO   对局数: 15（补卡上限 15）
+2026-08-05 09:44:20,865 INFO 请求预算进度: 350/3000
+2026-08-05 09:44:31,638 INFO   ✔ 本队完成，本队新增 15 个对局
+2026-08-05 09:44:31,638 INFO [#104] Shuhan Yang (score=993.6, team=16635068)
+2026-08-05 09:44:41,801 INFO   提交未变 (55202175)，仍检查 episode ID 增量
+2026-08-05 09:44:51,636 INFO   对局数: 15（补卡上限 15）
+2026-08-05 09:45:13,993 INFO   ✔ 本队完成，本队新增 2 个对局
+2026-08-05 09:45:13,994 INFO [#105] SQUIRTLE (prime) (score=993.5, team=16407282)
+2026-08-05 09:45:34,162 INFO   对局数: 15（补卡上限 15）
+2026-08-05 09:48:04,644 INFO   ✔ 本队完成，本队新增 15 个对局
+2026-08-05 09:48:04,645 INFO [#106] Lior Toledano (score=993.5, team=16473278)
+2026-08-05 09:48:13,211 INFO   提交未变 (55223409)，仍检查 episode ID 增量
+2026-08-05 09:48:22,598 INFO   对局数: 15（补卡上限 15）
+2026-08-05 09:48:32,213 INFO 请求预算进度: 375/3000
+2026-08-05 09:48:51,497 INFO   ✔ 本队完成，本队新增 3 个对局
+2026-08-05 09:48:51,498 INFO [#107] MtN (score=993.2, team=16408528)
+2026-08-05 09:49:11,464 INFO   对局数: 15（补卡上限 15）
+2026-08-05 09:51:45,286 INFO   ✔ 本队完成，本队新增 15 个对局
+2026-08-05 09:51:45,286 INFO [#108] KanaeKanae (score=992.7, team=16383493)
+2026-08-05 09:52:06,351 INFO   对局数: 15（补卡上限 15）
+2026-08-05 09:52:46,800 INFO 请求预算进度: 400/3000
+2026-08-05 09:54:34,530 INFO   ✔ 本队完成，本队新增 15 个对局
+2026-08-05 09:54:34,531 INFO [#109] hatry (score=992.2, team=16531787)
+2026-08-05 09:54:53,480 INFO   对局数: 15（补卡上限 15）
+2026-08-05 09:56:55,094 INFO 请求预算进度: 425/3000
+2026-08-05 09:57:14,511 INFO   ✔ 本队完成，本队新增 14 个对局
+2026-08-05 09:57:14,511 INFO [#110] youtube.com/@BigBugginnings (score=992.1, team=16375066)
+2026-08-05 09:57:34,348 INFO   对局数: 15（补卡上限 15）
+2026-08-05 10:00:12,709 INFO   ✔ 本队完成，本队新增 15 个对局
+2026-08-05 10:00:12,710 INFO [#111] Dragon Ball Z (score=991.9, team=16516416)
+2026-08-05 10:00:32,639 INFO   对局数: 15（补卡上限 15）
+2026-08-05 10:01:15,895 INFO 请求预算进度: 450/3000
+2026-08-05 10:03:04,347 INFO   ✔ 本队完成，本队新增 14 个对局
+2026-08-05 10:03:04,348 INFO [#112] saeNeko (score=991.8, team=16405655)
+2026-08-05 10:03:24,667 INFO   对局数: 15（补卡上限 15）
+2026-08-05 10:05:49,069 INFO 请求预算进度: 475/3000
+2026-08-05 10:06:13,568 INFO   ✔ 本队完成，本队新增 15 个对局
+2026-08-05 10:06:13,569 INFO [#113] PTCG_HORMONE (score=991.5, team=16431461)
+2026-08-05 10:06:33,994 INFO   对局数: 15（补卡上限 15）
+2026-08-05 10:09:21,749 INFO   ✔ 本队完成，本队新增 15 个对局
+2026-08-05 10:09:21,749 INFO [#114] I4Kaggle (score=991.0, team=16538741)
+2026-08-05 10:09:42,154 INFO   对局数: 15（补卡上限 15）
+2026-08-05 10:10:29,455 INFO 请求预算进度: 500/3000
+2026-08-05 10:12:36,181 INFO   ✔ 本队完成，本队新增 15 个对局
+2026-08-05 10:12:36,182 INFO [#115] ToastUz (score=990.7, team=16430229)
+2026-08-05 10:12:56,375 INFO   对局数: 15（补卡上限 15）
+2026-08-05 10:15:15,367 INFO 请求预算进度: 525/3000
+2026-08-05 10:15:25,890 INFO   ✔ 本队完成，本队新增 13 个对局
+2026-08-05 10:15:25,890 INFO [#116] fishcat (score=989.9, team=16474254)
+2026-08-05 10:15:44,981 INFO   对局数: 15（补卡上限 15）
+2026-08-05 10:18:33,501 INFO   ✔ 本队完成，本队新增 15 个对局
+2026-08-05 10:18:33,501 INFO [#117] 宝糕手 (score=988.9, team=16383960)
+2026-08-05 10:18:53,934 INFO   对局数: 15（补卡上限 15）
+2026-08-05 10:19:50,617 INFO 请求预算进度: 550/3000
+2026-08-05 10:21:41,163 INFO   ✔ 本队完成，本队新增 15 个对局
+2026-08-05 10:21:41,164 INFO [#118] e-toppo + kurupical (score=988.5, team=16371829)
+2026-08-05 10:22:21,540 INFO   对局数: 15（补卡上限 15）
+2026-08-05 10:23:52,556 WARNING 连接异常（服务器压力早期信号），间隔升至 7.7s
+2026-08-05 10:23:52,563 WARNING 网络异常（服务器压力），8s 后重试 (1/4): ('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))
+2026-08-05 10:24:56,142 INFO 请求预算进度: 575/3000
+2026-08-05 10:25:19,956 INFO   ✔ 本队完成，本队新增 14 个对局
+2026-08-05 10:25:19,958 INFO [#119] koala_bear (score=987.0, team=16383917)
+2026-08-05 10:25:43,184 INFO   对局数: 15（补卡上限 15）
+2026-08-05 10:28:33,592 INFO   ✔ 本队完成，本队新增 13 个对局
+2026-08-05 10:28:33,593 INFO [#120] beeyan (score=986.8, team=16514497)
+2026-08-05 10:28:57,447 INFO   对局数: 15（补卡上限 15）
+2026-08-05 10:30:08,222 INFO 请求预算进度: 600/3000
+2026-08-05 10:31:31,831 INFO   ✔ 本队完成，本队新增 13 个对局
+2026-08-05 10:31:31,832 INFO [#121] iwashi (score=986.0, team=16372828)
+2026-08-05 10:31:53,028 INFO   对局数: 15（补卡上限 15）
+2026-08-05 10:34:51,636 INFO   ✔ 本队完成，本队新增 15 个对局
+2026-08-05 10:34:51,637 INFO [#122] six seven (score=985.9, team=16373257)
+2026-08-05 10:35:02,277 INFO 请求预算进度: 625/3000
+2026-08-05 10:35:13,218 INFO   对局数: 15（补卡上限 15）
+2026-08-05 10:38:00,877 INFO   ✔ 本队完成，本队新增 15 个对局
+2026-08-05 10:38:00,877 INFO [#123] Gyoukou (score=985.7, team=16376912)
+2026-08-05 10:38:22,843 INFO   对局数: 15（补卡上限 15）
+2026-08-05 10:39:40,862 INFO 请求预算进度: 650/3000
+2026-08-05 10:40:59,352 INFO   ✔ 本队完成，本队新增 14 个对局
+2026-08-05 10:40:59,353 INFO [#124] lollipop947 (score=985.5, team=16381852)
+2026-08-05 10:41:20,345 INFO   对局数: 15（补卡上限 15）
+2026-08-05 10:44:18,907 INFO   ✔ 本队完成，本队新增 14 个对局
+2026-08-05 10:44:18,909 INFO [#125] ☕ Psyduck Needs Coffee (score=985.1, team=16483241)
+2026-08-05 10:44:41,224 INFO   对局数: 15（补卡上限 15）
+2026-08-05 10:44:41,235 INFO 请求预算进度: 675/3000
+2026-08-05 10:47:39,863 INFO   ✔ 本队完成，本队新增 15 个对局
+2026-08-05 10:47:39,869 INFO [#126] ありま こうせい (score=985.0, team=16411928)
+2026-08-05 10:48:02,643 INFO   对局数: 15（补卡上限 15）
+2026-08-05 10:49:41,571 INFO 请求预算进度: 700/3000
+2026-08-05 10:50:49,072 INFO   ✔ 本队完成，本队新增 14 个对局
+2026-08-05 10:50:49,074 INFO [#127] haruto (score=985.0, team=16482183)
+2026-08-05 10:51:24,978 INFO   对局数: 15（补卡上限 15）
+2026-08-05 10:54:52,216 WARNING 限流，8s 后重试 (1/4): Traceback (most recent call last):
+  File "/opt/anaconda3/lib/python3.13/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+    response = self._mak
+2026-08-05 10:56:18,613 INFO   ✔ 本队完成，本队新增 15 个对局
+2026-08-05 10:56:18,614 INFO [#128] 你好哇 (score=984.9, team=16566110)
+2026-08-05 10:56:28,672 INFO 请求预算进度: 725/3000
+2026-08-05 10:56:39,373 INFO   对局数: 15（补卡上限 15）
+2026-08-05 10:59:41,600 INFO   ✔ 本队完成，本队新增 15 个对局
+2026-08-05 10:59:41,600 INFO [#129] Pokér-man (score=984.8, team=16371606)
+2026-08-05 11:00:02,849 INFO   对局数: 15（补卡上限 15）
+2026-08-05 11:01:21,305 INFO 请求预算进度: 750/3000
+2026-08-05 11:02:48,240 INFO   ✔ 本队完成，本队新增 15 个对局
+2026-08-05 11:02:48,240 INFO [#130] Aurora wy (score=984.0, team=16532928)
+2026-08-05 11:03:07,835 INFO   对局数: 15（补卡上限 15）
+2026-08-05 11:05:49,646 INFO   ✔ 本队完成，本队新增 15 个对局
+2026-08-05 11:05:49,646 INFO [#131] stnick (score=983.2, team=16609576)
+2026-08-05 11:05:49,647 INFO 请求预算进度: 775/3000
+2026-08-05 11:06:09,763 INFO   对局数: 15（补卡上限 15）
+2026-08-05 11:08:50,210 INFO   ✔ 本队完成，本队新增 15 个对局
+2026-08-05 11:08:50,210 INFO [#132] A. R. SEKKAT (score=982.5, team=16561141)
+2026-08-05 11:09:10,257 INFO   对局数: 15（补卡上限 15）
+2026-08-05 11:10:15,989 INFO 请求预算进度: 800/3000
+2026-08-05 11:11:34,599 INFO   ✔ 本队完成，本队新增 13 个对局
+2026-08-05 11:11:34,600 INFO [#133] me and the lads (score=982.2, team=16411724)
+2026-08-05 11:11:55,981 INFO   对局数: 15（补卡上限 15）
+2026-08-05 11:14:46,159 INFO   ✔ 本队完成，本队新增 15 个对局
+2026-08-05 11:14:46,160 INFO [#134] Kosmostars (score=981.7, team=16601399)
+2026-08-05 11:14:55,728 INFO 请求预算进度: 825/3000
+2026-08-05 11:15:05,906 INFO   对局数: 15（补卡上限 15）
+2026-08-05 11:18:05,595 INFO   ✔ 本队完成，本队新增 15 个对局
+2026-08-05 11:18:05,595 INFO [#135] yalee (score=981.2, team=16555559)
+2026-08-05 11:18:26,636 INFO   对局数: 15（补卡上限 15）
+2026-08-05 11:19:46,607 INFO 请求预算进度: 850/3000
+2026-08-05 11:21:02,023 INFO   ✔ 本队完成，本队新增 14 个对局
+2026-08-05 11:21:02,023 INFO [#136] Zyy7390 (score=980.9, team=16516666)
+2026-08-05 11:21:21,505 INFO   对局数: 15（补卡上限 15）
+2026-08-05 11:24:07,080 INFO   ✔ 本队完成，本队新增 15 个对局
+2026-08-05 11:24:07,081 INFO [#137] Canon (score=980.3, team=16373951)
+2026-08-05 11:24:17,536 INFO 请求预算进度: 875/3000
+2026-08-05 11:24:27,375 INFO   对局数: 15（补卡上限 15）
+2026-08-05 11:25:19,385 ERROR 命令失败 (rc=1): kaggle competitions replay 90048763 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90048763-replay.json'
+2026-08-05 11:25:19,385 WARNING   replay 下载失败: episode 90048763
+2026-08-05 11:25:34,156 ERROR 命令失败 (rc=1): kaggle competitions replay 90038549 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90038549-replay.json'
+2026-08-05 11:25:34,157 WARNING   replay 下载失败: episode 90038549
+2026-08-05 11:25:48,391 ERROR 命令失败 (rc=1): kaggle competitions replay 90031147 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90031147-replay.json'
+2026-08-05 11:25:48,392 WARNING   replay 下载失败: episode 90031147
+2026-08-05 11:26:02,123 ERROR 命令失败 (rc=1): kaggle competitions replay 90023503 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90023503-replay.json'
+2026-08-05 11:26:02,124 WARNING   replay 下载失败: episode 90023503
+2026-08-05 11:26:16,134 ERROR 命令失败 (rc=1): kaggle competitions replay 90018402 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90018402-replay.json'
+2026-08-05 11:26:16,134 WARNING   replay 下载失败: episode 90018402
+2026-08-05 11:26:30,222 ERROR 命令失败 (rc=1): kaggle competitions replay 90013099 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90013099-replay.json'
+2026-08-05 11:26:30,224 WARNING   replay 下载失败: episode 90013099
+2026-08-05 11:26:43,514 ERROR 命令失败 (rc=1): kaggle competitions replay 90011985 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90011985-replay.json'
+2026-08-05 11:26:43,519 WARNING   replay 下载失败: episode 90011985
+2026-08-05 11:26:56,927 ERROR 命令失败 (rc=1): kaggle competitions replay 90006218 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90006218-replay.json'
+2026-08-05 11:26:56,927 WARNING   replay 下载失败: episode 90006218
+2026-08-05 11:27:09,945 ERROR 命令失败 (rc=1): kaggle competitions replay 90001022 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90001022-replay.json'
+2026-08-05 11:27:09,946 WARNING   replay 下载失败: episode 90001022
+2026-08-05 11:27:23,963 ERROR 命令失败 (rc=1): kaggle competitions replay 90000979 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90000979-replay.json'
+2026-08-05 11:27:23,963 WARNING   replay 下载失败: episode 90000979
+2026-08-05 11:27:38,736 ERROR 命令失败 (rc=1): kaggle competitions replay 89994987 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-89994987-replay.json'
+2026-08-05 11:27:38,738 WARNING   replay 下载失败: episode 89994987
+2026-08-05 11:27:52,255 ERROR 命令失败 (rc=1): kaggle competitions replay 89993735 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-89993735-replay.json'
+2026-08-05 11:27:52,255 WARNING   replay 下载失败: episode 89993735
+2026-08-05 11:27:52,256 INFO   ✔ 本队完成，本队新增 3 个对局
+2026-08-05 11:27:52,256 INFO [#138] john jiang zhifeng (score=980.3, team=16505814)
+2026-08-05 11:28:12,877 INFO   对局数: 15（补卡上限 15）
+2026-08-05 11:28:25,858 ERROR 命令失败 (rc=1): kaggle competitions replay 90069969 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90069969-replay.json'
+2026-08-05 11:28:25,858 WARNING   replay 下载失败: episode 90069969
+2026-08-05 11:28:39,847 ERROR 命令失败 (rc=1): kaggle competitions replay 90057807 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90057807-replay.json'
+2026-08-05 11:28:39,848 WARNING   replay 下载失败: episode 90057807
+2026-08-05 11:28:53,632 ERROR 命令失败 (rc=1): kaggle competitions replay 90054858 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90054858-replay.json'
+2026-08-05 11:28:53,633 WARNING   replay 下载失败: episode 90054858
+2026-08-05 11:29:08,406 ERROR 命令失败 (rc=1): kaggle competitions replay 90048354 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90048354-replay.json'
+2026-08-05 11:29:08,407 WARNING   replay 下载失败: episode 90048354
+2026-08-05 11:29:23,181 ERROR 命令失败 (rc=1): kaggle competitions replay 90041904 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90041904-replay.json'
+2026-08-05 11:29:23,182 WARNING   replay 下载失败: episode 90041904
+2026-08-05 11:29:36,997 ERROR 命令失败 (rc=1): kaggle competitions replay 90039302 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90039302-replay.json'
+2026-08-05 11:29:36,998 WARNING   replay 下载失败: episode 90039302
+2026-08-05 11:29:49,593 ERROR 命令失败 (rc=1): kaggle competitions replay 90038544 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90038544-replay.json'
+2026-08-05 11:29:49,594 WARNING   replay 下载失败: episode 90038544
+2026-08-05 11:29:49,604 INFO 请求预算进度: 900/3000
+2026-08-05 11:30:01,783 ERROR 命令失败 (rc=1): kaggle competitions replay 90035147 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90035147-replay.json'
+2026-08-05 11:30:01,784 WARNING   replay 下载失败: episode 90035147
+2026-08-05 11:30:14,613 ERROR 命令失败 (rc=1): kaggle competitions replay 90033779 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90033779-replay.json'
+2026-08-05 11:30:14,613 WARNING   replay 下载失败: episode 90033779
+2026-08-05 11:30:28,318 ERROR 命令失败 (rc=1): kaggle competitions replay 90029605 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90029605-replay.json'
+2026-08-05 11:30:28,319 WARNING   replay 下载失败: episode 90029605
+2026-08-05 11:30:41,590 ERROR 命令失败 (rc=1): kaggle competitions replay 90014412 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90014412-replay.json'
+2026-08-05 11:30:41,590 WARNING   replay 下载失败: episode 90014412
+2026-08-05 11:30:54,980 ERROR 命令失败 (rc=1): kaggle competitions replay 90013866 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90013866-replay.json'
+2026-08-05 11:30:54,981 WARNING   replay 下载失败: episode 90013866
+2026-08-05 11:31:08,189 ERROR 命令失败 (rc=1): kaggle competitions replay 90000981 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90000981-replay.json'
+2026-08-05 11:31:08,189 WARNING   replay 下载失败: episode 90000981
+2026-08-05 11:31:08,190 INFO [#139] Chua Zheng Wei Brian (score=979.7, team=16382034)
+2026-08-05 11:31:28,841 INFO   对局数: 15（补卡上限 15）
+2026-08-05 11:31:41,940 ERROR 命令失败 (rc=1): kaggle competitions replay 90076877 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90076877-replay.json'
+2026-08-05 11:31:41,941 WARNING   replay 下载失败: episode 90076877
+2026-08-05 11:31:56,189 ERROR 命令失败 (rc=1): kaggle competitions replay 90073917 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90073917-replay.json'
+2026-08-05 11:31:56,190 WARNING   replay 下载失败: episode 90073917
+2026-08-05 11:32:10,382 ERROR 命令失败 (rc=1): kaggle competitions replay 90073961 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90073961-replay.json'
+2026-08-05 11:32:10,383 WARNING   replay 下载失败: episode 90073961
+2026-08-05 11:32:23,593 ERROR 命令失败 (rc=1): kaggle competitions replay 90065854 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90065854-replay.json'
+2026-08-05 11:32:23,594 WARNING   replay 下载失败: episode 90065854
+2026-08-05 11:32:38,747 ERROR 命令失败 (rc=1): kaggle competitions replay 90056990 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90056990-replay.json'
+2026-08-05 11:32:38,748 WARNING   replay 下载失败: episode 90056990
+2026-08-05 11:32:56,745 ERROR 命令失败 (rc=1): kaggle competitions replay 90031821 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90031821-replay.json'
+2026-08-05 11:32:56,745 WARNING   replay 下载失败: episode 90031821
+2026-08-05 11:33:11,715 ERROR 命令失败 (rc=1): kaggle competitions replay 90030388 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90030388-replay.json'
+2026-08-05 11:33:11,715 WARNING   replay 下载失败: episode 90030388
+2026-08-05 11:33:28,289 ERROR 命令失败 (rc=1): kaggle competitions replay 90027533 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90027533-replay.json'
+2026-08-05 11:33:28,289 WARNING   replay 下载失败: episode 90027533
+2026-08-05 11:34:56,560 ERROR 命令失败 (rc=1): kaggle competitions replay 90026946 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90026946-replay.json'
+2026-08-05 11:34:56,561 WARNING   replay 下载失败: episode 90026946
+2026-08-05 11:35:14,126 ERROR 命令失败 (rc=1): kaggle competitions replay 90026239 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90026239-replay.json'
+2026-08-05 11:35:14,127 WARNING   replay 下载失败: episode 90026239
+2026-08-05 11:35:27,778 ERROR 命令失败 (rc=1): kaggle competitions replay 90023049 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90023049-replay.json'
+2026-08-05 11:35:27,779 WARNING   replay 下载失败: episode 90023049
+2026-08-05 11:35:41,831 ERROR 命令失败 (rc=1): kaggle competitions replay 90017642 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90017642-replay.json'
+2026-08-05 11:35:41,832 WARNING   replay 下载失败: episode 90017642
+2026-08-05 11:35:54,843 ERROR 命令失败 (rc=1): kaggle competitions replay 90015708 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90015708-replay.json'
+2026-08-05 11:35:54,843 WARNING   replay 下载失败: episode 90015708
+2026-08-05 11:36:07,442 ERROR 命令失败 (rc=1): kaggle competitions replay 90013134 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90013134-replay.json'
+2026-08-05 11:36:07,442 WARNING   replay 下载失败: episode 90013134
+2026-08-05 11:36:07,443 INFO [#140] Gemini ch. (score=979.0, team=16373846)
+2026-08-05 11:36:27,936 INFO   对局数: 15（补卡上限 15）
+2026-08-05 11:36:42,485 ERROR 命令失败 (rc=1): kaggle competitions replay 90079519 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90079519-replay.json'
+2026-08-05 11:36:42,486 WARNING   replay 下载失败: episode 90079519
+2026-08-05 11:36:42,510 INFO 请求预算进度: 925/3000
+2026-08-05 11:36:57,659 ERROR 命令失败 (rc=1): kaggle competitions replay 90065833 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90065833-replay.json'
+2026-08-05 11:36:57,660 WARNING   replay 下载失败: episode 90065833
+2026-08-05 11:37:10,139 ERROR 命令失败 (rc=1): kaggle competitions replay 90055586 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90055586-replay.json'
+2026-08-05 11:37:10,140 WARNING   replay 下载失败: episode 90055586
+2026-08-05 11:37:23,082 ERROR 命令失败 (rc=1): kaggle competitions replay 90040597 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90040597-replay.json'
+2026-08-05 11:37:23,083 WARNING   replay 下载失败: episode 90040597
+2026-08-05 11:37:36,259 ERROR 命令失败 (rc=1): kaggle competitions replay 90040421 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90040421-replay.json'
+2026-08-05 11:37:36,260 WARNING   replay 下载失败: episode 90040421
+2026-08-05 11:37:49,941 ERROR 命令失败 (rc=1): kaggle competitions replay 90040581 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90040581-replay.json'
+2026-08-05 11:37:49,942 WARNING   replay 下载失败: episode 90040581
+2026-08-05 11:38:03,075 ERROR 命令失败 (rc=1): kaggle competitions replay 90035233 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90035233-replay.json'
+2026-08-05 11:38:03,076 WARNING   replay 下载失败: episode 90035233
+2026-08-05 11:38:16,201 ERROR 命令失败 (rc=1): kaggle competitions replay 90023602 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90023602-replay.json'
+2026-08-05 11:38:16,202 WARNING   replay 下载失败: episode 90023602
+2026-08-05 11:38:29,610 ERROR 命令失败 (rc=1): kaggle competitions replay 90012665 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90012665-replay.json'
+2026-08-05 11:38:29,611 WARNING   replay 下载失败: episode 90012665
+2026-08-05 11:38:42,372 ERROR 命令失败 (rc=1): kaggle competitions replay 90010399 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90010399-replay.json'
+2026-08-05 11:38:42,373 WARNING   replay 下载失败: episode 90010399
+2026-08-05 11:38:56,420 ERROR 命令失败 (rc=1): kaggle competitions replay 90008686 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90008686-replay.json'
+2026-08-05 11:38:56,421 WARNING   replay 下载失败: episode 90008686
+2026-08-05 11:39:08,529 ERROR 命令失败 (rc=1): kaggle competitions replay 90001590 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90001590-replay.json'
+2026-08-05 11:39:08,529 WARNING   replay 下载失败: episode 90001590
+2026-08-05 11:39:23,527 ERROR 命令失败 (rc=1): kaggle competitions replay 89989910 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-89989910-replay.json'
+2026-08-05 11:39:23,528 WARNING   replay 下载失败: episode 89989910
+2026-08-05 11:39:36,623 ERROR 命令失败 (rc=1): kaggle competitions replay 89988100 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-89988100-replay.json'
+2026-08-05 11:39:36,624 WARNING   replay 下载失败: episode 89988100
+2026-08-05 11:39:49,107 ERROR 命令失败 (rc=1): kaggle competitions replay 89986530 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-89986530-replay.json'
+2026-08-05 11:39:49,108 WARNING   replay 下载失败: episode 89986530
+2026-08-05 11:39:49,108 INFO [#141] EricYang03 (score=978.8, team=16531302)
+2026-08-05 11:40:08,128 INFO   对局数: 15（补卡上限 15）
+2026-08-05 11:40:21,683 ERROR 命令失败 (rc=1): kaggle competitions replay 90076715 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90076715-replay.json'
+2026-08-05 11:40:21,685 WARNING   replay 下载失败: episode 90076715
+2026-08-05 11:40:34,183 ERROR 命令失败 (rc=1): kaggle competitions replay 90075907 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90075907-replay.json'
+2026-08-05 11:40:34,184 WARNING   replay 下载失败: episode 90075907
+2026-08-05 11:40:46,683 ERROR 命令失败 (rc=1): kaggle competitions replay 90074174 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90074174-replay.json'
+2026-08-05 11:40:46,684 WARNING   replay 下载失败: episode 90074174
+2026-08-05 11:40:59,758 ERROR 命令失败 (rc=1): kaggle competitions replay 90073247 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90073247-replay.json'
+2026-08-05 11:40:59,758 WARNING   replay 下载失败: episode 90073247
+2026-08-05 11:41:12,393 ERROR 命令失败 (rc=1): kaggle competitions replay 90058418 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90058418-replay.json'
+2026-08-05 11:41:12,394 WARNING   replay 下载失败: episode 90058418
+2026-08-05 11:41:25,716 ERROR 命令失败 (rc=1): kaggle competitions replay 90044739 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90044739-replay.json'
+2026-08-05 11:41:25,717 WARNING   replay 下载失败: episode 90044739
+2026-08-05 11:41:38,532 ERROR 命令失败 (rc=1): kaggle competitions replay 90041704 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90041704-replay.json'
+2026-08-05 11:41:38,532 WARNING   replay 下载失败: episode 90041704
+2026-08-05 11:41:51,626 ERROR 命令失败 (rc=1): kaggle competitions replay 90039256 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90039256-replay.json'
+2026-08-05 11:41:51,627 WARNING   replay 下载失败: episode 90039256
+2026-08-05 11:42:03,965 ERROR 命令失败 (rc=1): kaggle competitions replay 90038623 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90038623-replay.json'
+2026-08-05 11:42:03,966 WARNING   replay 下载失败: episode 90038623
+2026-08-05 11:42:03,986 INFO 请求预算进度: 950/3000
+2026-08-05 11:42:16,677 ERROR 命令失败 (rc=1): kaggle competitions replay 90037150 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90037150-replay.json'
+2026-08-05 11:42:16,677 WARNING   replay 下载失败: episode 90037150
+2026-08-05 11:42:29,785 ERROR 命令失败 (rc=1): kaggle competitions replay 90031765 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90031765-replay.json'
+2026-08-05 11:42:29,786 WARNING   replay 下载失败: episode 90031765
+2026-08-05 11:42:43,236 ERROR 命令失败 (rc=1): kaggle competitions replay 90029564 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90029564-replay.json'
+2026-08-05 11:42:43,237 WARNING   replay 下载失败: episode 90029564
+2026-08-05 11:42:55,967 ERROR 命令失败 (rc=1): kaggle competitions replay 90028251 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90028251-replay.json'
+2026-08-05 11:42:55,968 WARNING   replay 下载失败: episode 90028251
+2026-08-05 11:43:08,267 ERROR 命令失败 (rc=1): kaggle competitions replay 90026182 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90026182-replay.json'
+2026-08-05 11:43:08,268 WARNING   replay 下载失败: episode 90026182
+2026-08-05 11:43:21,651 ERROR 命令失败 (rc=1): kaggle competitions replay 90018275 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90018275-replay.json'
+2026-08-05 11:43:21,652 WARNING   replay 下载失败: episode 90018275
+2026-08-05 11:43:21,652 INFO [#142] kashiwashira (score=978.6, team=16385372)
+2026-08-05 11:43:40,482 INFO   对局数: 15（补卡上限 15）
+2026-08-05 11:43:53,770 ERROR 命令失败 (rc=1): kaggle competitions replay 90082042 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90082042-replay.json'
+2026-08-05 11:43:53,771 WARNING   replay 下载失败: episode 90082042
+2026-08-05 11:44:07,183 ERROR 命令失败 (rc=1): kaggle competitions replay 90081359 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90081359-replay.json'
+2026-08-05 11:44:07,183 WARNING   replay 下载失败: episode 90081359
+2026-08-05 11:44:20,085 ERROR 命令失败 (rc=1): kaggle competitions replay 90080680 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90080680-replay.json'
+2026-08-05 11:44:20,086 WARNING   replay 下载失败: episode 90080680
+2026-08-05 11:44:34,198 ERROR 命令失败 (rc=1): kaggle competitions replay 90080000 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90080000-replay.json'
+2026-08-05 11:44:34,198 WARNING   replay 下载失败: episode 90080000
+2026-08-05 11:44:47,840 ERROR 命令失败 (rc=1): kaggle competitions replay 90080697 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90080697-replay.json'
+2026-08-05 11:44:47,840 WARNING   replay 下载失败: episode 90080697
+2026-08-05 11:45:02,305 ERROR 命令失败 (rc=1): kaggle competitions replay 90079327 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90079327-replay.json'
+2026-08-05 11:45:02,305 WARNING   replay 下载失败: episode 90079327
+2026-08-05 11:45:15,696 ERROR 命令失败 (rc=1): kaggle competitions replay 90078635 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90078635-replay.json'
+2026-08-05 11:45:15,699 WARNING   replay 下载失败: episode 90078635
+2026-08-05 11:45:28,441 ERROR 命令失败 (rc=1): kaggle competitions replay 90077960 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90077960-replay.json'
+2026-08-05 11:45:28,442 WARNING   replay 下载失败: episode 90077960
+2026-08-05 11:45:42,900 ERROR 命令失败 (rc=1): kaggle competitions replay 90077286 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90077286-replay.json'
+2026-08-05 11:45:42,900 WARNING   replay 下载失败: episode 90077286
+2026-08-05 11:45:55,825 ERROR 命令失败 (rc=1): kaggle competitions replay 90076589 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90076589-replay.json'
+2026-08-05 11:45:55,825 WARNING   replay 下载失败: episode 90076589
+2026-08-05 11:46:08,588 ERROR 命令失败 (rc=1): kaggle competitions replay 90075938 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90075938-replay.json'
+2026-08-05 11:46:08,589 WARNING   replay 下载失败: episode 90075938
+2026-08-05 11:46:23,980 ERROR 命令失败 (rc=1): kaggle competitions replay 90075220 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90075220-replay.json'
+2026-08-05 11:46:23,980 WARNING   replay 下载失败: episode 90075220
+2026-08-05 11:46:36,989 ERROR 命令失败 (rc=1): kaggle competitions replay 90074510 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90074510-replay.json'
+2026-08-05 11:46:36,990 WARNING   replay 下载失败: episode 90074510
+2026-08-05 11:46:50,273 ERROR 命令失败 (rc=1): kaggle competitions replay 90073857 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90073857-replay.json'
+2026-08-05 11:46:50,273 WARNING   replay 下载失败: episode 90073857
+2026-08-05 11:47:07,151 ERROR 命令失败 (rc=1): kaggle competitions replay 90073180 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90073180-replay.json'
+2026-08-05 11:47:07,151 WARNING   replay 下载失败: episode 90073180
+2026-08-05 11:47:07,152 INFO [#143] Asa-sotta  (score=978.5, team=16387022)
+2026-08-05 11:47:28,512 INFO   对局数: 15（补卡上限 15）
+2026-08-05 11:47:28,532 INFO 请求预算进度: 975/3000
+2026-08-05 11:47:42,554 ERROR 命令失败 (rc=1): kaggle competitions replay 90075226 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90075226-replay.json'
+2026-08-05 11:47:42,554 WARNING   replay 下载失败: episode 90075226
+2026-08-05 11:47:55,010 ERROR 命令失败 (rc=1): kaggle competitions replay 90073987 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90073987-replay.json'
+2026-08-05 11:47:55,011 WARNING   replay 下载失败: episode 90073987
+2026-08-05 11:48:08,420 ERROR 命令失败 (rc=1): kaggle competitions replay 90067815 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90067815-replay.json'
+2026-08-05 11:48:08,420 WARNING   replay 下载失败: episode 90067815
+2026-08-05 11:48:22,193 ERROR 命令失败 (rc=1): kaggle competitions replay 90063932 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90063932-replay.json'
+2026-08-05 11:48:22,194 WARNING   replay 下载失败: episode 90063932
+2026-08-05 11:48:34,568 ERROR 命令失败 (rc=1): kaggle competitions replay 90062584 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90062584-replay.json'
+2026-08-05 11:48:34,569 WARNING   replay 下载失败: episode 90062584
+2026-08-05 11:48:49,561 ERROR 命令失败 (rc=1): kaggle competitions replay 90054318 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90054318-replay.json'
+2026-08-05 11:48:49,561 WARNING   replay 下载失败: episode 90054318
+2026-08-05 11:49:02,675 ERROR 命令失败 (rc=1): kaggle competitions replay 90053066 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90053066-replay.json'
+2026-08-05 11:49:02,676 WARNING   replay 下载失败: episode 90053066
+2026-08-05 11:49:16,329 ERROR 命令失败 (rc=1): kaggle competitions replay 90045500 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90045500-replay.json'
+2026-08-05 11:49:16,330 WARNING   replay 下载失败: episode 90045500
+2026-08-05 11:49:29,802 ERROR 命令失败 (rc=1): kaggle competitions replay 90045332 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90045332-replay.json'
+2026-08-05 11:49:29,802 WARNING   replay 下载失败: episode 90045332
+2026-08-05 11:49:44,570 ERROR 命令失败 (rc=1): kaggle competitions replay 90039795 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90039795-replay.json'
+2026-08-05 11:49:44,571 WARNING   replay 下载失败: episode 90039795
+2026-08-05 11:49:57,407 ERROR 命令失败 (rc=1): kaggle competitions replay 90039030 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90039030-replay.json'
+2026-08-05 11:49:57,407 WARNING   replay 下载失败: episode 90039030
+2026-08-05 11:50:10,107 ERROR 命令失败 (rc=1): kaggle competitions replay 90031763 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90031763-replay.json'
+2026-08-05 11:50:10,107 WARNING   replay 下载失败: episode 90031763
+2026-08-05 11:50:22,940 ERROR 命令失败 (rc=1): kaggle competitions replay 90019541 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90019541-replay.json'
+2026-08-05 11:50:22,940 WARNING   replay 下载失败: episode 90019541
+2026-08-05 11:50:36,299 ERROR 命令失败 (rc=1): kaggle competitions replay 90009080 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90009080-replay.json'
+2026-08-05 11:50:36,300 WARNING   replay 下载失败: episode 90009080
+2026-08-05 11:50:36,300 INFO [#144] Haumea (score=978.4, team=16404960)
+2026-08-05 11:50:54,913 INFO   对局数: 15（补卡上限 15）
+2026-08-05 11:51:08,590 ERROR 命令失败 (rc=1): kaggle competitions replay 90080058 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90080058-replay.json'
+2026-08-05 11:51:08,590 WARNING   replay 下载失败: episode 90080058
+2026-08-05 11:51:22,747 ERROR 403 拒绝（没 Join 竞赛？kaggle.json 失效？）: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90074036-replay.json'
+2026-08-05 11:51:22,748 WARNING   replay 下载失败: episode 90074036
+2026-08-05 11:51:37,089 ERROR 命令失败 (rc=1): kaggle competitions replay 90057243 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90057243-replay.json'
+2026-08-05 11:51:37,089 WARNING   replay 下载失败: episode 90057243
+2026-08-05 11:51:49,813 ERROR 命令失败 (rc=1): kaggle competitions replay 90056329 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90056329-replay.json'
+2026-08-05 11:51:49,813 WARNING   replay 下载失败: episode 90056329
+2026-08-05 11:52:01,980 ERROR 命令失败 (rc=1): kaggle competitions replay 90036469 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90036469-replay.json'
+2026-08-05 11:52:01,981 WARNING   replay 下载失败: episode 90036469
+2026-08-05 11:52:15,886 ERROR 命令失败 (rc=1): kaggle competitions replay 90033938 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90033938-replay.json'
+2026-08-05 11:52:15,887 WARNING   replay 下载失败: episode 90033938
+2026-08-05 11:52:28,513 ERROR 命令失败 (rc=1): kaggle competitions replay 90026363 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90026363-replay.json'
+2026-08-05 11:52:28,513 WARNING   replay 下载失败: episode 90026363
+2026-08-05 11:52:41,573 ERROR 命令失败 (rc=1): kaggle competitions replay 90017830 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90017830-replay.json'
+2026-08-05 11:52:41,574 WARNING   replay 下载失败: episode 90017830
+2026-08-05 11:52:55,883 ERROR 命令失败 (rc=1): kaggle competitions replay 90017600 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90017600-replay.json'
+2026-08-05 11:52:55,884 WARNING   replay 下载失败: episode 90017600
+2026-08-05 11:52:55,906 INFO 请求预算进度: 1000/3000
+2026-08-05 11:53:10,715 ERROR 命令失败 (rc=1): kaggle competitions replay 90009363 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90009363-replay.json'
+2026-08-05 11:53:10,716 WARNING   replay 下载失败: episode 90009363
+2026-08-05 11:53:23,431 ERROR 命令失败 (rc=1): kaggle competitions replay 90003449 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90003449-replay.json'
+2026-08-05 11:53:23,431 WARNING   replay 下载失败: episode 90003449
+2026-08-05 11:53:37,817 ERROR 命令失败 (rc=1): kaggle competitions replay 89994453 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-89994453-replay.json'
+2026-08-05 11:53:37,818 WARNING   replay 下载失败: episode 89994453
+2026-08-05 11:53:51,595 ERROR 命令失败 (rc=1): kaggle competitions replay 89976419 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-89976419-replay.json'
+2026-08-05 11:53:51,595 WARNING   replay 下载失败: episode 89976419
+2026-08-05 11:54:09,684 ERROR 命令失败 (rc=1): kaggle competitions replay 89963673 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-89963673-replay.json'
+2026-08-05 11:54:09,684 WARNING   replay 下载失败: episode 89963673
+2026-08-05 11:54:24,300 ERROR 命令失败 (rc=1): kaggle competitions replay 89961550 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-89961550-replay.json'
+2026-08-05 11:54:24,300 WARNING   replay 下载失败: episode 89961550
+2026-08-05 11:54:24,300 INFO [#145] Hiroki Yamazaki (score=977.4, team=16386225)
+2026-08-05 11:54:43,167 INFO   对局数: 15（补卡上限 15）
+2026-08-05 11:55:00,727 ERROR 命令失败 (rc=1): kaggle competitions replay 90082151 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90082151-replay.json'
+2026-08-05 11:55:00,728 WARNING   replay 下载失败: episode 90082151
+2026-08-05 11:55:13,395 ERROR 命令失败 (rc=1): kaggle competitions replay 90078677 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90078677-replay.json'
+2026-08-05 11:55:13,396 WARNING   replay 下载失败: episode 90078677
+2026-08-05 11:55:25,998 ERROR 命令失败 (rc=1): kaggle competitions replay 90068651 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90068651-replay.json'
+2026-08-05 11:55:25,998 WARNING   replay 下载失败: episode 90068651
+2026-08-05 11:55:40,419 ERROR 命令失败 (rc=1): kaggle competitions replay 90062472 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90062472-replay.json'
+2026-08-05 11:55:40,420 WARNING   replay 下载失败: episode 90062472
+2026-08-05 11:55:52,764 ERROR 命令失败 (rc=1): kaggle competitions replay 90051599 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90051599-replay.json'
+2026-08-05 11:55:52,766 WARNING   replay 下载失败: episode 90051599
+2026-08-05 11:56:06,638 ERROR 命令失败 (rc=1): kaggle competitions replay 90049401 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90049401-replay.json'
+2026-08-05 11:56:06,639 WARNING   replay 下载失败: episode 90049401
+2026-08-05 11:56:20,062 ERROR 命令失败 (rc=1): kaggle competitions replay 90037807 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90037807-replay.json'
+2026-08-05 11:56:20,062 WARNING   replay 下载失败: episode 90037807
+2026-08-05 11:56:33,687 ERROR 命令失败 (rc=1): kaggle competitions replay 90036625 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90036625-replay.json'
+2026-08-05 11:56:33,688 WARNING   replay 下载失败: episode 90036625
+2026-08-05 11:56:46,263 ERROR 命令失败 (rc=1): kaggle competitions replay 90023707 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90023707-replay.json'
+2026-08-05 11:56:46,264 WARNING   replay 下载失败: episode 90023707
+2026-08-05 11:56:59,490 ERROR 命令失败 (rc=1): kaggle competitions replay 90024100 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90024100-replay.json'
+2026-08-05 11:56:59,491 WARNING   replay 下载失败: episode 90024100
+2026-08-05 11:57:12,426 ERROR 命令失败 (rc=1): kaggle competitions replay 90002014 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90002014-replay.json'
+2026-08-05 11:57:12,428 WARNING   replay 下载失败: episode 90002014
+2026-08-05 11:57:26,620 ERROR 命令失败 (rc=1): kaggle competitions replay 89996263 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-89996263-replay.json'
+2026-08-05 11:57:26,621 WARNING   replay 下载失败: episode 89996263
+2026-08-05 11:57:40,738 ERROR 命令失败 (rc=1): kaggle competitions replay 89984128 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-89984128-replay.json'
+2026-08-05 11:57:40,738 WARNING   replay 下载失败: episode 89984128
+2026-08-05 11:57:40,738 INFO [#146] Pikachu, I choose you! (score=977.4, team=16373415)
+2026-08-05 11:58:00,483 INFO   对局数: 15（补卡上限 15）
+2026-08-05 11:58:14,842 ERROR 命令失败 (rc=1): kaggle competitions replay 90084792 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90084792-replay.json'
+2026-08-05 11:58:14,842 WARNING   replay 下载失败: episode 90084792
+2026-08-05 11:58:27,337 ERROR 命令失败 (rc=1): kaggle competitions replay 90084102 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90084102-replay.json'
+2026-08-05 11:58:27,337 WARNING   replay 下载失败: episode 90084102
+2026-08-05 11:58:27,358 INFO 请求预算进度: 1025/3000
+2026-08-05 11:58:41,704 ERROR 命令失败 (rc=1): kaggle competitions replay 90083419 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90083419-replay.json'
+2026-08-05 11:58:41,705 WARNING   replay 下载失败: episode 90083419
+2026-08-05 11:58:54,107 ERROR 命令失败 (rc=1): kaggle competitions replay 90082747 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90082747-replay.json'
+2026-08-05 11:58:54,107 WARNING   replay 下载失败: episode 90082747
+2026-08-05 11:59:08,866 ERROR 命令失败 (rc=1): kaggle competitions replay 90082068 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90082068-replay.json'
+2026-08-05 11:59:08,867 WARNING   replay 下载失败: episode 90082068
+2026-08-05 11:59:22,277 ERROR 命令失败 (rc=1): kaggle competitions replay 90081390 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90081390-replay.json'
+2026-08-05 11:59:22,278 WARNING   replay 下载失败: episode 90081390
+2026-08-05 11:59:35,996 ERROR 命令失败 (rc=1): kaggle competitions replay 90080733 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90080733-replay.json'
+2026-08-05 11:59:35,997 WARNING   replay 下载失败: episode 90080733
+2026-08-05 11:59:48,156 ERROR 命令失败 (rc=1): kaggle competitions replay 90080626 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90080626-replay.json'
+2026-08-05 11:59:48,157 WARNING   replay 下载失败: episode 90080626
+2026-08-05 12:00:00,602 ERROR 命令失败 (rc=1): kaggle competitions replay 90080034 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90080034-replay.json'
+2026-08-05 12:00:00,602 WARNING   replay 下载失败: episode 90080034
+2026-08-05 12:00:15,277 ERROR 命令失败 (rc=1): kaggle competitions replay 90079349 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90079349-replay.json'
+2026-08-05 12:00:15,278 WARNING   replay 下载失败: episode 90079349
+2026-08-05 12:00:29,446 ERROR 命令失败 (rc=1): kaggle competitions replay 90078662 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90078662-replay.json'
+2026-08-05 12:00:29,447 WARNING   replay 下载失败: episode 90078662
+2026-08-05 12:00:42,134 ERROR 命令失败 (rc=1): kaggle competitions replay 90077979 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90077979-replay.json'
+2026-08-05 12:00:42,134 WARNING   replay 下载失败: episode 90077979
+2026-08-05 12:00:55,101 ERROR 命令失败 (rc=1): kaggle competitions replay 90077303 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90077303-replay.json'
+2026-08-05 12:00:55,102 WARNING   replay 下载失败: episode 90077303
+2026-08-05 12:01:09,401 ERROR 命令失败 (rc=1): kaggle competitions replay 90076604 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90076604-replay.json'
+2026-08-05 12:01:09,401 WARNING   replay 下载失败: episode 90076604
+2026-08-05 12:01:22,325 ERROR 命令失败 (rc=1): kaggle competitions replay 90075961 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90075961-replay.json'
+2026-08-05 12:01:22,326 WARNING   replay 下载失败: episode 90075961
+2026-08-05 12:01:22,326 INFO [#147] poppy457 (score=976.9, team=16388680)
+2026-08-05 12:01:40,996 INFO   对局数: 15（补卡上限 15）
+2026-08-05 12:01:55,049 ERROR 命令失败 (rc=1): kaggle competitions replay 90077431 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90077431-replay.json'
+2026-08-05 12:01:55,049 WARNING   replay 下载失败: episode 90077431
+2026-08-05 12:02:08,906 ERROR 命令失败 (rc=1): kaggle competitions replay 90073454 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90073454-replay.json'
+2026-08-05 12:02:08,907 WARNING   replay 下载失败: episode 90073454
+2026-08-05 12:02:21,890 ERROR 命令失败 (rc=1): kaggle competitions replay 90063134 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90063134-replay.json'
+2026-08-05 12:02:21,890 WARNING   replay 下载失败: episode 90063134
+2026-08-05 12:02:36,698 ERROR 命令失败 (rc=1): kaggle competitions replay 90052395 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90052395-replay.json'
+2026-08-05 12:02:36,699 WARNING   replay 下载失败: episode 90052395
+2026-08-05 12:02:50,013 ERROR 命令失败 (rc=1): kaggle competitions replay 90048106 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90048106-replay.json'
+2026-08-05 12:02:50,013 WARNING   replay 下载失败: episode 90048106
+2026-08-05 12:03:02,172 ERROR 命令失败 (rc=1): kaggle competitions replay 90048312 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90048312-replay.json'
+2026-08-05 12:03:02,172 WARNING   replay 下载失败: episode 90048312
+2026-08-05 12:03:15,772 ERROR 命令失败 (rc=1): kaggle competitions replay 90046920 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90046920-replay.json'
+2026-08-05 12:03:15,773 WARNING   replay 下载失败: episode 90046920
+2026-08-05 12:03:28,046 ERROR 命令失败 (rc=1): kaggle competitions replay 90045471 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90045471-replay.json'
+2026-08-05 12:03:28,047 WARNING   replay 下载失败: episode 90045471
+2026-08-05 12:03:41,444 ERROR 命令失败 (rc=1): kaggle competitions replay 90044704 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90044704-replay.json'
+2026-08-05 12:03:41,444 WARNING   replay 下载失败: episode 90044704
+2026-08-05 12:03:54,766 ERROR 命令失败 (rc=1): kaggle competitions replay 90043974 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90043974-replay.json'
+2026-08-05 12:03:54,766 WARNING   replay 下载失败: episode 90043974
+2026-08-05 12:03:54,771 INFO 请求预算进度: 1050/3000
+2026-08-05 12:04:08,284 ERROR 命令失败 (rc=1): kaggle competitions replay 90043290 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90043290-replay.json'
+2026-08-05 12:04:08,285 WARNING   replay 下载失败: episode 90043290
+2026-08-05 12:04:20,867 ERROR 命令失败 (rc=1): kaggle competitions replay 90042588 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90042588-replay.json'
+2026-08-05 12:04:20,867 WARNING   replay 下载失败: episode 90042588
+2026-08-05 12:04:35,014 ERROR 命令失败 (rc=1): kaggle competitions replay 90041917 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90041917-replay.json'
+2026-08-05 12:04:35,015 WARNING   replay 下载失败: episode 90041917
+2026-08-05 12:04:35,015 INFO [#148] Käfersammler Max (score=976.9, team=16481642)
+2026-08-05 12:04:53,782 INFO   对局数: 15（补卡上限 15）
+2026-08-05 12:05:06,310 ERROR 命令失败 (rc=1): kaggle competitions replay 90076783 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90076783-replay.json'
+2026-08-05 12:05:06,311 WARNING   replay 下载失败: episode 90076783
+2026-08-05 12:05:20,338 ERROR 命令失败 (rc=1): kaggle competitions replay 90075846 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90075846-replay.json'
+2026-08-05 12:05:20,338 WARNING   replay 下载失败: episode 90075846
+2026-08-05 12:05:34,367 ERROR 命令失败 (rc=1): kaggle competitions replay 90070752 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90070752-replay.json'
+2026-08-05 12:05:34,368 WARNING   replay 下载失败: episode 90070752
+2026-08-05 12:05:48,117 ERROR 命令失败 (rc=1): kaggle competitions replay 90068587 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90068587-replay.json'
+2026-08-05 12:05:48,118 WARNING   replay 下载失败: episode 90068587
+2026-08-05 12:06:01,825 ERROR 命令失败 (rc=1): kaggle competitions replay 90067964 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90067964-replay.json'
+2026-08-05 12:06:01,826 WARNING   replay 下载失败: episode 90067964
+2026-08-05 12:06:15,922 ERROR 命令失败 (rc=1): kaggle competitions replay 90054245 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90054245-replay.json'
+2026-08-05 12:06:15,922 WARNING   replay 下载失败: episode 90054245
+2026-08-05 12:06:29,449 ERROR 命令失败 (rc=1): kaggle competitions replay 90039735 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90039735-replay.json'
+2026-08-05 12:06:29,450 WARNING   replay 下载失败: episode 90039735
+2026-08-05 12:06:42,461 ERROR 命令失败 (rc=1): kaggle competitions replay 90035730 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90035730-replay.json'
+2026-08-05 12:06:42,461 WARNING   replay 下载失败: episode 90035730
+2026-08-05 12:06:54,618 ERROR 命令失败 (rc=1): kaggle competitions replay 90028240 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90028240-replay.json'
+2026-08-05 12:06:54,618 WARNING   replay 下载失败: episode 90028240
+2026-08-05 12:07:09,164 ERROR 命令失败 (rc=1): kaggle competitions replay 90018862 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90018862-replay.json'
+2026-08-05 12:07:09,164 WARNING   replay 下载失败: episode 90018862
+2026-08-05 12:07:21,819 ERROR 命令失败 (rc=1): kaggle competitions replay 90019125 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90019125-replay.json'
+2026-08-05 12:07:21,820 WARNING   replay 下载失败: episode 90019125
+2026-08-05 12:07:35,643 ERROR 命令失败 (rc=1): kaggle competitions replay 90007273 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90007273-replay.json'
+2026-08-05 12:07:35,643 WARNING   replay 下载失败: episode 90007273
+2026-08-05 12:07:50,504 ERROR 命令失败 (rc=1): kaggle competitions replay 90005451 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90005451-replay.json'
+2026-08-05 12:07:50,505 WARNING   replay 下载失败: episode 90005451
+2026-08-05 12:08:07,537 ERROR 命令失败 (rc=1): kaggle competitions replay 89991129 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-89991129-replay.json'
+2026-08-05 12:08:07,540 WARNING   replay 下载失败: episode 89991129
+2026-08-05 12:08:20,112 ERROR 命令失败 (rc=1): kaggle competitions replay 89989722 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-89989722-replay.json'
+2026-08-05 12:08:20,112 WARNING   replay 下载失败: episode 89989722
+2026-08-05 12:08:20,112 INFO [#149] alexesn (score=976.4, team=16591208)
+2026-08-05 12:08:40,405 INFO   对局数: 15（补卡上限 15）
+2026-08-05 12:08:54,108 ERROR 命令失败 (rc=1): kaggle competitions replay 90081515 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90081515-replay.json'
+2026-08-05 12:08:54,109 WARNING   replay 下载失败: episode 90081515
+2026-08-05 12:09:06,470 ERROR 命令失败 (rc=1): kaggle competitions replay 90080701 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90080701-replay.json'
+2026-08-05 12:09:06,470 WARNING   replay 下载失败: episode 90080701
+2026-08-05 12:09:20,258 ERROR 命令失败 (rc=1): kaggle competitions replay 90074476 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90074476-replay.json'
+2026-08-05 12:09:20,258 WARNING   replay 下载失败: episode 90074476
+2026-08-05 12:09:20,279 INFO 请求预算进度: 1075/3000
+2026-08-05 12:09:35,703 ERROR 命令失败 (rc=1): kaggle competitions replay 90067930 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90067930-replay.json'
+2026-08-05 12:09:35,703 WARNING   replay 下载失败: episode 90067930
+2026-08-05 12:09:48,880 ERROR 命令失败 (rc=1): kaggle competitions replay 90053103 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90053103-replay.json'
+2026-08-05 12:09:48,880 WARNING   replay 下载失败: episode 90053103
+2026-08-05 12:10:03,710 ERROR 命令失败 (rc=1): kaggle competitions replay 90052108 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90052108-replay.json'
+2026-08-05 12:10:03,711 WARNING   replay 下载失败: episode 90052108
+2026-08-05 12:10:16,512 ERROR 命令失败 (rc=1): kaggle competitions replay 90048320 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90048320-replay.json'
+2026-08-05 12:10:16,512 WARNING   replay 下载失败: episode 90048320
+2026-08-05 12:10:29,379 ERROR 命令失败 (rc=1): kaggle competitions replay 90047317 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90047317-replay.json'
+2026-08-05 12:10:29,379 WARNING   replay 下载失败: episode 90047317
+2026-08-05 12:10:42,638 ERROR 命令失败 (rc=1): kaggle competitions replay 90047612 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90047612-replay.json'
+2026-08-05 12:10:42,639 WARNING   replay 下载失败: episode 90047612
+2026-08-05 12:10:56,747 ERROR 命令失败 (rc=1): kaggle competitions replay 90046930 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90046930-replay.json'
+2026-08-05 12:10:56,748 WARNING   replay 下载失败: episode 90046930
+2026-08-05 12:11:10,490 ERROR 命令失败 (rc=1): kaggle competitions replay 90046207 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90046207-replay.json'
+2026-08-05 12:11:10,491 WARNING   replay 下载失败: episode 90046207
+2026-08-05 12:11:23,304 ERROR 命令失败 (rc=1): kaggle competitions replay 90045469 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90045469-replay.json'
+2026-08-05 12:11:23,305 WARNING   replay 下载失败: episode 90045469
+2026-08-05 12:11:36,588 ERROR 命令失败 (rc=1): kaggle competitions replay 90044696 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90044696-replay.json'
+2026-08-05 12:11:36,589 WARNING   replay 下载失败: episode 90044696
+2026-08-05 12:11:49,495 ERROR 命令失败 (rc=1): kaggle competitions replay 90043969 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90043969-replay.json'
+2026-08-05 12:11:49,495 WARNING   replay 下载失败: episode 90043969
+2026-08-05 12:12:03,479 ERROR 命令失败 (rc=1): kaggle competitions replay 90043288 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90043288-replay.json'
+2026-08-05 12:12:03,480 WARNING   replay 下载失败: episode 90043288
+2026-08-05 12:12:03,480 INFO [#150] PP kawada (score=974.7, team=16391939)
+2026-08-05 12:12:23,362 INFO   对局数: 15（补卡上限 15）
+2026-08-05 12:12:37,619 ERROR 命令失败 (rc=1): kaggle competitions replay 90086370 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90086370-replay.json'
+2026-08-05 12:12:37,619 WARNING   replay 下载失败: episode 90086370
+2026-08-05 12:12:50,965 ERROR 命令失败 (rc=1): kaggle competitions replay 90082926 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90082926-replay.json'
+2026-08-05 12:12:50,965 WARNING   replay 下载失败: episode 90082926
+2026-08-05 12:13:03,438 ERROR 命令失败 (rc=1): kaggle competitions replay 90082200 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90082200-replay.json'
+2026-08-05 12:13:03,438 WARNING   replay 下载失败: episode 90082200
+2026-08-05 12:13:15,811 ERROR 命令失败 (rc=1): kaggle competitions replay 90081515 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90081515-replay.json'
+2026-08-05 12:13:15,811 WARNING   replay 下载失败: episode 90081515
+2026-08-05 12:13:29,100 ERROR 命令失败 (rc=1): kaggle competitions replay 90080846 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90080846-replay.json'
+2026-08-05 12:13:29,100 WARNING   replay 下载失败: episode 90080846
+2026-08-05 12:13:42,206 ERROR 命令失败 (rc=1): kaggle competitions replay 90080157 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90080157-replay.json'
+2026-08-05 12:13:42,206 WARNING   replay 下载失败: episode 90080157
+2026-08-05 12:13:54,854 ERROR 命令失败 (rc=1): kaggle competitions replay 90079250 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90079250-replay.json'
+2026-08-05 12:13:54,854 WARNING   replay 下载失败: episode 90079250
+2026-08-05 12:14:07,998 ERROR 命令失败 (rc=1): kaggle competitions replay 90078786 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90078786-replay.json'
+2026-08-05 12:14:07,998 WARNING   replay 下载失败: episode 90078786
+2026-08-05 12:14:20,837 ERROR 命令失败 (rc=1): kaggle competitions replay 90078104 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90078104-replay.json'
+2026-08-05 12:14:20,839 WARNING   replay 下载失败: episode 90078104
+2026-08-05 12:14:34,465 ERROR 命令失败 (rc=1): kaggle competitions replay 90077463 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90077463-replay.json'
+2026-08-05 12:14:34,466 WARNING   replay 下载失败: episode 90077463
+2026-08-05 12:14:48,511 ERROR 命令失败 (rc=1): kaggle competitions replay 90076716 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90076716-replay.json'
+2026-08-05 12:14:48,512 WARNING   replay 下载失败: episode 90076716
+2026-08-05 12:14:48,533 INFO 请求预算进度: 1100/3000
+2026-08-05 12:15:02,165 ERROR 命令失败 (rc=1): kaggle competitions replay 90076041 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90076041-replay.json'
+2026-08-05 12:15:02,166 WARNING   replay 下载失败: episode 90076041
+2026-08-05 12:15:14,879 ERROR 命令失败 (rc=1): kaggle competitions replay 90075371 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90075371-replay.json'
+2026-08-05 12:15:14,879 WARNING   replay 下载失败: episode 90075371
+2026-08-05 12:15:29,484 ERROR 命令失败 (rc=1): kaggle competitions replay 90074673 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90074673-replay.json'
+2026-08-05 12:15:29,485 WARNING   replay 下载失败: episode 90074673
+2026-08-05 12:15:42,973 ERROR 命令失败 (rc=1): kaggle competitions replay 90074012 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90074012-replay.json'
+2026-08-05 12:15:42,974 WARNING   replay 下载失败: episode 90074012
+2026-08-05 12:15:42,974 INFO [#151] Saber (score=974.6, team=16412152)
+2026-08-05 12:16:03,712 INFO   对局数: 15（补卡上限 15）
+2026-08-05 12:16:18,285 ERROR 命令失败 (rc=1): kaggle competitions replay 90087529 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90087529-replay.json'
+2026-08-05 12:16:18,285 WARNING   replay 下载失败: episode 90087529
+2026-08-05 12:16:32,343 ERROR 命令失败 (rc=1): kaggle competitions replay 90086832 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90086832-replay.json'
+2026-08-05 12:16:32,344 WARNING   replay 下载失败: episode 90086832
+2026-08-05 12:16:45,946 ERROR 命令失败 (rc=1): kaggle competitions replay 90087070 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90087070-replay.json'
+2026-08-05 12:16:45,947 WARNING   replay 下载失败: episode 90087070
+2026-08-05 12:17:00,293 ERROR 命令失败 (rc=1): kaggle competitions replay 90086146 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90086146-replay.json'
+2026-08-05 12:17:00,293 WARNING   replay 下载失败: episode 90086146
+2026-08-05 12:17:13,075 ERROR 命令失败 (rc=1): kaggle competitions replay 90085450 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90085450-replay.json'
+2026-08-05 12:17:13,076 WARNING   replay 下载失败: episode 90085450
+2026-08-05 12:17:25,766 ERROR 命令失败 (rc=1): kaggle competitions replay 90084763 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90084763-replay.json'
+2026-08-05 12:17:25,767 WARNING   replay 下载失败: episode 90084763
+2026-08-05 12:17:39,410 ERROR 命令失败 (rc=1): kaggle competitions replay 90084074 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90084074-replay.json'
+2026-08-05 12:17:39,411 WARNING   replay 下载失败: episode 90084074
+2026-08-05 12:17:53,862 ERROR 命令失败 (rc=1): kaggle competitions replay 90083394 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90083394-replay.json'
+2026-08-05 12:17:53,863 WARNING   replay 下载失败: episode 90083394
+2026-08-05 12:18:07,120 ERROR 命令失败 (rc=1): kaggle competitions replay 90082709 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90082709-replay.json'
+2026-08-05 12:18:07,121 WARNING   replay 下载失败: episode 90082709
+2026-08-05 12:18:20,511 ERROR 命令失败 (rc=1): kaggle competitions replay 90082622 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90082622-replay.json'
+2026-08-05 12:18:20,512 WARNING   replay 下载失败: episode 90082622
+2026-08-05 12:18:32,699 ERROR 命令失败 (rc=1): kaggle competitions replay 90082039 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90082039-replay.json'
+2026-08-05 12:18:32,700 WARNING   replay 下载失败: episode 90082039
+2026-08-05 12:18:45,929 ERROR 命令失败 (rc=1): kaggle competitions replay 90081355 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90081355-replay.json'
+2026-08-05 12:18:45,930 WARNING   replay 下载失败: episode 90081355
+2026-08-05 12:18:58,410 ERROR 命令失败 (rc=1): kaggle competitions replay 90080697 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90080697-replay.json'
+2026-08-05 12:18:58,411 WARNING   replay 下载失败: episode 90080697
+2026-08-05 12:19:12,607 WARNING 连接异常（服务器压力早期信号），间隔升至 7.7s
+2026-08-05 12:19:12,607 WARNING 网络异常（服务器压力），8s 后重试 (1/4): HTTPSConnectionPool(host='api.kaggle.com', port=443): Max retries exceeded with url: /v1/competitions.CompetitionApiService/GetEpisodeReplay (Caused by SSLError
+2026-08-05 12:19:34,057 ERROR 命令失败 (rc=1): kaggle competitions replay 90079318 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90079318-replay.json'
+2026-08-05 12:19:34,058 WARNING   replay 下载失败: episode 90079318
+2026-08-05 12:19:48,270 ERROR 命令失败 (rc=1): kaggle competitions replay 90079994 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90079994-replay.json'
+2026-08-05 12:19:48,270 WARNING   replay 下载失败: episode 90079994
+2026-08-05 12:19:48,271 INFO [#152] NguyenThanhNhan (score=974.0, team=16381904)
+2026-08-05 12:20:10,856 INFO   对局数: 15（补卡上限 15）
+2026-08-05 12:20:26,480 ERROR 命令失败 (rc=1): kaggle competitions replay 90082187 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90082187-replay.json'
+2026-08-05 12:20:26,480 WARNING   replay 下载失败: episode 90082187
+2026-08-05 12:20:26,484 INFO 请求预算进度: 1125/3000
+2026-08-05 12:20:40,001 ERROR 命令失败 (rc=1): kaggle competitions replay 90078099 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90078099-replay.json'
+2026-08-05 12:20:40,002 WARNING   replay 下载失败: episode 90078099
+2026-08-05 12:20:54,853 ERROR 命令失败 (rc=1): kaggle competitions replay 90075938 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90075938-replay.json'
+2026-08-05 12:20:54,854 WARNING   replay 下载失败: episode 90075938
+2026-08-05 12:21:08,943 ERROR 命令失败 (rc=1): kaggle competitions replay 90073172 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90073172-replay.json'
+2026-08-05 12:21:08,943 WARNING   replay 下载失败: episode 90073172
+2026-08-05 12:21:24,293 ERROR 命令失败 (rc=1): kaggle competitions replay 90063753 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90063753-replay.json'
+2026-08-05 12:21:24,293 WARNING   replay 下载失败: episode 90063753
+2026-08-05 12:21:37,876 ERROR 命令失败 (rc=1): kaggle competitions replay 90047439 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90047439-replay.json'
+2026-08-05 12:21:37,877 WARNING   replay 下载失败: episode 90047439
+2026-08-05 12:21:52,651 ERROR 命令失败 (rc=1): kaggle competitions replay 90046234 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90046234-replay.json'
+2026-08-05 12:21:52,652 WARNING   replay 下载失败: episode 90046234
+2026-08-05 12:22:09,062 ERROR 403 拒绝（没 Join 竞赛？kaggle.json 失效？）: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90040371-replay.json'
+2026-08-05 12:22:09,062 WARNING   replay 下载失败: episode 90040371
+2026-08-05 12:22:23,171 ERROR 命令失败 (rc=1): kaggle competitions replay 90033744 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90033744-replay.json'
+2026-08-05 12:22:23,171 WARNING   replay 下载失败: episode 90033744
+2026-08-05 12:22:37,676 ERROR 命令失败 (rc=1): kaggle competitions replay 90023418 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90023418-replay.json'
+2026-08-05 12:22:37,677 WARNING   replay 下载失败: episode 90023418
+2026-08-05 12:22:52,453 ERROR 命令失败 (rc=1): kaggle competitions replay 90023494 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90023494-replay.json'
+2026-08-05 12:22:52,454 WARNING   replay 下载失败: episode 90023494
+2026-08-05 12:23:06,489 ERROR 命令失败 (rc=1): kaggle competitions replay 90004605 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90004605-replay.json'
+2026-08-05 12:23:06,489 WARNING   replay 下载失败: episode 90004605
+2026-08-05 12:23:21,590 ERROR 命令失败 (rc=1): kaggle competitions replay 89995103 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-89995103-replay.json'
+2026-08-05 12:23:21,590 WARNING   replay 下载失败: episode 89995103
+2026-08-05 12:23:21,590 INFO [#153] nsytsqdtn (score=973.9, team=16382190)
+2026-08-05 12:23:41,334 INFO   对局数: 15（补卡上限 15）
+2026-08-05 12:23:55,813 ERROR 命令失败 (rc=1): kaggle competitions replay 90088991 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90088991-replay.json'
+2026-08-05 12:23:55,814 WARNING   replay 下载失败: episode 90088991
+2026-08-05 12:24:09,166 ERROR 命令失败 (rc=1): kaggle competitions replay 90088300 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90088300-replay.json'
+2026-08-05 12:24:09,166 WARNING   replay 下载失败: episode 90088300
+2026-08-05 12:24:22,958 ERROR 命令失败 (rc=1): kaggle competitions replay 90087597 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90087597-replay.json'
+2026-08-05 12:24:22,958 WARNING   replay 下载失败: episode 90087597
+2026-08-05 12:24:36,893 ERROR 命令失败 (rc=1): kaggle competitions replay 90086917 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90086917-replay.json'
+2026-08-05 12:24:36,895 WARNING   replay 下载失败: episode 90086917
+2026-08-05 12:24:51,179 ERROR 命令失败 (rc=1): kaggle competitions replay 90086227 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90086227-replay.json'
+2026-08-05 12:24:51,179 WARNING   replay 下载失败: episode 90086227
+2026-08-05 12:25:07,266 ERROR 命令失败 (rc=1): kaggle competitions replay 90084139 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90084139-replay.json'
+2026-08-05 12:25:07,267 WARNING   replay 下载失败: episode 90084139
+2026-08-05 12:25:20,587 ERROR 命令失败 (rc=1): kaggle competitions replay 90085516 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90085516-replay.json'
+2026-08-05 12:25:20,587 WARNING   replay 下载失败: episode 90085516
+2026-08-05 12:25:35,016 ERROR 命令失败 (rc=1): kaggle competitions replay 90084837 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90084837-replay.json'
+2026-08-05 12:25:35,017 WARNING   replay 下载失败: episode 90084837
+2026-08-05 12:25:49,028 ERROR 命令失败 (rc=1): kaggle competitions replay 90083463 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90083463-replay.json'
+2026-08-05 12:25:49,028 WARNING   replay 下载失败: episode 90083463
+2026-08-05 12:26:03,081 ERROR 命令失败 (rc=1): kaggle competitions replay 90083600 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90083600-replay.json'
+2026-08-05 12:26:03,081 WARNING   replay 下载失败: episode 90083600
+2026-08-05 12:26:19,771 ERROR 命令失败 (rc=1): kaggle competitions replay 90082774 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90082774-replay.json'
+2026-08-05 12:26:19,772 WARNING   replay 下载失败: episode 90082774
+2026-08-05 12:26:19,794 INFO 请求预算进度: 1150/3000
+2026-08-05 12:26:35,634 ERROR 命令失败 (rc=1): kaggle competitions replay 90082117 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90082117-replay.json'
+2026-08-05 12:26:35,634 WARNING   replay 下载失败: episode 90082117
+2026-08-05 12:26:49,146 ERROR 命令失败 (rc=1): kaggle competitions replay 90081438 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90081438-replay.json'
+2026-08-05 12:26:49,147 WARNING   replay 下载失败: episode 90081438
+2026-08-05 12:27:03,458 ERROR 命令失败 (rc=1): kaggle competitions replay 90080749 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90080749-replay.json'
+2026-08-05 12:27:03,459 WARNING   replay 下载失败: episode 90080749
+2026-08-05 12:27:17,301 ERROR 命令失败 (rc=1): kaggle competitions replay 90080070 -p /Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw
+stderr: 0.00B [00:00, ?B/s]
+0.00B [00:00, ?B/s]
+[Errno 1] Operation not permitted: '/Users/seyonmacbook/Desktop/ Pokemon TCG AI Battle Challenge/inference/leaderboard_replay/raw/episode-90080070-replay.json'
+2026-08-05 12:27:17,301 WARNING   replay 下载失败: episode 90080070
+2026-08-05 12:27:17,302 INFO [#154] gecogeco (score=973.1, team=16406640)
+2026-08-05 12:27:35,202 WARNING 限流压力 29%，间隔升至 10.0s
+2026-08-05 12:27:35,202 WARNING 限流，8s 后重试 (1/4): Traceback (most recent call last):
+  File "/opt/anaconda3/lib/python3.13/site-packages/urllib3/connection.py", line 198, in _new_conn
+    sock = connection.crea
