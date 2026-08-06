@@ -1,0 +1,36 @@
+{
+  "engine": "official sample_submission/cg libcg.dylib (arm64)",
+  "host": "local mac arm64",
+  "matches": [
+    {
+      "match": "v23.2 vs v23.2",
+      "games": 200,
+      "wins_a": 103,
+      "wins_b": 95,
+      "draws": 2,
+      "sec_per_game_avg": 0.009,
+      "sec_per_game_p50": 0.009,
+      "sec_per_game_max": 0.061,
+      "steps_avg": 90.2,
+      "steps_max": 209,
+      "faults": [],
+      "est_400_games_min": 0.1
+    },
+    {
+      "match": "v23.2 vs random",
+      "games": 200,
+      "wins_a": 144,
+      "wins_b": 56,
+      "draws": 0,
+      "sec_per_game_avg": 0.006,
+      "sec_per_game_p50": 0.004,
+      "sec_per_game_max": 0.021,
+      "steps_avg": 59.8,
+      "steps_max": 201,
+      "faults": [],
+      "est_400_games_min": 0.0
+    }
+  ],
+  "total_seconds": 2.9,
+  "verdict_400_games_le_30min": true
+}

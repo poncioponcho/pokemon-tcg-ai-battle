@@ -1,0 +1,48 @@
+# =====================================================================
+# experiments.yaml — Hermes Lab Loop 实验队列（L3 元控制器写 / L1 编排器读）
+# =====================================================================
+# 状态机: queued -> running -> done | failed | rejected
+# L3 (LLM) 每周 1-2 次追加新实验；L1 (确定性脚本) 只消费 queued 条目。
+# 配额纪律: 单实验 GPU <= quota_h；周总 GPU <= 28h（L1 强制，超发拒发）。
+# =====================================================================
+version: 1
+meta:
+  champion: v23_2_rules        # 当前冠军（首个 champion = 纯规则 v23.2，NN 挑战它）
+  champion_note: "Phase0 基线：纯规则 v23.2 (LB 600.0)。NN-hybrid 需 arena 胜率 +2% 才晋级。"
+  arena_n_default: 2000         # 本地直驱引擎实测 9ms/局，2000 局 CI ±2.2%（原 400 局 ±4.9%）
+  quota_week_gpu_h: 28.0
+
+experiments:
+  # ---- Phase 1: 超参 + teacher 容量 sweep（6-8 个，L3 提案填充） ----
+  - id: exp001
+    name: "sweep-hidden1024-blocks2-baseline"
+    status: queued
+    train:
+      teacher_hidden: 1024
+      teacher_blocks: 2
+      teacher_dropout: 0.10
+      tau: 0.5
+      wcap: 20.0
+      distill_temp: 3.0
+      distill_alpha: 0.3
+      bs: 16384
+      lr: 0.001
+      epochs_bc: 8
+      epochs_awr: 5
+      epochs_distill: 8
+      seed: 42
+    arena:
+      n: 2000
+      opponents: ["v23_2_rules", "v22_5_rules", "first", "random"]
+    quota_h: 4.0
+    note: "Phase1 基线复现：与当前云端首训同参数，确立 challenger 参考系。本地直驱引擎 2000 局 ~15s，CI ±2.2%"
+
+  # ---- 结构实验占位（Phase 2，按 Phase 1 证据由 L3 填充） ----
+  # - id: exp101
+  #   name: "teacher-value-head"
+  #   status: queued
+  #   train:
+  #     teacher_hidden: 1536
+  #     teacher_blocks: 4
+  #     multihead: value        # 需 train_v2 支持（Phase 2 实现）
+  #   ...

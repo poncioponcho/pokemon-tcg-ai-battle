@@ -34,6 +34,18 @@ submission.tar.gz
 __pycache__/
 *.pyc
 
+# ===== Arena 运行时产物（arena_runner 生成的临时副本）=====
+experiments/runs/
+experiments/*.rendered
+
+# ===== Kernel 调试临时产物（不入库）=====
+reports/kerr*/
+reports/kerr_tmp/
+reports/kernel-error-*.log
+reports/auto-fix-*.md
+reports/kimi-verify-input.txt
+reports/trae-reply-*.txt
+
 # ===== 本地工具状态（不入库）=====
 .workbuddy/
 .kaggle_kernel/
