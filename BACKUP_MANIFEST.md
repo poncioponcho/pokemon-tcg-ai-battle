@@ -43,7 +43,7 @@ python3 inference/ptcg_replay_harvester.py --out inference/leaderboard_replay ve
 
 | 文件 | 大小 | SHA256 | 说明 |
 |---|---|---|---|
-| ptcg_tensors.tar.gz | 131,830,806 (126M) | 9ef2c40d0a95a1c0cbd17d3fd0d3d2d502de15a04eb2920efbaba2c0c74eac92 | 14G 训练张量（13,842局）的无损压缩包；与本地已删的 inference/dataset/data/ 逐字节一致（meta.json 已验证）；重建备选路径 |
+| ptcg_tensors.tar.gz | 131,830,806 (126M) | 9ef2c40d0a95a1c0cbd17d3fd0d3d2d502de15a04eb2920efbaba2c0c74eac92 | 14G 训练张量（13,842局）的无损压缩包；与本地已删的 inference/dataset/data/ 逐字节一致（meta.json 已验证）；重建备选路径。**注意：此目录被 ptcg-bcrl/config/paths.json 的 data_dir 引用（共享依赖，勿删）**。恢复: `tar xzf ptcg_tensors.tar.gz -C inference/dataset/data/` |
 | episode_catalog.jsonl | 3,903,808 | da3ccfc537cbc09a9119c7ed191646249490ea81ce57fd52acc3ea1b72d8602e | 增量爬取去重键（权威 catalog），丢失会重复下载 |
 | manifest.jsonl | 914,080 | 5f141228252ad3a74f8f1b6c29d1809393cb0aa9e6b865f8db5e8dce9fcd487e | 同上（manifest） |
 | repo_history.bundle | 56,626 | ad72e6983df68a85a3277671ac28b6e9516039e06eea134b7cdcd71f2bbcf613 | 完整 git 历史（`git bundle verify` 通过）。恢复: `git clone repo_history.bundle <dir>`。建议另推 GitHub 私有库 |
