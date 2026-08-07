@@ -302,3 +302,30 @@ experiments/arena_pool/           # 冻结对手：v23.2 / v22.5 / random
 2. **first 弱点对局是最高 ROI 改进方向**：纯规则 33% → NN 若能提到 50%+，对总 WR 贡献显著（这也解释了为何 LB 上磨库体系排名不稳）；
 3. 晋级判定需按 kimi 设计拆「vs champion 镜像」+「vs first 弱点」双指标（当前 reward_calc 为单 WR 聚合，L3 阶段完善）；
 4. L2 全链路本地化：训练完成 → 下载 npz → 本地 70s 跑 8000 局 → 门禁 → 通知人工提交。闭环不再依赖 Kaggle CPU。
+
+---
+
+## 附录 D：12h 超时应对预案（2026-08-07 07:50；08:10 修订时限与脚本）
+
+### D1. 事实（已修订）
+~~Kaggle 免费 GPU session 上限约 9 小时~~ **官方员工在 product-feedback/317907 确认：单 session 上限 12h（由早期 9h 提升），Save & Run All 后台 script 同样 12h**。当前训练 8/6 22:39 启动，12h 红线 ≈ 8/7 10:39。另一官方确认点：被 cancel 的 version 其 output **不能**被其他 notebook 直接挂载为 input（只认成功 version）——必须「下载 → 上传 dataset → 挂载」，本预案 D2 路径与此一致。
+
+### D2. 恢复机制（`scripts/resume_kernel.sh`，2026-08-07 08:10 修复三处 bug 后可用）
+断点续训链路完整：每 epoch 自动保存 `ckpt_v2_last.pt`（含 stage/phase/epoch/optimizer/AMP/RNG）→ `train_v2 --resume auto` 无缝续接（seed 须一致=42）；`prepare()` 通过 `find_in_input` 从挂载 input 恢复 ckpt。
+
+超时被砍后的恢复 SOP（脚本一键执行）：
+1. 下载 output 中 `ckpt_v2_last.pt` + `teacher_best.pt` + `student_best.pt`（`--file-pattern` 已核实有效）
+2. 上传/更新 dataset `daniel1547/ptcg-ckpt`（首次自动 `datasets create`，之后 `version -p ... -r zip`；已修复原脚本 `version` 不能建 dataset + 参数形态错误）
+3. `kernel-metadata.json` 挂载该 dataset → `push_t4.py` 重推（已修复原脚本引号 heredoc 不展开 `${META}` 导致静默跳过的 bug；metadata 更新失败会中止防裸跑）
+4. kernel 内 `prepare()` 自动恢复 ckpt → `--resume auto` 从断点续训
+
+捷径：若 output 已有 `student_best.pt`（distill 跑过至少一个 eval 点），可**跳过续训**，直接 CPU kernel 跑 `export_student.py` 导出 npz 锁定 best-so-far（脚本已加提示）；若仅有 `teacher_best.pt`，可用 `--stage distill` 续训跳过剩余 BC/AWR epochs 省 GPU。
+
+### D3. 根治：阶段拆分（已实现）
+`--stage all`（21 epochs ≈ 5-10.5h，超时风险高）拆成两个 kernel，各自安全落在 12h 内：
+- `stage: teacher`（BC 8 + AWR 5 epochs）→ ckpt
+- `stage: distill`（distill 8 epochs，挂载 teacher 阶段 ckpt 续接）
+实现：`kaggle_gpu_train.py` 支持 `KAGGLE_STAGE` 环境变量；`lab_render.py` 支持 yaml `train.stage` 注入（已验证）。下轮实验默认走拆分。
+
+### D4. 触发逻辑
+- Hermes 10 分钟轮询检测到 kernel ERROR/cancel（超时被砍）→ 通知 + 判定是否含有效 ckpt（output 可下）→ 是则提示运行 `bash scripts/resume_kernel.sh`（或 agent 自动执行）→ 否（ckpt 也丢）则标记实验 failed，L3 重排。

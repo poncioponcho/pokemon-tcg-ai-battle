@@ -44,7 +44,7 @@ OUT_DIR = WORK / 'output'
 
 # 训练超参（30h/周预算内：单配置全流程 T4 约 40-70 分钟）
 TRAIN_ARGS = [
-    '--stage', 'all',
+    '--stage', os.environ.get('KAGGLE_STAGE', 'all'),
     '--device', 'auto',
     '--bs', '16384',
     '--epochs-bc', '8',
@@ -100,24 +100,19 @@ def untar(archive, dest):
 
 
 def _find_input_dir(substr):
-    """按子串找 /kaggle/input 下的目录（Kaggle 会把 .tar.gz 自动解包成目录）。"""
+    """按子串递归找 /kaggle/input 下的目录（Kaggle 挂载结构可能是
+    /kaggle/input/datasets/<user>/<slug>/，不能只遍历直接子目录）。"""
     inp = Path('/kaggle/input')
-    try:
-        entries = list(inp.iterdir())
-    except Exception as e:
-        log(f'[diag] /kaggle/input 遍历失败: {e}')
-        return None
-    log(f'[diag] /kaggle/input 共 {len(entries)} 项: {[e.name for e in entries][:12]}')
-    for d in entries:
-        if d.is_dir() and substr in d.name:
-            log(f'[diag] 命中目录: {d} (isdir={d.is_dir()})')
-            try:
-                sub = sorted(p.name for p in d.iterdir() if p.is_file())[:12]
-                log(f'[diag] 该目录文件: {sub}')
-            except Exception as e:
-                log(f'[diag] 该目录遍历失败: {e}')
+    for d in inp.rglob('*'):
+        if d.is_dir() and d.name == substr:
+            log(f'[diag] 命中目录: {d}')
             return d
-    log(f'[diag] 未找到含 "{substr}" 的目录')
+    # 兜底：子串包含
+    for d in inp.rglob('*'):
+        if d.is_dir() and substr in d.name:
+            log(f'[diag] 命中目录(子串): {d}')
+            return d
+    log(f'[diag] 递归未找到含 "{substr}" 的目录')
     return None
 
 
@@ -225,6 +220,13 @@ def check_gpu():
     log(f'torch {torch.__version__} | cuda_available={ok} | device={name}')
     if not ok:
         log('WARNING: GPU not detected — Accelerator 未开启？将用 CPU 慢跑')
+    if ok:
+        # P100 = sm_60，新 torch (cu12x) 二进制常缺 sm_60 kernel
+        try:
+            cap = torch.cuda.get_device_capability(0)
+            log(f'device capability: sm_{cap[0]}{cap[1]}')
+        except Exception as e:
+            log(f'capability query failed: {e}')
     return ok
 
 
@@ -235,10 +237,86 @@ def run(cmd, cwd):
         raise SystemExit(f'command failed ({proc.returncode}): {cmd}')
 
 
+def _ensure_torch_compatible():
+    """P100 (sm_60) 需要含 sm_60 kernel 的 torch 二进制。
+
+    Kaggle 默认 torch 常为 cu12x（仅 sm_70+），在 P100 上会报
+    "no kernel image is available"。探测失败时降级安装 cu118 版 torch
+    （含 sm_60 kernel），并返回 True 表示需要重跑训练命令。
+    返回 False 表示环境已兼容，直接继续。
+    """
+    import torch
+    try:
+        torch.zeros(8, device='cuda') + 1
+        torch.cuda.synchronize()
+        log('cuda probe OK — torch 与 GPU 兼容')
+        return False
+    except Exception as e:
+        msg = str(e)
+        log(f'cuda probe FAIL: {msg[:200]}')
+        if 'no kernel image' not in msg:
+            log('非兼容性问题（' + msg[:80] + '），按原样继续（可能后续报错）')
+            return False
+    log('检测到 torch 二进制不含 P100 (sm_60) kernel，降级安装 cu118...')
+    r = subprocess.run(
+        [sys.executable, '-m', 'pip', 'install', '--quiet',
+         '--index-url', 'https://download.pytorch.org/whl/cu118',
+         'torch', 'torchvision'],
+        capture_output=True, text=True)
+    log('pip install rc=' + str(r.returncode))
+    if r.returncode != 0:
+        log('torch cu118 安装失败: ' + (r.stderr or r.stdout)[-300:])
+        return False
+    # 子进程验证 cu118 torch 兼容 P100（不能用 reload，旧 torch 已在内存中
+    # 与新装 cu118 冲突，Triton 命名空间重复注册会崩）
+    log('子进程验证 cu118 torch 兼容性...')
+    import subprocess as _sp
+    check_code = (
+        "import torch;"
+        "torch.zeros(8, device='cuda') + 1;"
+        "torch.cuda.synchronize();"
+        "print('C118_OK', torch.__version__)"
+    )
+    r = _sp.run([sys.executable, '-c', check_code],
+                capture_output=True, text=True, timeout=180)
+    if r.returncode == 0 and 'C118_OK' in r.stdout:
+        log('torch cu118 安装成功且兼容 P100: ' + r.stdout.strip())
+        # 关键：主进程内存里的旧 torch 必须丢弃，execv 重开进程以全新加载 cu118
+        log('重启进程以加载 cu118 torch...')
+        code = (Path(__file__).read_text(encoding='utf-8')
+                if '__file__' in globals() else Path('/kaggle/src/script.py').read_text(encoding='utf-8'))
+        os.execv(sys.executable, [sys.executable, '-c',
+                                  'exec(open(%r).read())' % '/kaggle/src/script.py'])
+    log('torch cu118 验证失败: rc=%s stderr=%s' % (r.returncode, (r.stderr or '')[-200:]))
+    log('GPU 降级失败 → 兜底强制 CPU 训练（慢但能出结果）')
+    return True  # 返回 True 表示"继续但用 CPU"
+
+
 def main():
     prepare()
-    check_gpu()
+    ok = check_gpu()
+    device_override = None
+    if ok:
+        compat = _ensure_torch_compatible()
+        if compat:
+            device_override = 'cpu'
     py = sys.executable
+
+    train_args = list(TRAIN_ARGS)
+    if device_override:
+        # 去掉原 --device 及其值（--device auto 是成对参数，需一并剔除），强制 CPU
+        cleaned = []
+        skip = False
+        for a in train_args:
+            if a == '--device':
+                skip = True
+                continue
+            if skip:
+                skip = False
+                continue
+            cleaned.append(a)
+        train_args = cleaned + ['--device', 'cpu']
+        log('强制 device=cpu（GPU 降级失败兜底）')
 
     train_cmd = [
         py, 'train_v2.py',
@@ -249,7 +327,7 @@ def main():
         '--logs-dir', str(OUT_DIR),
         '--split-manifest', str(CODE_DIR / 'splits' / 'episode_splits.jsonl'),
         '--canary-manifest', str(CODE_DIR / 'splits' / 'rolling_canary.json'),
-    ] + TRAIN_ARGS
+    ] + train_args
     run(train_cmd, CODE_DIR)
 
     run([py, 'export_student.py',

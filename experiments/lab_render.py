@@ -25,6 +25,7 @@ CTX = KD / 'experiment_ctx.json'
 
 # TRAIN_ARGS 中的参数名 → train_v2 CLI 参数名
 KEY_MAP = {
+    'stage': '--stage',
     'teacher_hidden': '--teacher-hidden',
     'teacher_blocks': '--teacher-blocks',
     'teacher_dropout': '--teacher-dropout',
@@ -98,6 +99,8 @@ def render(exp_id: str) -> int:
     src = RENDER_SRC.read_text(encoding='utf-8')
     train = exp.get('train', {})
     flags = []
+    if 'stage' in train:
+        flags.append(f"'--stage', '{train['stage']}'")
     for k, v in train.items():
         cli = KEY_MAP.get(k)
         if cli is None:
