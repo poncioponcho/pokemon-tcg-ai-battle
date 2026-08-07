@@ -35,12 +35,15 @@ DRY_RUN="${DRY_RUN:-0}"
 # ---- 1. 状态守卫（fail-closed） ----
 STATUS_LINE="$(env -u PYTHONHOME -u PYTHONPATH "${KAG}" kernels status "${KERNEL}" 2>&1 | head -1)"
 case "${STATUS_LINE}" in
-  *RUNNING*|*QUEUED*|*PENDING*|*CANCEL_REQUESTED*|*CANCEL_ACKNOWLEDGED*)
-    # [bugfix] CANCEL_REQUESTED/ACKNOWLEDGED 表示 session 仍在终止中，视为未结束：
-    # 此时重抽覆盖数据可能与将结束的 kernel 输出竞争，下轮轮询再触发。
+  *RUNNING*|*QUEUED*|*PENDING*|*CANCEL_REQUESTED*)
+    # 仅这些是真正的"未结束"：CANCEL_REQUESTED 是取消中的瞬态。
     echo "TENSOR_REDRAW: 训练未完全结束（${STATUS_LINE}），跳过"
     exit 0 ;;
   *COMPLETE*|*SUCCESS*|*complete*|*success*|*ERROR*|*FAIL*|*CANCEL*|*cancel*)
+    # [bugfix3] CANCEL_ACKNOWLEDGED 归入"已结束"：2026-08-07 实测 TLE 被砍后
+    # 该状态持续 ≥1.5h 不翻转，是事实终态；第二轮修复曾把它放入 skip 分支，
+    # 会导致 TLE 场景下重抽永远不触发（静默死锁）。kernel 输出从不写本地
+    # data/，重抽覆盖与其无竞争，归入已结束是安全的。
     echo "TENSOR_REDRAW: 训练已结束（${STATUS_LINE}）→ 开始重抽 $(date '+%F %H:%M:%S')"
     ;;
   *)
@@ -54,6 +57,33 @@ if [[ -f "${DONE_FLAG}" ]]; then
   echo "TENSOR_REDRAW: 已重抽过（$(cat "${DONE_FLAG}")），跳过"
   exit 0
 fi
+
+# ---- 并发锁（macOS 无 flock(1)，用 mkdir 原子锁；防 cron 多实例并发） ----
+# 背景：extract 单次 ~51 分钟，期间每 10 分钟的 cron 轮次在 DONE_FLAG
+# 未写时会重复启动实例（2026-08-07 曾因此 exit 2 中断打包上传）。
+LOCK_DIR="${STATE_DIR}/tensor_redraw.lock"
+_acquire_lock() {
+  if mkdir "${LOCK_DIR}" 2>/dev/null; then
+    echo $$ > "${LOCK_DIR}/pid"
+    return 0
+  fi
+  # 锁已存在：仅当持锁进程已死（stale）才抢锁
+  local lp=""
+  [[ -f "${LOCK_DIR}/pid" ]] && lp="$(cat "${LOCK_DIR}/pid" 2>/dev/null)"
+  if [[ -z "${lp}" ]] || ! kill -0 "${lp}" 2>/dev/null; then
+    /bin/rm -rf "${LOCK_DIR}"
+    if mkdir "${LOCK_DIR}" 2>/dev/null; then
+      echo $$ > "${LOCK_DIR}/pid"
+      return 0
+    fi
+  fi
+  return 1
+}
+if ! _acquire_lock; then
+  echo "TENSOR_REDRAW: 另一实例运行中（${LOCK_DIR}），跳过"
+  exit 0
+fi
+trap '/bin/rm -rf "${LOCK_DIR}"' EXIT
 
 # ---- 2. 标记污染训练作废（resume_kernel.sh 会检查此 flag） ----
 # [bugfix] DRY_RUN 检查提前：dry-run 只是验证状态守卫，不应留下 POISON_FLAG，
