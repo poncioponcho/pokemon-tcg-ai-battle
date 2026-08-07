@@ -1,17 +1,17 @@
 {
   "version": 1,
-  "frozen_at": "2026-08-07 07:19:22.908192",
+  "frozen_at": "2026-08-07 09:23:15.994931",
   "note": "对手池冻结：arena 评测环境，L3 不得修改。文件型对手由 snapshot_opponents.py 生成。",
   "opponents": {
     "v23_2": {
       "type": "file",
       "path": "arena_pool/v23_2_rules.py",
-      "sha256": null
+      "sha256": "66fa82c8ab5350d1"
     },
     "v22_5": {
       "type": "file",
       "path": "arena_pool/v22_5_rules.py",
-      "sha256": null
+      "sha256": "776f8fdd38a73829"
     },
     "random": {
       "type": "builtin",

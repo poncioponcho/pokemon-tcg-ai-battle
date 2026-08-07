@@ -1,10 +1,15 @@
 """Build dataset manifest.csv: episode -> team/rank/score/winner/decisions."""
 import json, csv, os, glob
+from pathlib import Path
 
-RAW = 'inference/leaderboard_replay/raw'
-MANIFEST = 'inference/leaderboard_replay/manifest.jsonl'
-SCAN = 'inference/leaderboard_replay/raw_scan_results.json'
-OUT = 'inference/dataset/manifest.csv'
+# [bugfix] 旧代码用 cwd 相对路径（必须从仓库根运行，否则 FileNotFoundError 或
+# 写出空 manifest）；改为基于本文件位置解析，任意 cwd 均可运行。
+_HERE = Path(__file__).resolve().parent
+_REPLAY_ROOT = _HERE.parent / 'leaderboard_replay'
+RAW = str(_REPLAY_ROOT / 'raw')
+MANIFEST = str(_REPLAY_ROOT / 'manifest.jsonl')
+SCAN = str(_REPLAY_ROOT / 'raw_scan_results.json')
+OUT = str(_HERE / 'manifest.csv')
 
 episode_capture = {}
 for line in open(MANIFEST):

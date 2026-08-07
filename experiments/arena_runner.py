@@ -52,6 +52,10 @@ def play(agent_fns, decks, max_steps=3000):
     """打一局。winner: 0/1（选手视角），-1=平/异常。fault: 非法动作方。"""
     _, sd = battle_start(decks[0], decks[1])
     if Battle.battle_ptr is None or sd.errorPlayer >= 0:
+        try:
+            battle_finish()
+        except Exception:
+            pass
         return {'winner': -1, 'steps': 0, 'err': f'start failed errorPlayer={sd.errorPlayer}'}
     steps = 0
     try:
@@ -99,12 +103,47 @@ def builtin_agent(kind: str):
 
 
 def load_opponent(name: str):
-    """冻结对手。file → arena_pool/<name>.py；builtin → first/random。"""
+    """冻结对手。file → arena_pool/<name>.py；builtin → first/random。
+
+    [bugfix] 对手池冻结校验（sha256 与 registry 比对）此前只在文档中声明，
+    从未真正执行——任何人改 arena_pool/*.py 都会静默通过。现与 opponents.json
+    中的记录比对，不一致即抛错拒绝评测（防 reward hacking）。
+    """
     if name in ('first', 'random'):
         return builtin_agent(name)
     p = POOL / f'{name}.py'
     if not p.exists():
         raise FileNotFoundError(f'对手 {name} 缺失: {p}（需 snapshot_opponents.py 生成）')
+    try:
+        # registry 在 experiments/ 下，path 字段形如 'arena_pool/v23_2_rules.py'
+        # （相对 experiments/ 目录），按相对路径匹配键名无关。
+        reg = json.loads((POOL.parent / 'opponents.json').read_text(encoding='utf-8'))
+        rel = str(p.relative_to(POOL.parent))
+        expected = next(
+            (spec.get('sha256') for spec in reg.get('opponents', {}).values()
+             if spec.get('type') == 'file' and spec.get('path') == rel),
+            None)
+    except Exception:
+        expected = None
+    if expected:
+        try:
+            from experiments.arena_pool_registry import sha256 as _sha256
+        except ImportError:
+            # 直接以脚本运行 (python3 experiments/arena_runner.py) 时 experiments 包不可用
+            import hashlib as _hashlib
+
+            def _sha256(path):
+                h = _hashlib.sha256()
+                with open(path, 'rb') as _f:
+                    for _chunk in iter(lambda: _f.read(1 << 20), b''):
+                        h.update(_chunk)
+                return h.hexdigest()[:16]
+        actual = _sha256(p)
+        if actual != expected:
+            raise SystemExit(
+                f'FROZEN-POOL VIOLATION: 对手 {name} sha256 与 registry 不一致'
+                f'（{actual} != {expected}）。arena 环境不得修改；'
+                f'确属有意更新则先运行 arena_pool_registry.py 刷新注册表。')
     return load_module(p).agent
 
 
@@ -119,7 +158,11 @@ def wilson_ci_lo(p_hat: float, n: int, z: float = 1.96) -> float:
 
 
 def run_arena(agent_a, agent_b, decks_a, decks_b, n_games, seed0=1000):
-    """A vs B 打 n_games 局，先后手轮换，固定种子。返回 A 视角统计。"""
+    """A vs B 打 n_games 局，先后手轮换，固定种子。返回 A 视角统计。
+
+    invalid 只统计被测方 A 自身的非法动作：对手 (B) fault 时 A 直接获胜，
+    把对手的 fault 记进 A 的 invalid 会双重惩罚（既可能判负又扣 clean 门禁）。
+    """
     t0 = time.time()
     wins = losses = draws = invalid = 0
     turns = []
@@ -132,9 +175,13 @@ def run_arena(agent_a, agent_b, decks_a, decks_b, n_games, seed0=1000):
             random.seed(seed0 + g)
         r = play(fns, dks)
         turns.append(r['steps'])
-        if r.get('fault') is not None:
-            invalid += 1
-            faults.append({'game': g, 'player': r['fault'], 'err': r.get('err')})
+        fault = r.get('fault')
+        if fault is not None:
+            # fault 的玩家下标是当前局的 fns 视角（swap 时 A 在下标 1）
+            a_is_faulty = (fault == 0 and not swap) or (fault == 1 and swap)
+            if a_is_faulty:
+                invalid += 1
+                faults.append({'game': g, 'player': fault, 'err': r.get('err')})
         w = r['winner']
         if w == -1:
             draws += 1

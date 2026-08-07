@@ -236,10 +236,12 @@ def append_leaderboard_snapshot(
     captured_at: str | None = None,
 ) -> dict[str, Any]:
     captured_at = captured_at or utc_now()
+    # [bugfix] 旧顺序先 remove ":" 再替换 "+00:00"，导致 "+0000" 永远匹配不上 "Z"，
+    # snapshot_id 在不同 captured_at 格式下产出不一致文件名。先做时区归一化。
     snapshot_id = (
         captured_at.replace(" ", "T")
-        .replace(":", "")
         .replace("+00:00", "Z")
+        .replace(":", "")
     )
     snapshot = {
         "snapshot_id": snapshot_id,

@@ -264,17 +264,19 @@ def process_payload(d, episode_id):
         ]
     capture_index = captured_team_index(team_names, captured_team_name)
     decks = [None, None]
+    # [bugfix] 牌组选择动作按 step 内的 agent 下标归属玩家（step[i]=玩家 i 的状态）。
+    # 旧逻辑用 `select is None` 过滤，但真实回放中玩家0的选牌动作带 select
+    # (context 41)，导致 decks[0] 被玩家1的牌组占据、玩家0的牌组丢失
+    # → "my deck" 槽位填入对手牌组（训练/推理分布偏移）。
     for step in d.get('steps', []):
         if not isinstance(step, list):
             continue
-        for ag in step:
+        for ag_idx, ag in enumerate(step):
             act = ag.get('action')
-            if isinstance(act, list) and len(act) == 60 and all(isinstance(x, int) for x in act):
-                if ag.get('observation', {}).get('select') is None:
-                    if decks[0] is None:
-                        decks[0] = act
-                    elif decks[1] is None:
-                        decks[1] = act
+            if (ag_idx < 2 and isinstance(act, list) and len(act) == 60
+                    and all(isinstance(x, int) for x in act)
+                    and decks[ag_idx] is None):
+                decks[ag_idx] = act
     rewards = d.get('rewards') or [0, 0]
     out = []
     for step in d.get('steps', []):

@@ -315,6 +315,13 @@ def main():
         save_ckpt(ckpt_path, 'student', 'distill', 0, student,
                   torch.optim.Adam(student.parameters(), lr=args.lr),
                   torch.amp.GradScaler("cuda", enabled=use_amp), args)
+    elif args.stage in ('teacher',) and start['stage'] != 'teacher':
+        # [bugfix] teacher 已完成（ckpt 标记 stage=student）后再跑 --stage teacher
+        # 会静默跳过全部训练并退出 0，误以为已重训。显式报错提示。
+        raise SystemExit(
+            'checkpoint 已标记 stage=student（teacher 已跑完）；'
+            '重跑 --stage teacher 不会重新训练。删除 ckpt 后从零重训，'
+            '或用 --stage distill 继续蒸馏。')
 
     # ---- stage 2: distill student from frozen best teacher ----
     if args.stage in ('distill', 'all') and (

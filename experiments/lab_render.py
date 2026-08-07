@@ -55,30 +55,38 @@ def load_yaml():
     import re
     data = {'version': 1, 'meta': {}, 'experiments': []}
     cur = None
+    section = None  # 当前实验内的嵌套 section（train/arena）
     for line in YAML.read_text(encoding='utf-8').splitlines():
         line = line.rstrip()
         if not line or line.lstrip().startswith('#'):
             continue
-        m = re.match(r'^(\s*)(\S+):\s*(.*)$', line)
+        # [bugfix] 旧正则需要 "key:" 紧跟在行首 token 后；"- id: exp001"
+        # 这类列表项 token 是 "-"，冒号前还有 "id"，因此整行被跳过。
+        # 现在同时允许 "- key:" 列表项，键取 "-" 之后的 token。
+        m = re.match(r'^(\s*)(-\s+)?(\S+):\s*(.*)$', line)
         if not m:
             continue
-        indent, key, val = m.group(1), m.group(2), m.group(3).strip()
+        indent, dash, key, val = m.group(1), m.group(2), m.group(3), m.group(4).strip()
         if key == 'experiments' and val == '':
             continue
-        if indent == '' and key in ('version', 'meta', 'experiments'):
-            if key == 'experiments':
-                pass
-            continue
-        # 实验条目: "  - id: exp001"
-        if key == '- id':
+        if dash and key == 'id' and val:
             if cur is not None:
                 data['experiments'].append(cur)
             cur = {'id': val}
+            section = None
+            continue
+        if indent == '' and key in ('version', 'meta', 'experiments'):
             continue
         if cur is not None:
+            # 嵌套 section（train/arena 等）：进入后其子键写入 section dict。
+            # [bugfix] 旧逻辑 val=='' 时置 cur=None，导致 "train:" 之后
+            # 整个实验条目被丢弃，fallback 永远解析不出任何实验。
             if val == '':
                 cur[key] = {}
-                cur = None  # 简化：嵌套结构不深入解析
+                section = key
+                continue
+            if section is not None:
+                cur.setdefault(section, {})[key] = val
             else:
                 cur[key] = val
     if cur is not None:
@@ -99,8 +107,6 @@ def render(exp_id: str) -> int:
     src = RENDER_SRC.read_text(encoding='utf-8')
     train = exp.get('train', {})
     flags = []
-    if 'stage' in train:
-        flags.append(f"'--stage', '{train['stage']}'")
     for k, v in train.items():
         cli = KEY_MAP.get(k)
         if cli is None:

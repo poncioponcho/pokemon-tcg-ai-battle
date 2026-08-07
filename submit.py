@@ -15,10 +15,12 @@ Kaggle CLI 1.7.4.5 不支持 KGAT token 格式，本脚本用 kagglesdk 完成�
   leaderboard        查看天梯排名
 """
 
+import hashlib
 import io
 import json
 import os
 import sys
+import tarfile
 import time
 import urllib.request
 
@@ -55,11 +57,40 @@ def get_client():
     return KaggleClient(env=KaggleEnv.PROD)
 
 
+def _tar_main_sha() -> str:
+    """计算 submission.tar.gz 内 main.py 的 sha256（无 tar 时返回 None）。"""
+    try:
+        with tarfile.open(TAR_PATH, "r:gz") as t:
+            member = t.getmember("main.py")
+            return hashlib.sha256(t.extractfile(member).read()).hexdigest()[:16]
+    except Exception:
+        return None
+
+
 def cmd_submit():
     """提交 submission.tar.gz"""
     if not os.path.exists(TAR_PATH):
         print(f"错误：找不到 {TAR_PATH}，请先运行 bash pack.sh")
         return 1
+
+    # [bugfix] 防呆：提交包可能来自旧 snapshot（如 submission/main.py 或 Aug-5 的
+    # 旧 tar），与当前根 main.py 不一致时会静默提交旧 agent。若不一致直接拦截。
+    try:
+        with open(os.path.join(WORK_DIR, "main.py"), "rb") as f:
+            live_sha = hashlib.sha256(f.read()).hexdigest()[:16]
+        tar_sha = _tar_main_sha()
+        if tar_sha is None:
+            print(f"错误：{TAR_PATH} 内找不到 main.py，请重新 pack.sh")
+            return 1
+        if tar_sha != live_sha:
+            print(f"错误：{TAR_PATH} 内的 main.py 与当前根 main.py 不一致！")
+            print(f"  tar  sha256={tar_sha}")
+            print(f"  live sha256={live_sha}")
+            print("请先运行 bash pack.sh 重新打包，避免提交旧版 agent。")
+            return 1
+        print(f"校验通过：tar main.py 与根 main.py 一致 (sha256={live_sha})")
+    except Exception as e:
+        print(f"警告：提交包新鲜度校验跳过（{e}）")
 
     client = get_client()
     api = client.competitions.competition_api_client
@@ -85,7 +116,6 @@ def cmd_submit():
     blob_token = upload_resp.token
     create_url = upload_resp.create_url
     # [审计-M1] 不输出令牌内容, 仅输出长度与指纹
-    import hashlib
     token_fp = hashlib.sha256(blob_token.encode("utf-8")).hexdigest()[:8]
     print(f"  获取成功 → 上传令牌: {len(blob_token)} chars (sha256:{token_fp})")
     print()

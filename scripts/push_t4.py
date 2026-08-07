@@ -19,6 +19,14 @@ KD = Path('/Users/seyonmacbook/Desktop/Pokemon_TCG_AI_Battle_Challenge/.kaggle_k
 META = json.loads((KD / 'kernel-metadata.json').read_text(encoding='utf-8'))
 CODE = (KD / 'run_experiment.py').read_text(encoding='utf-8')
 
+# 数据集挂载来自 kernel-metadata.json 的 dataset_sources（默认训练数据+代码）。
+# resume_kernel.sh 会把续训 ckpt dataset 插入该列表；此处必须读取它，
+# 否则硬编码列表会让 ckpt 永不挂载 → 超时续训静默失效。
+DEFAULT_SOURCES = ['daniel1547/ptcg-tensors', 'daniel1547/ptcg-code']
+DATA_SOURCES = [s for s in (META.get('dataset_sources') or DEFAULT_SOURCES) if s]
+if not DATA_SOURCES:
+    DATA_SOURCES = list(DEFAULT_SOURCES)
+
 SHAPE = 'GPU T4 x2'
 if '--shape' in sys.argv:
     SHAPE = sys.argv[sys.argv.index('--shape') + 1]
@@ -56,7 +64,7 @@ req.kernel_type = 'script'
 req.is_private = True
 req.enable_gpu = True
 req.enable_internet = True
-req.dataset_data_sources = ['daniel1547/ptcg-tensors', 'daniel1547/ptcg-code']
+req.dataset_data_sources = DATA_SOURCES
 req.competition_data_sources = ['pokemon-tcg-ai-battle']
 try:
     resp = api.save_kernel(req)

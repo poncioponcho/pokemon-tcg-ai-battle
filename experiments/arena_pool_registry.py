@@ -43,7 +43,10 @@ def refresh() -> None:
     reg = REGISTRY_DATA
     for name, spec in reg['opponents'].items():
         if spec['type'] == 'file':
-            p = POOL / spec['path'].replace('arena_pool/', '')
+            # [bugfix] spec['path'] 形如 'arena_pool/v23_2_rules.py'，POOL 已是
+            # experiments/ 目录，旧代码再 strip 前缀导致解析到 experiments/v23_2_rules.py
+            # （不存在）→ sha256 恒为 None，冻结校验形同虚设。
+            p = POOL / spec['path']
             spec['sha256'] = sha256(p) if p.exists() else None
     reg['frozen_at'] = str(__import__('datetime').datetime.now())
     REGISTRY.write_text(json.dumps(reg, ensure_ascii=False, indent=2), encoding='utf-8')

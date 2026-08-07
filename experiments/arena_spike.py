@@ -40,6 +40,10 @@ def play(agent_fns, decks, max_steps=3000):
     """打一局。返回 {'winner': 0/1/-1(draw), 'steps': n, 'fault': p?, 'err': str?}"""
     _, sd = battle_start(decks[0], decks[1])
     if Battle.battle_ptr is None or sd.errorPlayer >= 0:
+        try:
+            battle_finish()
+        except Exception:
+            pass
         return {'winner': -1, 'steps': 0, 'err': f'start failed errorPlayer={sd.errorPlayer}'}
     steps = 0
     try:

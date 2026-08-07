@@ -1670,6 +1670,8 @@ def _get_pokemon_weakness(pokemon):
       - 列表: [{"type": "闘", "value": 2}] (结构化弱点)
       - dict: {"type": "闘", "value": 2}
       - None: 无弱点
+    引擎观测的 pokemon dict 从不暴露 weakness 字段，因此最后回退到
+    _CARD_DB 按卡牌 id 查弱点（卡库覆盖全部宝可梦）。
     """
     if not isinstance(pokemon, dict):
         return None
@@ -1686,6 +1688,10 @@ def _get_pokemon_weakness(pokemon):
             return _norm_type_name(first.get("type", None)) or None
         if isinstance(first, str):
             return _norm_type_name(first) or None
+    # [bugfix] 引擎观测不携带 weakness，回退卡库按 id 查
+    cid = _get_pokemon_card_id(pokemon)
+    if cid >= 0:
+        return _norm_type_name(_CARD_DB.get(cid, {}).get("weakness", None)) or None
     return None
 
 

@@ -213,17 +213,18 @@ def test_sanitize():
 def test_score_play_card():
     """[D1] 统一评分函数"""
     section("D1: _score_play_card 统一评分")
-    # 训练家卡: 200 + 优先级
-    score_pofin = _score_play_card(1086)  # なかよしポフィン, priority=100
-    assert_eq(score_pofin, 300, "训练家卡评分 = 200 + 优先级")
+    # 训练家卡: 200 + 优先级 (v23 卡组: 1142 ファイティングゴング priority=100)
+    score_gong = _score_play_card(1142)
+    assert_eq(score_gong, 300, "训练家卡评分 = 200 + 优先级")
+    assert_eq(_score_play_card(1227), 295, "リーリエ priority=95 → 295")
     # 能量卡: -1
     assert_eq(_score_play_card(7), -1, "能量卡评分 = -1")
     assert_eq(_score_play_card(5), -1, "能量卡评分 = -1")
     # 宝可梦: power + evolve_bonus + can_attack_bonus
-    score_648 = _score_play_card(648)  # power=180, evolves_to=None, can_attack=True
-    assert_eq(score_648, 180 + 0 + 1000, "648 评分 = power(180) + can_attack(1000)")
-    score_646 = _score_play_card(646)  # power=10, evolves_to=647, can_attack=True
-    assert_eq(score_646, 10 + 50 + 1000, "646 评分 = power(10) + evolve(50) + can_attack(1000)")
+    score_678 = _score_play_card(678)  # power=270, evolves_to=None, can_attack=True
+    assert_eq(score_678, 270 + 0 + 1000, "678 评分 = power(270) + can_attack(1000)")
+    score_677 = _score_play_card(677)  # power=30, evolves_to=678, can_attack=True
+    assert_eq(score_677, 30 + 50 + 1000, "677 评分 = power(30) + evolve(50) + can_attack(1000)")
     # 未知卡
     assert_eq(_score_play_card(99999), 0, "未知卡评分 = 0")
 
@@ -278,26 +279,35 @@ def test_get_my_prize_count():
 
 
 def test_find_best_evolve():
-    """[B3] 智能进化选择 (v22: 345 墙成型优先级最高)"""
+    """[B3] 智能进化选择 (v23: 678/674 进化优先级最高)"""
     section("B3: _find_best_evolve 智能进化")
     # Evolve option 的 index 指向手牌中的进化目标卡（真实引擎语义）
-    # 构造两个进化选项：目标 345 (墙, 优先级200) 和 117 (优先级0)
-    obs = make_obs(my_hand=[{"id": 117}, {"id": 345}])
+    # 构造两个进化选项：目标 674 (哈力羊, 优先级150) 和 117 (优先级0)
+    obs = make_obs(my_hand=[{"id": 117}, {"id": 674}])
     options = [
         make_option("Evolve", index=0, inPlayArea=4),  # 目标 117
-        make_option("Evolve", index=1, inPlayArea=4),  # 目标 345 (墙核心)
+        make_option("Evolve", index=1, inPlayArea=4),  # 目标 674 (核心打手)
     ]
     best = _find_best_evolve([0, 1], options, obs["current"], 0)
-    assert_eq(best, 1, "345 墙优先于其他进化")
+    assert_eq(best, 1, "674 优先于其他进化")
 
-    # active 位进化 > bench 位
-    obs = make_obs(my_hand=[{"id": 345}, {"id": 345}])
+    # active 位进化 > bench 位进化
+    obs = make_obs(my_hand=[{"id": 678}, {"id": 678}])
     options = [
         make_option("Evolve", index=0, inPlayArea=5),  # bench 位
         make_option("Evolve", index=1, inPlayArea=4),  # active 位
     ]
     best = _find_best_evolve([0, 1], options, obs["current"], 0)
     assert_eq(best, 1, "active 位进化优先于 bench 位")
+
+    # 678 (优先级200) > 674 (优先级150)
+    obs = make_obs(my_hand=[{"id": 674}, {"id": 678}])
+    options = [
+        make_option("Evolve", index=0, inPlayArea=4),  # 目标 674
+        make_option("Evolve", index=1, inPlayArea=4),  # 目标 678
+    ]
+    best = _find_best_evolve([0, 1], options, obs["current"], 0)
+    assert_eq(best, 1, "678 优先级高于 674")
 
 
 def test_estimate_attack_damage():
@@ -360,7 +370,7 @@ def test_handle_main_sprint_mode():
         my_active={"id": 646, "hp": 70, "maxHp": 70, "energies": [{"id": 7}]},
         opp_active={"id": 646, "hp": 70, "maxHp": 70, "energies": []},
         my_prize=[1, 2],  # 仅剩 2 张 → 冲刺
-        my_hand=[{"id": 1086}],  # 有训练家卡但不打
+        my_hand=[{"id": 1142}],  # 有训练家卡但不打 (ゴング)
     )
     options = [
         make_option("Play", index=0),  # 训练家卡
@@ -374,23 +384,23 @@ def test_handle_main_sprint_mode():
         my_active={"id": 646, "hp": 70, "maxHp": 70, "energies": [{"id": 7}]},
         opp_active={"id": 646, "hp": 70, "maxHp": 70, "energies": []},
         my_prize=[1, 2, 3, 4, 5, 6],  # 6 张 → 非冲刺
-        my_hand=[{"id": 1086}],
+        my_hand=[{"id": 1142}],
     )
     result2 = _handle_main(options, 1, None, obs2["current"], 0)
     assert_eq(result2, [0], "非冲刺模式 → 优先 Play 训练家卡")
 
 
 def test_handle_main_evolve_priority():
-    """[B3] 进化优先级 (v22: P7 进化先于 P10 打训练家)"""
+    """[B3] 进化优先级 (v23: P3/P3.5 进化678/674 先于打训练家)"""
     section("B3: _handle_main 进化优先级")
-    # 有进化选项时，优先进化 (训练家用非关键卡 1147, 避免 P6 提前触发)
+    # 有进化选项时，优先进化 674 (训练家用非关键卡 1102, 避免 P6 提前触发)
     obs = make_obs(
         my_active={"id": 646, "hp": 70, "maxHp": 70, "energies": [{"id": 7}]},
         opp_active={"id": 646, "hp": 70, "maxHp": 70, "energies": []},
-        my_hand=[{"id": 647}, {"id": 1147}],
+        my_hand=[{"id": 674}, {"id": 1102}],
     )
     options = [
-        make_option("Evolve", index=0, inPlayArea=4),  # 进化为 647
+        make_option("Evolve", index=0, inPlayArea=4),  # 进化为 674
         make_option("Play", index=1),  # 训练家卡 (非关键)
     ]
     result = _handle_main(options, 1, None, obs["current"], 0)
@@ -793,19 +803,23 @@ def test_regression_v14_numeric_enum():
 
 
 def test_regression_deck_unchanged():
-    """回归: DECK 内容未变（v22 Mega Wall Push 卡组）"""
+    """回归: DECK 内容未变（v23 Mega Lucario ex 能量循环墙推卡组）"""
     section("回归: DECK 内容未变")
     from collections import Counter as Cnt
     deck_counter = Cnt(DECK)
     # 验证关键卡数量
-    assert_eq(deck_counter[756], 3, "グレンアルマex×3")
-    assert_eq(deck_counter[344], 4, "リザードンex×4")
-    assert_eq(deck_counter[345], 3, "メガリザードンex×3")
-    assert_eq(deck_counter[117], 2, "メタルエネルギー×2")
-    assert_eq(deck_counter[1086], 3, "ポフィン×3")
-    assert_eq(deck_counter[1121], 4, "ふしぎなアメ×4")
-    assert_eq(deck_counter[1122], 2, "バトルVIPパス×2")
-    assert_eq(deck_counter[1], 4, "基本炎エネルギー×4")
+    assert_eq(deck_counter[678], 3, "メガルカリオex×3")
+    assert_eq(deck_counter[677], 3, "ルカリオ×3")
+    assert_eq(deck_counter[674], 2, "ハリテヤマ×2")
+    assert_eq(deck_counter[676], 2, "ソルロック×2")
+    assert_eq(deck_counter[675], 2, "ルナトーン×2")
+    assert_eq(deck_counter[1227], 4, "リーリエの決心×4")
+    assert_eq(deck_counter[1142], 3, "ファイティングゴング×3")
+    assert_eq(deck_counter[1152], 3, "ポケパッド×3")
+    assert_eq(deck_counter[1121], 3, "ハイパーボール×3")
+    assert_eq(deck_counter[1159], 1, "ヒーローマント×1")
+    assert_eq(deck_counter[235], 1, "含羞苞×1")
+    assert_eq(deck_counter[6], 13, "基本闘エネルギー×13")
 
 
 def test_regression_action_legality():

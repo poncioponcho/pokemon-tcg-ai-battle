@@ -73,12 +73,18 @@ EOF
 # 首次 create，已存在则 version（datasets version 不能创建新 dataset）
 if env -u PYTHONHOME -u PYTHONPATH "${KAG}" datasets list -s "ptcg-ckpt" 2>/dev/null | grep -q "${DATASET}"; then
   echo "  dataset 已存在 → version 更新"
-  env -u PYTHONHOME -u PYTHONPATH "${KAG}" datasets version \
-      -p "${STAGE_DIR}" -r zip -m "resume ckpt $(date '+%m-%d %H:%M')" 2>&1 | tail -3
+  if ! env -u PYTHONHOME -u PYTHONPATH "${KAG}" datasets version \
+      -p "${STAGE_DIR}" -r zip -m "resume ckpt $(date '+%m-%d %H:%M')" 2>&1 | tail -3; then
+    echo "ERROR: ckpt dataset version 上传失败，中止（不重推，避免从零重训）"
+    exit 1
+  fi
 else
   echo "  dataset 不存在 → 首次 create"
-  env -u PYTHONHOME -u PYTHONPATH "${KAG}" datasets create \
-      -p "${STAGE_DIR}" -r zip 2>&1 | tail -3
+  if ! env -u PYTHONHOME -u PYTHONPATH "${KAG}" datasets create \
+      -p "${STAGE_DIR}" -r zip 2>&1 | tail -3; then
+    echo "ERROR: ckpt dataset create 失败，中止（不重推，避免从零重训）"
+    exit 1
+  fi
 fi
 
 echo ""
@@ -106,7 +112,11 @@ fi
 echo ""
 echo "=== [4/4] 重推 kernel（自动 resume） ==="
 cd "${PROJ}"
-python3 scripts/push_t4.py 2>&1 | tail -4
-echo ""
-echo "RESUME_DONE: 训练已从 ckpt 续跑（prepare() 自动恢复 + --resume auto）"
-echo "验证: kaggle kernels status ${KERNEL} 应为 RUNNING，日志应出现 [resume]"
+if python3 scripts/push_t4.py 2>&1 | tail -4; then
+  echo ""
+  echo "RESUME_DONE: 训练已从 ckpt 续跑（prepare() 自动恢复 + --resume auto）"
+  echo "验证: kaggle kernels status ${KERNEL} 应为 RUNNING，日志应出现 [resume]"
+else
+  echo "ERROR: kernel 重推失败（见上方输出），续训未启动"
+  exit 1
+fi

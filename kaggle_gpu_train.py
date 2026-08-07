@@ -283,10 +283,27 @@ def _ensure_torch_compatible():
         log('torch cu118 安装成功且兼容 P100: ' + r.stdout.strip())
         # 关键：主进程内存里的旧 torch 必须丢弃，execv 重开进程以全新加载 cu118
         log('重启进程以加载 cu118 torch...')
-        code = (Path(__file__).read_text(encoding='utf-8')
-                if '__file__' in globals() else Path('/kaggle/src/script.py').read_text(encoding='utf-8'))
-        os.execv(sys.executable, [sys.executable, '-c',
-                                  'exec(open(%r).read())' % '/kaggle/src/script.py'])
+        # [bugfix] 旧逻辑把当前脚本源码写到 /kaggle/src/script.py（该路径在
+        # notebook-cell 粘贴 / 上传 %run 场景都不存在）→ execv 后 FileNotFoundError。
+        # 现改为：把当前源码落到 /kaggle/src/ 下的临时文件再 execv；若取不到源码
+        # （如纯 notebook cell 无 __file__），回退用原始命令行参数重跑。
+        restart_src = None
+        if '__file__' in globals():
+            try:
+                restart_src = Path(__file__).read_text(encoding='utf-8')
+            except Exception:
+                restart_src = None
+        if restart_src is None:
+            try:
+                restart_src = Path('/kaggle/src/script.py').read_text(encoding='utf-8')
+            except Exception:
+                restart_src = None
+        if restart_src:
+            restart_path = '/kaggle/src/ptcg_restart.py'
+            Path(restart_path).write_text(restart_src, encoding='utf-8')
+            os.execv(sys.executable, [sys.executable, restart_path])
+        log('重启源码不可用，尝试按原命令行重跑')
+        os.execv(sys.executable, [sys.executable] + sys.argv)
     log('torch cu118 验证失败: rc=%s stderr=%s' % (r.returncode, (r.stderr or '')[-200:]))
     log('GPU 降级失败 → 兜底强制 CPU 训练（慢但能出结果）')
     return True  # 返回 True 表示"继续但用 CPU"

@@ -213,7 +213,14 @@ def compute_reward(exp: dict, arena: dict, champ: dict,
 
 def cmd_record(args) -> int:
     champ = load_champion()
-    arena = load_arena_report(EXP / args.arena)
+    # [bugfix] args.arena 可能带 experiments/ 前缀（文档用法）也可能是裸文件名；
+    # 直接按原样解析，已带 EXP 前缀或绝对路径时不再叠加 EXP，避免双前缀。
+    arena_arg = Path(args.arena)
+    if arena_arg.is_absolute() or arena_arg.parent.name == 'experiments' or arena_arg.exists():
+        arena_path = arena_arg
+    else:
+        arena_path = EXP / arena_arg
+    arena = load_arena_report(arena_path)
     quota_budget = args.quota_budget
     if not quota_budget:
         try:

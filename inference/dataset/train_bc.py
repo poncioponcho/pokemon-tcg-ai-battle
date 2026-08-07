@@ -185,11 +185,13 @@ def evaluate(model, arrays, idx, meta, device, bs=8192):
 
 def train_phase(model, opt, arrays, meta, split, epochs, phase, args, device, logf,
                 output_dir=DATA, epoch_start=0, monitor_idx=None,
-                early_stop_patience=0, best_output=None, sample_weights=None):
+                early_stop_patience=0, best_output=None, sample_weights=None,
+                early_stop_min_delta=0.0):
     if len(split) == 0:
         raise ValueError(f'{phase} cannot train with an empty split')
     history = []
-    stopper = EarlyStopper(patience=early_stop_patience, mode='max')
+    stopper = EarlyStopper(patience=early_stop_patience, mode='max',
+                           min_delta=early_stop_min_delta)
     eval_every = max(1, int(args.eval_every))
     n = len(split)
     for ep in range(epoch_start, epochs):
@@ -383,6 +385,7 @@ def main():
             model, opt, arrays, meta, train_idx, args.epochs_bc, 'bc', args, device, logf,
             data_dir, monitor_idx=canary_idx,
             early_stop_patience=args.early_stop_patience,
+            early_stop_min_delta=args.early_stop_min_delta,
             best_output=bc_best,
             sample_weights=sample_weights,
         )
@@ -401,6 +404,7 @@ def main():
             model, opt, arrays, meta, train_idx, args.epochs_awr, 'awr', args, device, logf,
             data_dir, monitor_idx=canary_idx,
             early_stop_patience=args.early_stop_patience,
+            early_stop_min_delta=args.early_stop_min_delta,
             best_output=awr_best,
             sample_weights=sample_weights,
         )
