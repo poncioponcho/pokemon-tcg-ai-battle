@@ -23,6 +23,16 @@ PROJ="/Users/seyonmacbook/Desktop/Pokemon_TCG_AI_Battle_Challenge"
 RECOVER="${PROJ}/reports/kerr_resume"
 META="${PROJ}/.kaggle_kernel/kernel-metadata.json"
 
+# 污染数据守卫：训练数据若已被标记污染（extract.py deck bug），拒绝续训
+POISON_FLAG="${HOME}/.hermes/state/poisoned_train_flag"
+if [[ -f "${POISON_FLAG}" ]]; then
+  echo "ERROR: 检测到污染训练标记（$(cat "${POISON_FLAG}")）"
+  echo "  → ptcg-tensors 数据集是 extract.py deck bug 修复前的污染版。"
+  echo "  → 必须先用 redraw_tensors.sh 重抽张量并重传数据集，再续训。"
+  echo "  中止续训（拒绝在污染数据上训练）。"
+  exit 3
+fi
+
 echo "=== [1/4] 下载 kernel output（找 ckpt，只下 .pt/.npz） ==="
 rm -rf "${RECOVER}"
 env -u PYTHONHOME -u PYTHONPATH "${KAG}" kernels output "${KERNEL}" \
