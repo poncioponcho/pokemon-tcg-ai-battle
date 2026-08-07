@@ -75,6 +75,8 @@ def cmd_submit():
 
     # [bugfix] 防呆：提交包可能来自旧 snapshot（如 submission/main.py 或 Aug-5 的
     # 旧 tar），与当前根 main.py 不一致时会静默提交旧 agent。若不一致直接拦截。
+    # 校验失败（读不到 live main.py / tar 损坏）同样 fail-closed 拒绝提交——
+    # 宁可让用户手动确认，也不静默提交未知新鲜度的包。
     try:
         with open(os.path.join(WORK_DIR, "main.py"), "rb") as f:
             live_sha = hashlib.sha256(f.read()).hexdigest()[:16]
@@ -90,7 +92,9 @@ def cmd_submit():
             return 1
         print(f"校验通过：tar main.py 与根 main.py 一致 (sha256={live_sha})")
     except Exception as e:
-        print(f"警告：提交包新鲜度校验跳过（{e}）")
+        print(f"错误：提交包新鲜度校验失败，拒绝提交（{e}）")
+        print("请确认根目录 main.py 可读，并运行 bash pack.sh 重新打包。")
+        return 1
 
     client = get_client()
     api = client.competitions.competition_api_client

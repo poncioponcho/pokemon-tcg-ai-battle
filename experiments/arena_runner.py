@@ -123,6 +123,13 @@ def load_opponent(name: str):
             (spec.get('sha256') for spec in reg.get('opponents', {}).values()
              if spec.get('type') == 'file' and spec.get('path') == rel),
             None)
+        if expected is None:
+            print(f'  WARN: 对手 {name} 未在 opponents.json 注册（rel={rel}），'
+                  f'冻结校验跳过；请运行 arena_pool_registry.py 刷新。', flush=True)
+    except FileNotFoundError:
+        print('  WARN: opponents.json 缺失，冻结校验跳过；'
+              '请运行 arena_pool_registry.py 生成。', flush=True)
+        expected = None
     except Exception:
         expected = None
     if expected:
@@ -285,20 +292,38 @@ def main():
 
     # ---- 门禁（可选）：调 reward_calc 晋级判定 ----
     if args.gate:
+        # [bugfix] --gate 未显式给 --canary/--fixed 时默认 0.0 → canary_ok 恒 False，
+        # 文档用法裸跑 --gate 必然 REJECTED。自动从 train_v2_report.json 读
+        # student canary/fixed top1（仅当两个都还是默认 0.0 时）。
+        canary = args.canary
+        fixed = args.fixed
+        if canary == 0.0 and fixed == 0.0:
+            report_p = PROJ / 'inference/dataset/data/train_v2_report.json'
+            if report_p.exists():
+                try:
+                    rep = json.loads(report_p.read_text(encoding='utf-8'))
+                    canary = float(rep.get('student', {}).get('canary', {}).get('top1', 0.0))
+                    fixed = float(rep.get('student', {}).get('fixed_test', {}).get('top1', 0.0))
+                    print(f'  门禁 canary={canary:.4f} fixed={fixed:.4f}（来自 train_v2_report.json）',
+                          flush=True)
+                except Exception as e:
+                    print(f'  WARN: 读取 train_v2_report.json 失败（{e}），门禁用 0.0', flush=True)
+            else:
+                print('  WARN: 未找到 train_v2_report.json，门禁 canary/fixed 用 0.0', flush=True)
         sys.path.insert(0, str(EXP))
         from reward_calc import cmd_record
         print()
         print('--- 晋级门禁 ---')
         sys.argv = ['reward_calc', 'record', '--experiment', args.id,
                     '--arena', f'arena_report-{args.id}.json',
-                    '--canary', str(args.canary), '--fixed', str(args.fixed),
+                    '--canary', str(canary), '--fixed', str(fixed),
                     '--smoke-pass', 'true',
                     '--invalid-actions', str(total['invalid']),
                     '--quota-used', '0.0']
         try:
             cmd_record(argparse.Namespace(
                 experiment=args.id, arena=f'arena_report-{args.id}.json',
-                canary=args.canary, fixed=args.fixed, smoke_pass=True,
+                canary=canary, fixed=fixed, smoke_pass=True,
                 invalid_actions=total['invalid'], quota_used=0.0,
                 quota_budget=0.0, lb_delta=0.0, submitted=False))
         except SystemExit as e:

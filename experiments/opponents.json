@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "frozen_at": "2026-08-07 09:23:15.994931",
+  "frozen_at": "2026-08-07 10:55:07.116665",
   "note": "对手池冻结：arena 评测环境，L3 不得修改。文件型对手由 snapshot_opponents.py 生成。",
   "opponents": {
     "v23_2": {

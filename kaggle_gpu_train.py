@@ -189,13 +189,7 @@ def prepare():
         dump_input_tree()
         raise SystemExit('missing code: 请对照上方目录树排查 ptcg-code Dataset 挂载/命名。')
 
-    # splits 目录（tar 解包路径兜底摊平）
-    nested = CODE_DIR / 'inference' / 'dataset' / 'splits'
-    splits = CODE_DIR / 'splits'
-    if nested.exists() and not splits.exists():
-        shutil.move(str(nested), str(splits))
-
-    # splits 目录（tar 里若带 inference/dataset/splits 结构，摊平）
+    # splits 目录（tar 解包路径兜底摊平：tar 里可能带 inference/dataset/splits 结构）
     nested = CODE_DIR / 'inference' / 'dataset' / 'splits'
     splits = CODE_DIR / 'splits'
     if nested.exists() and not splits.exists():

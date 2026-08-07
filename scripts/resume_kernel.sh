@@ -81,7 +81,10 @@ cat > "${STAGE_DIR}/dataset-metadata.json" <<EOF
 EOF
 
 # 首次 create，已存在则 version（datasets version 不能创建新 dataset）
-if env -u PYTHONHOME -u PYTHONPATH "${KAG}" datasets list -s "ptcg-ckpt" 2>/dev/null | grep -q "${DATASET}"; then
+# [bugfix] `datasets list -s` 只搜公开数据集，私有 ptcg-ckpt 搜不到会误走
+# create 分支；create 对已存在数据集静默 exit 0（不抛异常）→ 旧 ckpt 永不更新。
+# 必须用 `-m` 看自己的私有数据集。
+if env -u PYTHONHOME -u PYTHONPATH "${KAG}" datasets list -m -s "ptcg-ckpt" 2>/dev/null | grep -q "${DATASET}"; then
   echo "  dataset 已存在 → version 更新"
   if ! env -u PYTHONHOME -u PYTHONPATH "${KAG}" datasets version \
       -p "${STAGE_DIR}" -r zip -m "resume ckpt $(date '+%m-%d %H:%M')" 2>&1 | tail -3; then
@@ -99,6 +102,11 @@ fi
 
 echo ""
 echo "=== [3/4] 挂载 ckpt dataset 到 kernel metadata ==="
+# [bugfix] ckpt 挂载只在本次 push 生效：push 前备份原 metadata，push 成功后恢复，
+# 否则 ptcg-ckpt 永久残留在 dataset_sources，后续普通 push 也会挂载旧 ckpt →
+# prepare() 恢复旧 checkpoint → 从旧权重续训而非从头训练（静默数据污染）。
+META_BAK="${META}.pre-resume.bak"
+cp "${META}" "${META_BAK}"
 META_PATH="${META}" DATASET="${DATASET}" python3 - <<'PYEOF'
 import json, os, sys
 from pathlib import Path
@@ -116,6 +124,7 @@ else:
 PYEOF
 if [[ $? -ne 0 ]]; then
   echo "ERROR: metadata 更新失败，中止（不重推，避免无 ckpt 从零重训）"
+  rm -f "${META_BAK}"
   exit 1
 fi
 
@@ -123,10 +132,14 @@ echo ""
 echo "=== [4/4] 重推 kernel（自动 resume） ==="
 cd "${PROJ}"
 if python3 scripts/push_t4.py 2>&1 | tail -4; then
+  cp "${META_BAK}" "${META}"
+  rm -f "${META_BAK}"
   echo ""
   echo "RESUME_DONE: 训练已从 ckpt 续跑（prepare() 自动恢复 + --resume auto）"
+  echo "  metadata 已恢复原状（ptcg-ckpt 不再挂载，后续普通 push 不受影响）"
   echo "验证: kaggle kernels status ${KERNEL} 应为 RUNNING，日志应出现 [resume]"
 else
   echo "ERROR: kernel 重推失败（见上方输出），续训未启动"
+  echo "  metadata 保持原样未恢复：$(grep -c ptcg-ckpt "${META}") 处含 ptcg-ckpt"
   exit 1
 fi

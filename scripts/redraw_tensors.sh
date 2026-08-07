@@ -35,8 +35,10 @@ DRY_RUN="${DRY_RUN:-0}"
 # ---- 1. 状态守卫（fail-closed） ----
 STATUS_LINE="$(env -u PYTHONHOME -u PYTHONPATH "${KAG}" kernels status "${KERNEL}" 2>&1 | head -1)"
 case "${STATUS_LINE}" in
-  *RUNNING*|*QUEUED*|*PENDING*)
-    echo "TENSOR_REDRAW: 训练仍在运行（${STATUS_LINE}），跳过"
+  *RUNNING*|*QUEUED*|*PENDING*|*CANCEL_REQUESTED*|*CANCEL_ACKNOWLEDGED*)
+    # [bugfix] CANCEL_REQUESTED/ACKNOWLEDGED 表示 session 仍在终止中，视为未结束：
+    # 此时重抽覆盖数据可能与将结束的 kernel 输出竞争，下轮轮询再触发。
+    echo "TENSOR_REDRAW: 训练未完全结束（${STATUS_LINE}），跳过"
     exit 0 ;;
   *COMPLETE*|*SUCCESS*|*complete*|*success*|*ERROR*|*FAIL*|*CANCEL*|*cancel*)
     echo "TENSOR_REDRAW: 训练已结束（${STATUS_LINE}）→ 开始重抽 $(date '+%F %H:%M:%S')"
@@ -54,14 +56,15 @@ if [[ -f "${DONE_FLAG}" ]]; then
 fi
 
 # ---- 2. 标记污染训练作废（resume_kernel.sh 会检查此 flag） ----
+# [bugfix] DRY_RUN 检查提前：dry-run 只是验证状态守卫，不应留下 POISON_FLAG，
+# 否则测试一次会让 resume_kernel.sh 永久拒绝续训（数据其实没动）。
+if [[ "${DRY_RUN}" == "1" ]]; then
+  echo "DRY_RUN: 跳过标记/重抽/上传，守卫验证通过"
+  exit 0
+fi
 mkdir -p "${STATE_DIR}"
 echo "poisoned-train-$(date '+%Y%m%d%H%M%S')" > "${POISON_FLAG}"
 echo "  已标记污染训练作废 → ${POISON_FLAG}"
-
-if [[ "${DRY_RUN}" == "1" ]]; then
-  echo "DRY_RUN: 跳过 extract/打包/上传，守卫验证通过"
-  exit 0
-fi
 
 # ---- 3. 本地重抽张量（修复版 extract.py，覆盖污染数据） ----
 echo "=== [1/3] 重新抽取张量（all_replays.jsonl.zst → data/） ==="
@@ -74,7 +77,7 @@ if ! env -u PYTHONHOME -u PYTHONPATH /opt/homebrew/bin/python3 \
   exit 1
 fi
 echo "  重抽完成，新 meta.json:"
-python3 -c "import json; m=json.load(open('inference/dataset/data/meta.json')); print('   episodes:', m.get('n_episodes'), '| decisions:', m.get('n_decisions'))"
+env -u PYTHONHOME -u PYTHONPATH /opt/homebrew/bin/python3 -c "import json; m=json.load(open('inference/dataset/data/meta.json')); print('   episodes:', m.get('n_episodes'), '| decisions:', m.get('n_decisions'))"
 
 # ---- 4. 打包 + 上传数据集（上传失败 → 退出非 0，不写 DONE_FLAG） ----
 echo "=== [2/3] 打包 ptcg_tensors.tar.gz ==="
@@ -87,14 +90,18 @@ ls -lh "${DATASET_DIR}/ptcg_tensors.tar.gz"
 cat > "${DATASET_DIR}/dataset-metadata.json" <<EOF
 {
   "id": "${DATASET}",
-  "title": "PTCG training tensors (redrawn 2026-08-07, deck-fix)",
+  "title": "PTCG tensors (deck-fix redraw)",
   "licenses": [{"name": "other"}]
 }
 EOF
 
 echo "=== [3/3] 上传数据集（create 或 version） ==="
+# [bugfix] kaggle CLI 的 `datasets list -s` 只搜公开数据集，私有 ptcg-tensors
+# 永远搜不到 → 永远走 create 分支 → 对已存在数据集静默 exit 0 但不更新
+# （create 已存在时只打印 "already in use" 错误且不抛异常，UP_RC 误判成功）。
+# 必须用 `datasets list -m -s`（-m 只看自己的数据集）才能命中私有数据集。
 UP_RC=1
-if env -u PYTHONHOME -u PYTHONPATH "${KAG}" datasets list -s "ptcg-tensors" 2>/dev/null | grep -q "${DATASET}"; then
+if env -u PYTHONHOME -u PYTHONPATH "${KAG}" datasets list -m -s "ptcg-tensors" 2>/dev/null | grep -q "${DATASET}"; then
   echo "  数据集已存在 → version 更新"
   env -u PYTHONHOME -u PYTHONPATH "${KAG}" datasets version \
     -p "${DATASET_DIR}" -r zip -m "redraw 2026-08-07 deck-fix $(date '+%m-%d %H:%M')" 2>&1 | tail -3
@@ -111,5 +118,8 @@ fi
 
 # ---- 5. 完成标记（仅上传成功后） ----
 date '+%Y-%m-%d %H:%M:%S' > "${DONE_FLAG}"
+# [bugfix] 数据已重抽并重传成功 → 清除污染标记，否则 resume_kernel.sh
+# 看到 POISON_FLAG 仍会 exit 3 永久拒绝续训（重抽完成即死锁）。
+rm -f "${POISON_FLAG}"
 osascript -e "display notification \"张量已重抽并重传 ptcg-tensors\" with title \"Hermes · 数据\"" 2>/dev/null || true
-echo "TENSOR_REDRAW_DONE: 新张量已上传 ${DATASET}"
+echo "TENSOR_REDRAW_DONE: 新张量已上传 ${DATASET}（污染标记已清除）"

@@ -106,21 +106,50 @@ def render(exp_id: str) -> int:
 
     src = RENDER_SRC.read_text(encoding='utf-8')
     train = exp.get('train', {})
-    flags = []
+    import re
+
+    # [bugfix] 旧实现用 yaml train dict 重建整个 TRAIN_ARGS，模板里不在 KEY_MAP 的
+    # 默认参数（--stage env、--device auto、--early-stop-patience 3）会被静默丢弃。
+    # 改为：解析模板现有参数对，yaml 覆盖同名 flag，未覆盖的保留模板默认。
+    m_block = re.search(r'TRAIN_ARGS = \[(.*?)\n\s*\]', src, flags=re.S)
+    if not m_block:
+        print('ERROR: 未找到 TRAIN_ARGS 定义块，无法渲染')
+        return 1
+    raw_block = m_block.group(1)
+
+    # 模板参数：flag 行与 value 行成对（value 可能含逗号，如 os.environ.get(...)）
+    items = re.findall(r"'--([a-z0-9-]+)',\s*(.*)", raw_block)
+    template_pairs = {}
+    for flag, val in items:
+        val = val.strip()
+        if val.endswith(','):
+            val = val[:-1].rstrip()
+        template_pairs[flag] = val
+
+    # yaml 覆盖集合：KEY_MAP key → (cli_flag, yaml_value)
+    overrides = {}
     for k, v in train.items():
         cli = KEY_MAP.get(k)
         if cli is None:
             print(f'WARN: 忽略未映射参数 {k}')
             continue
+        flag = cli.lstrip('-')
         if isinstance(v, bool):
-            flags.append(f"'{cli}'") if v else None
+            overrides[flag] = 'True' if v else 'False'
         else:
-            flags.append(f"'{cli}', '{v}'")
-    body = ',\n'.join('        ' + f for f in flags)
+            overrides[flag] = repr(str(v))
+
+    # 合并：模板默认 + yaml 覆盖 + yaml 新增（模板没有的 flag）
+    flags = []
+    for flag, val in template_pairs.items():
+        flags.append((flag, overrides.pop(flag, val)))
+    for flag, val in overrides.items():
+        flags.append((flag, val))
+
+    body = ',\n'.join(
+        f"        '--{flag}', {val}" for flag, val in flags)
     block = f"TRAIN_ARGS = [\n{body},\n    ]"
-    # 替换现有 TRAIN_ARGS 定义块
-    import re
-    new_src = re.sub(r'TRAIN_ARGS = \[[^\]]*\]', block, src, count=1, flags=re.S)
+    new_src = re.sub(r'TRAIN_ARGS = \[[^\]]*\n\s*\]', block, src, count=1, flags=re.S)
     if new_src == src:
         print('ERROR: 未找到 TRAIN_ARGS 定义块，无法渲染')
         return 1

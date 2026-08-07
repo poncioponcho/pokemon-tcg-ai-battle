@@ -213,11 +213,15 @@ def compute_reward(exp: dict, arena: dict, champ: dict,
 
 def cmd_record(args) -> int:
     champ = load_champion()
-    # [bugfix] args.arena 可能带 experiments/ 前缀（文档用法）也可能是裸文件名；
-    # 直接按原样解析，已带 EXP 前缀或绝对路径时不再叠加 EXP，避免双前缀。
+    # [bugfix] args.arena 可能带 experiments/ 前缀（文档用法）也可能是裸文件名。
+    # 带前缀 → 相对仓库根 PROJ 解析；裸名 → 相对 EXP。避免双前缀，
+    # 也避免从 experiments/ 目录运行时解析到 experiments/experiments/…。
     arena_arg = Path(args.arena)
-    if arena_arg.is_absolute() or arena_arg.parent.name == 'experiments' or arena_arg.exists():
+    if arena_arg.is_absolute():
         arena_path = arena_arg
+    elif arena_arg.parent.name == 'experiments' or arena_arg.parent == Path('.'):
+        # "experiments/arena_report-x.json" 或 "arena_report-x.json"
+        arena_path = PROJ / arena_arg if arena_arg.parent.name == 'experiments' else EXP / arena_arg
     else:
         arena_path = EXP / arena_arg
     arena = load_arena_report(arena_path)
