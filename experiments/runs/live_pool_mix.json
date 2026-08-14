@@ -1,0 +1,508 @@
+{
+ "source": "live_replays(42) + deck_recognizer.classify_ids(margin=2.0)",
+ "n_games": 42,
+ "n_mirror": 1,
+ "mix": {
+  "Alakazam": {
+   "n": 11,
+   "pct": 0.2619
+  },
+  "Lucario": {
+   "n": 7,
+   "pct": 0.1667
+  },
+  "Crustle": {
+   "n": 7,
+   "pct": 0.1667
+  },
+  "Cornerstone": {
+   "n": 4,
+   "pct": 0.0952
+  },
+  "Grimmsnarl": {
+   "n": 4,
+   "pct": 0.0952
+  },
+  "Archaludon": {
+   "n": 4,
+   "pct": 0.0952
+  },
+  "Dragapult": {
+   "n": 3,
+   "pct": 0.0714
+  },
+  "mirror:Lucario": {
+   "n": 1,
+   "pct": 0.0238
+  },
+  "other": {
+   "n": 1,
+   "pct": 0.0238
+  }
+ },
+ "mix_ex_mirror": {
+  "Alakazam": {
+   "n": 11,
+   "pct": 0.2683
+  },
+  "Lucario": {
+   "n": 7,
+   "pct": 0.1707
+  },
+  "Crustle": {
+   "n": 7,
+   "pct": 0.1707
+  },
+  "Cornerstone": {
+   "n": 4,
+   "pct": 0.0976
+  },
+  "Grimmsnarl": {
+   "n": 4,
+   "pct": 0.0976
+  },
+  "Archaludon": {
+   "n": 4,
+   "pct": 0.0976
+  },
+  "Dragapult": {
+   "n": 3,
+   "pct": 0.0732
+  },
+  "other": {
+   "n": 1,
+   "pct": 0.0244
+  }
+ },
+ "by_arch": {
+  "mirror:Lucario": {
+   "win": 0,
+   "loss": 1,
+   "wr": 0.0
+  },
+  "Lucario": {
+   "win": 3,
+   "loss": 4,
+   "wr": 0.4286
+  },
+  "Cornerstone": {
+   "win": 4,
+   "loss": 0,
+   "wr": 1.0
+  },
+  "Grimmsnarl": {
+   "win": 1,
+   "loss": 3,
+   "wr": 0.25
+  },
+  "Alakazam": {
+   "win": 4,
+   "loss": 7,
+   "wr": 0.3636
+  },
+  "Archaludon": {
+   "win": 1,
+   "loss": 3,
+   "wr": 0.25
+  },
+  "Crustle": {
+   "win": 5,
+   "loss": 2,
+   "wr": 0.7143
+  },
+  "other": {
+   "win": 1,
+   "loss": 0,
+   "wr": 1.0
+  },
+  "Dragapult": {
+   "win": 0,
+   "loss": 3,
+   "wr": 0.0
+  }
+ },
+ "per_game": [
+  {
+   "ep": 91962462,
+   "opp": "Daniel1547",
+   "mirror": true,
+   "opp_arch": "Lucario",
+   "n_opp_visible_ids": 7,
+   "reward": -1
+  },
+  {
+   "ep": 91962567,
+   "opp": "aigood",
+   "mirror": false,
+   "opp_arch": "Lucario",
+   "n_opp_visible_ids": 17,
+   "reward": -1
+  },
+  {
+   "ep": 91963516,
+   "opp": "noikaret",
+   "mirror": false,
+   "opp_arch": "Cornerstone",
+   "n_opp_visible_ids": 2,
+   "reward": 1
+  },
+  {
+   "ep": 91964445,
+   "opp": "gogogozi migimimi",
+   "mirror": false,
+   "opp_arch": "Grimmsnarl",
+   "n_opp_visible_ids": 13,
+   "reward": 1
+  },
+  {
+   "ep": 91965389,
+   "opp": "Ravindra",
+   "mirror": false,
+   "opp_arch": "Alakazam",
+   "n_opp_visible_ids": 14,
+   "reward": -1
+  },
+  {
+   "ep": 91966601,
+   "opp": "Shigu Marimo",
+   "mirror": false,
+   "opp_arch": "Archaludon",
+   "n_opp_visible_ids": 11,
+   "reward": -1
+  },
+  {
+   "ep": 91967307,
+   "opp": "Sinan Calisir",
+   "mirror": false,
+   "opp_arch": "Grimmsnarl",
+   "n_opp_visible_ids": 12,
+   "reward": -1
+  },
+  {
+   "ep": 91968249,
+   "opp": "gngnher",
+   "mirror": false,
+   "opp_arch": "Crustle",
+   "n_opp_visible_ids": 18,
+   "reward": -1
+  },
+  {
+   "ep": 91969245,
+   "opp": "Scarlett Lee",
+   "mirror": false,
+   "opp_arch": "Crustle",
+   "n_opp_visible_ids": 6,
+   "reward": 1
+  },
+  {
+   "ep": 91970185,
+   "opp": "Saikawa_Yui",
+   "mirror": false,
+   "opp_arch": "Alakazam",
+   "n_opp_visible_ids": 15,
+   "reward": 1
+  },
+  {
+   "ep": 91971124,
+   "opp": "Gotta Cache 'Em All",
+   "mirror": false,
+   "opp_arch": "Cornerstone",
+   "n_opp_visible_ids": 17,
+   "reward": 1
+  },
+  {
+   "ep": 91972067,
+   "opp": "Pure Spirit",
+   "mirror": false,
+   "opp_arch": "other",
+   "n_opp_visible_ids": 13,
+   "reward": 1
+  },
+  {
+   "ep": 91973012,
+   "opp": "Rubin Sahota",
+   "mirror": false,
+   "opp_arch": "Crustle",
+   "n_opp_visible_ids": 3,
+   "reward": 1
+  },
+  {
+   "ep": 91973959,
+   "opp": "sangmin7b",
+   "mirror": false,
+   "opp_arch": "Grimmsnarl",
+   "n_opp_visible_ids": 18,
+   "reward": -1
+  },
+  {
+   "ep": 91974900,
+   "opp": "wsdsby",
+   "mirror": false,
+   "opp_arch": "Archaludon",
+   "n_opp_visible_ids": 12,
+   "reward": -1
+  },
+  {
+   "ep": 91975801,
+   "opp": "nori8774",
+   "mirror": false,
+   "opp_arch": "Crustle",
+   "n_opp_visible_ids": 12,
+   "reward": 1
+  },
+  {
+   "ep": 91976786,
+   "opp": "tochiri",
+   "mirror": false,
+   "opp_arch": "Dragapult",
+   "n_opp_visible_ids": 18,
+   "reward": -1
+  },
+  {
+   "ep": 91977731,
+   "opp": "Karthik",
+   "mirror": false,
+   "opp_arch": "Archaludon",
+   "n_opp_visible_ids": 16,
+   "reward": 1
+  },
+  {
+   "ep": 91978653,
+   "opp": "ﾖﾈｸﾗ ﾃﾝｾｲne251225",
+   "mirror": false,
+   "opp_arch": "Alakazam",
+   "n_opp_visible_ids": 14,
+   "reward": 1
+  },
+  {
+   "ep": 91979616,
+   "opp": "soyukke",
+   "mirror": false,
+   "opp_arch": "Dragapult",
+   "n_opp_visible_ids": 22,
+   "reward": -1
+  },
+  {
+   "ep": 91980565,
+   "opp": "Tanabe Yudai",
+   "mirror": false,
+   "opp_arch": "Alakazam",
+   "n_opp_visible_ids": 15,
+   "reward": 1
+  },
+  {
+   "ep": 91981512,
+   "opp": "Nf4d1l",
+   "mirror": false,
+   "opp_arch": "Lucario",
+   "n_opp_visible_ids": 15,
+   "reward": 1
+  },
+  {
+   "ep": 91982465,
+   "opp": "Taiki Misawa",
+   "mirror": false,
+   "opp_arch": "Cornerstone",
+   "n_opp_visible_ids": 11,
+   "reward": 1
+  },
+  {
+   "ep": 91983412,
+   "opp": "MaybeIcanShow",
+   "mirror": false,
+   "opp_arch": "Archaludon",
+   "n_opp_visible_ids": 13,
+   "reward": -1
+  },
+  {
+   "ep": 91984368,
+   "opp": "Harsh Patel",
+   "mirror": false,
+   "opp_arch": "Alakazam",
+   "n_opp_visible_ids": 13,
+   "reward": -1
+  },
+  {
+   "ep": 91985310,
+   "opp": "Hack2Publish",
+   "mirror": false,
+   "opp_arch": "Lucario",
+   "n_opp_visible_ids": 16,
+   "reward": -1
+  },
+  {
+   "ep": 91986269,
+   "opp": "Denki39",
+   "mirror": false,
+   "opp_arch": "Lucario",
+   "n_opp_visible_ids": 16,
+   "reward": 1
+  },
+  {
+   "ep": 91987228,
+   "opp": "juice-le",
+   "mirror": false,
+   "opp_arch": "Crustle",
+   "n_opp_visible_ids": 5,
+   "reward": -1
+  },
+  {
+   "ep": 91996281,
+   "opp": "aoi_sugawara",
+   "mirror": false,
+   "opp_arch": "Alakazam",
+   "n_opp_visible_ids": 13,
+   "reward": -1
+  },
+  {
+   "ep": 92027457,
+   "opp": "Team picoea4rll",
+   "mirror": false,
+   "opp_arch": "Crustle",
+   "n_opp_visible_ids": 21,
+   "reward": 1
+  },
+  {
+   "ep": 92051994,
+   "opp": "rumbling_b",
+   "mirror": false,
+   "opp_arch": "Lucario",
+   "n_opp_visible_ids": 12,
+   "reward": 1
+  },
+  {
+   "ep": 92068959,
+   "opp": "TK-1120",
+   "mirror": false,
+   "opp_arch": "Lucario",
+   "n_opp_visible_ids": 15,
+   "reward": -1
+  },
+  {
+   "ep": 92084049,
+   "opp": "yoikoarmor",
+   "mirror": false,
+   "opp_arch": "Lucario",
+   "n_opp_visible_ids": 12,
+   "reward": -1
+  },
+  {
+   "ep": 92085859,
+   "opp": "sekken",
+   "mirror": false,
+   "opp_arch": "Alakazam",
+   "n_opp_visible_ids": 11,
+   "reward": -1
+  },
+  {
+   "ep": 92102784,
+   "opp": "dudubird",
+   "mirror": false,
+   "opp_arch": "Alakazam",
+   "n_opp_visible_ids": 11,
+   "reward": -1
+  },
+  {
+   "ep": 92107481,
+   "opp": "illness fubuki",
+   "mirror": false,
+   "opp_arch": "Alakazam",
+   "n_opp_visible_ids": 15,
+   "reward": -1
+  },
+  {
+   "ep": 92129872,
+   "opp": "daiki_pyonkichi",
+   "mirror": false,
+   "opp_arch": "Alakazam",
+   "n_opp_visible_ids": 14,
+   "reward": 1
+  },
+  {
+   "ep": 92146934,
+   "opp": "yuyinghuang",
+   "mirror": false,
+   "opp_arch": "Cornerstone",
+   "n_opp_visible_ids": 15,
+   "reward": 1
+  },
+  {
+   "ep": 92153305,
+   "opp": "koucha",
+   "mirror": false,
+   "opp_arch": "Alakazam",
+   "n_opp_visible_ids": 14,
+   "reward": -1
+  },
+  {
+   "ep": 92190738,
+   "opp": "Suyash Verma",
+   "mirror": false,
+   "opp_arch": "Crustle",
+   "n_opp_visible_ids": 11,
+   "reward": 1
+  },
+  {
+   "ep": 92192543,
+   "opp": "ezreal77",
+   "mirror": false,
+   "opp_arch": "Grimmsnarl",
+   "n_opp_visible_ids": 11,
+   "reward": -1
+  },
+  {
+   "ep": 92215907,
+   "opp": "AnSuSu",
+   "mirror": false,
+   "opp_arch": "Dragapult",
+   "n_opp_visible_ids": 16,
+   "reward": -1
+  }
+ ],
+ "decomposition_084_to_0476": {
+  "equal_pilot_gate_weighted_arena_pool": 0.8402,
+  "equal_pilot_gate_weighted_live_mix": 0.7444,
+  "weighting_mismatch_pp": 9.6,
+  "pilot_residual_pp": 26.8,
+  "live_wr": 0.476,
+  "note": "live配比(n=41 ex-mirror, 各族n=1-11 CI宽) + realpilot_gate(n=2000/腿); per-leg live WR方向性仅供参考(Dragapult 0/3, Grimmsnarl 1/3, Cornerstone 4/0反转)",
+  "per_leg_live_vs_equalpilot": {
+   "Dragapult": {
+    "live": 0.0,
+    "eq": 0.9725,
+    "n": 3
+   },
+   "Grimmsnarl": {
+    "live": 0.25,
+    "eq": 0.949,
+    "n": 4
+   },
+   "Archaludon": {
+    "live": 0.25,
+    "eq": 0.8865,
+    "n": 4
+   },
+   "Alakazam": {
+    "live": 0.364,
+    "eq": 0.6565,
+    "n": 11
+   },
+   "Lucario": {
+    "live": 0.429,
+    "eq": 0.744,
+    "n": 7
+   },
+   "Crustle": {
+    "live": 0.714,
+    "eq": 0.7755,
+    "n": 7
+   },
+   "Cornerstone": {
+    "live": 1.0,
+    "eq": 0.3515,
+    "n": 4
+   }
+  },
+  "instrument_calibration_target": "live配比加权; 签名对手需把 0.744 拉到 0.476±5pp (26.8pp), 非早先口径的 0.840→0.476 (36.4pp)"
+ }
+}

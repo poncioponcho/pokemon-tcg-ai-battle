@@ -1,0 +1,357 @@
+{
+  "artifact": "/Users/seyonmacbook/Desktop/Pokemon_TCG_AI_Battle_Challenge/artifacts/grim_v22_final/submission.tar.gz",
+  "archive_sha256": "599e19ae9c6f5f09160565a9ffb0f3662062bde921dd196ad20c81f6b4c8bfcf",
+  "archive_bytes": 2109197,
+  "main_sha256": "d80d33c570ba5dff445f3be60bcbd038598bd418eeb44c1120f3fbea893cba98",
+  "deck_sha256": "92b92bac9f9163ecff933b3dc39294d2cc154c8684f3c8497877661419ebc59d",
+  "entrypoint": "competition_entrypoint",
+  "member_count": 60,
+  "members": [
+    "EN_Card_Data.csv",
+    "cg/__init__.py",
+    "cg/api.py",
+    "cg/cg.dll",
+    "cg/game.py",
+    "cg/libcg-arm64.so",
+    "cg/libcg.dylib",
+    "cg/libcg.so",
+    "cg/sim.py",
+    "cg/utils.py",
+    "deck.csv",
+    "main.py",
+    "policies/__init__.py",
+    "policies/v22/__init__.py",
+    "policies/v22/boss_damaged_basic_stall_guard.py",
+    "policies/v22/boss_unenergized_kadabra_stall_guard.py",
+    "policies/v22/continuity_scheduler.py",
+    "policies/v22/damaged_munkidori_early_promotion_guard.py",
+    "policies/v22/dead_poffin_guard.py",
+    "policies/v22/deadline_ledger.py",
+    "policies/v22/domain_cards.py",
+    "policies/v22/energized_impidimp_preservation_guard.py",
+    "policies/v22/energized_mixed_basic_promotion_guard.py",
+    "policies/v22/energized_morgrem_preservation_guard.py",
+    "policies/v22/energized_munkidori_promotion_guard.py",
+    "policies/v22/handwritten_policy_core.py",
+    "policies/v22/hierarchical_policy.py",
+    "policies/v22/identity_ledger.py",
+    "policies/v22/index_resolver.py",
+    "policies/v22/lexicographic_scheduler.py",
+    "policies/v22/low_hp_mega_munkidori_promotion_guard.py",
+    "policies/v22/main.py",
+    "policies/v22/manual_guards.py",
+    "policies/v22/manual_observation.py",
+    "policies/v22/munkidori_lethal_guard.py",
+    "policies/v22/preability_active_impidimp_attachment_guard.py",
+    "policies/v22/preability_morgrem_attachment_guard.py",
+    "policies/v22/preattack_froslass_attachment_guard.py",
+    "policies/v22/prestamp_attachment_guard.py",
+    "policies/v22/processing_queue.py",
+    "policies/v22/protocol_resolver.py",
+    "policies/v22/punkup_backup_guard.py",
+    "policies/v22/rare_candy_impidimp_promotion_guard.py",
+    "policies/v22/reservation_ledger.py",
+    "policies/v22/resource_ledger.py",
+    "policies/v22/retreat_impidimp_preserve_grimmsnarl_guard.py",
+    "policies/v22/retreat_morgrem_stall_guard.py",
+    "policies/v22/sacrificial_froslass_mega_promotion_guard.py",
+    "policies/v22/search_planner.py",
+    "policies/v22/selection_planner.py",
+    "policies/v22/shadow_bullet_double_ko_guard.py",
+    "policies/v22/shadow_bullet_immediate_mega_ko_guard.py",
+    "policies/v22/strategic_memory.py",
+    "policies/v22/target_evaluator.py",
+    "policies/v22/turn_dag.py",
+    "policies/v22/turn_objective.py",
+    "policies/v22/turn_phase.py",
+    "policies/v22/validated_fallback_policy.py",
+    "policies/v22/zoroark_guard.py",
+    "policies/v22/zoroark_pokepad_guard.py"
+  ],
+  "includes_cg": true,
+  "validation": {
+    "candidate_dir": "/Users/seyonmacbook/Desktop/Pokemon_TCG_AI_Battle_Challenge/candidates/grim_v22_final",
+    "main_sha256": "d80d33c570ba5dff445f3be60bcbd038598bd418eeb44c1120f3fbea893cba98",
+    "deck_sha256": "92b92bac9f9163ecff933b3dc39294d2cc154c8684f3c8497877661419ebc59d",
+    "entrypoint": "competition_entrypoint",
+    "module_entrypoint": "competition_entrypoint",
+    "callable_tail": [
+      "_policy",
+      "competition_entrypoint"
+    ],
+    "deck_count": 60,
+    "startup_probes": [
+      60,
+      60
+    ],
+    "module_startup_probes": [
+      60,
+      60
+    ],
+    "files": [
+      {
+        "path": "EN_Card_Data.csv",
+        "sha256": "a0ea63cf7adcb65d35436ce0eb390de6e2e35654a7c67c065a45f4abaa00f373",
+        "bytes": 359151
+      },
+      {
+        "path": "deck.csv",
+        "sha256": "92b92bac9f9163ecff933b3dc39294d2cc154c8684f3c8497877661419ebc59d",
+        "bytes": 252
+      },
+      {
+        "path": "main.py",
+        "sha256": "d80d33c570ba5dff445f3be60bcbd038598bd418eeb44c1120f3fbea893cba98",
+        "bytes": 164
+      },
+      {
+        "path": "policies/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "policies/v22/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "policies/v22/boss_damaged_basic_stall_guard.py",
+        "sha256": "3f851f1dd3ddbcb422b1235394ac39544aa57dd78e0dbb7d9d09e30f81f4bba4",
+        "bytes": 3705
+      },
+      {
+        "path": "policies/v22/boss_unenergized_kadabra_stall_guard.py",
+        "sha256": "c674c3900282f761cd967e29a9795f5744b15dbd8cd665e313492810129cbf4e",
+        "bytes": 1699
+      },
+      {
+        "path": "policies/v22/continuity_scheduler.py",
+        "sha256": "d42f0e576a648b76256f7302a364beee3261d6703766265bcc6a7928674326e3",
+        "bytes": 5836
+      },
+      {
+        "path": "policies/v22/damaged_munkidori_early_promotion_guard.py",
+        "sha256": "e8ddae1f3ed6bdedd11445350c0d0efd51e9f0f5075fb9f592c21f72281371cc",
+        "bytes": 2828
+      },
+      {
+        "path": "policies/v22/dead_poffin_guard.py",
+        "sha256": "f87a595ea35b814265b75aa7eee3f9144bee4643ff0358643f46f705169ef041",
+        "bytes": 5636
+      },
+      {
+        "path": "policies/v22/deadline_ledger.py",
+        "sha256": "0089b4ca522ac7b0a49f53f4a156dbe22a8e338ffbe756cf3627715df455a907",
+        "bytes": 2829
+      },
+      {
+        "path": "policies/v22/domain_cards.py",
+        "sha256": "4ee3ffcab1e878aef314f8a946703f9de622e93b6f19f19384a85678ac29c669",
+        "bytes": 2867
+      },
+      {
+        "path": "policies/v22/energized_impidimp_preservation_guard.py",
+        "sha256": "63588e121fa391b21388cfc750002ab5507c76dc8345902178889333f897a4f6",
+        "bytes": 1662
+      },
+      {
+        "path": "policies/v22/energized_mixed_basic_promotion_guard.py",
+        "sha256": "92b8c50223ea3898e930852c7ceee4e664ccae4a2b490c1db99fa156e66b9833",
+        "bytes": 1763
+      },
+      {
+        "path": "policies/v22/energized_morgrem_preservation_guard.py",
+        "sha256": "c17273f3e1b949a1d9ae3ef65e33f108dbb4307ed05a8bfaf4287b9bb30e2f31",
+        "bytes": 3268
+      },
+      {
+        "path": "policies/v22/energized_munkidori_promotion_guard.py",
+        "sha256": "74cc265479f93e5a50eaf22bc7b678d2ed91839f895440965085b8edb1296504",
+        "bytes": 2897
+      },
+      {
+        "path": "policies/v22/handwritten_policy_core.py",
+        "sha256": "5400bd7a6a9ce965674891a6f9eddd23a8a31f232b0b183b74c325b491c87b47",
+        "bytes": 98
+      },
+      {
+        "path": "policies/v22/hierarchical_policy.py",
+        "sha256": "ca42551f166ead00f7491d802e79a7cf6d2019e3c46293741ca546c6c9241afb",
+        "bytes": 4934
+      },
+      {
+        "path": "policies/v22/identity_ledger.py",
+        "sha256": "d2dca8f56dea49dd01fd324a0a74fdb5bdc7a4d5e6e4d6f20ab9104073121552",
+        "bytes": 1749
+      },
+      {
+        "path": "policies/v22/index_resolver.py",
+        "sha256": "06d3bcae7e878d23efac0575522fcf96e7f8cb66e6a6e12b7b4f9d610c8ff653",
+        "bytes": 681
+      },
+      {
+        "path": "policies/v22/lexicographic_scheduler.py",
+        "sha256": "1de2c856f0326fdd59f8a3e4245b7e96e3fd61aee42c10c72bfa847877f4d706",
+        "bytes": 5201
+      },
+      {
+        "path": "policies/v22/low_hp_mega_munkidori_promotion_guard.py",
+        "sha256": "7c587acca6ec92d3049d239a73268e858d128f2f9c4e8a438dec5296351c0aae",
+        "bytes": 2843
+      },
+      {
+        "path": "policies/v22/main.py",
+        "sha256": "421db0355d43ba57dbce6350d918af336ffdb56bc35af92a75bcb943c3b41712",
+        "bytes": 8713
+      },
+      {
+        "path": "policies/v22/manual_guards.py",
+        "sha256": "6f209c996195c13190f5cbff5716a60b7c6075dea8d85f20e8b61567fbd8fa32",
+        "bytes": 2646
+      },
+      {
+        "path": "policies/v22/manual_observation.py",
+        "sha256": "c141ae63e7d51c584d432ebaf1f89fd8e446e5470e05dc7b3b4916bda27b8834",
+        "bytes": 3596
+      },
+      {
+        "path": "policies/v22/munkidori_lethal_guard.py",
+        "sha256": "815a334b862e422e6b611a888adea3cfe31d114e81faca3283923937c2d3ed02",
+        "bytes": 2323
+      },
+      {
+        "path": "policies/v22/preability_active_impidimp_attachment_guard.py",
+        "sha256": "28e63f11391862f3c4469c14dc9688353c19b66658600c5ad46f3d8fc7928d95",
+        "bytes": 3323
+      },
+      {
+        "path": "policies/v22/preability_morgrem_attachment_guard.py",
+        "sha256": "8a1c0a46ffd6e144e1c3f2a970340e7b2fcd00c2580bb5e1b8a0752e3b9fa829",
+        "bytes": 3849
+      },
+      {
+        "path": "policies/v22/preattack_froslass_attachment_guard.py",
+        "sha256": "eb7bcb56c91c4abda9078e39170638ce1f8496a11dd5427be00864c0e1105dd1",
+        "bytes": 2749
+      },
+      {
+        "path": "policies/v22/prestamp_attachment_guard.py",
+        "sha256": "9d0047b522857f873ec193f607455b99695f05b23b9de7f72821001244926700",
+        "bytes": 3773
+      },
+      {
+        "path": "policies/v22/processing_queue.py",
+        "sha256": "6ed3f57d705aa0729c2088efb58d43075974b42e1e2bd67f06dc4020a3d3efea",
+        "bytes": 9117
+      },
+      {
+        "path": "policies/v22/protocol_resolver.py",
+        "sha256": "0ea7d665a1a940aee1e0ccfd562d399a27075bbb1299f7fe8e981507097f9267",
+        "bytes": 3168
+      },
+      {
+        "path": "policies/v22/punkup_backup_guard.py",
+        "sha256": "3ed52643d1ae4672cb83821e0bfb8f5d4e32d335c746caa9e0a8e372a5ff1c77",
+        "bytes": 3699
+      },
+      {
+        "path": "policies/v22/rare_candy_impidimp_promotion_guard.py",
+        "sha256": "99f04bc87d264f6b978dc43e9f94f4e4b36c498cb7150309a8fce3046162886c",
+        "bytes": 3439
+      },
+      {
+        "path": "policies/v22/reservation_ledger.py",
+        "sha256": "9cfaa357d85c02d08c4e55862ed3c61add44535a08d975d9005a4444a3d0b480",
+        "bytes": 2419
+      },
+      {
+        "path": "policies/v22/resource_ledger.py",
+        "sha256": "244fbe21544b401a543c28318f7feff7fbdf85d08c77e971005dd4d9d52de80c",
+        "bytes": 9937
+      },
+      {
+        "path": "policies/v22/retreat_impidimp_preserve_grimmsnarl_guard.py",
+        "sha256": "2e4e89cde5e58b5e9332697379d7803b29448592866e406011a3a76871742b8f",
+        "bytes": 3703
+      },
+      {
+        "path": "policies/v22/retreat_morgrem_stall_guard.py",
+        "sha256": "ddbb59ff3243a49bec4e967313610b421b329fb43b2b785fd7b8208ec82436eb",
+        "bytes": 3021
+      },
+      {
+        "path": "policies/v22/sacrificial_froslass_mega_promotion_guard.py",
+        "sha256": "1253d8413ad67c599ec470d5cebe5744268915fd6c618c690556fd5396a5648c",
+        "bytes": 3135
+      },
+      {
+        "path": "policies/v22/search_planner.py",
+        "sha256": "d82527e1ad1ba06000a678b774f6fd7dddf8dfb007c7e4f625cf65eaaa6107ba",
+        "bytes": 10116
+      },
+      {
+        "path": "policies/v22/selection_planner.py",
+        "sha256": "286ba2e00d424cfbb565e4f114ffc31946d6c0026d23375222b231236b2c28c2",
+        "bytes": 14090
+      },
+      {
+        "path": "policies/v22/shadow_bullet_double_ko_guard.py",
+        "sha256": "67736c655629708c659fddbdce1d96750314297e77d120dcefc3d485ba07c1f7",
+        "bytes": 2975
+      },
+      {
+        "path": "policies/v22/shadow_bullet_immediate_mega_ko_guard.py",
+        "sha256": "412c23ed9a61f2f97f0c1b0dd7188d54cdffc86fbac708a9f6bdbe82b6897312",
+        "bytes": 2611
+      },
+      {
+        "path": "policies/v22/strategic_memory.py",
+        "sha256": "35114a5f089da01d95b1ef4cb15ed7dc9a501fdb0ef3aafe48c7bb6f1fdf6d7b",
+        "bytes": 8462
+      },
+      {
+        "path": "policies/v22/target_evaluator.py",
+        "sha256": "61f84abd74dfb27721882fdeaa595891aacf297a1f0c2f1f2762c5091b1c70e9",
+        "bytes": 12975
+      },
+      {
+        "path": "policies/v22/turn_dag.py",
+        "sha256": "7bd3833a70d4017c3fec34c8caeaf298f9d0a45b60404b4f2ef20021dad7a9d6",
+        "bytes": 7865
+      },
+      {
+        "path": "policies/v22/turn_objective.py",
+        "sha256": "4a9bec1feb788aa175cec8f7e7557b696207e28c5f75df8c0cac59eb47eb345a",
+        "bytes": 6932
+      },
+      {
+        "path": "policies/v22/turn_phase.py",
+        "sha256": "523666b700e2ba63d6c80289cb82ab571daa1dafcd87e79524e4a3190710ac7b",
+        "bytes": 2108
+      },
+      {
+        "path": "policies/v22/validated_fallback_policy.py",
+        "sha256": "b29f291a0bb73209f5aba4e39a9d5e06ca2e8e8cd5776568e5e97a420504d510",
+        "bytes": 131149
+      },
+      {
+        "path": "policies/v22/zoroark_guard.py",
+        "sha256": "bbdf80bae1a7d228fc81613364a32371eb070258effa9ec2c5e5672aa72b92f7",
+        "bytes": 1550
+      },
+      {
+        "path": "policies/v22/zoroark_pokepad_guard.py",
+        "sha256": "113d1fb3686de5ed9d78be498f8ec5b3c8aba8ea048ddded29a3849afdf87ccd",
+        "bytes": 1412
+      }
+    ],
+    "card_legality": {
+      "checked": true,
+      "card_rows": 2022,
+      "unknown": [],
+      "copy_limit": "PASS"
+    },
+    "status": "PASS"
+  },
+  "status": "PACKED"
+}
