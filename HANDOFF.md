@@ -26,7 +26,12 @@
   恢复。提交前必须只读打印 `team-submissions` 和完整 leaderboard 本队行。
 - 当前活跃集：**55496363** retreat 精确恢复件（最新，首分 600.0，初始 2 局 1-1）
   + **55496233** Visible Router V3（次新，首分 600.0，初始 4 局 3-1）。旧 55468450
-  的 700.3 是同代码历史先验，已出活跃集；Grim 55495955 也已被恢复件顶出。
+  的 700.3 是 **8/13 提交后的历史 public-score 快照**，不是 8/14 当日分数，
+  已出活跃集；Grim 55495955 也已被恢复件顶出。每个 submission 都是独立
+  matchmaking/episode pool，不能把 700.3、607.3 或恢复件分数当成同一个 bot 的
+  时间序列。
+- 8/14 14:49 新提交 `grim_v22_final`，ref **55499962**，状态 `PENDING`；结算前
+  不宣称分数改进。
 
 ### 唯一 baseline 锁（用户 08-14 最新裁决）
 
@@ -47,7 +52,9 @@
 （WR 0.5625）。按座位拆分也同向：retreat seat0/seat1 = 0.607/0.500，config A
 合并 = 0.516/0.391；当前 leaderboard 可匹配对手均分 689.6 vs config-v2 701.1，
 没有足以解释约 10pp 差距的明显软池。单侧 Fisher p=0.165，故这是**截止期的
-期望值裁决**，不是“pivot 真效应已显著”的认知结论。恢复件 `55496363` 初始 5-1
+期望值裁决**，不是“pivot 真效应已显著”的认知结论。这里的 public score 峰值和
+episodes 都来自独立 submission/matchmaking 池，不能把 859.1、700.3 或恢复件分数
+拼成同一个 bot 的时间轨迹。恢复件 `55496363` 初始 5-1
 只作一致性旁证，不计入主证据。峰值分只记轨迹，不用于 baseline 选择。
 
 ### 08-14 实际发射与工程结果
@@ -75,7 +82,7 @@
   组合 policy 吞掉后静默退化；提交前必须从最终 tar 解包、实读依赖资产，再跑双入口、
   self-play 与跨牌组腿。完整纪律和旧结果可用边界见
   `reports/20260814_grim_v22_delivery.md` 的“测量纪律”节。
-- 当前唯一 READY challenger 仍是 Grim+v22，archive SHA
+- 当前唯一 challenger 是 Grim+v22，archive SHA
   `599e19ae9c6f5f09160565a9ffb0f3662062bde921dd196ad20c81f6b4c8bfcf`。
   修复后 Alakazam exact n=64 为 51-13；v29 经隔离重审后，在已覆盖 70.7% live
   权重上仅约 +0.27pp，直接 H2H 合并 208-175（54.3%，Wilson 区间跨 50%），

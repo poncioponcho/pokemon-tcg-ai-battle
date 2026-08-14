@@ -2,7 +2,7 @@
 
 > 2026-08-14 截止赛覆盖：下面原 T4 项目保留为历史任务；8/17 07:59 前以本节为当前任务板。
 
-## 截止赛残局任务板（2026-08-14 14:13 CST）
+## 截止赛残局任务板（2026-08-14 14:50 CST）
 
 | ID | Task | Priority | Status | Exit rule |
 |----|------|----------|--------|-----------|
@@ -11,7 +11,7 @@
 | C-003 | 盘点 Grim 固定牌组的现有规则 pilots | P0 | completed | v22/v24/v28 等消融完成；未硬套 Lucario 专用规则 |
 | C-004 | Grim pilot 四腿闸：retreat / Grim / Router / Alakazam | P0 | completed | v22 修复后 n=64 三腿 + exact Alakazam 51-13；v29 重审加权仅 +0.27pp、直接 H2H 区间跨 50%，不翻案 |
 | C-005 | 最佳 Grim 候选净包验证与确定性归档 | P0 | completed | v22 包含卡表/cg；双入口、60 卡、零 fault、双打包 SHA 一致、exact-archive 四腿通过 |
-| C-006 | 8/15 发射裁决 | P0 | ready | 配额重置后尽早提交 `grim_v22_final`；20:00 改为首轮 live 盘点 |
+| C-006 | 8/15 发射裁决 | P0 | completed | 8/14 14:49 已提交 `grim_v22_final`，Kaggle ref `55499962`（当前 PENDING）；8/15 配额重置后按 tie-break 再发一件 |
 | C-007 | 8/16 每日一发 + 条件恢复 | P0 | pending | 只在 v22/retreat 中重交后验最强件；禁止全新变体，满足每日真实反馈硬约束 |
 | C-008 | 8/17 07:59 冻结 | P0 | pending | 最后一发必须是测量最充分件；按收官 checklist 执行 |
 
