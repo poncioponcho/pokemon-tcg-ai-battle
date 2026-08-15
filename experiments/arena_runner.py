@@ -44,7 +44,8 @@ from cg.game import battle_start, battle_select, battle_finish  # noqa: E402
 from cg.sim import Battle  # noqa: E402
 
 OBS_KEYS = ('select', 'logs', 'current', 'search_begin_input')
-SAMPLE_DECK = [int(x) for x in (COMP / 'deck.csv').read_text().split('\n')[:60]]
+SAMPLE_DECK = [int(x) for x in (COMP / 'deck.csv').read_text().split('\n')[:60]
+               if x.strip()]  # [fix 08-09] 过滤空行, 对齐 param_tune/deck_search 的解析
 
 
 # ---------- 引擎对局 ----------
@@ -95,7 +96,9 @@ def builtin_agent(kind: str):
         if obs.get('select') is None:
             return SAMPLE_DECK
         sel = obs['select']
-        n = sel['maxCount']
+        # [fix 08-09] maxCount > 选项数时 random.sample/range 会越界崩溃
+        # (ValueError: Sample larger than population), 截到可选上限
+        n = min(sel['maxCount'], len(sel['option']))
         if kind == 'first':
             return list(range(n))
         return random.sample(list(range(len(sel['option']))), n)
@@ -165,7 +168,11 @@ def wilson_ci_lo(p_hat: float, n: int, z: float = 1.96) -> float:
 
 
 def run_arena(agent_a, agent_b, decks_a, decks_b, n_games, seed0=1000):
-    """A vs B 打 n_games 局，先后手轮换，固定种子。返回 A 视角统计。
+    """A vs B 打 n_games 局，先后手轮换，返回 A 视角统计。
+
+    ``seed0`` 只控制 Python 侧随机 agent。官方 native cg shuffle 没有
+    seed setter，因此相同 seed0 的两批对局仍是独立随机样本，
+    不是 paired/CRN 重放。
 
     invalid 只统计被测方 A 自身的非法动作：对手 (B) fault 时 A 直接获胜，
     把对手的 fault 记进 A 的 invalid 会双重惩罚（既可能判负又扣 clean 门禁）。
@@ -179,6 +186,8 @@ def run_arena(agent_a, agent_b, decks_a, decks_b, n_games, seed0=1000):
         fns = (agent_a, agent_b) if not swap else (agent_b, agent_a)
         dks = (decks_a, decks_b) if not swap else (decks_b, decks_a)
         if seed0:
+            # Python-side stochastic policies only; native deck shuffles remain
+            # unseeded and independent across calls.
             random.seed(seed0 + g)
         r = play(fns, dks)
         turns.append(r['steps'])

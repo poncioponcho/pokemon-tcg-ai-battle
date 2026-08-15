@@ -7,6 +7,71 @@
 
 ---
 
+# 🏁 08-15 执行覆盖（优先于下方 08-14 全节）
+
+- **Final Evaluation 网页端已核实：自动取 latest-2、无需手动勾选，截止后继续约两周
+  episodes 才定榜。** 因此8/15今晚不再交；8/16约08:00 CST额度刷新后只精确重交一次
+  v22，目的仅是留足ERROR重试窗口。COMPLETE后无论短期分数高低都禁止第二发。
+  详见 `reports/20260815_决赛机制核查_kimi.md` 与
+  `reports/20260816_收官runbook.md`。
+- **路线 A 已于 18:48 在正式训练闸 `TRAINING_KILL`，C-014=`completed-negative`**。
+  完整多步 PPO 赛前 NO-GO；唯一可装入窗口的是每局最多一次随机干预、exact-v22
+  永久回退的 contextual-bandit pilot 已完成 36,432 局健康采集：四腿各9,108、零 fault、
+  23,458 eligible、2.95局/s。正式 opponent-held-out cross-fit 仅 `+0.20pp`（闸为
+  `+3pp`），仅2/4 folds同向，Alakazam最差 `−3.89pp`，故不运行 live canary、四腿
+  screen、n256、materialize 或提交。详见
+  `reports/20260815_routeA_training_kill.md`、ledger #180、任务 C-014。8/16 唯一一发
+  已确定为精确重交 v22；仍禁止同日先重交 v22 再交实验件。
+- **赛后新方向已完成只读可行性核算。** Router 正腿主要集中于 turn>=9、gap=0 的
+  same-type ability/attach 目标选择，只形成赛后 R1 预注册；不可翻案。matchup marker
+  用旧ref设计、新ref32场盲验，在turn2达到20/32覆盖且20/20正确，A/L合计12/12；
+  novel-deck子集仍10/18、10/10。赛后推荐高精度可弃权 router：只对A/L命中后锁存，
+  unknown/conflict永远exact-v22。见 ledger #181 与两份 19:22 报告。
+- **Q1 已受控实验证实为 `best-of-latest-2`**，不是下方 08-14 曾写的 latest-only。
+  08:46 精确重交同一个 v22 包后，新 ref `55516725` 从 600.0→498.8→702.8，
+  旧 ref `55499962` 保持 823.2，三次新鲜 leaderboard 均显示团队 823.2，且榜行日期
+  已切到新件，排除“未刷新”。当前 latest-2=`{55516725,55499962}`，两件都是相同
+  archive SHA `599e19ae…b4c8bfcf`；recovery 已出槽。证据见
+  `reports/20260815_v22_exact_resubmit_Q1_observation.md`、ledger #167/#170。10:10 的迟到
+  +84 分钟封口仍一致：新件 796.9、旧件 829.4、团队 829.4。
+- **当前最强 baseline/incumbent = exact Grim v22**，不再是 retreat。
+  后续任何候选必须以 `candidates/grim_v22_final/` 作主 H2H；`candidate_h2h.py` 的
+  省略 `--opponent` 默认锁已同步到 exact v22（main `d80d33c5…`、deck `92b92bac…`、
+  完整运行树 `0319fee3…ecc`）。
+  冻结的 `submission_baseline/` 旧 retreat 目录未改，只是不再作为默认晋级闸。
+- 用户授权区别于 replay BCRL 的 v22 自生成 on-policy 探索；第一轮保守残差 ES 已完成阴性。
+  40-genome screen 唯一幸存者在 exact-v22 独立 n=256 为 133-123（51.95%），低于
+  55% 预注册线，`winner=null`，不 materialize、不提交。见 ledger #168 与
+  `reports/20260815_v22_onpolicy_residual_rl.md`。
+- **触发级 follow-up 也已阴性封口**。2×2 四臂已修为按 candidate seat 分层；正式
+  四腿 144 局每臂 36、seat 18/18、零 fault，但上述两个 guard 都是 0 次真实触发。
+  单侧 95% 触发率上界 2.06%，远低于原 544 局要凑 apply/skip 各 30 次所需的
+  11.03%；verdict=`INSUFFICIENT_OPPORTUNITIES`，不跑 544、不降闸、不生成候选。
+  见 ledger #169 与 `reports/20260815_v22_guard_factorial_feasibility.md`。
+- **测量仪器再修一处**：候选 runner 现在每局显式发送 `select=None`/deck reset，避免
+  v22 的 `_HISTORY`/`StrategicMemory` 跨局泄漏；新报告必须带
+  `episode_reset=select-none-before-every-game-v1`。此前报告不追溯改写。
+- **live 校准与高暴露数值残差也已封口为阴性**。固定 10:45 快照共 82 个 PUBLIC
+  replay，exact-v22 顺序重放 8,333 次 ACTIVE call、0 mismatch；两个目标 guard
+  在线上仍为 0/82，单侧 95% 触发率上界 3.587%，不重开 C-010。乘法参数不是局部
+  扰动（资源/手贴 ±2.5% 已让 57–70/82、58–68/82 局分叉）；分样本加性筛选虽让
+  resource+25 与 attachment+50 通过行为暴露盲验，但四腿 W/L 相对 incumbent 分别
+  为 −1.28pp/−2.68pp，均未进 n=256，winner=null。见 ledger #171 与
+  reports/20260815_live_calibration_and_dense_residual.md。
+- **剩余 live 决策面与完整结构删减也已封口**。82 场中相对 fallback 仅 44/8,251
+  次选择被 manual/hierarchy 语义改写，job 级 `control:*@turn<=4` 无跨 ref 复现候选。
+  预注册的 manual×hierarchy 2×2 四腿每臂144局、零 fault；hierarchy-only、manual-only、
+  fallback-only 相对 exact 加权分别 −13.77/−3.46/−7.25pp，三臂 v22 主腿均低于53%，
+  不进 n256。live 的早期 Dawn 3-8 异常也只在 penalty≥300 时改动2–3/82场，且替代
+  全为 early Boss，行为闸 KILL。见 ledger #173/#174 与
+  `reports/20260815_v22_remaining_surface_audit.md`。
+- **native RNG 术语已纠正**：本地 ABI 没有 shuffle seed setter，seed0 只控制
+  Python 侧随机。后续只称 blocked independent trial；ABBA/BAAB 仅平衡座位和粗
+  时间块，禁止再称 paired/CRN。
+- **8/16 默认动作**：精确重交测量最充分的 v22。残差 ES 的 screen 尖峰不是
+  challenger；不得连续提交两个未过闸实验件顶掉 v22 保护槽。截止仍为
+  8/17 07:59 CST。
+
 # 🏁 最新状态（2026-08-14 执行覆盖）— 先读本节
 
 ## 用户硬约束优先级（2026-08-14）

@@ -6,20 +6,46 @@
 
 | ID | Task | Priority | Status | Exit rule |
 |----|------|----------|--------|-----------|
-| C-001 | 锁定 incumbent = retreat 精确恢复件 | P0 | completed | `main=411d9dff`、`deck=2a541d7b`；禁止改 `submission_baseline/` |
+| C-001 | 锁定历史 retreat 恢复件（已被 v22 取代） | P0 | completed-superseded | `submission_baseline/` 保持冻结；当前主 baseline 见 C-006/C-009 的 exact v22 |
 | C-002 | Control/Search/router v13 跨牌组漏斗 | P0 | completed-negative | Control 死 Grim；Search 死 Alakazam；router 仅保住 Alakazam baseline、未形成综合提升 |
 | C-003 | 盘点 Grim 固定牌组的现有规则 pilots | P0 | completed | v22/v24/v28 等消融完成；未硬套 Lucario 专用规则 |
 | C-004 | Grim pilot 四腿闸：retreat / Grim / Router / Alakazam | P0 | completed | v22 修复后 n=64 三腿 + exact Alakazam 51-13；v29 重审加权仅 +0.27pp、直接 H2H 区间跨 50%，不翻案 |
 | C-005 | 最佳 Grim 候选净包验证与确定性归档 | P0 | completed | v22 包含卡表/cg；双入口、60 卡、零 fault、双打包 SHA 一致、exact-archive 四腿通过 |
-| C-006 | 8/15 发射裁决 | P0 | completed | 8/14 14:49 已提交 `grim_v22_final`，Kaggle ref `55499962`（当前 PENDING）；8/15 配额重置后按 tie-break 再发一件 |
-| C-007 | 8/16 每日一发 + 条件恢复 | P0 | pending | 只在 v22/retreat 中重交后验最强件；禁止全新变体，满足每日真实反馈硬约束 |
+| C-006 | 8/15 发射裁决 | P0 | completed | 08:46 精确重交 v22，ref `55516725`；latest-2={新/旧 v22}；+84m 新796.9/旧829.4/团队829.4，封口 best-of-latest-2 |
+| C-007 | 8/16 收官唯一一发 | P0 | ready | 约08:00 CST额度刷新后尽早精确重交 archive `599e19ae…`；只为留ERROR重试窗口，COMPLETE后禁止第二发 |
 | C-008 | 8/17 07:59 冻结 | P0 | pending | 最后一发必须是测量最充分件；按收官 checklist 执行 |
+| C-009 | v22 自生成 on-policy 残差 RL 单发 | P0 | completed-negative | 40-genome screen 后唯一幸存者对 exact v22 独立 n=256 为 133-123（51.95%）<55% 预注册线；`winner=null`，不生成/提交 challenger |
+| C-010 | 两个近失 guard 的触发级 2×2 可行性 | P0 | completed-negative | seat-balanced 四腿 n=144、每臂36且先后手18/18、零 fault；两 guard 均 0 触发，95% 上界2.06%<闸所需11.03%，`INSUFFICIENT_OPPORTUNITIES`，不扩至544 |
+| C-011 | live 校准 + 高暴露数值残差 | P0 | completed-negative | 82 replay 精确重放0 mismatch；两 guard live 0/82；分样本筛出 resource+25 / attachment+50，但四腿相对 incumbent −1.28/−2.68pp，winner=null，不进 n256 |
+| C-012 | live job 决策面 + manual×hierarchy 结构消融 | P0 | completed-negative | 44/8,251 semantic controls；job 级无跨 ref 候选；2×2 每臂144局零 fault，三删减臂相对 exact 全负且 v22 主腿<53%，不进 n256 |
+| C-013 | 早期 Dawn live 异常反事实暴露 | P1 | completed-negative | Dawn turn≤4 的 3-8 仅为探索关联；penalty 100–1200 最多改3/82场且替代全为 early Boss，selected=null，不跑 W/L |
+| C-014 | 路线 A：单干预 on-policy advantage pilot | P0 | completed-negative | 36,432 局健康采集后 cross-fit 仅 +0.20pp、2/4 folds 同向、最差 −3.89pp，`TRAINING_KILL`；不进 canary/WL/materialize，8/16 只精确重交 v22 |
+| C-015 | Route-A Router 正切片只读归因 | P1 | completed-postseason | 正信号集中 turn>=9、gap=0、same-type ability/attach；仅形成赛后R1预注册，禁止翻案或赛前追跑 |
+| C-016 | live matchup 可见识别可行性 | P1 | completed-postseason | 新ref盲验turn2为20/32且20/20正确，A/L=12/12；裁决高精度可弃权router赛后GO，unknown仍exact-v22 |
+| C-017 | 决赛机制与收官runbook | P0 | ready | 自动latest-2、无需手选、截止后约两周对局；8/16一发exact-v22，8/17 07:30前封口 |
 
-当前禁止项：按瞬时峰值追单、用 config A 当主 baseline、重开 NN/search 训练、修改七件既有 Automation。
+当前禁止项：按瞬时峰值追单、用 config A 当主 baseline、重开 NN/search 训练、为寻找
+guard 尖峰把 C-010 扩到 544 局或降低预注册闸、修改七件既有 Automation。
+
+C-014 是对“重开 NN/search 训练”禁令的**已授权窄例外**：只允许每局最多一次干预、
+exact-v22 永久回退的小型线性 advantage 头；不得外扩为完整 PPO/大网络/搜索。
+预注册见 `reports/20260815_routeA_prereg.md`，立项核算见
+`reports/20260815_routeA_gonogo_memo.md`。
 
 当前唯一 challenger：`artifacts/grim_v22_final/submission.tar.gz`，archive SHA256
 `599e19ae9c6f5f09160565a9ffb0f3662062bde921dd196ad20c81f6b4c8bfcf`。
 完整证据见 `reports/20260814_grim_v22_delivery.md`。
+
+RL 负结果与测量修复见 `reports/20260815_v22_onpolicy_residual_rl.md`；8/16 不得以
+screen 尖峰替代 n=256 裁决。触发级封口见
+`reports/20260815_v22_guard_factorial_feasibility.md`。
+
+live 校准、RNG 口径与数值残差封口见
+reports/20260815_live_calibration_and_dense_residual.md；C-011 的行为 PASS
+不是 W/L PASS，不得据此生成或提交候选。
+
+剩余决策面封口见 `reports/20260815_v22_remaining_surface_audit.md`；C-012/C-013
+均为 `winner=null`，不得把 manual-only 的跨腿切片或 Dawn 负相关倒推成赛前候选。
 
 ## Dependency Graph
 ```

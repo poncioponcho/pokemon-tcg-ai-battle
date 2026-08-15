@@ -12,9 +12,10 @@ Example:
     --opponent baseline=submission_baseline \
     --n 64 --out reports/router_h2h.json
 
-If ``--opponent`` is omitted, the immutable strongest live submission in
-``submission_baseline`` is used.  This safe default prevents a weaker config A
-mirror or a public-notebook score from silently becoming the acceptance gate.
+If ``--opponent`` is omitted, the immutable exact Grim v22 submission is used.
+This safe default follows the user's "strongest submission is the baseline"
+rule and prevents the now-weaker retreat/config-A line or a public-notebook
+score from silently becoming the acceptance gate.
 """
 
 from __future__ import annotations
@@ -34,13 +35,15 @@ from typing import Any
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 ENGINE = ROOT / "inference/comp_data/sample_submission/sample_submission"
-BASELINE = ROOT / "submission_baseline"
-BASELINE_MAIN_SHA256 = "411d9dff4c146e3bf5b8cbbb935f6c53c84742d670d41930d8315926a61ba480"
-BASELINE_DECK_SHA256 = "2a541d7bf3d9e6b36037123f53f4dfef6348223f79fd27095dafc602a5357c19"
+BASELINE = ROOT / "candidates" / "grim_v22_final"
+BASELINE_MAIN_SHA256 = "d80d33c570ba5dff445f3be60bcbd038598bd418eeb44c1120f3fbea893cba98"
+BASELINE_DECK_SHA256 = "92b92bac9f9163ecff933b3dc39294d2cc154c8684f3c8497877661419ebc59d"
+BASELINE_TREE_SHA256 = "0319fee37419983ad7137c1db9d1ac7d67024cc692eb495d73e6f46fedd12ecc"
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ENGINE))
 
 from experiments import arena_runner as arena  # noqa: E402
+from scripts.safe_json_output import reserve_json_output  # noqa: E402
 
 
 def sha256(path: pathlib.Path) -> str:
@@ -51,13 +54,33 @@ def sha256(path: pathlib.Path) -> str:
     return digest.hexdigest()
 
 
+def tree_sha256(root: pathlib.Path) -> str:
+    """Hash every runtime file while ignoring interpreter cache artifacts."""
+    digest = hashlib.sha256()
+    for path in sorted(
+        path for path in root.rglob("*")
+        if path.is_file() and "__pycache__" not in path.parts
+    ):
+        digest.update(str(path.relative_to(root)).encode("utf-8"))
+        digest.update(b"\0")
+        digest.update(path.read_bytes())
+        digest.update(b"\0")
+    return digest.hexdigest()
+
+
 def assert_locked_baseline() -> None:
     actual_main = sha256(BASELINE / "main.py")
     actual_deck = sha256(BASELINE / "deck.csv")
-    if actual_main != BASELINE_MAIN_SHA256 or actual_deck != BASELINE_DECK_SHA256:
+    actual_tree = tree_sha256(BASELINE)
+    if (
+        actual_main != BASELINE_MAIN_SHA256
+        or actual_deck != BASELINE_DECK_SHA256
+        or actual_tree != BASELINE_TREE_SHA256
+    ):
         raise SystemExit(
-            "submission_baseline lock mismatch; refusing to benchmark against "
-            f"an unknown baseline (main={actual_main}, deck={actual_deck})"
+            "exact-v22 baseline lock mismatch; refusing to benchmark against "
+            "an unknown baseline "
+            f"(main={actual_main}, deck={actual_deck}, tree={actual_tree})"
         )
 
 
@@ -182,6 +205,16 @@ def run_match(candidate: CandidateAgent, opponent: CandidateAgent, n: int,
     fault_samples: list[dict[str, Any]] = []
     started = time.time()
     for game in range(n):
+        # Kaggle asks every submission for its deck at the start of every
+        # episode.  That ``select=None`` call is also the documented reset
+        # signal used by stateful policies (v22 clears its short action
+        # history and strategic memory there).  The local engine receives
+        # decks out-of-band, so reproduce the reset explicitly; otherwise
+        # the final actions from game N leak into the opening of game N+1.
+        if candidate.deck() != candidate_deck:
+            raise SystemExit("candidate deck changed between episodes")
+        if opponent.deck() != opponent_deck:
+            raise SystemExit("opponent deck changed between episodes")
         swap = game % 2 == 1
         agents = (candidate, opponent) if not swap else (opponent, candidate)
         decks = (candidate_deck, opponent_deck) if not swap else (opponent_deck, candidate_deck)
@@ -235,11 +268,16 @@ def main() -> int:
     parser.add_argument("--candidate", required=True)
     parser.add_argument(
         "--opponent", action="append", type=parse_opponent, metavar="NAME=PATH",
-        help="repeatable; defaults to the locked strongest retreat baseline",
+        help="repeatable; defaults to the locked strongest exact-v22 baseline",
     )
     parser.add_argument("--n", type=int, default=64, help="games per opponent")
     parser.add_argument("--seed", type=int, default=20260814)
     parser.add_argument("--out", default="")
+    parser.add_argument(
+        "--overwrite-output",
+        action="store_true",
+        help="explicitly replace an existing report; concurrent writers remain locked out",
+    )
     args = parser.parse_args()
     if args.n <= 0:
         raise SystemExit("--n must be positive")
@@ -250,14 +288,40 @@ def main() -> int:
         assert_locked_baseline()
         opponents = [("baseline", BASELINE)]
 
+    output_reservation = (
+        reserve_json_output(args.out, overwrite=args.overwrite_output)
+        if args.out else None
+    )
     candidate = CandidateAgent(pathlib.Path(args.candidate))
+    if candidate.root == BASELINE.resolve():
+        assert_locked_baseline()
+    candidate_deck_sha256 = sha256(candidate.root / "deck.csv")
+    planned_opponent_decks = [
+        sha256((path.resolve() if path.resolve().is_dir() else path.resolve().parent) / "deck.csv")
+        for _, path in opponents
+        if ((path.resolve() if path.resolve().is_dir() else path.resolve().parent) / "deck.csv").is_file()
+    ]
+    has_cross_deck_leg = any(
+        deck_sha != candidate_deck_sha256 for deck_sha in planned_opponent_decks
+    )
+    coverage_warning = None
+    if not has_cross_deck_leg:
+        coverage_warning = (
+            "same-deck/single-family coverage only; this is a primary H2H gate, "
+            "not a cross-meta regression gate. Add explicit --opponent legs "
+            "before promotion"
+        )
+        print(f"COVERAGE WARNING: {coverage_warning}", flush=True)
     results = []
     for index, (name, path) in enumerate(opponents):
         opponent = CandidateAgent(path)
+        if opponent.root == BASELINE.resolve():
+            assert_locked_baseline()
         result = run_match(candidate, opponent, args.n, args.seed + index * 100000)
         result["opponent"] = name
         result["opponent_main"] = str(opponent.main)
         result["opponent_main_sha256"] = sha256(opponent.main)
+        result["opponent_tree_sha256"] = tree_sha256(opponent.root)
         opponent_deck_path = opponent.root / "deck.csv"
         result["opponent_deck_sha256"] = (
             sha256(opponent_deck_path) if opponent_deck_path.is_file() else None
@@ -273,27 +337,34 @@ def main() -> int:
     report = {
         "candidate_main": str(candidate.main),
         "candidate_main_sha256": sha256(candidate.main),
-        "candidate_deck_sha256": sha256(candidate.root / "deck.csv"),
+        "candidate_deck_sha256": candidate_deck_sha256,
+        "candidate_tree_sha256": tree_sha256(candidate.root),
         "candidate_loader": candidate.loader_name,
         "candidate_deck": candidate.deck(),
         "engine": str(ENGINE),
         "runner_sha256": sha256(pathlib.Path(__file__).resolve()),
         "module_isolation": "per-candidate-sys-modules-v1",
+        "episode_reset": "select-none-before-every-game-v1",
         "default_baseline": using_default_baseline,
+        "coverage": {
+            "has_cross_deck_leg": has_cross_deck_leg,
+            "warning": coverage_warning,
+        },
         "baseline_lock": {
             "main_sha256": BASELINE_MAIN_SHA256,
             "deck_sha256": BASELINE_DECK_SHA256,
+            "tree_sha256": BASELINE_TREE_SHA256,
         } if using_default_baseline else None,
         "n_per_opponent": args.n,
         "seed": args.seed,
         "seed_scope": "python-agent-only; native-engine-shuffle-unseeded",
+        "output_protocol": "exclusive-lock+atomic-replace-v1" if args.out else None,
         "results": results,
     }
     if args.out:
         output = pathlib.Path(args.out).resolve()
-        output.parent.mkdir(parents=True, exist_ok=True)
-        output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n",
-                          encoding="utf-8")
+        assert output_reservation is not None
+        output_reservation.write(report)
         print(f"report: {output}")
     return 0
 
