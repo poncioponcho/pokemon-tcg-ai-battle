@@ -19,7 +19,7 @@ Run on Kaggle GPU:
 """
 from __future__ import annotations
 
-import argparse, json, os, random, time
+import argparse, json, os, random, time, threading, queue
 from pathlib import Path
 
 import numpy as np
@@ -89,6 +89,10 @@ def load_arrays(data_dir: Path, limit: int = 0):
         p = os.path.join(data_dir, f'{name}.npy')
         arrays[name] = np.load(p, mmap_mode='r')
     meta_arr = np.load(os.path.join(data_dir, 'meta.npy'))
+    # TODO(08-09 hy3 审计确认): extract.py 写入 9 列 (末两列 captured_team_index/
+    # is_capture_team), 此处仅映射 7 列 —— 捕获队加权信号当前是死数据。
+    # 疑似 RCA 2026-08-08 (canary top1 与胜率脱节) 后主动 descope, 待主线 B
+    # 重训前确认是否有意; 若有需要在此处补 'captured_team_idx','is_capture_team'。
     meta_keys = ('ep', 'persp', 'reward', 'turn', 'ctx', 'nopts', 'rank_at_capture')
     meta = {key: meta_arr[:, i] if i < meta_arr.shape[1] else np.full(len(meta_arr), -1.0)
             for i, key in enumerate(meta_keys)}
@@ -116,7 +120,9 @@ def split_indices(args, episode_ids):
     canary_ids = set(refresh_rolling_canary(
         records, assignments, args.canary_manifest, limit=args.canary_episodes))
     fixed_ids = {eid for eid, s in assignments.items() if s == 'fixed_test'}
-    train_ids = set(assignments) - fixed_ids - canary_ids
+    # 仅 split=='train' 进入训练；'excluded'（如规则 replay 剔除）必须显式过滤，
+    # 否则 set(assignments) - fixed - canary 会把 excluded 重新捞回训练集。
+    train_ids = {eid for eid, s in assignments.items() if s == 'train'} - canary_ids
     train_idx = np.where(np.isin(episode_ids, list(train_ids)))[0]
     eval_idx = np.where(np.isin(episode_ids, list(fixed_ids)))[0]
     canary_idx = np.where(np.isin(episode_ids, list(canary_ids)))[0]
@@ -137,6 +143,154 @@ def save_ckpt(path, stage, phase, epoch, model, opt, scaler, args, extra=None):
     os.replace(tmp, path)
 
 
+class SegProfiler:
+    """Wall-clock segment profiler for the training loop (--profile).
+
+    Attributes
+    - prepare : waiting for the next batch from the prefetch queue (data starvation)
+    - transfer: .to(device) + dtype conversion
+    - compute : forward + backward + optimizer step
+    Zero overhead when disabled.
+    """
+
+    def __init__(self, enabled: bool):
+        self.enabled = enabled
+        self.prepare = 0.0
+        self.transfer = 0.0
+        self.compute = 0.0
+        self.count = 0
+        self._t = None
+
+    def tick(self, seg: str) -> None:
+        if not self.enabled:
+            return
+        now = time.perf_counter()
+        if self._t is not None:
+            setattr(self, seg, getattr(self, seg) + (now - self._t))
+        self._t = now
+
+    def reset(self) -> None:
+        self.prepare = self.transfer = self.compute = self.count = 0.0
+        self._t = None
+
+    def summary(self, phase: str, epoch: int) -> str:
+        if not self.enabled or self.count == 0:
+            return ''
+        tot = self.prepare + self.transfer + self.compute
+        if tot <= 0:
+            return ''
+        pct = lambda v: f'{v / tot * 100:5.1f}%'
+        return (f'  [profile] ep{epoch} {phase}: '
+                f'prepare {pct(self.prepare)} transfer {pct(self.transfer)} '
+                f'compute {pct(self.compute)} '
+                f'| per-batch prepare {self.prepare / self.count * 1000:.0f}ms '
+                f'transfer {self.transfer / self.count * 1000:.0f}ms '
+                f'compute {self.compute / self.count * 1000:.0f}ms '
+                f'(n={int(self.count)})')
+
+
+def make_blocked_perm(split, bs, block_mult=8, rng=None):
+    """Build an epoch permutation that reads the 8GB mmap sequentially.
+
+    split is the sorted train-index space. Cut it into physically contiguous
+    blocks ``[b, b+C)`` (C = block_mult*bs), shuffle *within* each block, then
+    concatenate blocks back to back. Every index appears exactly once per epoch
+    (same sampling semantics as np.random.permutation) but any window of ``bs``
+    consecutive rows stays inside one block -> consecutive pages on disk.
+
+    block_mult=0 -> fall back to legacy global random permutation (baseline).
+    """
+    n = len(split)
+    if block_mult <= 0:
+        rng = rng if rng is not None else np.random
+        return rng.permutation(split)
+    C = int(block_mult) * bs
+    sorted_idx = np.sort(np.asarray(split, dtype=np.int64))
+    out = np.empty(n, dtype=np.int64)
+    rng = rng if rng is not None else np.random
+    for b in range(0, n, C):
+        blk = sorted_idx[b:b + C]
+        out[b:b + C] = rng.permutation(blk)
+    return out
+
+
+class BatchPrefetcher:
+    """Prefetch the next batches on CPU (numpy gather -> pinned torch) while the
+    GPU trains the current one. Cuts host->device wait to zero on the training
+    loop, which is the dominant stall when data is mmap'd (random access).
+
+    workers: producer threads, each grabbing the next unproduced batch-slot of
+    ``perm``. Consecutive slots lie inside one physical block (see
+    make_blocked_perm), so each gather is a contiguous mmap read -> page-cache
+    friendly on the 8GB states_u8. workers=1 is the legacy single-thread path.
+    """
+
+    def __init__(self, perm, n, bs, arrays, meta, phase, device,
+                 workers=1, depth=2):
+        self.q = queue.Queue(maxsize=depth)
+        self._stop = threading.Event()
+        self._pin_ok = True
+        self._perm, self._n, self._bs = perm, n, bs
+        self._arrays, self._meta, self._phase, self._device = arrays, meta, phase, device
+        self._workers = max(1, int(workers))
+        self._slot = 0
+        self._slot_lock = threading.Lock()
+        self._err = None
+        self._threads = [threading.Thread(target=self._produce, daemon=True)
+                         for _ in range(self._workers)]
+        for th in self._threads:
+            th.start()
+
+    def _pin(self, t):
+        if self._pin_ok:
+            try:
+                return t.pin_memory()
+            except Exception:
+                self._pin_ok = False
+        return t
+
+    def _next_slot(self):
+        with self._slot_lock:
+            s = self._slot
+            self._slot += self._bs
+            return s
+
+    def _produce(self):
+        try:
+            while True:
+                if self._stop.is_set():
+                    return
+                s = self._next_slot()
+                if s >= self._n:
+                    return
+                i = self._perm[s:s + self._bs]
+                st, sc, op, lb, mk = train_bc.batch_from_idx(i, self._arrays,
+                                                             to_float=False)
+                st = self._pin(st); sc = self._pin(sc); op = self._pin(op)
+                lb = self._pin(lb); mk = self._pin(mk)
+                reward = None
+                if self._phase == 'awr':
+                    reward = self._pin(torch.from_numpy(self._meta['reward'][i]))
+                self.q.put((st, sc, op, lb, mk, reward))
+        except Exception as e:
+            self._err = e
+
+    def __iter__(self):
+        n_batches = (self._n + self._bs - 1) // self._bs
+        consumed = 0
+        while consumed < n_batches:
+            if self._err is not None:
+                raise RuntimeError(f'prefetch failed: {self._err}')
+            item = self.q.get()
+            if isinstance(item, tuple) and item and item[0] == 'ERR':
+                raise RuntimeError(f'prefetch failed: {item[1]}')
+            consumed += 1
+            yield item
+
+    def close(self):
+        self._stop.set()
+
+
 def run_phase(model, opt, scaler, arrays, meta, split, epochs, phase, args, device, logf,
               monitor_idx, ckpt_path, best_path, start_epoch, teacher=None):
     """One training phase (bc/awr/distill) with AMP, canary-best tracking, ckpt."""
@@ -148,35 +302,53 @@ def run_phase(model, opt, scaler, arrays, meta, split, epochs, phase, args, devi
         raise ValueError(f'{phase}: empty train split')
     for ep in range(start_epoch, epochs):
         model.train()
-        perm = np.random.permutation(split)
+        perm = make_blocked_perm(split, args.bs,
+                                 block_mult=getattr(args, 'prefetch_block', 0))
         t0 = time.time(); tot = 0.0; cnt = 0
-        for s in range(0, n, args.bs):
-            i = perm[s:s + args.bs]
-            st, sc, op, lb, mk = [t.to(device, non_blocking=True)
-                                  for t in train_bc.batch_from_idx(i, arrays)]
-            with torch.autocast(device_type='cuda', enabled=use_amp):
-                logits = model(st, sc, op, mk)
-                if phase == 'distill':
-                    with torch.no_grad():
-                        t_logits = teacher(st, sc, op, mk)
-                    per = distill_per_sample_loss(logits, t_logits, lb, mk,
-                                                  temperature=args.distill_temp,
-                                                  alpha=args.distill_alpha)
-                else:
-                    per = ce_per_sample(logits, lb, mk)
-                    if phase == 'awr':
-                        r = torch.from_numpy(meta['reward'][i]).to(device)
-                        b = r.mean()
-                        w = torch.exp((r - b) / args.tau).clamp(max=args.wcap)
-                        per = per * w
-                loss = per.mean()
-            opt.zero_grad(set_to_none=True)
-            scaler.scale(loss).backward()
-            scaler.unscale_(opt)
-            torch.nn.utils.clip_grad_norm_(model.parameters(), 5.0)
-            scaler.step(opt)
-            scaler.update()
-            tot += loss.item(); cnt += 1
+        prefetch = None
+        prof = SegProfiler(getattr(args, 'profile', False))
+        try:
+            prefetch = BatchPrefetcher(perm, n, args.bs, arrays, meta, phase, device,
+                                       workers=getattr(args, 'prefetch_workers', 1),
+                                       depth=getattr(args, 'prefetch_depth', 2))
+            for st_cpu, sc_cpu, op_cpu, lb_cpu, mk_cpu, reward_cpu in prefetch:
+                prof.tick('prepare')
+                st = st_cpu.to(device, non_blocking=True).float()
+                sc = sc_cpu.to(device, non_blocking=True)
+                op = op_cpu.to(device, non_blocking=True).float()
+                lb = lb_cpu.to(device, non_blocking=True)
+                mk = mk_cpu.to(device, non_blocking=True)
+                prof.tick('transfer')
+                with torch.autocast(device_type='cuda', enabled=use_amp):
+                    logits = model(st, sc, op, mk)
+                    if phase == 'distill':
+                        with torch.no_grad():
+                            t_logits = teacher(st, sc, op, mk)
+                        per = distill_per_sample_loss(logits, t_logits, lb, mk,
+                                                      temperature=args.distill_temp,
+                                                      alpha=args.distill_alpha)
+                    else:
+                        per = ce_per_sample(logits, lb, mk)
+                        if phase == 'awr':
+                            r = reward_cpu.to(device, non_blocking=True)
+                            b = r.mean()
+                            w = torch.exp((r - b) / args.tau).clamp(max=args.wcap)
+                            per = per * w
+                    loss = per.mean()
+                opt.zero_grad(set_to_none=True)
+                scaler.scale(loss).backward()
+                scaler.unscale_(opt)
+                torch.nn.utils.clip_grad_norm_(model.parameters(), 5.0)
+                scaler.step(opt)
+                scaler.update()
+                prof.tick('compute')
+                tot += loss.item(); cnt += 1
+                prof.count += 1
+        finally:
+            if prefetch is not None:
+                prefetch.close()
+        if prof.enabled:
+            print(prof.summary(phase, ep + 1), flush=True)
         record = {'epoch': ep + 1, 'phase': phase,
                   'loss': tot / max(cnt, 1), 'seconds': round(time.time() - t0, 2)}
         should_eval = (ep + 1) % max(1, args.eval_every) == 0 or ep + 1 == epochs
@@ -189,6 +361,11 @@ def run_phase(model, opt, scaler, arrays, meta, split, epochs, phase, args, devi
             if stopper.improved and best_path:
                 torch.save(model.state_dict(), best_path)
         history.append(record)
+        # [2026-08-08] distill 每 epoch 落一份 student 快照（ckpt 选拔压力改为
+        # 本地 arena：canary top1 与实战胜率已实测脱节，见 RCA 2026-08-08）。
+        if phase == 'distill' and best_path:
+            torch.save(model.state_dict(),
+                       Path(best_path).with_name(f'student_ep{ep + 1}.pt'))
         msg = (f'[{phase}] epoch {ep+1}/{epochs} loss {record["loss"]:.4f} '
                f'({record["seconds"]:.0f}s)')
         if 'monitor' in record:
@@ -237,6 +414,19 @@ def main():
     ap.add_argument('--canary-manifest',
                     default=str(DATASET_DIR / 'splits' / 'rolling_canary.json'))
     ap.add_argument('--canary-episodes', type=int, default=100)
+    ap.add_argument('--sample-index', default='',
+                    help='[主线B 08-09] 质量过滤样本索引 .npy (quality_subset 产出, '
+                         '胜方视角): BC 与 distill 阶段只在此子集上训练; AWR 阶段'
+                         '仍用全量 train split (保留 reward ±1 对比, 否则 AWR 退化为 BC)')
+    ap.add_argument('--profile', action='store_true',
+                    help='print per-batch prepare/transfer/compute segment timing')
+    ap.add_argument('--prefetch-workers', type=int, default=2,
+                    help='BatchPrefetcher producer threads (1=legacy single-thread)')
+    ap.add_argument('--prefetch-depth', type=int, default=4,
+                    help='BatchPrefetcher queue depth')
+    ap.add_argument('--prefetch-block', type=int, default=8,
+                    help='physical block size (x bs) for sequential mmap reads; '
+                         '0 = legacy global random permutation (baseline)')
     args = ap.parse_args()
 
     device = resolve_device(args.device)
@@ -248,6 +438,17 @@ def main():
     train_idx, eval_idx, canary_idx = split_indices(args, episode_ids)
     print(f'total {n} decisions | train {len(train_idx)} | '
           f'fixed_test {len(eval_idx)} | canary {len(canary_idx)}', flush=True)
+
+    # [主线B 08-09] 质量过滤: BC/distill 限胜方子集 (首次把 quality_subset 接入 train_v2;
+    # 旧 run 全量双方决策训练, 败方/低质量动作混入 BC 标签)
+    bc_idx = train_idx
+    if args.sample_index:
+        _si = np.asarray(np.load(args.sample_index), dtype=np.int64)
+        bc_idx = train_bc.restrict_split_to_samples(train_idx, _si)
+        print(f'sample filter: bc/distill {len(bc_idx)} / train {len(train_idx)} '
+              f'(winner-only) | awr 仍用全量 train', flush=True)
+        if len(bc_idx) == 0:
+            raise SystemExit('sample filter 后 BC 子集为空 — 检查 sample-index 与数据是否同源')
 
     logs_dir = Path(args.logs_dir); logs_dir.mkdir(parents=True, exist_ok=True)
     logf = open(logs_dir / 'train_v2.log', 'a')
@@ -274,10 +475,20 @@ def main():
             start = {'stage': ckpt['stage'], 'phase': ckpt['phase'],
                      'epoch': int(ckpt['epoch'])}
             target = teacher if ckpt['stage'] == 'teacher' else student
-            target.load_state_dict(ckpt['model'])
-            set_rng(ckpt['rng'])
-            print(f"[resume] {ckpt['stage']}/{ckpt['phase']} from epoch {ckpt['epoch']}",
-                  flush=True)
+            try:
+                target.load_state_dict(ckpt['model'])
+            except RuntimeError as e:
+                # [2026-08-08 容错] 架构变更（如 student_hidden 384→768）时 ckpt 权重
+                # 形状不匹配 → load_state_dict 崩。此时放弃恢复该 stage 权重，
+                # 从该 stage epoch 0 重新训练（teacher 架构未变可正常恢复）。
+                print(f'[resume] 架构不匹配（{str(e)[:80]}），'
+                      f'跳过 {ckpt["stage"]} 权重恢复，从头训练该 stage', flush=True)
+                start = {'stage': ckpt['stage'], 'phase': ckpt['phase'], 'epoch': 0}
+                target = None
+            if target is not None:
+                set_rng(ckpt['rng'])
+                print(f"[resume] {ckpt['stage']}/{ckpt['phase']} from epoch {ckpt['epoch']}",
+                      flush=True)
 
     use_amp = device == 'cuda'
     history = {'teacher_bc': [], 'teacher_awr': [], 'distill': []}
@@ -296,7 +507,7 @@ def main():
             except Exception as e:
                 print(f'[resume] optimizer state skipped: {e}', flush=True)
         if start['phase'] == 'bc':
-            h, _ = run_phase(teacher, opt, scaler, arrays, meta, train_idx,
+            h, _ = run_phase(teacher, opt, scaler, arrays, meta, bc_idx,
                              args.epochs_bc, 'bc', args, device, logf,
                              canary_idx, ckpt_path, args.teacher_best,
                              start_epoch=start['epoch'])
@@ -341,13 +552,21 @@ def main():
             try:
                 ckpt = torch.load(ckpt_path, map_location='cpu', weights_only=False)
                 if ckpt['stage'] == 'student':
-                    start_epoch = int(ckpt['epoch'])
-                    opt.load_state_dict(ckpt['opt'])
-                    if ckpt.get('scaler'):
-                        scaler.load_state_dict(ckpt['scaler'])
+                    # [2026-08-08 容错] student 架构变更（student_hidden 384→768）时，
+                    # 旧 ckpt 权重形状不匹配 → 从头蒸馏（epoch 0），不沿用旧 epoch 计数。
+                    if 'enc.0.weight' in ckpt['model'] and \
+                            ckpt['model']['enc.0.weight'].shape[0] != student.enc[0].weight.shape[0]:
+                        print('[resume] student 架构不匹配（hidden 变更），'
+                              'distill 从头开始', flush=True)
+                        start_epoch = 0
+                    else:
+                        start_epoch = int(ckpt['epoch'])
+                        opt.load_state_dict(ckpt['opt'])
+                        if ckpt.get('scaler'):
+                            scaler.load_state_dict(ckpt['scaler'])
             except Exception as e:
                 print(f'[resume] student state skipped: {e}', flush=True)
-        h, _ = run_phase(student, opt, scaler, arrays, meta, train_idx,
+        h, _ = run_phase(student, opt, scaler, arrays, meta, bc_idx,
                          args.epochs_distill, 'distill', args, device, logf,
                          canary_idx, ckpt_path, args.student_best,
                          start_epoch=start_epoch, teacher=teacher)

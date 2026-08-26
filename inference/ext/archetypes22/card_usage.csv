@@ -1,0 +1,227 @@
+card_id,card_name,card_class,card_type,expansion,collection_no,deck_count,deck_share,total_copies,average_copies_when_used
+1227,Lillie's Determination,Trainer,SUPPORTER,MEG,119,19,0.863636,71,3.736842
+1182,Boss’s Orders,Trainer,SUPPORTER,PAL,172,19,0.863636,54,2.842105
+1152,Poké Pad,Trainer,ITEM,POR,81,18,0.818182,64,3.555556
+1121,Ultra Ball,Trainer,ITEM,SVI,196,17,0.772727,55,3.235294
+1097,Night Stretcher,Trainer,ITEM,SFA,61,17,0.772727,38,2.235294
+1086,Buddy-Buddy Poffin,Trainer,ITEM,TEF,144,11,0.5,39,3.545455
+1071,Meowth ex,Pokemon,POKEMON,POR,62,10,0.454545,15,1.5
+140,Fezandipiti ex,Pokemon,POKEMON,SFA,38,10,0.454545,11,1.1
+5,Basic {P} Energy,Energy,BASIC_ENERGY,SVE,5,8,0.363636,25,3.125
+1219,Team Rocket's Petrel,Trainer,SUPPORTER,DRI,176,7,0.318182,19,2.714286
+112,Munkidori,Pokemon,POKEMON,TWM,95,7,0.318182,14,2.0
+1174,Air Balloon,Trainer,TOOL,BLK,79,7,0.318182,12,1.714286
+7,Basic {D} Energy,Energy,BASIC_ENERGY,SVE,7,6,0.272727,33,5.5
+6,Basic {F} Energy,Energy,BASIC_ENERGY,SVE,6,6,0.272727,32,5.333333
+1122,Pokégear 3.0,Trainer,ITEM,SVI,186,6,0.272727,16,2.666667
+272,Lillie’s Clefairy ex,Pokemon,POKEMON,JTG,56,6,0.272727,10,1.666667
+1123,Switch,Trainer,ITEM,SVI,194,6,0.272727,7,1.166667
+20,Rock Fighting Energy,Energy,SPECIAL_ENERGY,POR,88,5,0.227273,17,3.4
+1188,Ciphermaniac’s Codebreaking,Trainer,SUPPORTER,TEF,145,5,0.227273,9,1.8
+235,Budew,Pokemon,POKEMON,PRE,4,5,0.227273,5,1.0
+1080,Unfair Stamp,Trainer,ITEM,TWM,165,5,0.227273,5,1.0
+1092,Secret Box,Trainer,ITEM,TWM,163,5,0.227273,5,1.0
+1,Basic {G} Energy,Energy,BASIC_ENERGY,SVE,1,4,0.181818,36,9.0
+756,Mega Kangaskhan ex,Pokemon,POKEMON,MEG,104,4,0.181818,14,3.5
+1198,Crispin,Trainer,SUPPORTER,SCR,133,4,0.181818,13,3.25
+1225,Hilda,Trainer,SUPPORTER,WHT,84,4,0.181818,13,3.25
+2,Basic {R} Energy,Energy,BASIC_ENERGY,SVE,2,4,0.181818,12,3.0
+184,Latias ex,Pokemon,POKEMON,SSP,76,4,0.181818,9,2.25
+1079,Rare Candy,Trainer,ITEM,SVI,191,4,0.181818,9,2.25
+1213,Judge,Trainer,SUPPORTER,SVI,176,4,0.181818,9,2.25
+1205,Cyrano,Trainer,SUPPORTER,SSP,170,4,0.181818,8,2.0
+1231,Dawn,Trainer,SUPPORTER,PFL,87,4,0.181818,8,2.0
+1211,Black Belt’s Training,Trainer,SUPPORTER,PRE,96,4,0.181818,4,1.0
+11,Mist Energy,Energy,SPECIAL_ENERGY,TEF,161,3,0.136364,12,4.0
+1142,Fighting Gong,Trainer,ITEM,MEG,116,3,0.136364,11,3.666667
+1094,Bug Catching Set,Trainer,ITEM,TWM,143,3,0.136364,10,3.333333
+1146,Wondrous Patch,Trainer,ITEM,PFL,94,3,0.136364,10,3.333333
+66,Dudunsparce,Pokemon,POKEMON,TEF,129,3,0.136364,8,2.666667
+1264,Battle Cage,Trainer,STADIUM,PFL,85,3,0.136364,8,2.666667
+3,Basic {W} Energy,Energy,BASIC_ENERGY,SVE,3,3,0.136364,6,2.0
+305,Dunsparce,Pokemon,POKEMON,JTG,120,3,0.136364,6,2.0
+1257,Team Rocket's Factory,Trainer,STADIUM,DRI,173,3,0.136364,5,1.666667
+1156,Lucky Helmet,Trainer,TOOL,TWM,158,3,0.136364,4,1.333333
+1175,Brave Bangle,Trainer,TOOL,WHT,80,3,0.136364,4,1.333333
+142,Genesect,Pokemon,POKEMON,SFA,40,3,0.136364,3,1.0
+689,Yveltal,Pokemon,POKEMON,MEG,88,3,0.136364,3,1.0
+791,Moltres,Pokemon,POKEMON,PFL,14,3,0.136364,3,1.0
+1129,Sacred Ash,Trainer,ITEM,DRI,168,3,0.136364,3,1.0
+1158,Maximum Belt,Trainer,TOOL,TEF,154,3,0.136364,3,1.0
+1184,Lana’s Aid,Trainer,SUPPORTER,TWM,155,3,0.136364,3,1.0
+1197,Xerosic’s Machinations,Trainer,SUPPORTER,SFA,64,3,0.136364,3,1.0
+1256,Team Rocket's Watchtower,Trainer,STADIUM,DRI,180,3,0.136364,3,1.0
+15,Team Rocket's Energy,Energy,SPECIAL_ENERGY,DRI,182,2,0.090909,8,4.0
+292,N’s Zorua,Pokemon,POKEMON,JTG,97,2,0.090909,8,4.0
+293,N’s Zoroark ex,Pokemon,POKEMON,JTG,98,2,0.090909,8,4.0
+1120,Crushing Hammer,Trainer,ITEM,SVI,168,2,0.090909,8,4.0
+1134,Team Rocket's Transceiver,Trainer,ITEM,DRI,178,2,0.090909,8,4.0
+1216,Team Rocket's Ariana,Trainer,SUPPORTER,DRI,171,2,0.090909,8,4.0
+96,Teal Mask Ogerpon ex,Pokemon,POKEMON,TWM,25,2,0.090909,7,3.5
+119,Dreepy,Pokemon,POKEMON,TWM,128,2,0.090909,7,3.5
+120,Drakloak,Pokemon,POKEMON,TWM,129,2,0.090909,7,3.5
+1113,N’s PP Up,Trainer,ITEM,JTG,153,2,0.090909,7,3.5
+1218,Team Rocket's Giovanni,Trainer,SUPPORTER,DRI,174,2,0.090909,7,3.5
+1250,Area Zero Underdepths,Trainer,STADIUM,SCR,131,2,0.090909,7,3.5
+17,Ignition Energy,Energy,SPECIAL_ENERGY,WHT,86,2,0.090909,6,3.0
+676,Solrock,Pokemon,POKEMON,MEG,75,2,0.090909,6,3.0
+860,Snorunt,Pokemon,POKEMON,ASC,46,2,0.090909,6,3.0
+1141,Premium Power Pro,Trainer,ITEM,MEG,124,2,0.090909,6,3.0
+1220,Team Rocket's Proton,Trainer,SUPPORTER,DRI,177,2,0.090909,6,3.0
+93,Dipplin,Pokemon,POKEMON,TWM,18,2,0.090909,5,2.5
+104,Froslass,Pokemon,POKEMON,TWM,53,2,0.090909,5,2.5
+131,Duskull,Pokemon,POKEMON,SFA,18,2,0.090909,5,2.5
+1116,Energy Switch,Trainer,ITEM,SVI,173,2,0.090909,5,2.5
+1229,Wally's Compassion,Trainer,SUPPORTER,MEG,132,2,0.090909,5,2.5
+132,Dusclops,Pokemon,POKEMON,SFA,19,2,0.090909,4,2.0
+414,Team Rocket's Articuno,Pokemon,POKEMON,DRI,51,2,0.090909,4,2.0
+675,Lunatone,Pokemon,POKEMON,MEG,74,2,0.090909,4,2.0
+849,Mega Lopunny ex,Pokemon,POKEMON,PFL,84,2,0.090909,4,2.0
+906,N's Zekrom,Pokemon,POKEMON,ASC,155,2,0.090909,4,2.0
+1253,N’s Castle,Trainer,STADIUM,JTG,152,2,0.090909,4,2.0
+65,Dunsparce,Pokemon,POKEMON,TEF,128,2,0.090909,3,1.5
+108,Wellspring Mask Ogerpon ex,Pokemon,POKEMON,TWM,64,2,0.090909,3,1.5
+133,Dusknoir,Pokemon,POKEMON,SFA,20,2,0.090909,3,1.5
+257,N’s Darumaka,Pokemon,POKEMON,JTG,26,2,0.090909,3,1.5
+848,Buneary,Pokemon,POKEMON,PFL,83,2,0.090909,3,1.5
+1161,Handheld Fan,Trainer,TOOL,TWM,150,2,0.090909,3,1.5
+1162,Binding Mochi,Trainer,TOOL,SFA,55,2,0.090909,3,1.5
+1172,Lillie’s Pearl,Trainer,TOOL,JTG,151,2,0.090909,3,1.5
+12,Legacy Energy,Energy,SPECIAL_ENERGY,TWM,167,2,0.090909,2,1.0
+13,Enriching Energy,Energy,SPECIAL_ENERGY,SSP,191,2,0.090909,2,1.0
+56,Flutter Mane,Pokemon,POKEMON,TEF,78,2,0.090909,2,1.0
+117,Cornerstone Mask Ogerpon ex,Pokemon,POKEMON,TWM,112,2,0.090909,2,1.0
+141,Pecharunt ex,Pokemon,POKEMON,SFA,39,2,0.090909,2,1.0
+209,Chien-Pao,Pokemon,POKEMON,SSP,56,2,0.090909,2,1.0
+258,N’s Darmanitan,Pokemon,POKEMON,JTG,27,2,0.090909,2,1.0
+343,Shaymin,Pokemon,POKEMON,DRI,10,2,0.090909,2,1.0
+858,Psyduck,Pokemon,POKEMON,ASC,39,2,0.090909,2,1.0
+1159,Hero’s Cape,Trainer,TOOL,TEF,152,2,0.090909,2,1.0
+1191,Kieran,Trainer,SUPPORTER,TWM,154,2,0.090909,2,1.0
+8,Basic {M} Energy,Energy,BASIC_ENERGY,SVE,8,1,0.045455,9,9.0
+14,Spiky Energy,Energy,SPECIAL_ENERGY,JTG,159,1,0.045455,4,4.0
+16,Prism Energy,Energy,SPECIAL_ENERGY,BLK,86,1,0.045455,4,4.0
+18,Grow Grass Energy,Energy,SPECIAL_ENERGY,POR,86,1,0.045455,4,4.0
+19,Telepath Psychic Energy,Energy,SPECIAL_ENERGY,POR,87,1,0.045455,4,4.0
+89,Grookey,Pokemon,POKEMON,TWM,14,1,0.045455,4,4.0
+90,Thwackey,Pokemon,POKEMON,TWM,15,1,0.045455,4,4.0
+149,Applin,Pokemon,POKEMON,SCR,12,1,0.045455,4,4.0
+162,Slowpoke,Pokemon,POKEMON,SCR,57,1,0.045455,4,4.0
+169,Duraludon,Pokemon,POKEMON,SCR,106,1,0.045455,4,4.0
+341,Cynthia's Roselia,Pokemon,POKEMON,DRI,7,1,0.045455,4,4.0
+352,Ethan's Cyndaquil,Pokemon,POKEMON,DRI,32,1,0.045455,4,4.0
+353,Ethan's Quilava,Pokemon,POKEMON,DRI,33,1,0.045455,4,4.0
+379,Cynthia's Gible,Pokemon,POKEMON,DRI,102,1,0.045455,4,4.0
+380,Cynthia's Gabite,Pokemon,POKEMON,DRI,103,1,0.045455,4,4.0
+400,Team Rocket's Tarountula,Pokemon,POKEMON,DRI,19,1,0.045455,4,4.0
+401,Team Rocket's Spidops,Pokemon,POKEMON,DRI,20,1,0.045455,4,4.0
+463,Team Rocket's Murkrow,Pokemon,POKEMON,DRI,127,1,0.045455,4,4.0
+646,Marnie's Impidimp,Pokemon,POKEMON,DRI,134,1,0.045455,4,4.0
+741,Abra,Pokemon,POKEMON,MEG,54,1,0.045455,4,4.0
+742,Kadabra,Pokemon,POKEMON,MEG,55,1,0.045455,4,4.0
+878,Hop's Phantump,Pokemon,POKEMON,ASC,95,1,0.045455,4,4.0
+1077,Roto-Stick,Trainer,ITEM,PRE,127,1,0.045455,4,4.0
+1102,Dusk Ball,Trainer,ITEM,SSP,175,1,0.045455,4,4.0
+1147,Jumbo Ice Cream,Trainer,ITEM,PFL,91,1,0.045455,4,4.0
+1171,Hop’s Choice Band,Trainer,TOOL,JTG,148,1,0.045455,4,4.0
+1173,Cynthia's Power Weight,Trainer,TOOL,DRI,162,1,0.045455,4,4.0
+1215,Ethan's Adventure,Trainer,SUPPORTER,DRI,165,1,0.045455,4,4.0
+1217,Team Rocket's Archer,Trainer,SUPPORTER,DRI,170,1,0.045455,4,4.0
+1245,Festival Grounds,Trainer,STADIUM,TWM,149,1,0.045455,4,4.0
+1248,Academy at Night,Trainer,STADIUM,SFA,54,1,0.045455,4,4.0
+1255,Postwick,Trainer,STADIUM,JTG,154,1,0.045455,4,4.0
+1259,Spikemuth Gym,Trainer,STADIUM,DRI,169,1,0.045455,4,4.0
+1263,Mystery Garden,Trainer,STADIUM,MEG,122,1,0.045455,4,4.0
+1266,Nighttime Mine,Trainer,STADIUM,ASC,197,1,0.045455,4,4.0
+9,Boomerang Energy,Energy,SPECIAL_ENERGY,TWM,166,1,0.045455,3,3.0
+116,Okidogi,Pokemon,POKEMON,TWM,111,1,0.045455,3,3.0
+163,Slowking,Pokemon,POKEMON,SCR,58,1,0.045455,3,3.0
+190,Archaludon ex,Pokemon,POKEMON,SSP,130,1,0.045455,3,3.0
+342,Cynthia's Roserade,Pokemon,POKEMON,DRI,8,1,0.045455,3,3.0
+344,Dwebble,Pokemon,POKEMON,DRI,11,1,0.045455,3,3.0
+345,Crustle,Pokemon,POKEMON,DRI,12,1,0.045455,3,3.0
+354,Ethan's Typhlosion,Pokemon,POKEMON,DRI,34,1,0.045455,3,3.0
+381,Cynthia's Garchomp ex,Pokemon,POKEMON,DRI,104,1,0.045455,3,3.0
+648,Marnie's Grimmsnarl ex,Pokemon,POKEMON,DRI,136,1,0.045455,3,3.0
+677,Riolu,Pokemon,POKEMON,MEG,76,1,0.045455,3,3.0
+678,Mega Lucario ex,Pokemon,POKEMON,MEG,77,1,0.045455,3,3.0
+743,Alakazam,Pokemon,POKEMON,MEG,56,1,0.045455,3,3.0
+766,Mega Diancie ex,Pokemon,POKEMON,PFL,41,1,0.045455,3,3.0
+879,Hop's Trevenant,Pokemon,POKEMON,ASC,96,1,0.045455,3,3.0
+891,Team Rocket's Honchkrow,Pokemon,POKEMON,ASC,127,1,0.045455,3,3.0
+1119,Energy Search,Trainer,ITEM,SVI,172,1,0.045455,3,3.0
+1192,Carmine,Trainer,SUPPORTER,TWM,145,1,0.045455,3,3.0
+1261,Forest of Vitality,Trainer,STADIUM,MEG,117,1,0.045455,3,3.0
+4,Basic {L} Energy,Energy,BASIC_ENERGY,SVE,4,1,0.045455,2,2.0
+63,Raging Bolt ex,Pokemon,POKEMON,TEF,123,1,0.045455,2,2.0
+92,Applin,Pokemon,POKEMON,TWM,17,1,0.045455,2,2.0
+100,Goldeen,Pokemon,POKEMON,TWM,44,1,0.045455,2,2.0
+121,Dragapult ex,Pokemon,POKEMON,TWM,130,1,0.045455,2,2.0
+144,Kyurem,Pokemon,POKEMON,SFA,47,1,0.045455,2,2.0
+150,Hydrapple ex,Pokemon,POKEMON,SCR,14,1,0.045455,2,2.0
+202,Victini,Pokemon,POKEMON,SSP,21,1,0.045455,2,2.0
+276,Metagross,Pokemon,POKEMON,JTG,63,1,0.045455,2,2.0
+304,Hop’s Snorlax,Pokemon,POKEMON,JTG,117,1,0.045455,2,2.0
+431,Team Rocket's Mewtwo ex,Pokemon,POKEMON,DRI,81,1,0.045455,2,2.0
+434,Team Rocket's Mimikyu,Pokemon,POKEMON,DRI,87,1,0.045455,2,2.0
+473,Team Rocket's Porygon,Pokemon,POKEMON,DRI,153,1,0.045455,2,2.0
+647,Marnie's Morgrem,Pokemon,POKEMON,DRI,135,1,0.045455,2,2.0
+673,Makuhita,Pokemon,POKEMON,MEG,72,1,0.045455,2,2.0
+674,Hariyama,Pokemon,POKEMON,MEG,73,1,0.045455,2,2.0
+710,Meganium,Pokemon,POKEMON,MEG,10,1,0.045455,2,2.0
+861,Mega Froslass ex,Pokemon,POKEMON,ASC,47,1,0.045455,2,2.0
+1030,Staryu,Pokemon,POKEMON,POR,20,1,0.045455,2,2.0
+1031,Mega Starmie ex,Pokemon,POKEMON,POR,21,1,0.045455,2,2.0
+1051,Binacle,Pokemon,POKEMON,POR,42,1,0.045455,2,2.0
+1052,Barbaracle,Pokemon,POKEMON,POR,43,1,0.045455,2,2.0
+1081,Enhanced Hammer,Trainer,ITEM,TWM,148,1,0.045455,2,2.0
+1098,Glass Trumpet,Trainer,ITEM,SCR,135,1,0.045455,2,2.0
+1115,Hop’s Bag,Trainer,ITEM,JTG,147,1,0.045455,2,2.0
+1163,Powerglass,Trainer,TOOL,SFA,63,1,0.045455,2,2.0
+1187,Morty’s Conviction,Trainer,SUPPORTER,TEF,155,1,0.045455,2,2.0
+1193,Hassel,Trainer,SUPPORTER,TWM,151,1,0.045455,2,2.0
+1206,Larry’s Skill,Trainer,SUPPORTER,PRE,115,1,0.045455,2,2.0
+1238,Tarragon,Trainer,SUPPORTER,POR,85,1,0.045455,2,2.0
+1260,Risky Ruins,Trainer,STADIUM,MEG,127,1,0.045455,2,2.0
+57,Relicanth,Pokemon,POKEMON,TEF,84,1,0.045455,1,1.0
+73,Rellor,Pokemon,POKEMON,TEF,23,1,0.045455,1,1.0
+74,Rabsca,Pokemon,POKEMON,TEF,24,1,0.045455,1,1.0
+109,Abra,Pokemon,POKEMON,TWM,80,1,0.045455,1,1.0
+122,Tatsugiri,Pokemon,POKEMON,TWM,131,1,0.045455,1,1.0
+135,Bloodmoon Ursaluna,Pokemon,POKEMON,SFA,25,1,0.045455,1,1.0
+172,Hoothoot,Pokemon,POKEMON,SCR,114,1,0.045455,1,1.0
+173,Noctowl,Pokemon,POKEMON,SCR,115,1,0.045455,1,1.0
+174,Fan Rotom,Pokemon,POKEMON,SCR,118,1,0.045455,1,1.0
+222,Dedenne,Pokemon,POKEMON,SSP,87,1,0.045455,1,1.0
+240,Seaking,Pokemon,POKEMON,PRE,21,1,0.045455,1,1.0
+306,Dudunsparce ex,Pokemon,POKEMON,JTG,121,1,0.045455,1,1.0
+309,Hop’s Wooloo,Pokemon,POKEMON,JTG,135,1,0.045455,1,1.0
+310,Hop’s Dubwool,Pokemon,POKEMON,JTG,136,1,0.045455,1,1.0
+311,Hop’s Cramorant,Pokemon,POKEMON,JTG,138,1,0.045455,1,1.0
+377,Zeraora,Pokemon,POKEMON,DRI,78,1,0.045455,1,1.0
+387,Cynthia's Spiritomb,Pokemon,POKEMON,DRI,129,1,0.045455,1,1.0
+474,Team Rocket's Porygon2,Pokemon,POKEMON,DRI,154,1,0.045455,1,1.0
+521,Elgyem,Pokemon,POKEMON,BLK,40,1,0.045455,1,1.0
+655,Celebi,Pokemon,POKEMON,MEG,12,1,0.045455,1,1.0
+695,Mega Mawile ex,Pokemon,POKEMON,MEG,94,1,0.045455,1,1.0
+708,Chikorita,Pokemon,POKEMON,MEG,8,1,0.045455,1,1.0
+709,Bayleef,Pokemon,POKEMON,MEG,9,1,0.045455,1,1.0
+758,Buneary,Pokemon,POKEMON,MEG,107,1,0.045455,1,1.0
+917,Chikorita,Pokemon,POKEMON,ASC,8,1,0.045455,1,1.0
+918,Bayleef,Pokemon,POKEMON,ASC,9,1,0.045455,1,1.0
+920,Tapu Bulu,Pokemon,POKEMON,SFA,6,1,0.045455,1,1.0
+978,Passimian,Pokemon,POKEMON,SSP,111,1,0.045455,1,1.0
+979,Koraidon ex,Pokemon,POKEMON,ASC,121,1,0.045455,1,1.0
+1088,Prime Catcher,Trainer,ITEM,TEF,157,1,0.045455,1,1.0
+1093,Scoop Up Cyclone,Trainer,ITEM,TWM,162,1,0.045455,1,1.0
+1109,Miracle Headset,Trainer,ITEM,SSP,183,1,0.045455,1,1.0
+1114,Redeemable Ticket,Trainer,ITEM,JTG,156,1,0.045455,1,1.0
+1118,Energy Retrieval,Trainer,ITEM,SVI,171,1,0.045455,1,1.0
+1186,Eri,Trainer,SUPPORTER,TEF,146,1,0.045455,1,1.0
+1190,Bianca’s Devotion,Trainer,SUPPORTER,TEF,142,1,0.045455,1,1.0
+1199,Lacey,Trainer,SUPPORTER,SCR,139,1,0.045455,1,1.0
+1201,Briar,Trainer,SUPPORTER,SCR,132,1,0.045455,1,1.0
+1209,Ruffian,Trainer,SUPPORTER,JTG,157,1,0.045455,1,1.0
+1223,Harlequin,Trainer,SUPPORTER,WHT,83,1,0.045455,1,1.0
+1246,Jamming Tower,Trainer,STADIUM,TWM,153,1,0.045455,1,1.0
+1252,Gravity Mountain,Trainer,STADIUM,SSP,177,1,0.045455,1,1.0

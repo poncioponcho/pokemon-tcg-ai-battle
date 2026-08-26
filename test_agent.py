@@ -98,9 +98,9 @@ def test_card_db_covers_deck():
 
 
 def test_budew_deck_and_attack_metadata():
-    """含羞苞加入一张且痒痒花粉为零能量10伤害。"""
-    assert DECK.count(235) == 1, "牌组应加入1张含羞苞"
-    assert 1252 not in DECK, "重力山应被含羞苞替换"
+    """含羞苞元数据: 零能量10伤害 (v4 FINAL 已移出牌组, main.py:3066 分支保留作 tech 件)。"""
+    # [2026-08-11 更新] 删除 235/1252 牌组归属断言: v4 FINAL 牌组两者均无,
+    # 但含羞苞封锁分支仍在, 元数据正确性仍需保障。
     assert _CARD_DB[235]["needed_energy"] == 0
     assert _CARD_DB[235]["moves"] == [(10, "痒痒花粉")]
     assert _estimate_attack_damage(235, 323) == 10

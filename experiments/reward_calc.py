@@ -228,7 +228,7 @@ def cmd_record(args) -> int:
     quota_budget = args.quota_budget
     if not quota_budget:
         try:
-            import yaml as _y
+            import yaml as _y  # type: ignore[import-untyped]
             _meta = _y.safe_load((EXP / 'experiments.yaml').read_text(encoding='utf-8'))
             quota_budget = _meta['meta'].get('quota_week_gpu_h', 28.0)
         except Exception:

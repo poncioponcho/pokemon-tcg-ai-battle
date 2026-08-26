@@ -20,7 +20,7 @@ import pathlib
 import sys
 import time
 from collections import Counter, defaultdict
-from typing import Any
+from typing import Any, cast
 
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -232,15 +232,21 @@ def main() -> int:
     manual_module = agent._private_modules.get(MANUAL_MODULE)
     hierarchy = agent._private_modules.get(HIERARCHICAL_MODULE)
     fallback = agent._private_modules.get(FALLBACK_MODULE)
-    if None in (main_module, manual_module, hierarchy, fallback):
+    if any(module is None for module in (
+        main_module, manual_module, hierarchy, fallback
+    )):
         raise SystemExit("exact-v22 policy modules missing")
+    assert main_module is not None
+    assert manual_module is not None
+    assert hierarchy is not None
+    assert fallback is not None
     guards = tuple(manual_module.GUARDS)
     exact_deck = agent.deck()
-    games = []
-    trace_counts = Counter()
-    control_counts = Counter()
-    action_counts = Counter()
-    context_counts = Counter()
+    games: list[dict[str, Any]] = []
+    trace_counts: Counter[str] = Counter()
+    control_counts: Counter[str] = Counter()
+    action_counts: Counter[str] = Counter()
+    context_counts: Counter[str] = Counter()
     active_calls = decision_calls = mismatches = 0
     started = time.time()
 
@@ -259,9 +265,9 @@ def main() -> int:
             raise SystemExit("exact-v22 deck changed between episodes")
 
         features: set[str] = set()
-        controls = []
-        actions = Counter()
-        contexts = Counter()
+        controls: list[dict[str, Any]] = []
+        actions: Counter[str] = Counter()
+        contexts: Counter[str] = Counter()
         for step_index in range(len(steps) - 1):
             record = steps[step_index][seat]
             if record.get("status") != "ACTIVE":
@@ -355,7 +361,11 @@ def main() -> int:
     if mismatches:
         raise SystemExit(f"exact-v22 replay mismatches={mismatches}; refusing interpretation")
 
-    features = sorted({feature for game in games for feature in game["features"]})
+    feature_names = sorted({
+        feature
+        for game in games
+        for feature in cast(list[str], game["features"])
+    })
     by_ref = defaultdict(list)
     for game in games:
         by_ref[str(game["ref"])].append(game)
@@ -364,7 +374,7 @@ def main() -> int:
             ref: _association(rows, feature)
             for ref, rows in sorted(by_ref.items())
         }
-        for feature in features
+        for feature in feature_names
     }
     findings = _candidate_findings(associations)
     report = {

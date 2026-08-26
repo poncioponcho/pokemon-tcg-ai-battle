@@ -1,0 +1,464 @@
+The Pokémon Company - PTCG AI Battle Challenge Simulation | Kaggle
+=====
+menu
+Skip to
+content
+Create
+explore
+
+Home
+
+emoji_events
+
+Competitions
+
+leaderboard
+
+Benchmarks
+
+smart_toy
+
+Game Arena
+
+code
+
+Data Hub
+
+expand_more
+format_list_bulleted
+
+More
+
+expand_more
+note_alt
+
+Your Work
+
+expand_less
+
+Viewed
+
+expand_less
+
+The Pokémon Company - PTCG AI Battle Challenge Simulation
+
+Is That Matchup Table Measuring the Deck—or the Player? (Part 1)
+
+ELO inconsistency
+
+my plan on how to do RL training ... is it my hallucinations?
+
+22 Curated Deck Archetypes for PTCG AI Battle - A Deck Intelligence Dataset
+
+Edited
+
+expand_less
+
+notebooke2441e9455
+
+PTCG Strategy MRI | 2,022 Cards to 60 Decis 66517c
+
+pokemon-tcg-strategy-mega-lucario
+
+PTCG Strategy MRI | 2,022 Cards to 60 Decisions
+
+titanic最后一舞
+
+auto_awesome_motion
+
+View Active Events
+
+search
+​
+THE POKÉMON COMPANY - PTCGABC TEAM · FEATURED SIMULATION COMPETITION · 6 DAYS TO GO
+Submit Agent
+more_horiz
+The Pokémon Company - PTCG AI Battle Challenge Simulation
+
+Build an AI Training Agent to play the Pokémon Trading Card Game
+
+Overview
+Data
+Code
+Models
+Discussion
+Leaderboard
+Rules
+Team
+Submissions
+SUMI · 220TH IN THIS COMPETITION · POSTED 15 DAYS AGO
+arrow_drop_up
+57
+more_vert
+Tracking 3,057 teams through 6 weeks of meta: who switched decks, when — and why it was always too late
+Tracking 3,057 teams through 6 weeks of meta: who switched decks, when — and why it was always too late
+
+We've seen a one-day meta snapshot (Pilkwang Kim's Jul 18 notebook) and a great analysis of how top agents are implemented from decision timing ("Top players' methods, revealed by 30,000 games"). What I haven't seen is the meta treated as a dynamical system: tracking individual teams over time to see who switches decks, to what, and how fast the field punishes them for it.
+
+So I downloaded 14 of the official Daily Top Episodes datasets (every 3rd day, Jun 17 → Jul 26), classified every episode in them (74,634 games, no sampling) into deck archetypes by signature cards, and traced 3,057 unique teams across the snapshots. In the Sankey below, node height = archetype share of games that day; ribbons = actual deck switches (a team appearing in two consecutive snapshots with a different modal archetype).
+
+1. Four eras in six weeks
+Crustle/Lucario era (mid-June): Crustle 37%, Lucario 28% on Jun 17.
+The Archaludon bubble (Jun 26 – Jul 2): see below.
+Alakazam plateau (early–mid July): peaks at 46% on Jul 14, drifting ~50% winrate the whole time.
+Grimmsnarl takeover (Jul 17 →): 17% → 31% → 39% → 51.3% of all top-band games on Jul 26. The #1 team and most of the current top-25 play it.
+
+Meanwhile Mega Lucario ex — 28% of the top band on Jun 17 — is extinct: exactly 1 team still played it on Jul 26 (0.03% of games). Its field winrate had been sliding 47% → 35% before everyone abandoned it.
+
+2. The Archaludon bubble is a cautionary tale about copying the leaderboard
+
+Archaludon's timeline, share of games / winrate vs field (mirrors excluded):
+
+	6/23	6/26	6/29	7/02	7/05	7/08	7/17
+share	0%	9%	41%	13%	3%	3%	~0%
+WR vs field	45%	65%	55%	48%	31%	48%	26%
+
+It won 65% while nobody played it, tripled its share in three days (the Sankey shows the inflow coming mostly from Lucario and Crustle players), and the moment it became the field, its edge evaporated — then it crashed to near-zero share within a week. Adoption lags performance by roughly one dataset interval (~3 days), and by the time a deck is visibly dominant on the leaderboard, its expected value is already regressing.
+
+3. Grimmsnarl has now reached the same saturation point
+
+Grimmsnarl won 61–67% vs the field in late June at 2–29% share. As its share climbed to 51%, its non-mirror winrate converged to 50.3% — it is now at equilibrium with the field it created. The pooled matchup matrix for Jul 17–26 (row beats column, N in parens) shows why it still holds:
+
+row ¥ col	grimmsnarl	alakazam	tarountula	garchomp	crustle
+grimmsnarl	–	57% (3,703)	57% (1,237)	41% (993)	50% (830)
+alakazam	43%	–	28% (1,038)	64% (916)	60% (978)
+tarountula	43%	72%	–	44% (316)	57% (237)
+garchomp	59%	36%	56%	–	57% (233)
+
+That's a clean cycle: Grimmsnarl > Alakazam > Garchomp > Grimmsnarl, with Tarountula as a dedicated Alakazam-hunter (72%!) that loses to the other two. Grimmsnarl dominates because it beats the most popular deck (Alakazam) while its own counter (Garchomp, 59% against it) is only at 7% share. If history repeats, Garchomp — currently the highest-EV deck against the actual field mix — is the next bubble candidate.
+
+4. The top band itself is a revolving door
+
+Across the 14 snapshots I tracked 3,057 unique teams. Not a single team appears in all 14. Only 1,492 appear in ≥2 snapshots at all. Between adjacent snapshots, 15–92% of teams carry over (56–71% in the stabler late-July period). Sustained residency at the top appears to be much harder than reaching it once — consistent with the rating-variance discussions elsewhere on this forum.
+
+Method notes
+Dataset inclusion is Kaggle's own criterion (episodes ranked by average participant rating, ~4.5–7.8k games/day), so "top band" = roughly the top few dozen teams plus whoever they queued into; ratings themselves are not in the replay JSONs.
+Archetypes are classified by signature card IDs (e.g. Marnie's Grimmsnarl ex = 648); a team's archetype for a day is its modal archetype; winner read from final rewards.
+Reproduce it yourself
+
+Attach one or more daily datasets from the episodes index to a notebook and run this (each attached day adds a column to the Sankey):
+
+import json, glob
+from collections import Counter, defaultdict
+import plotly.graph_objects as go
+
+SIGS = {"alakazam": {743, 245}, "archaludon": {190, 170, 840}, "grimmsnarl": {648},
+        "starmie": {1031, 361}, "trevenant": {879}, "dragapult": {121},
+        "crustle": {345, 533}, "bellibolt": {269}, "abomasnow": {723, 419},
+        "lucario": {678}, "dudunsparce": {306, 997, 66},
+        "garchomp": {380, 381}, "gardevoir": {747}, "tarountula": {400, 401}}
+
+def archetype(deck):
+    s = set(deck)
+    return next((a for a, sig in SIGS.items() if sig & s), "other")
+
+def decks(d):  # both 60-card lists live in step0 visualize[0].action
+    for p in d["steps"][0]:
+        for viz in p.get("visualize") or []:
+            found = [x for x in (viz.get("action") or []) if isinstance(x, list) and len(x) == 60]
+            if len(found) == 2:
+                return found
+    return None
+
+games = []  # (date, team0, arch0, team1, arch1)
+for ddir in sorted(glob.glob("/kaggle/input/pokemon-tcg-ai-battle-episodes-*")):
+    date = ddir[-10:]
+    for fp in glob.glob(f"{ddir}/*.json"):
+        try:
+            d = json.load(open(fp))
+            dk = decks(d)
+            if not dk:
+                continue
+            t = (d.get("info") or {}).get("TeamNames") or ["?", "?"]
+            games.append((date, t[0], archetype(dk[0]), t[1], archetype(dk[1])))
+        except Exception:
+            pass
+print(len(games), "games parsed")
+
+dates = sorted({g[0] for g in games})
+share, modal = {}, {}
+for dt in dates:
+    day = [g for g in games if g[0] == dt]
+    ctr = Counter(a for g in day for a in (g[2], g[4]))
+    tot = sum(ctr.values())
+    share[dt] = {a: 100 * c / tot for a, c in ctr.items()}
+    td = defaultdict(Counter)
+    for g in day:
+        td[g[1]][g[2]] += 1
+        td[g[3]][g[4]] += 1
+    modal[dt] = {t: c.most_common(1)[0][0] for t, c in td.items()}
+
+flows = Counter()  # ribbons = teams switching archetypes between snapshots
+for d1, d2 in zip(dates, dates[1:]):
+    for t in modal[d1].keys() & modal[d2].keys():
+        flows[(d1, modal[d1][t], modal[d2][t])] += 1
+
+nid, lab, xs = {}, [], []
+for i, dt in enumerate(dates):
+    for a, s in sorted(share[dt].items(), key=lambda x: -x[1]):
+        if s >= 2:
+            nid[(dt, a)] = len(lab)
+            lab.append(f"{a} {s:.0f}%")
+            xs.append(0.02 + 0.96 * i / max(1, len(dates) - 1))
+src, dst, val = [], [], []
+for (d1, a, b), n in flows.items():
+    d2 = dates[dates.index(d1) + 1]
+    if (d1, a) in nid and (d2, b) in nid:
+        src.append(nid[(d1, a)]); dst.append(nid[(d2, b)]); val.append(n)
+go.Figure(go.Sankey(arrangement="snap",
+    node=dict(label=lab, x=xs, pad=6, thickness=12),
+    link=dict(source=src, target=dst, value=val))).update_layout(
+    height=650, title="Top-band archetype evolution (ribbons = team deck switches)").show()
+
+
+Happy to share the full census CSV (74,634 rows) if there's interest.
+
+sankey_data.json
+6
+4
+1
+add_reaction
+comment
+14 Comments
+1 appreciation comment
+Hotness
+undo
+redo
+format_size
+format_bold
+format_italic
+format_strikethrough
+insert_link
+format_quote
+code
+format_list_numbered
+format_list_bulleted
+table_chart
+insert_photo
+smart_display
+insert_emoticon
+help
+ 
+
+This comment will be made public once posted.
+
+attach_file
+Post Comment
+Forrest_xlz
+
+Posted 9 days ago
+
+· 53rd in this Competition
+
+arrow_drop_up
+1
+more_vert
+
+Good Job SUMI！
+
+reply
+Reply
+add_reaction
+React
+Zhenyu Zhang
+
+Posted 12 days ago
+
+· 32nd in this Competition
+
+arrow_drop_up
+5
+more_vert
+
+Great work! Thank you so much for sharing.
+
+Actually, we noticed during the process that some competitors only submitted their final strategies for one day and then switched decks the next. This is likely because once a strategy stays on the Leaderboard (LB) for a while, it becomes easy for others to discover and study it. Some of you probably know exactly what I am talking about.
+
+Ultimately, this pokemon competition might not be as hard as we imagined, but it isn't simple either. If you want to stay at the top, you really have to put some thought into it.
+
+Again, this is excellent work. It has really helped us understand how to counter various strategies.
+
+reply
+Reply
+add_reaction
+React
+DashingMZA
+
+Posted 11 days ago
+
+arrow_drop_up
+1
+more_vert
+
+Impressive information and tell real hard work and really appreciatable
+
+reply
+Reply
+add_reaction
+React
+hengck23
+
+Posted 13 days ago
+
+· 205th in this Competition
+
+arrow_drop_up
+3
+more_vert
+
+i wonder if some teams will switch to the magic winning deck just before the deadline?
+
+reply
+Reply
+add_reaction
+React
+Sumi
+TOPIC AUTHOR
+
+Posted 13 days ago
+
+· 220th in this Competition
+
+arrow_drop_up
+1
+more_vert
+
+I guess so. but the more people try to switch to a better deck, the more difficult to predict the entire LB dynamics…
+
+reply
+Reply
+add_reaction
+React
+Tony Li
+
+Posted 12 days ago
+
+· 984th in this Competition
+
+arrow_drop_up
+1
+more_vert
+
+It could be a good strategy. It does not necessarily be a new deck—a new model or a different play style could also work.
+
+However, the speed of score changes also matters. It seems that the number of games an agent has played can affect its final score and ranking. We do not want to submit an unproven model and deck, because that would be too risky for final 2 weeks eval.
+
+Ideally, we wish enter the final two-week period with a strong starting position and a solid number of completed games , and a pretty new model & deck(unstudy by others) . If everything else is equal, that could give us an advantage.
+
+reply
+Reply
+add_reaction
+React
+Wasiq Ali
+
+Posted 12 days ago
+
+arrow_drop_up
+1
+more_vert
+
+Impressive information and tell real hard work and really appreciatable
+
+reply
+Reply
+add_reaction
+React
+Sumi
+TOPIC AUTHOR
+
+Posted 14 days ago
+
+· 220th in this Competition
+
+arrow_drop_up
+1
+more_vert
+
+I'm still not very familiar with Kaggle. Would this be better as a Code notebook or a Discussion post? I'm planning to share a series of related analyses over time.
+
+reply
+Reply
+add_reaction
+React
+emoji_people
+Ankith Savio
+
+Posted 14 days ago
+
+· 5944th in this Competition
+
+arrow_drop_up
+1
+more_vert
+
+with code notebook you can schedule it to fetch the data and update the graphs!
+
+reply
+Reply
+add_reaction
+React
+Sumi
+TOPIC AUTHOR
+
+Posted 13 days ago
+
+· 220th in this Competition
+
+arrow_drop_up
+1
+more_vert
+
+thank you. I tried to implement on a notebook, but dataset loading is too heavy and I gave up…
+
+reply
+Reply
+add_reaction
+React
+Zejun_
+
+Posted 15 days ago
+
+· 336th in this Competition
+
+arrow_drop_up
+1
+more_vert
+
+top monitor
+
+reply
+Reply
+add_reaction
+React
+emoji_people
+Praveen
+
+Posted 9 days ago
+
+· 177th in this Competition
+
+arrow_drop_up
+0
+more_vert
+
+reply
+Reply
+add_reaction
+React
+
+This comment has been deleted.
+
+Appreciation (1)
+Moritz Paal
+
+Posted 14 days ago
+
+· 40th in this Competition
+
+arrow_drop_up
+2
+more_vert
+
+What a great analysis. Thank you
+
+This comment has been deleted.

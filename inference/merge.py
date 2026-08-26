@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
+⚠️ [孤儿管线 ORPHANED — 2026-08-09 hy3 审计 B4-1] ⚠️
+本管线依赖的 4 个模块 (card_meta.py / option_scorer.py / state_parser.py /
+decision_gate.py) 在仓库及 git 历史中均不存在, 代码确已丢失, 无法恢复。
+直接 import 会 ModuleNotFoundError。现役 NN 提交线走 build_pure.py, 勿用本管线。
+
 merge.py — 将多文件 Agent 合并为单文件 main.py（Kaggle 提交格式）
 
 用法：
@@ -69,11 +74,15 @@ def merge(output_path: str = "main.py"):
     all_imports = set()
     code_blocks = []
 
-    for module in MODULE_ORDER:
-        if not os.path.exists(module):
-            print(f"⚠️  跳过缺失文件: {module}")
-            continue
+    missing = [m for m in MODULE_ORDER if not os.path.exists(m)]
+    if missing:
+        # [fix 08-09] 原为打印警告后跳过: 会静默产出缺模块的残次 main.py
+        # (B4-1: 4 个依赖模块已在仓库/git 中丢失), 改为硬失败 fail-loud
+        raise SystemExit(
+            f"[错误] 必需模块缺失, 无法合并: {', '.join(missing)}\n"
+            "本管线已被标记为孤儿管线（见文件头警告），现役 NN 线请用 build_pure.py。")
 
+    for module in MODULE_ORDER:
         imports, code = extract_content(module)
         all_imports.update(imports)
         code_blocks.append(

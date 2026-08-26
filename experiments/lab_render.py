@@ -47,7 +47,7 @@ KEY_MAP = {
 def load_yaml():
     """无第三方 yaml 依赖时用简单解析（骨架期够用；有 pyyaml 则优先）。"""
     try:
-        import yaml
+        import yaml  # type: ignore[import-untyped]
         return yaml.safe_load(YAML.read_text(encoding='utf-8'))
     except ImportError:
         pass

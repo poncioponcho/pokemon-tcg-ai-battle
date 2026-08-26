@@ -1,0 +1,220 @@
+问到点子上了——当前训练已跑约 8 小时 40 分，如果 Kaggle 免费 GPU 是 9 小时限制就快被砍了。立即查状态、session 时长限制和检查点机制：
+用户问：如果 NN 训练跑超 12 小时限制怎么办。当前训练已经 RUNNING 约 9-10 小时（22:39 起，现在 07:2x——等等，从 22:39 到 07:21 是 8.7 小时，跨天了。今天是 8/7，训练是 8/6 22:39 启动的）。
+
+Kaggle 的 session 时间限制：免费账号 GPU 通常 9-12 小时（T4 x2 可能是 9 小时？）。实际上 Kaggle GPU kernel 默认 session 超时是 9 小时（之前文档里也提到"单 session ~9-12h"）。如果训练跑超 session 限制，kernel 会被强制终止（ERROR 或 cancelled），npz 不会产出。
+
+关键问题：
+1. 确认 Kaggle 免费账号 GPU session 的实际时长限制（12h？9h？）
+2. 训练脚本有没有断点续训/检查点机制（ckpt_v2_last.pt 每 epoch 保存？）——如果有，超时后可以 resume
+3. 当前训练可能刚好卡在这个点上
+
+先查：
+- 当前训练状态和已运行时长
+- kaggle_gpu_train.py 是否有检查点 + resume 逻辑
+- train_v2.py 的 resume='auto' 逻辑（之前日志看到 --resume auto）
+- kernel-metadata.json 是否设置了 session_timeout_seconds？
+
+之前的 kaggle_gpu_train.py 里我看到过 prepare() 和 CKPT_DIR，日志也显示 `--resume auto`。train_v2.py 有 `--resume {auto,never}`。所以断点续训机制应该存在：每个 epoch 保存 ckpt_v2_last.pt，resume=auto 时自动加载。
+
+如果超时被砍：
+- 方案 A：检查点续训——重新 push 一个 resume 模式的 kernel，加载 ckpt_v2_last.pt 继续训练（从 output 下载 ckpt → 作为 input 传入 → resume）
+- 方案 B：已经跑完 BC+AWR 阶段的 checkpoint 直接 export student？不行，distill 没跑完。
+- 方案 C：训练脚本本身应该把 ckpt 保存到 /kaggle/working/ckpt/，kernel 结束（无论正常/超时）时 output 会包含 ckpt 吗？之前 kernel_poll 只下载 model_student.npz，但 kernel 的 output 目录是整个 /kaggle/working 的 output 文件夹？不是——Kaggle kernel output 默认是 /kaggle/working/output 子目录？看 kaggle_gpu_train.py：OUT_DIR = WORK / 'output'，CKPT_DIR = WORK / 'ckpt'。kernel 结束后 output 会包含 ckpt 吗？Kaggle 的 kernel output 是 /kaggle/working 下的 output 目录？实际上 Kaggle 把 kernel 运行时写进 /kaggle/working 的文件（除了 data 输入）都会打包为 output？不对——Kaggle 默认 output 目录就是 /kaggle/working/output？其实 Kaggle kernel 的 "output" 是 /kaggle/working 里除了输入以外的所有内容。之前 kerr9 那次 output 里居然有 data/ 目录（训练数据），说明 Kaggle 把整个 /kaggle/working 当 output 打包（data 是软链/复制进去的）。所以 ckpt/ 应该也会在 output 里。
+
+那 resume 流程就是：
+1. kernel 超时被砍（ERROR/超时状态）
+2. 从 output 下载 ckpt_v2_last.pt
+3. 重新 push 时把 ckpt 作为 dataset/input 传入（上传为 dataset 或 kernel 的 dataset_sources）
+4. train_v2.py --resume auto 自动加载继续
+
+但更紧急的：当前训练还在 RUNNING，如果还没超时，先看剩余时间。Kaggle 免费 GPU 限制：实际上是 12 小时（720 分钟）？让我确认。Kaggle 文档：免费用户 GPU session 最长 9 小时（540 分钟）？还是 12 小时？记得是 9 小时 for GPU。T4 x2 双卡可能是 9h。也有说法 12h。
+
+从 22:39 到 07:21 = 8h42m。如果限制 9h，还有 ~18 分钟就要被砍！非常紧急。如果限制 12h，还有 3 小时+。
+
+先立即查状态 + 确认 session 时长限制，然后看检查点机制是否健全。
+
+行动：
+1. 查 kernel 状态 + 拿 metadata 里 session 信息（开始时间）
+2. 查 kaggle_gpu_train.py 的检查点保存逻辑（每 epoch save？interval？）
+3. 查 train_v2.py resume 逻辑
+4. 给出超时预案：检查点续训的具体操作流程（下载 ckpt → 上传为 dataset → resume kernel）
+5. 如果真被砍，立即执行恢复
+
+先并行查。
+
+当前 cwd 跑偏，且 lastRun 字段含义不清。回到项目根查检查点逻辑，并确认 Kaggle 免费 GPU session 时长限制：
+两个问题：
+1. `lastRun: 2026-08-03 23:48` —— 这显示的是 kernel 最后一次"运行"时间戳，但我们的 session 是 8/6 22:39 创建的。这个 last_run_time 字段可能是别的含义（比如创建时间）。不管它，实际训练从 22:39 开始（8/6），到现在 8/7 07:48 = 9 小时 9 分。**如果 9 小时限制，已超时但仍 RUNNING？** 或者限制是 12 小时。
+2. 我在错误的目录执行了（cwd 被重置到 work-mode-projects）。kaggle_gpu_train.py 在项目根。
+
+先回到项目根查检查点逻辑，同时确认 Kaggle 免费 GPU session 时长限制（9h 还是 12h）。查 web 确认。
+
+断点续训机制完整（每 epoch 存 ckpt + resume auto + input 自动恢复）。确认 Kaggle 免费 GPU 时长限制和完整续训链路：
+好消息：**断点续训机制完整存在**：
+1. 每 epoch 自动保存 `/kaggle/working/ckpt/ckpt_v2_last.pt`（含 optimizer/AMP/RNG）
+2. `prepare()` 里 `find_in_input('ckpt_v2_last.pt')`——把上次 output 挂载进来的 ckpt 恢复到工作位置，重跑自动续训
+3. train_v2.py `--resume auto`：ckpt 存在就从断点继续
+
+所以超时被砍的恢复流程：
+1. 从 kernel output 下载 `ckpt_v2_last.pt`（output 里应该有，因为 Kaggle 打包整个 working 目录）
+2. 把它作为 dataset 上传（或放到 input）
+3. 重新 push 训练 kernel → prepare() 自动恢复 ckpt → train_v2 resume auto 续训
+
+但还有两个问题要确认：
+1. **Kaggle 免费 GPU session 时长限制**：9h 还是 12h？当前已 9h09m 还在 RUNNING，说明至少不是严格的 9h 或刚过。需要查证。
+2. **checkpoint 现在每 epoch 保存**——训练已经跑 9 小时，如果 21 epochs（8+5+8）都在正常进度，最后几次 epoch 的 ckpt 应该很接近完成。超时被砍时 ckpt 已保存，能续。
+
+另外注意：kernel 被 Kaggle 超时终止时状态是什么？通常是 "cancelled" 或 ERROR。而且超时终止后 output 还能下载吗？Kaggle 文档说 kernel 超时会停止，output 仍可下载（有时需要等一会儿）。
+
+再确认一个关键点：kernel_poll 的 ERROR 分支会自动跑 auto_fix + 通知。超时被砍属于什么状态？Kaggle 显示 "KernelWorkerStatus" 值有 ERROR/COMPLETE/RUNNING/QUEUED... 超时通常显示 ERROR 或 cancelled。
+
+行动：
+1. 查 Kaggle 免费 GPU session 时长限制（web 确认：9h 还是 12h）
+2. 同时确认 ckpt 是否已经能被下载（现在 output 里有 ckpt 吗？——运行中不能下，但可以确认结构）
+3. 准备好超时恢复脚本：download ckpt → upload as dataset → resume push
+
+先查 web 确认时长限制，并看 prepare() 完整逻辑确认续训链路。
+
+关键事实确认：Kaggle 免费 GPU 限制 **9 小时**，当前训练已 9 小时 9 分仍未断——需确认 T4 x2 是否不同限制，并立即准备超时恢复链路：
+确认了关键事实：
+1. **Kaggle 免费 GPU session 限制 9 小时**（多个来源确认）——当前训练从 8/6 22:39 起，现在 8/7 07:48 = **9 小时 9 分，已经超过 9 小时**，但状态还是 RUNNING？这有两种可能：
+   a. T4 x2 的 session 时长限制可能不同（12h？）
+   b. 或者 9h 是 "持续运行" 的交互 session 限制，kernel（后台运行）可能是 12h
+   
+   实际上 Kaggle 的 kernel 后台运行限制：免费账号 GPU 9 小时。但 T4 x2 是否不同？需要确认。当前仍 RUNNING 说明还没被砍。
+
+2. **断点续训链路完整**：
+   - 每 epoch 保存 ckpt_v2_last.pt（含 stage/phase/epoch/optimizer/AMP/RNG）
+   - resume=auto 时自动从 ckpt 恢复 stage/phase/epoch
+   - prepare() 从 input 恢复 ckpt（find_in_input 递归找）
+   - 所以超时被砍后：下载 output 里的 ckpt → 作为 dataset 挂载 → 重推 kernel → 自动续训
+
+3. 当前训练 9h+ 还在跑，21 个 epoch（8 BC + 5 AWR + 8 distill）。如果每 epoch 几分钟到十几分钟，9 小时可能跑完大部分了。**也许快完成了**，或者被卡在某个 phase。
+
+现在最重要的是：
+1. 确认 T4 x2 的时长限制到底多少（决定是否马上要准备恢复）
+2. 如果快超时，立即准备恢复脚本：下载 ckpt → 上传 dataset → resume push
+
+先确认时长限制——查 Kaggle 官方文档。另外快速看训练日志当前进度（如果 kernel 快结束或正在写日志，能拉到最后一次 epoch）。运行中的 kernel 拉不到 output，但也许能看到进度。
+
+搜索 Kaggle 官方文档确认 kernel 时长限制。
+
+搜索未给 T4 x2 专属时长，按 9h 红线准备。当前 9h12m 仍 RUNNING，不能赌——立即把超时恢复链路备好。检查凭据与恢复所需组件：
+搜索没给出 T4 x2 的确切时长限制（通用 9h）。当前训练 9h12m 仍 RUNNING，说明：
+- 要么 9h 是交互 notebook 限制，后台 script kernel 不同
+- 要么 T4 x2 有更长配额
+- 要么即将被砍
+
+不能再赌。当前最紧急的是：**确保 ckpt 能保住**。Kaggle kernel 超时被砍时，output 是否可下载？经验上可以（kernel 结束后 output 完整打包）。所以超时后：
+1. 下载 output 里的 ckpt_v2_last.pt（+ teacher_best.pt + student_best.pt）
+2. 上传为一个 dataset（比如 daniel1547/ptcg-ckpt）
+3. resume kernel：kernel-metadata.json 加 dataset_sources 含 ckpt dataset，重推
+4. prepare() find_in_input('ckpt_v2_last.pt') 自动恢复 → train_v2 resume auto 续训
+
+提前把恢复流程写成脚本 + 文档，超时立刻执行。同时考虑：也许训练其实快完成了（9h 跑了 21 epochs 大部分）。跑完最好，被砍就走恢复。
+
+另外一个重要点：训练脚本里还有 teacher_best/student_best 的归档。student_best.pt 只要 distill 阶段跑到过（哪怕没跑完所有 epochs），best 模型就在。但 export_student.py 需要 student_best.pt 完整。如果被砍在 distill 中途，student_best.pt 可能已有（best so far）——但如果 train_v2 没跑完，kaggle_gpu_train.py 的后续步骤（export_student → 归档 output）没执行，student_best.pt 只在 ckpt 目录。不过 output 打包整个 working，ckpt 目录会在 output 里。所以恢复后能拿到。
+
+写超时恢复脚本 `resume_kernel.sh`（或 python）：
+1. 下载 output 到 reports/kerr_resume（只下 ckpt 相关文件，避免大文件）
+2. 确认 ckpt_v2_last.pt / teacher_best.pt / student_best.pt 存在
+3. 上传 ckpt 为 dataset：用 kaggle datasets 上传（kagglehub？或 kaggle CLI datasets create）
+4. 修改 kernel-metadata.json 加 dataset_sources
+5. push（resume 模式：如果脚本检测到 input ckpt 就自动续）
+
+上传 dataset 需要 kaggle.json API 凭据（datasets API 用 username/api-key，不是 KGAT）。我们有 access_token（KGAT），kagglesdk 的 datasets client 应该也可以用。之前用 kagglesdk 删 kernel 成功，说明 kagglesdk 有完整权限。
+
+不过先别急着全自动上传 dataset——Kaggle dataset 上传可能比较重。另一个更轻的方案：**把 ckpt 文件直接塞进 kernel 的 dataset？** 不行，kernel input 必须是 dataset/competition。
+
+或者最轻方案：**用 kaggle CLI datasets new/upload**？需要 kaggle.json。检查 ~/.kaggle/ 下有什么凭据。
+
+先写恢复文档 + 探明凭据，然后如果超时立即执行。同时继续盯训练（可能马上 complete）。
+
+行动：
+1. 写超时恢复 SOP 到设计文档（含精确命令）
+2. 检查 ~/.kaggle 凭据（datasets 上传用）
+3. 继续盯训练状态
+
+凭据齐全、`find_in_input` 递归可用。写超时恢复脚本（下载 ckpt → 上传 dataset → 重推续训），并固化到项目：
+好，凭据都在（access_token + kaggle_oauth.json + credentials.json）。find_in_input 用 rglob 递归，能找 input 里的 ckpt。
+
+现在写超时恢复 SOP。方案：
+1. **超时被砍 → 下载 output 中的 ckpt**（kernel 结束后 output 完整可下）
+2. **上传 ckpt 为 dataset**（kaggle CLI datasets 或 kagglesdk）
+3. **重推 resume kernel**（metadata 加 dataset_sources: daniel1547/ptcg-ckpt → prepare() 自动恢复 → train_v2 resume auto 续训）
+
+写一个恢复脚本 `resume_from_ckpt.sh` 固化流程。同时考虑一个更稳的兜底：**如果超时时连 output 都下不全**，训练损失的时间段就是白跑——所以预防胜于治疗。
+
+预防方案（对下一轮更关键）：
+- 训练脚本增加「epoch 级 output 同步」：每 epoch 把 ckpt 复制到 /kaggle/working/output/ 目录（output 目录随 session 存活？不——kernel 结束才打包）。不行。
+- 更实际：**把每 epoch 的 ckpt 上传到 Kaggle dataset（增量）**——太重，不现实。
+- 最实际：接受 9h 窗口，训练任务拆成多阶段（BC / AWR / distill 分开跑），每阶段 ~3h 内完成，阶段间用 ckpt 续接。**这才是根治**：把 `--stage all` 拆成 `--stage teacher`（BC+AWR）+ `--stage distill`，两个 kernel 各 ~4.5h，安全过 9h 红线。
+
+当前这轮 9h12m 还在跑——先看它能不能 complete。如果被砍，走恢复；如果 complete，皆大欢喜，然后下一轮拆阶段。
+
+写恢复脚本 + 文档。先写恢复脚本（超时立刻能用），再把它做成 Hermes 自动恢复的一部分（kernel_poll ERROR 分支检测「超时被砍」→ 自动恢复）。
+
+kernel_poll.sh 的 ERROR 分支目前是拉日志 + auto_fix + 通知。可以加：检测日志是否「超时/9h」→ 触发 resume。但 resume 需要上传 dataset + 重推，涉及较多步骤，先做成手动脚本 + 文档，Hermes 通知用户后按需执行（或做成 agent 模式由 Hermes 执行）。当前 agent 模式的 prompt 已经让 Hermes 能修就修——把 resume 脚本路径写进 prompt 或 auto_fix 知识库。
+
+先写 resume 脚本。
+
+恢复脚本就绪。根治方案：把 `--stage all`（21 epochs 超 9h 风险）拆成 teacher/distill 两阶段。给 lab_render 加 stage 注入支持：
+恢复脚本已固化。训练 9h10m 仍 RUNNING。
+
+现在考虑根治方案：拆阶段训练。把 `--stage all` 拆成两个 kernel：
+- Stage teacher（BC+AWR 13 epochs）
+- Stage distill（8 epochs）
+每个 ~4-4.5h，都在 9h 红线内。阶段间 ckpt 续接（teacher 跑完的 ckpt 作为 distill 的 input）。
+
+这个改造对 kaggle_gpu_train.py 影响：TRAIN_ARGS 的 --stage 参数由实验/环境控制。其实 kaggle_gpu_train.py 已经接受 --stage 吗？看 TRAIN_ARGS 硬编码 '--stage', 'all'。改造：支持环境变量 STAGE 覆盖，或让 lab_render 渲染时注入。
+
+更轻的方案：resume_kernel.sh 本身就是恢复机制。当前训练被砍后走恢复即可——**但恢复也要在 9h 窗口内跑完剩余部分**。如果剩余 epoch 多，恢复的 kernel 仍可能再次超时。所以阶段拆分才是根治。
+
+不过当前训练 9h10m 还在跑，可能：
+1. 训练接近完成（21 epochs，9h 平均 ~25min/epoch——T4 x2 上 1.8M 决策每个 epoch 可能要 15-30 分钟，21 epochs = 5-10.5h，9h 时应该接近尾声或刚进 distill）
+2. 卡在某个 phase
+
+先给 TRAIN_ARGS 加阶段拆分支持（低成本高价值），然后写文档 SOP，最后盯训练。
+
+其实我意识到：**Kaggle kernel 超时不一定在整 9h 就砍**。当前 9h10m RUNNING 说明这个 session 可能没被 9h 限制（T4 x2 或 script kernel 可能是 12h）。但为了不赌，两个都准备。
+
+改动 kaggle_gpu_train.py：TRAIN_ARGS 的 --stage 支持环境变量注入。看下当前代码怎么组织的——lab_render 渲染时能注入。改 lab_render 支持 stage 字段即可（experiments.yaml 里 train 加 stage: teacher）。
+
+先做这个小的根治改动。
+
+验证 stage 渲染逻辑并写超时应对 SOP 到设计文档：
+
+预案双轨已全部就位。回答你的问题：
+
+## 超 12 小时限制怎么办？
+
+**先说事实**：Kaggle 免费 GPU 的限制不是 12 小时，是 **9 小时**。当前训练已跑 **9 小时 10 分仍 RUNNING**（T4 x2 可能稍宽裕），但我们不赌，双轨预案已就位。
+
+### 方案 1：恢复机制（若被砍，`scripts/resume_kernel.sh` 一键续训）
+
+断点续训链路是完整的——每 epoch 自动保存 `ckpt_v2_last.pt`（含 stage/phase/epoch/optimizer/AMP/RNG），`train_v2 --resume auto` 无缝续接。被砍后的恢复三步：
+
+```bash
+bash scripts/resume_kernel.sh
+# 1. 从 output 下载 ckpt（+teacher_best/student_best）
+# 2. 上传为 dataset daniel1547/ptcg-ckpt
+# 3. metadata 挂载该 dataset → push_t4.py 重推
+#    kernel 内 prepare() 自动恢复 ckpt → 从断点续训
+```
+
+### 方案 2：根治（阶段拆分，已实现）
+
+`--stage all` 21 epochs 太贪，拆成两个 kernel 各安全落在 9h 内：
+
+| 阶段 | 内容 | 预估 |
+|---|---|---|
+| `stage: teacher` | BC 8 + AWR 5 epochs | ~4-5h |
+| `stage: distill` | distill 8 epochs（挂 teacher ckpt 续接） | ~3-4h |
+
+实现已完成并验证：`kaggle_gpu_train.py` 支持 `KAGGLE_STAGE` 环境变量，`lab_render.py` 支持 yaml 里 `train.stage` 注入（渲染测试通过）。下轮实验默认走拆分。
+
+### 触发逻辑
+
+Hermes 10 分钟轮询检测到 kernel 被砍（ERROR/cancel）→ 判定 output 是否有有效 ckpt → 有则执行恢复脚本续训，无则标记实验 failed 由 L3 重排。
+
+预案已写入设计文档附录 D。当前训练还在 RUNNING——如果它侥幸跑完就皆大欢喜（21 epochs 可能已近尾声），被砍则 `resume_kernel.sh` 立刻接上。

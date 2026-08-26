@@ -1,0 +1,2073 @@
+
+================================================================================
+[CELL 0 | markdown]
+# PTCG AI Battle — Leaderboard Deck Meta by Score Band
+
+
+This notebook provides an aggregate snapshot of deck archetypes on the public
+leaderboard for **The Pokémon Company - PTCG AI Battle Challenge Simulation**.
+It is designed to be refreshed every other day. Using public-safe submission
+and replay data, it identifies at most one deck per leaderboard team and reports
+the ten most common archetypes in each 100-point score band from `500–599`
+through `1100+`, a complete ranking across all included score bands, and a
+cross-band heatmap of the twenty most-used archetypes.
+
+### Collection modes
+
+- **score-band stratified sample** — Recommended for routine analysis. It
+  collects up to the configured number of teams from each score band (100 per
+  band by default), reducing runtime and the likelihood of Kaggle API rate
+  limits while keeping coverage balanced across score bands.
+- **full leaderboard** — Attempts to collect every eligible leaderboard team.
+  It provides the broadest possible coverage, but requires many more API calls,
+  can take several hours, and is more likely to encounter HTTP 429 rate limits.
+
+Both modes visit score bands in round-robin order, so an interrupted run does
+not collect only the highest or lowest score bands first.
+
+### How these results can be used
+
+Because new submissions begin at a score of 600, the `600–699` band provides a
+practical starting point for understanding the initial competitive environment.
+Participants can use these results to build decks and refine AI strategies for
+the archetypes they are most likely to encounter. As their score increases, they
+can review their current and next-higher score bands to prioritize matchups,
+adjust card choices, and improve battle logic.
+
+The results are a metagame snapshot for each score band. They do not directly
+measure deck strength, win rate, or causal performance.
+
+### What is published
+
+Only aggregate tables, charts, coverage statistics, and an aggregate error
+summary are written to `/kaggle/working`. Team names, team IDs, submission IDs,
+episode IDs, raw replay files, full deck lists, and card-ID sequences are not
+displayed or included in the saved outputs.
+
+### Unit of analysis
+
+Each leaderboard team contributes at most one deck. If a team has several
+leaderboard-eligible submissions, the notebook selects the public submission
+whose score is closest to the team's current leaderboard score. A recent
+completed public episode is then used to recover the submitted 60-card deck.
+
+### Collection coverage and denominators
+
+For every score band, the notebook reports the leaderboard team count, decks
+retrieved, decks not retrieved, HTTP 429 skips, and successfully classified
+decks. All Kaggle API requests are spaced at least one second apart. An HTTP 429
+response is not retried; the affected item is counted as not retrieved.
+
+Deck-usage percentages use **successfully classified teams in the score band**
+as their denominator. Retrieval and classification coverage are shown alongside
+the results. Archetype shares are suppressed when fewer than three teams are
+classified in a score band.
+
+### Attribution
+
+The replay acquisition and deck-extraction approach was informed by
+[PTCG Replay Data Miner](https://www.kaggle.com/code/llccqq624/ptcg-replay-data-miner).
+
+================================================================================
+[CELL 1 | markdown]
+## 0. Setup and requirements
+
+Before running:
+
+1. Join the competition and accept its rules.
+2. Add the competition data as a Notebook input so `EN_Card_Data.csv` is available.
+3. Turn **Internet on** in Notebook settings.
+4. Never paste an API token into a public cell. Use Kaggle's authenticated
+   runtime or Kaggle Secrets if credentials are required.
+
+The simulation endpoints used below require a recent Kaggle SDK. On a fresh
+session, run this installation cell before importing `kaggle`.
+
+================================================================================
+[CELL 2 | code]
+# This form remains valid Python in the paired source file and becomes a normal
+# notebook cell after conversion.
+get_ipython().run_line_magic("pip", 'install -q --upgrade "kaggle==2.2.3" "pypdf[image]"')
+--- stdout ---
+[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m111.5/111.5 kB[0m [31m4.0 MB/s[0m eta [36m0:00:00[0m
+[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m262.5/262.5 kB[0m [31m11.0 MB/s[0m eta [36m0:00:00[0m
+[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m378.1/378.1 kB[0m [31m16.8 MB/s[0m eta [36m0:00:00[0m
+[?25hNote: you may need to restart the kernel to use updated packages.
+
+
+================================================================================
+[CELL 3 | code]
+import importlib.metadata
+
+REQUIRED_KAGGLE_VERSION = "2.2.3"
+installed_kaggle_version = importlib.metadata.version("kaggle")
+print(f"Kaggle SDK: {installed_kaggle_version} (required: {REQUIRED_KAGGLE_VERSION})")
+--- stdout ---
+Kaggle SDK: 2.2.3 (required: 2.2.3)
+
+
+================================================================================
+[CELL 4 | code]
+import base64
+import html
+import json
+import math
+import os
+import random
+import re
+import shutil
+import time
+import unicodedata
+from collections import Counter
+from datetime import datetime, timezone
+from email.utils import parsedate_to_datetime
+from pathlib import Path
+from typing import Any
+
+import matplotlib.pyplot as plt
+from matplotlib.offsetbox import AnnotationBbox, OffsetImage
+import numpy as np
+import pandas as pd
+from pypdf import PdfReader
+from IPython.display import HTML, Markdown, display
+
+from kaggle.api.kaggle_api_extended import (
+    ApiGetEpisodeReplayRequest,
+    ApiGetLeaderboardRequest,
+    KaggleApi,
+)
+
+================================================================================
+[CELL 5 | markdown]
+Choose one collection mode below. `score-band stratified sample` limits
+each score band to a configurable number of teams and is the recommended
+default. `full leaderboard` attempts every eligible leaderboard team and can
+take several hours because of API pacing and cooldowns.
+
+================================================================================
+[CELL 6 | code]
+COMPETITION = "pokemon-tcg-ai-battle"
+RUN_MODE = "score-band stratified sample"
+SAMPLE_TEAMS_PER_BAND = 500
+VALID_RUN_MODES = {"score-band stratified sample", "full leaderboard"}
+
+if RUN_MODE not in VALID_RUN_MODES:
+    raise ValueError(f"RUN_MODE must be one of {sorted(VALID_RUN_MODES)}.")
+MAX_TEAMS_PER_BAND: int | None = (
+    SAMPLE_TEAMS_PER_BAND if RUN_MODE == "score-band stratified sample" else None
+)
+
+# Keep published runs quiet while retaining aggregate retry statistics.
+SHOW_PROGRESS = False
+SHOW_RETRY_MESSAGES = False
+
+MIN_SCORE = 500.0
+TOP_N = 10
+LEADERBOARD_PAGE_SIZE = 200
+# Do not publish archetype shares for a band with fewer classified teams than
+# this threshold. This avoids turning a nominally aggregate result into an
+# obvious one-team deck disclosure.
+MIN_CLASSIFIED_TEAMS_TO_PUBLISH = 3
+
+# A single valid replay exposes the submitted 60-card deck. Additional episode
+# candidates are tried only when a replay is unavailable or cannot be parsed.
+EPISODE_CANDIDATES_PER_SUBMISSION = 4
+# Every Kaggle API request shares this pacer. Request start times are at
+# least one second apart, regardless of endpoint.
+API_REQUEST_INTERVAL_SECONDS = 2.00
+API_BATCH_SIZE = 100
+API_BATCH_COOLDOWN_SECONDS = 60.0
+SUBMISSION_TO_EPISODE_COOLDOWN_SECONDS = 60.0
+DOWNLOAD_SLEEP_SECONDS = 0.0
+# HTTP 429 is never retried. This retry budget applies only to temporary
+# network errors and HTTP 408/425/5xx responses.
+MAX_API_RETRIES = 6
+MAX_RETRY_WAIT_SECONDS = 60.0
+
+WORK_DIR = Path("/kaggle/working") if Path("/kaggle/working").exists() else Path("ptcg_meta_work")
+TEMP_DIR = (
+    Path("/kaggle/temp")
+    if Path("/kaggle/temp").exists()
+    else Path("/tmp")
+    if Path("/tmp").exists()
+    else WORK_DIR / ".tmp"
+)
+# Raw replays are deliberately kept outside /kaggle/working so they are not
+# published as Notebook output artifacts.
+REPLAY_DIR = TEMP_DIR / "ptcg_leaderboard_meta_replays"
+OUTPUT_DIR = WORK_DIR / "ptcg_leaderboard_meta"
+REPLAY_DIR.mkdir(parents=True, exist_ok=True)
+shutil.rmtree(OUTPUT_DIR, ignore_errors=True)
+OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+
+# Remove the raw-replay directory used by earlier versions. Recreating the
+# dedicated aggregate output directory above also prevents stale team-level
+# artifacts from being published after a rerun in the same session.
+shutil.rmtree(WORK_DIR / "replays", ignore_errors=True)
+
+RUN_AT_UTC = datetime.now(timezone.utc)
+SNAPSHOT_DATE_UTC = RUN_AT_UTC.date().isoformat()
+SUBMISSION_CACHE_PATH = TEMP_DIR / f"ptcg-team-submissions-{SNAPSHOT_DATE_UTC}.json"
+
+SCORE_BANDS = [
+    "1100+",
+    "1000-1099",
+    "900-999",
+    "800-899",
+    "700-799",
+    "600-699",
+    "500-599",
+]
+
+print("Run mode:", RUN_MODE)
+print("Snapshot (UTC):", RUN_AT_UTC.isoformat())
+if RUN_MODE == "score-band stratified sample":
+    display(Markdown(f"ℹ️ **Score-band stratified sample:** at most {SAMPLE_TEAMS_PER_BAND} teams per score band."))
+--- stdout ---
+Run mode: score-band stratified sample
+Snapshot (UTC): 2026-08-09T00:12:51.432097+00:00
+
+--- text/plain ---
+<IPython.core.display.Markdown object>
+
+================================================================================
+[CELL 7 | markdown]
+## 2. Archetype rules
+
+Rules are evaluated from top to bottom. Put specific hybrid archetypes before
+broader single-card rules. Add new marker cards here as the field changes.
+
+`FALLBACK_ARCHETYPE_NAMES` is applied only after no explicit rule matches and
+the fallback logic has selected the deck's main Pokémon. This gives observed
+rogue decks a clean name without turning generic support Pokémon into broad
+single-card rules.
+
+================================================================================
+[CELL 8 | code]
+# `all`: every marker must be present. `any`: at least one marker must be present.
+# If both keys are provided, both conditions must pass.
+ARCHETYPE_RULES: list[dict[str, Any]] = [
+    {"name": "Great Tusk / Crustle", "all": ["Great Tusk", "Crustle"]},
+    {"name": "Marnie Grimmsnarl", "any": ["Marnie's Grimmsnarl ex", "Marnie’s Grimmsnarl ex"]},
+    {"name": "Cynthia Garchomp", "any": ["Cynthia's Garchomp ex", "Cynthia’s Garchomp ex"]},
+    {"name": "N's Zoroark", "any": ["N's Zoroark ex", "N’s Zoroark ex"]},
+    {"name": "Mega Abomasnow", "any": ["Mega Abomasnow ex"]},
+    {"name": "Mega Froslass", "any": ["Mega Froslass ex"]},
+    {"name": "Mega Lucario", "any": ["Mega Lucario ex"]},
+    {"name": "Archaludon", "any": ["Archaludon ex"]},
+    {"name": "Crustle Wall", "any": ["Crustle"]},
+    {"name": "Dragapult", "any": ["Dragapult ex"]},
+    {"name": "Mega Starmie", "any": ["Mega Starmie ex"]},
+    {"name": "Starmie", "any": ["Starmie ex", "Starmie"]},
+    {"name": "Mega Gardevoir", "any": ["Mega Gardevoir ex"]},
+    {"name": "Alakazam", "any": ["Alakazam ex", "Alakazam"]},
+    {"name": "Iono Bellibolt", "any": ["Iono's Bellibolt ex", "Iono’s Bellibolt ex"]},
+    {"name": "Festival Lead", "any": ["Dipplin"]},
+    {"name": "Hop Trevenant", "any": ["Hop's Trevenant", "Hop’s Trevenant"]},
+    {"name": "Hop Snorlax", "any": ["Hop's Snorlax", "Hop’s Snorlax"]},
+    {"name": "Mega Kangaskhan", "any": ["Mega Kangaskhan ex"]},
+    {"name": "Chandelure", "any": ["Chandelure ex", "Chandelure"]},
+    {"name": "Mega Greninja", "any": ["Mega Greninja ex"]},
+    {"name": "Mega Clefable", "any": ["Mega Clefable ex"]},
+    {"name": "Team Rocket Mewtwo", "any": ["Team Rocket's Mewtwo ex", "Team Rocket’s Mewtwo ex"]},
+    {"name": "Comfey", "any": ["Comfey"]},
+]
+
+# These aliases cover every `Other / ...` deck type observed in the latest
+# completed run. They are deliberately not broad marker rules: an alias is
+# used only when this card was already selected as the fallback main Pokémon.
+FALLBACK_ARCHETYPE_NAMES: dict[str, str] = {
+    "Budew": "Budew",
+    "Ceruledge ex": "Ceruledge",
+    "Cornerstone Mask Ogerpon ex": "Cornerstone Mask Ogerpon",
+    "Cubchoo": "Cubchoo",
+    "Decidueye ex": "Decidueye",
+    "Eevee": "Eevee",
+    "Empoleon ex": "Empoleon",
+    "Ethan's Cyndaquil": "Ethan's Cyndaquil",
+    "Fezandipiti ex": "Fezandipiti",
+    "Flareon ex": "Flareon",
+    "Flygon ex": "Flygon",
+    "Hydreigon ex": "Hydreigon",
+    "Latias ex": "Latias",
+    "Lillie’s Clefairy ex": "Lillie’s Clefairy",
+    "Mega Lopunny ex": "Mega Lopunny",
+    "Mega Sharpedo ex": "Mega Sharpedo",
+    "Mega Zygarde ex": "Mega Zygarde",
+    "Milotic ex": "Milotic",
+    "Okidogi": "Okidogi",
+    "Paldean Tauros": "Paldean Tauros",
+    "Pikachu ex": "Pikachu",
+    "Raging Bolt ex": "Raging Bolt",
+    "Solrock": "Solrock",
+    "Spheal": "Spheal",
+    "Teal Mask Ogerpon ex": "Teal Mask Ogerpon",
+    "Team Rocket's Arbok": "Team Rocket's Arbok",
+    "Team Rocket's Chingling": "Team Rocket's Chingling",
+    "Team Rocket's Honchkrow": "Team Rocket's Honchkrow",
+    "Team Rocket's Murkrow": "Team Rocket's Murkrow",
+}
+
+================================================================================
+[CELL 9 | markdown]
+## 3. Shared helpers
+
+================================================================================
+[CELL 10 | code]
+def normalize_value(value: Any) -> Any:
+    if value is None or isinstance(value, (str, int, float, bool)):
+        return value
+    if isinstance(value, datetime):
+        return value.isoformat()
+    if isinstance(value, (list, tuple)):
+        return [normalize_value(v) for v in value]
+    if isinstance(value, dict):
+        return {str(k): normalize_value(v) for k, v in value.items()}
+    if hasattr(value, "to_dict"):
+        return normalize_value(value.to_dict())
+    if hasattr(value, "name") and hasattr(value, "value"):
+        return value.name
+    raw = getattr(value, "__dict__", {})
+    return {
+        str(k).lstrip("_"): normalize_value(v)
+        for k, v in raw.items()
+        if not str(k).startswith("__")
+    }
+
+
+def as_plain_dict(obj: Any) -> dict[str, Any]:
+    value = normalize_value(obj)
+    return value if isinstance(value, dict) else {}
+
+
+def get_any(mapping: dict[str, Any], *keys: str, default: Any = None) -> Any:
+    for key in keys:
+        if key in mapping and mapping[key] is not None:
+            return mapping[key]
+    return default
+
+
+def safe_float(value: Any) -> float:
+    if value is None:
+        return math.nan
+    text = str(value).replace(",", "").strip()
+    match = re.search(r"[-+]?\d+(?:\.\d+)?", text)
+    return float(match.group(0)) if match else math.nan
+
+
+RETRYABLE_HTTP_STATUS_CODES = {408, 425, 500, 502, 503, 504}
+API_ERROR_COUNTS: Counter[str] = Counter()
+
+
+class ApiRequestFailure(RuntimeError):
+    """An API request that failed under the configured request policy."""
+
+    def __init__(self, label: str, status: int | None, attempts: int):
+        self.status = status
+        self.attempts = attempts
+        status_text = f"HTTP {status}" if status is not None else "network error"
+        super().__init__(f"{label} failed after {attempts} attempt(s) ({status_text}).")
+
+
+class RequestPacer:
+    """Pace every API endpoint and pause after each global request batch."""
+
+    def __init__(self, interval: float, batch_size: int, batch_cooldown: float):
+        self.interval = float(interval)
+        self.batch_size = int(batch_size)
+        self.batch_cooldown = float(batch_cooldown)
+        self.last_request_started = 0.0
+        self.request_count = 0
+        self.batch_cooldown_count = 0
+
+    def cooldown(self, seconds: float, label: str) -> None:
+        if SHOW_PROGRESS:
+            print(f"{label}: waiting {seconds:.0f} seconds")
+        time.sleep(float(seconds))
+        self.last_request_started = time.monotonic()
+
+    def wait(self) -> None:
+        if self.request_count and self.request_count % self.batch_size == 0:
+            self.cooldown(self.batch_cooldown, f"API batch {self.request_count // self.batch_size} complete")
+            self.batch_cooldown_count += 1
+        remaining = self.interval - (time.monotonic() - self.last_request_started)
+        if remaining > 0:
+            time.sleep(remaining)
+        self.last_request_started = time.monotonic()
+        self.request_count += 1
+
+
+API_PACER = RequestPacer(API_REQUEST_INTERVAL_SECONDS, API_BATCH_SIZE, API_BATCH_COOLDOWN_SECONDS)
+
+def exception_http_status(exc: Exception) -> int | None:
+    response = getattr(exc, "response", None)
+    raw_status = getattr(response, "status_code", None)
+    if raw_status is None:
+        raw_status = getattr(exc, "status", None)
+    try:
+        return int(raw_status) if raw_status is not None else None
+    except (TypeError, ValueError):
+        return None
+
+
+def exception_retry_after(exc: Exception) -> float | None:
+    response = getattr(exc, "response", None)
+    headers = getattr(response, "headers", None) or getattr(exc, "headers", None) or {}
+    retry_after = headers.get("Retry-After") or headers.get("retry-after")
+    if retry_after is None:
+        return None
+    try:
+        return max(0.0, float(retry_after))
+    except (TypeError, ValueError):
+        try:
+            retry_at = parsedate_to_datetime(str(retry_after))
+            if retry_at.tzinfo is None:
+                retry_at = retry_at.replace(tzinfo=timezone.utc)
+            return max(0.0, (retry_at - datetime.now(timezone.utc)).total_seconds())
+        except (TypeError, ValueError, OverflowError):
+            return None
+
+
+def retry_call(label: str, func, *args, pacer: RequestPacer | None = None, **kwargs):
+    pacer = pacer or API_PACER
+    last_error: Exception | None = None
+    attempts_used = 0
+    for attempt in range(MAX_API_RETRIES):
+        attempts_used = attempt + 1
+        pacer.wait()
+        try:
+            return func(*args, **kwargs)
+        except Exception as exc:
+            last_error = exc
+            status = exception_http_status(exc)
+            API_ERROR_COUNTS[
+                f"http_{status}" if status is not None else type(exc).__name__
+            ] += 1
+
+            # A rate-limited item is skipped immediately. Do not wait and do
+            # not issue another request for the same item.
+            if status == 429:
+                break
+
+            retryable = status is None or status in RETRYABLE_HTTP_STATUS_CODES
+            if not retryable or attempt == MAX_API_RETRIES - 1:
+                break
+
+            retry_after = exception_retry_after(exc) or 0.0
+            wait_seconds = min(
+                MAX_RETRY_WAIT_SECONDS,
+                max(retry_after, 2.0 * (2**attempt))
+                + random.uniform(0.25, 1.25),
+            )
+            status_text = f"HTTP {status}" if status is not None else type(exc).__name__
+            if SHOW_RETRY_MESSAGES:
+                print(
+                    f"{label}: temporary {status_text}; "
+                    f"retry {attempt + 2}/{MAX_API_RETRIES} in {wait_seconds:.1f}s"
+                )
+            time.sleep(wait_seconds)
+
+    status = exception_http_status(last_error) if last_error is not None else None
+    raise ApiRequestFailure(label, status, attempts_used) from last_error
+
+
+def aggregate_error_type(exc: Exception) -> str:
+    """Return a public-safe error category without identifiers or response text."""
+
+    if isinstance(exc, ApiRequestFailure) and exc.status == 429:
+        return "HTTP429Skipped"
+    if isinstance(exc, ApiRequestFailure) and exc.status is not None:
+        return f"HTTP{exc.status}AfterRetries"
+    return type(exc).__name__
+
+def score_band(score: float) -> str | None:
+    if pd.isna(score) or score < MIN_SCORE:
+        return None
+    if score >= 1100:
+        return "1100+"
+    lower = int(score // 100) * 100
+    return f"{lower}-{lower + 99}"
+
+
+def normalized_team_name(name: Any) -> str:
+    return re.sub(r"\s+", " ", str(name or "").strip()).casefold()
+
+
+def normalize_card_name(name: Any) -> str:
+    text = unicodedata.normalize("NFKC", str(name or ""))
+    text = text.replace("’", "'").replace("‘", "'")
+    return re.sub(r"\s+", " ", text.strip()).casefold()
+
+================================================================================
+[CELL 11 | markdown]
+## 4. Card reference data
+
+================================================================================
+[CELL 12 | code]
+def find_card_table() -> Path:
+    candidates = [
+        Path("/kaggle/input/pokemon-tcg-ai-battle/EN Card Data.csv"),
+        Path("/kaggle/input/competitions/pokemon-tcg-ai-battle/EN Card Data.csv"),
+        Path("/kaggle/input/datasets/competitions/pokemon-tcg-ai-battle/EN Card Data.csv"),
+    ]
+    for path in candidates:
+        if path.exists():
+            return path
+    if Path("/kaggle/input").exists():
+        matches = sorted(Path("/kaggle/input").rglob("EN Card Data.csv"))
+        if matches:
+            return matches[0]
+    raise FileNotFoundError(
+        "EN_Card_Data.csv was not found. Add the competition data to this Notebook."
+    )
+
+
+CARD_TABLE_PATH = find_card_table()
+raw_cards = pd.read_csv(CARD_TABLE_PATH, encoding="utf-8-sig")
+
+# In the competition CSV, the first column is the card ID, the second is the
+# English card name, and the fifth is the card category.
+cards_df = pd.DataFrame(
+    {
+        "card_id": pd.to_numeric(raw_cards.iloc[:, 0], errors="coerce"),
+        "card_name": raw_cards.iloc[:, 1].astype(str),
+        "card_kind": raw_cards.iloc[:, 4].astype(str),
+    }
+).dropna(subset=["card_id"])
+cards_df["card_id"] = cards_df["card_id"].astype(int)
+
+CARD_NAME = dict(zip(cards_df["card_id"], cards_df["card_name"]))
+CARD_KIND = dict(zip(cards_df["card_id"], cards_df["card_kind"]))
+
+
+def card_name(card_id: int) -> str:
+    return CARD_NAME.get(int(card_id), f"Card {card_id}")
+
+
+def is_pokemon_card(card_id: int) -> bool:
+    kind = normalize_card_name(CARD_KIND.get(int(card_id), ""))
+    return "pok" in kind
+
+
+print("card table:", CARD_TABLE_PATH, "rows:", len(cards_df))
+--- stdout ---
+card table: /kaggle/input/competitions/pokemon-tcg-ai-battle/EN Card Data.csv rows: 2022
+
+
+================================================================================
+[CELL 13 | markdown]
+## 5. Fetch the public leaderboard
+
+================================================================================
+[CELL 14 | code]
+import kaggle
+
+api = kaggle.api
+if not hasattr(api, "competition_team_submissions"):
+    raise RuntimeError(
+        "The active Kaggle SDK does not expose simulation team submissions. "
+        "Restart the session after the SDK installation cell, then run all cells again."
+    )
+
+
+def fetch_full_leaderboard(api: KaggleApi) -> pd.DataFrame:
+    rows: list[dict[str, Any]] = []
+    page_token: str | None = None
+    seen_tokens: set[str] = set()
+
+    with api.build_kaggle_client() as kaggle_client:
+        while True:
+            request = ApiGetLeaderboardRequest()
+            request.competition_name = COMPETITION
+            request.page_size = LEADERBOARD_PAGE_SIZE
+            if page_token:
+                request.page_token = page_token
+
+            response = retry_call(
+                "leaderboard page",
+                kaggle_client.competitions.competition_api_client.get_leaderboard,
+                request,
+            )
+            rows.extend(as_plain_dict(item) for item in (response.submissions or []))
+            next_token = str(response.next_page_token or "")
+            if not next_token or next_token in seen_tokens:
+                break
+            seen_tokens.add(next_token)
+            page_token = next_token
+
+    normalized_rows = []
+    for row in rows:
+        normalized_rows.append(
+            {
+                "team_id": get_any(row, "teamId", "team_id"),
+                "team_name": get_any(row, "teamName", "team_name", default=""),
+                "submission_date": get_any(row, "submissionDate", "submission_date"),
+                "score": safe_float(get_any(row, "score", "publicScore", "public_score")),
+            }
+        )
+
+    df = pd.DataFrame(normalized_rows)
+    if df.empty:
+        raise RuntimeError("Leaderboard returned no rows.")
+    df = df.dropna(subset=["team_id", "score"]).copy()
+    df["team_id"] = df["team_id"].astype(int)
+    df = df[df["score"] >= MIN_SCORE]
+    df = df.sort_values(["score", "team_id"], ascending=[False, True]).drop_duplicates("team_id")
+    df["leaderboard_rank"] = np.arange(1, len(df) + 1)
+    df["score_band"] = df["score"].map(score_band)
+    df = df[df["score_band"].isin(SCORE_BANDS)].copy()
+
+    if MAX_TEAMS_PER_BAND is not None:
+        df = df.groupby("score_band", observed=True, sort=False).head(MAX_TEAMS_PER_BAND)
+
+    # Round-robin bands so interrupted runs retain balanced score-band coverage.
+    band_order = {band: index for index, band in enumerate(SCORE_BANDS)}
+    df["_score_band_order"] = df["score_band"].map(band_order)
+    df["_score_band_round"] = df.groupby("score_band", observed=True, sort=False).cumcount()
+    df = df.sort_values(["_score_band_round", "_score_band_order", "leaderboard_rank"]).drop(
+        columns=["_score_band_round", "_score_band_order"]
+    )
+    return df.reset_index(drop=True)
+
+
+leaderboard_df = fetch_full_leaderboard(api)
+leaderboard_band_counts = (
+    leaderboard_df.groupby("score_band", observed=True)
+    .size()
+    .reindex(SCORE_BANDS, fill_value=0)
+    .rename("teams")
+    .reset_index()
+)
+display(Markdown(f"**Teams included before replay classification: {len(leaderboard_df):,}**"))
+display(leaderboard_band_counts.style.hide(axis="index"))
+--- text/plain ---
+<IPython.core.display.Markdown object>
+--- text/plain ---
+<pandas.io.formats.style.Styler at 0x7ddd7c7770e0>
+
+================================================================================
+[CELL 15 | markdown]
+## 6. Select one active submission per team
+
+A simulation team can have multiple leaderboard-eligible submissions. The
+public submission whose score is closest to the team's current leaderboard
+score is used as the best available match.
+
+All API endpoints share a fixed one-second request pacer. An HTTP `429` response
+is not retried: that team is skipped for the affected collection stage and is
+reported as missing in the aggregate coverage table. A temporary daily
+checkpoint lets an interrupted run resume without repeating successful calls.
+The checkpoint stays outside `/kaggle/working` and is deleted after a successful
+run.
+
+
+================================================================================
+[CELL 16 | code]
+def load_submission_cache() -> dict[str, dict[str, Any]]:
+    try:
+        payload = json.loads(SUBMISSION_CACHE_PATH.read_text(encoding="utf-8"))
+        return payload if isinstance(payload, dict) else {}
+    except (FileNotFoundError, json.JSONDecodeError, OSError):
+        return {}
+
+
+def save_submission_cache(cache: dict[str, dict[str, Any]]) -> None:
+    temporary_path = SUBMISSION_CACHE_PATH.with_suffix(".tmp")
+    temporary_path.write_text(
+        json.dumps(cache, ensure_ascii=False, separators=(",", ":")),
+        encoding="utf-8",
+    )
+    temporary_path.replace(SUBMISSION_CACHE_PATH)
+
+
+def submission_cache_key(team_id: int, leaderboard_score: float) -> str:
+    # The score is part of the key so a changed leaderboard snapshot never
+    # silently reuses a selection made for an older score.
+    return f"{int(team_id)}:{float(leaderboard_score):.8f}"
+
+
+submission_cache = load_submission_cache()
+submission_cache_hits = 0
+team_submission_endpoint_calls = 0
+
+
+def choose_team_submission(api: KaggleApi, team_id: int, leaderboard_score: float) -> dict[str, Any] | None:
+    global submission_cache_hits, team_submission_endpoint_calls
+
+    cache_key = submission_cache_key(team_id, leaderboard_score)
+    cached = submission_cache.get(cache_key)
+    if isinstance(cached, dict):
+        if cached.get("submission_id") is not None:
+            submission_cache_hits += 1
+            return cached
+        if cached.get("no_public_submission") is True:
+            submission_cache_hits += 1
+            return None
+
+    team_submission_endpoint_calls += 1
+    submissions = retry_call(
+        "team-submission request",
+        api.competition_team_submissions,
+        int(team_id),
+    ) or []
+    candidates: list[dict[str, Any]] = []
+    for item in submissions:
+        row = as_plain_dict(item)
+        submission_id = get_any(row, "id", "ref", "submissionId", "submission_id")
+        if submission_id is None:
+            continue
+        public_score = safe_float(get_any(row, "publicScore", "public_score", "score"))
+        candidates.append(
+            {
+                "submission_id": int(submission_id),
+                "submission_public_score": public_score,
+                "submission_date": get_any(row, "dateSubmitted", "date_submitted", "date"),
+            }
+        )
+    if not candidates:
+        submission_cache[cache_key] = {"no_public_submission": True}
+        save_submission_cache(submission_cache)
+        return None
+
+    def key(row: dict[str, Any]):
+        candidate_score = row["submission_public_score"]
+        distance = abs(candidate_score - leaderboard_score) if not pd.isna(candidate_score) else math.inf
+        score_sort = -candidate_score if not pd.isna(candidate_score) else math.inf
+        return (distance, score_sort, -row["submission_id"])
+
+    chosen = min(candidates, key=key)
+    submission_cache[cache_key] = chosen
+    save_submission_cache(submission_cache)
+    return chosen
+
+
+selection_rows: list[dict[str, Any]] = []
+selection_errors: list[dict[str, Any]] = []
+# IDs are retained only in memory so failures can be counted by score band.
+# They are never displayed or written to a published artifact.
+http_429_team_ids: set[int] = set()
+
+for index, lb_row in leaderboard_df.iterrows():
+    team_id = int(lb_row["team_id"])
+    try:
+        chosen = choose_team_submission(api, team_id, float(lb_row["score"]))
+        if chosen is None:
+            selection_errors.append(
+                {"stage": "submission", "error_type": "NoPublicSubmission"}
+            )
+            continue
+        selection_rows.append({**lb_row.to_dict(), **chosen})
+    except Exception as exc:
+        if isinstance(exc, ApiRequestFailure) and exc.status == 429:
+            http_429_team_ids.add(team_id)
+        selection_errors.append(
+            {"stage": "submission", "error_type": aggregate_error_type(exc)}
+        )
+    if SHOW_PROGRESS and (index + 1) % 25 == 0:
+        print(f"submission selection: {index + 1}/{len(leaderboard_df)}")
+
+selected_df = pd.DataFrame(selection_rows)
+if selected_df.empty:
+    if not http_429_team_ids:
+        error_summary = pd.DataFrame(selection_errors).value_counts().rename("count").reset_index()
+        display(error_summary.style.hide(axis="index"))
+        raise RuntimeError(
+            "No public submissions could be selected. Check competition access, "
+            "authentication, and the Kaggle SDK version."
+        )
+    # Continue so the aggregate report can explicitly show that these teams
+    # were skipped immediately after HTTP 429.
+    selected_df = pd.DataFrame(
+        columns=[*leaderboard_df.columns, "submission_id", "submission_public_score", "submission_date"]
+    )
+
+selected_df["submission_id"] = selected_df["submission_id"].astype(int)
+selected_submission_ids = set(selected_df["submission_id"].tolist())
+selected_by_submission = selected_df.set_index("submission_id").to_dict("index")
+selected_by_team_id = selected_df.set_index("team_id").to_dict("index")
+selected_by_team_name = {
+    normalized_team_name(row["team_name"]): int(row["submission_id"])
+    for row in selected_df.to_dict("records")
+}
+
+display(Markdown(f"**Leaderboard teams matched to a public submission: {len(selected_df):,}**"))
+display(
+    Markdown(
+        f"Team-submission endpoint calls: **{team_submission_endpoint_calls:,}** · "
+        f"temporary cache hits: **{submission_cache_hits:,}** · "
+        f"API error events: **{sum(API_ERROR_COUNTS.values()):,}**"
+    )
+)
+if http_429_team_ids:
+    display(
+        Markdown(
+            f"⚠️ **Skipped after HTTP 429 at the submission stage: "
+            f"{len(http_429_team_ids):,} teams.** No 429 retry was attempted. "
+            "They remain in the leaderboard denominator and are reported as not retrieved."
+        )
+    )
+
+if len(selected_df):
+    display(Markdown(f"Waiting **{SUBMISSION_TO_EPISODE_COOLDOWN_SECONDS:.0f} seconds** before episode collection."))
+    API_PACER.cooldown(SUBMISSION_TO_EPISODE_COOLDOWN_SECONDS, "submission stage complete")
+
+--- text/plain ---
+<IPython.core.display.Markdown object>
+--- text/plain ---
+<IPython.core.display.Markdown object>
+--- text/plain ---
+<IPython.core.display.Markdown object>
+
+================================================================================
+[CELL 17 | markdown]
+## 7. Recover submitted decks from public episodes
+
+Replay files are processed in a temporary directory and deleted at the end of
+the run. No raw replay is written to the published output directory.
+
+================================================================================
+[CELL 18 | code]
+def list_public_completed_episodes(api: KaggleApi, submission_id: int) -> list[dict[str, Any]]:
+    episodes = retry_call(
+        "submission-episode request",
+        api.competition_list_episodes,
+        int(submission_id),
+    ) or []
+    result: list[dict[str, Any]] = []
+    for item in episodes:
+        row = as_plain_dict(item)
+        episode_id = get_any(row, "id", "episodeId", "episode_id")
+        if episode_id is None:
+            continue
+        episode_type = str(get_any(row, "type", default="PUBLIC"))
+        state = str(get_any(row, "state", default="COMPLETED"))
+        if "PUBLIC" not in episode_type.upper():
+            continue
+        if not re.search(r"COMPLETE", state, flags=re.IGNORECASE):
+            continue
+        row["id"] = int(episode_id)
+        result.append(row)
+    return sorted(result, key=lambda row: int(row["id"]), reverse=True)
+
+
+def replay_path(episode_id: int) -> Path:
+    return REPLAY_DIR / f"episode-{episode_id}-replay.json"
+
+
+def download_replay(api: KaggleApi, episode_id: int) -> Path:
+    destination = replay_path(episode_id)
+    if destination.exists() and destination.stat().st_size > 1000:
+        return destination
+
+    def once() -> bytes:
+        request = ApiGetEpisodeReplayRequest()
+        request.episode_id = int(episode_id)
+        with api.build_kaggle_client() as kaggle_client:
+            response = kaggle_client.competitions.competition_api_client.get_episode_replay(request)
+            response.raise_for_status()
+            return response.content
+
+    content = retry_call("episode-replay request", once)
+    destination.write_bytes(content)
+    if DOWNLOAD_SLEEP_SECONDS:
+        time.sleep(DOWNLOAD_SLEEP_SECONDS)
+    return destination
+
+
+def extract_decks(replay: dict[str, Any]) -> list[list[int]]:
+    steps = replay.get("steps") or []
+
+    # Current PTCG replay schema: steps[1][seat].action is the 60-card deck.
+    if len(steps) > 1 and isinstance(steps[1], list):
+        decks: list[list[int]] = []
+        for seat in range(2):
+            try:
+                action = steps[1][seat].get("action", [])
+            except Exception:
+                action = []
+            if isinstance(action, list) and len(action) == 60 and all(isinstance(x, int) for x in action):
+                decks.append([int(x) for x in action])
+        if len(decks) == 2:
+            return decks
+
+    # Compatibility fallback for replays that expose decks via `visualize`.
+    try:
+        visualize = steps[0][0].get("visualize", [])
+        decks = visualize[0].get("action", []) if visualize else []
+        if (
+            isinstance(decks, list)
+            and len(decks) == 2
+            and all(isinstance(deck, list) and len(deck) == 60 for deck in decks)
+        ):
+            return [[int(x) for x in deck] for deck in decks]
+    except Exception:
+        pass
+    return [[], []]
+
+
+def episode_agents(episode: dict[str, Any]) -> list[dict[str, Any]]:
+    agents = get_any(episode, "agents", default=[]) or []
+    return [as_plain_dict(agent) for agent in agents]
+
+
+def replay_team_names(replay: dict[str, Any]) -> list[str]:
+    info = replay.get("info") or {}
+    names = get_any(info, "TeamNames", "teamNames", "team_names", default=[]) or []
+    return [str(name) for name in names]
+
+
+deck_by_submission: dict[int, dict[str, Any]] = {}
+processed_episode_ids: set[int] = set()
+replay_errors: list[dict[str, Any]] = []
+
+
+def register_replay_decks(episode: dict[str, Any], replay: dict[str, Any], source_submission_id: int) -> None:
+    decks = extract_decks(replay)
+    names = replay_team_names(replay)
+    agents = episode_agents(episode)
+
+    for seat, deck in enumerate(decks):
+        if len(deck) != 60:
+            continue
+        agent = agents[seat] if seat < len(agents) else {}
+        submission_id = get_any(agent, "submissionId", "submission_id")
+        team_id = get_any(agent, "teamId", "team_id")
+        team_name = get_any(agent, "teamName", "team_name")
+        if not team_name and seat < len(names):
+            team_name = names[seat]
+
+        if submission_id is not None:
+            submission_id = int(submission_id)
+        elif team_id is not None and int(team_id) in selected_by_team_id:
+            submission_id = int(selected_by_team_id[int(team_id)]["submission_id"])
+        elif normalized_team_name(team_name) in selected_by_team_name:
+            submission_id = selected_by_team_name[normalized_team_name(team_name)]
+        elif seat < len(decks) and source_submission_id in selected_submission_ids:
+            # Final fallback when agent metadata does not identify the source seat.
+            source_team = selected_by_submission[source_submission_id]
+            if normalized_team_name(team_name) == normalized_team_name(source_team["team_name"]):
+                submission_id = source_submission_id
+
+        if submission_id in selected_submission_ids and submission_id not in deck_by_submission:
+            deck_by_submission[int(submission_id)] = {
+                "deck": deck,
+            }
+
+
+for position, row in enumerate(selected_df.to_dict("records"), start=1):
+    team_id = int(row["team_id"])
+    submission_id = int(row["submission_id"])
+    if submission_id in deck_by_submission:
+        continue
+    try:
+        candidates = list_public_completed_episodes(api, submission_id)
+    except Exception as exc:
+        if isinstance(exc, ApiRequestFailure) and exc.status == 429:
+            http_429_team_ids.add(team_id)
+        replay_errors.append(
+            {"stage": "episodes", "error_type": aggregate_error_type(exc)}
+        )
+        continue
+
+    if not candidates:
+        replay_errors.append(
+            {"stage": "episodes", "error_type": "NoPublicCompletedEpisode"}
+        )
+        continue
+
+    for episode in candidates[:EPISODE_CANDIDATES_PER_SUBMISSION]:
+        episode_id = int(episode["id"])
+        try:
+            path = download_replay(api, episode_id)
+            replay = json.loads(path.read_text(encoding="utf-8"))
+            register_replay_decks(episode, replay, submission_id)
+            processed_episode_ids.add(episode_id)
+            if submission_id in deck_by_submission:
+                http_429_team_ids.discard(team_id)
+                break
+        except Exception as exc:
+            is_http_429 = isinstance(exc, ApiRequestFailure) and exc.status == 429
+            if is_http_429:
+                http_429_team_ids.add(team_id)
+            replay_errors.append(
+                {
+                    "stage": "replay",
+                    "error_type": aggregate_error_type(exc),
+                }
+            )
+            if is_http_429:
+                break
+
+    if SHOW_PROGRESS and position % 20 == 0:
+        print(
+            f"replays: {position}/{len(selected_df)} teams; "
+            f"decks found={len(deck_by_submission)}; unique replay files={len(processed_episode_ids)}"
+        )
+
+print("Decks recovered:", len(deck_by_submission), "/", len(selected_df))
+print("Unique replays processed:", len(processed_episode_ids))
+--- stdout ---
+Decks recovered: 2359 / 2359
+Unique replays processed: 2212
+
+
+================================================================================
+[CELL 19 | markdown]
+## 8. Classify deck archetypes
+
+================================================================================
+[CELL 20 | code]
+def deck_name_counter(deck: list[int]) -> Counter[str]:
+    return Counter(normalize_card_name(card_name(card_id)) for card_id in deck)
+
+
+def display_card_name(normalized_name: str) -> str:
+    for name in CARD_NAME.values():
+        if normalize_card_name(name) == normalized_name:
+            return str(name)
+    return normalized_name
+
+
+def representative_card_id(deck: list[int], normalized_name: str) -> int | None:
+    """Choose the exact printing used most often in this deck."""
+    candidates = Counter(
+        int(card_id) for card_id in deck
+        if normalize_card_name(card_name(card_id)) == normalized_name
+    )
+    if not candidates:
+        return None
+    return sorted(candidates.items(), key=lambda item: (-item[1], item[0]))[0][0]
+
+
+def classify_deck(deck: list[int]) -> tuple[str, str, str, int | None]:
+    if len(deck) != 60:
+        return "Unknown", "missing_replay", "", None
+
+    names = deck_name_counter(deck)
+    present = set(names)
+    for rule in ARCHETYPE_RULES:
+        required_all = {normalize_card_name(name) for name in rule.get("all", [])}
+        required_any = {normalize_card_name(name) for name in rule.get("any", [])}
+        all_ok = not required_all or required_all.issubset(present)
+        any_ok = not required_any or bool(required_any & present)
+        if all_ok and any_ok:
+            # The rule selects the representative role; the recovered deck's
+            # exact card ID selects the displayed printing.
+            ordered_markers = [
+                normalize_card_name(name)
+                for name in rule.get("all", []) + rule.get("any", [])
+            ]
+            matched = list(dict.fromkeys(name for name in ordered_markers if name in present))
+            representative_name = matched[0] if matched else ""
+            return (
+                rule["name"], "rule",
+                ", ".join(display_card_name(name) for name in matched),
+                representative_card_id(deck, representative_name),
+            )
+
+    # For an unregistered archetype, prefer the most frequent Pokémon ex as a
+    # transparent fallback label.
+    pokemon_counts: Counter[str] = Counter()
+    for card_id, count in Counter(deck).items():
+        if is_pokemon_card(card_id):
+            pokemon_counts[normalize_card_name(card_name(card_id))] += count
+    if pokemon_counts:
+        ex_candidates = [(count, name) for name, count in pokemon_counts.items() if name.endswith(" ex")]
+        candidates = ex_candidates or [(count, name) for name, count in pokemon_counts.items()]
+        count, chosen = sorted(candidates, key=lambda item: (-item[0], item[1]))[0]
+        chosen_display = display_card_name(chosen)
+        normalized_fallback_names = {
+            normalize_card_name(marker): archetype
+            for marker, archetype in FALLBACK_ARCHETYPE_NAMES.items()
+        }
+        named_archetype = normalized_fallback_names.get(chosen)
+        if named_archetype is not None:
+            return (
+                named_archetype, "named_fallback_main_pokemon", chosen_display,
+                representative_card_id(deck, chosen),
+            )
+        return (
+            f"Other / {chosen_display}", "fallback_main_pokemon", chosen_display,
+            representative_card_id(deck, chosen),
+        )
+    return "Unknown", "no_pokemon_found", "", None
+
+
+team_deck_rows: list[dict[str, Any]] = []
+for row in leaderboard_df.to_dict("records"):
+    selection = selected_by_team_id.get(int(row["team_id"]), {})
+    submission_id = selection.get("submission_id")
+    replay_data = deck_by_submission.get(int(submission_id), {}) if submission_id is not None else {}
+    deck = replay_data.get("deck", [])
+    archetype, method, evidence, representative_id = classify_deck(deck)
+    team_deck_rows.append(
+        {
+            "score_band": row["score_band"],
+            "deck_retrieved": len(deck) == 60,
+            "archetype": archetype,
+            "classification_method": method,
+            "representative_card_id": representative_id,
+            "http_429_skipped": (
+                int(row["team_id"]) in http_429_team_ids and len(deck) != 60
+            ),
+        }
+    )
+
+team_decks_df = pd.DataFrame(team_deck_rows)
+team_decks_df["score_band"] = pd.Categorical(
+    team_decks_df["score_band"], categories=SCORE_BANDS, ordered=True
+)
+
+leaderboard_team_count = len(team_decks_df)
+retrieved_count = int(team_decks_df["deck_retrieved"].sum())
+not_retrieved_count = leaderboard_team_count - retrieved_count
+classified_count = int((team_decks_df["archetype"] != "Unknown").sum())
+not_aggregated_count = leaderboard_team_count - classified_count
+http_429_skipped_count = int(team_decks_df["http_429_skipped"].sum())
+retrieval_rate = (
+    retrieved_count / leaderboard_team_count if leaderboard_team_count else math.nan
+)
+classification_rate = (
+    classified_count / leaderboard_team_count if leaderboard_team_count else math.nan
+)
+display(
+    Markdown(
+        f"**Leaderboard denominator: {leaderboard_team_count:,} teams · "
+        f"Decks retrieved: {retrieved_count:,} ({retrieval_rate:.1%}) · "
+        f"Not retrieved: {not_retrieved_count:,} · "
+        f"HTTP 429 skipped: {http_429_skipped_count:,} · "
+        f"Classified: {classified_count:,}**"
+    )
+)
+--- text/plain ---
+<IPython.core.display.Markdown object>
+
+================================================================================
+[CELL 21 | markdown]
+## 9. Overall and score-band archetype rankings
+
+================================================================================
+[CELL 22 | code]
+top10_rows: list[dict[str, Any]] = []
+coverage_rows: list[dict[str, Any]] = []
+
+
+def most_common_representative_card_id(rows: pd.DataFrame) -> int | None:
+    """Use one vote per team; resolve equal usage by card ID."""
+    ids = rows["representative_card_id"].dropna().astype(int)
+    if ids.empty:
+        return None
+    counts = Counter(ids)
+    return sorted(counts.items(), key=lambda item: (-item[1], item[0]))[0][0]
+
+
+for band in SCORE_BANDS:
+    band_df = team_decks_df[team_decks_df["score_band"] == band].copy()
+    known_df = band_df[band_df["archetype"] != "Unknown"].copy()
+    total = len(band_df)
+    retrieved = int(band_df["deck_retrieved"].sum())
+    not_retrieved = total - retrieved
+    known = len(known_df)
+    not_aggregated = total - known
+    http_429_skipped = int(band_df["http_429_skipped"].sum())
+    results_published = known >= MIN_CLASSIFIED_TEAMS_TO_PUBLISH
+    coverage_rows.append(
+        {
+            "score_band": band,
+            "leaderboard_teams": total,
+            "decks_retrieved": retrieved,
+            "decks_not_retrieved": not_retrieved,
+            "retrieval_coverage": retrieved / total if total else math.nan,
+            "http_429_skipped_teams": http_429_skipped,
+            "classified_teams": known,
+            "not_aggregated_teams": not_aggregated,
+            "classification_coverage": known / total if total else math.nan,
+            "archetype_results_published": results_published,
+        }
+    )
+    if not results_published:
+        continue
+    counts = known_df["archetype"].value_counts()
+    ranked_counts = sorted(
+        counts.items(), key=lambda item: (-int(item[1]), str(item[0]))
+    )[:TOP_N]
+    for rank, (archetype, count) in enumerate(ranked_counts, start=1):
+        archetype_rows = known_df[known_df["archetype"] == archetype]
+        representative_id = most_common_representative_card_id(archetype_rows)
+        top10_rows.append(
+            {
+                "score_band": band,
+                "rank": rank,
+                "deck_type": archetype,
+                "teams": int(count),
+                "classified_teams_in_band": known,
+                "usage_rate": count / known,
+                "usage_percent": round(100 * count / known, 2),
+                "representative_card_id": representative_id,
+                "representative_card_name": card_name(representative_id) if representative_id is not None else "",
+            }
+        )
+
+top10_df = pd.DataFrame(
+    top10_rows,
+    columns=[
+        "score_band",
+        "rank",
+        "deck_type",
+        "teams",
+        "classified_teams_in_band",
+        "usage_rate",
+        "usage_percent",
+        "representative_card_id",
+        "representative_card_name",
+    ],
+)
+coverage_df = pd.DataFrame(
+    coverage_rows,
+    columns=[
+        "score_band",
+        "leaderboard_teams",
+        "decks_retrieved",
+        "decks_not_retrieved",
+        "retrieval_coverage",
+        "http_429_skipped_teams",
+        "classified_teams",
+        "not_aggregated_teams",
+        "classification_coverage",
+        "archetype_results_published",
+    ],
+)
+coverage_df["score_band"] = pd.Categorical(
+    coverage_df["score_band"], categories=SCORE_BANDS, ordered=True
+)
+
+# Rank every classified deck across all included score bands. This uses the
+# complete team-level aggregate rather than the per-band Top 10 table.
+overall_classified_df = team_decks_df[
+    team_decks_df["archetype"] != "Unknown"
+].copy()
+overall_classified_teams = len(overall_classified_df)
+overall_counts = overall_classified_df["archetype"].value_counts()
+overall_ranked_counts = sorted(
+    overall_counts.items(),
+    key=lambda item: (-int(item[1]), str(item[0])),
+)
+overall_rows: list[dict[str, Any]] = []
+if overall_classified_teams >= MIN_CLASSIFIED_TEAMS_TO_PUBLISH:
+    for rank, (archetype, count) in enumerate(overall_ranked_counts, start=1):
+        archetype_rows = overall_classified_df[
+            overall_classified_df["archetype"] == archetype
+        ]
+        representative_id = most_common_representative_card_id(archetype_rows)
+        overall_rows.append(
+            {
+                "rank": rank,
+                "deck_type": archetype,
+                "teams": int(count),
+                "classified_teams_all_bands": overall_classified_teams,
+                "usage_rate": count / overall_classified_teams,
+                "usage_percent": round(100 * count / overall_classified_teams, 2),
+                "representative_card_id": representative_id,
+                "representative_card_name": card_name(representative_id) if representative_id is not None else "",
+            }
+        )
+
+overall_ranking_df = pd.DataFrame(
+    overall_rows,
+    columns=[
+        "rank",
+        "deck_type",
+        "teams",
+        "classified_teams_all_bands",
+        "usage_rate",
+        "usage_percent",
+        "representative_card_id",
+        "representative_card_name",
+    ],
+)
+
+def find_card_image_pdf() -> Path:
+    candidates = [CARD_TABLE_PATH.with_name("Card_ID List_EN_.pdf")]
+    candidates += sorted(Path("/kaggle/input").rglob("Card_ID List_EN_.pdf"))
+    for path in candidates:
+        if path.exists():
+            return path
+    raise FileNotFoundError("Card_ID List_EN.pdf was not found in the competition data.")
+
+
+CARD_IMAGE_PDF_PATH = find_card_image_pdf()
+CARD_IMAGE_READER = PdfReader(CARD_IMAGE_PDF_PATH)
+FIRST_CARD_IMAGE_PAGE = next(
+    i for i, page in enumerate(CARD_IMAGE_READER.pages)
+    if "[Back to Table]" in (page.extract_text() or "")
+)
+CARD_IMAGE_DIR = OUTPUT_DIR / "representative_card_images"
+CARD_IMAGE_DIR.mkdir(parents=True, exist_ok=True)
+CARD_IMAGE_CACHE: dict[int, dict[str, str]] = {}
+
+
+def extract_card_image(card_id: int) -> dict[str, str]:
+    card_id = int(card_id)
+    if card_id in CARD_IMAGE_CACHE:
+        return CARD_IMAGE_CACHE[card_id]
+    page_index = FIRST_CARD_IMAGE_PAGE + card_id - 1
+    images = list(CARD_IMAGE_READER.pages[page_index].images)
+    if not images:
+        return {"data_uri": "", "file_name": ""}
+    output_path = CARD_IMAGE_DIR / f"card_{card_id}.png"
+    images[0].image.convert("RGB").save(output_path, format="PNG", optimize=True)
+    image_bytes = output_path.read_bytes()
+    result = {
+        "data_uri": "data:image/png;base64," + base64.b64encode(image_bytes).decode("ascii"),
+        "file_name": output_path.name,
+    }
+    CARD_IMAGE_CACHE[card_id] = result
+    return result
+
+
+def representative_card(card_id: int | None) -> dict[str, str]:
+    if card_id is None:
+        return {"name": "", "data_uri": "", "file_name": ""}
+    card_id = int(card_id)
+    return {"name": card_name(card_id), **extract_card_image(card_id)}
+
+
+def build_overall_ranking_table(ranking_df: pd.DataFrame) -> str:
+    rows = []
+    for row in ranking_df.to_dict("records"):
+        rows.append(
+            f"<tr><td>{int(row['rank'])}</td>"
+            f"<td>{html.escape(str(row['deck_type']))}</td>"
+            f"<td>{int(row['teams'])}</td>"
+            f"<td><strong>{row['usage_percent']:.2f}%</strong></td></tr>"
+        )
+    if not rows:
+        rows.append(
+            f"<tr><td colspan='4'>Suppressed: fewer than "
+            f"{MIN_CLASSIFIED_TEAMS_TO_PUBLISH} classified teams</td></tr>"
+        )
+    return (
+        "<div style='overflow-x:auto'><table style='border-collapse:collapse;width:100%'>"
+        "<thead><tr><th>Rank</th><th>Deck archetype</th><th>Teams</th>"
+        f"<th>Share of {overall_classified_teams:,} classified teams</th></tr></thead>"
+        f"<tbody>{''.join(rows)}</tbody></table></div>"
+    )
+
+
+def build_top10_with_card_images(band_top: pd.DataFrame, embed_images: bool = True) -> str:
+    rows, cards = [], []
+    for row in band_top.to_dict("records"):
+        rank = int(row["rank"])
+        deck_type = html.escape(str(row["deck_type"]))
+        rows.append(
+            f"<tr><td>{rank}</td><td>{deck_type}</td><td>{int(row['teams'])}</td>"
+            f"<td><strong>{row['usage_percent']:.1f}%</strong></td></tr>"
+        )
+        if rank > 3:
+            continue
+        raw_representative_id = row.get("representative_card_id")
+        representative_id = int(raw_representative_id) if pd.notna(raw_representative_id) else None
+        card = representative_card(representative_id)
+        card_name_text = html.escape(card["name"])
+        image_src = card["data_uri"] if embed_images else (
+            f"representative_card_images/{card['file_name']}" if card["file_name"] else ""
+        )
+        image_url = html.escape(image_src, quote=True)
+        if image_url:
+            cards.append(
+                "<figure style='margin:0;text-align:center;min-width:0'>"
+                f"<img src='{image_url}' alt='{card_name_text}' loading='lazy' "
+                "style='display:block;width:100%;max-width:130px;height:auto;margin:auto;"
+                "border-radius:7px;box-shadow:0 3px 10px #1018282e'>"
+                f"<figcaption style='margin-top:5px;font-size:11px;line-height:1.25'>"
+                f"<strong>#{rank} {deck_type}</strong><br>{card_name_text}</figcaption></figure>"
+            )
+    return (
+        "<div style='display:flex;gap:22px;align-items:flex-start;flex-wrap:wrap'>"
+        "<div style='flex:1 1 440px;overflow-x:auto'><table style='border-collapse:collapse;width:100%'>"
+        "<thead><tr><th>Rank</th><th>Deck archetype</th><th>Teams</th><th>Usage</th></tr></thead>"
+        f"<tbody>{''.join(rows)}</tbody></table></div>"
+        "<div style='flex:1 1 380px;display:grid;grid-template-columns:"
+        f"repeat(auto-fit,minmax(105px,1fr));gap:12px'>{''.join(cards)}</div></div>"
+    )
+
+
+display(
+    Markdown(
+        "The leaderboard team count is the collection denominator. Deck retrieval "
+        "and HTTP 429 gaps are shown separately. Usage percentages use classified "
+        "teams in each score band as their denominator."
+    )
+)
+
+overall_scope_note = (
+    "Counts combine the collected score-band stratified sample; they do not "
+    "estimate the unsampled leaderboard population."
+    if RUN_MODE == "score-band stratified sample"
+    else "Counts combine all classified teams collected from the full leaderboard."
+)
+display(Markdown("### Overall deck ranking — all included score bands"))
+display(
+    Markdown(
+        f"**{overall_classified_teams:,} classified teams** · {overall_scope_note}"
+    )
+)
+display(HTML(build_overall_ranking_table(overall_ranking_df)))
+
+for band in SCORE_BANDS:
+    band_top = top10_df[top10_df["score_band"] == band].copy()
+    coverage = coverage_df[coverage_df["score_band"] == band].iloc[0]
+    retrieval_rate_value = coverage["retrieval_coverage"]
+    retrieval_text = (
+        "n/a" if pd.isna(retrieval_rate_value) else f"{retrieval_rate_value:.1%}"
+    )
+    classification_rate_value = coverage["classification_coverage"]
+    classification_text = (
+        "n/a"
+        if pd.isna(classification_rate_value)
+        else f"{classification_rate_value:.1%}"
+    )
+    display(
+        Markdown(
+            f"### Score {band}\n\n"
+            f"Leaderboard denominator: **{int(coverage['leaderboard_teams'])}** · "
+            f"Decks retrieved: **{int(coverage['decks_retrieved'])}** "
+            f"({retrieval_text}) · Not retrieved: "
+            f"**{int(coverage['decks_not_retrieved'])}** · HTTP 429 skipped: "
+            f"**{int(coverage['http_429_skipped_teams'])}** · Usage denominator "
+            f"(classified): **{int(coverage['classified_teams'])}** "
+            f"({classification_text})"
+        )
+    )
+    if not bool(coverage["archetype_results_published"]):
+        display(
+            Markdown(
+                f"Archetype shares are suppressed because fewer than "
+                f"{MIN_CLASSIFIED_TEAMS_TO_PUBLISH} teams were classified in this band."
+            )
+        )
+    elif band_top.empty:
+        display(Markdown("No decks were classified from the available public replays."))
+    else:
+        display(HTML(build_top10_with_card_images(band_top)))
+
+--- text/plain ---
+<IPython.core.display.Markdown object>
+--- text/plain ---
+<IPython.core.display.Markdown object>
+--- text/plain ---
+<IPython.core.display.Markdown object>
+--- text/plain ---
+<IPython.core.display.HTML object>
+--- text/plain ---
+<IPython.core.display.Markdown object>
+--- text/plain ---
+<IPython.core.display.HTML object>
+--- text/plain ---
+<IPython.core.display.Markdown object>
+--- text/plain ---
+<IPython.core.display.HTML object>
+--- text/plain ---
+<IPython.core.display.Markdown object>
+--- text/plain ---
+<IPython.core.display.HTML object>
+--- text/plain ---
+<IPython.core.display.Markdown object>
+--- text/plain ---
+<IPython.core.display.HTML object>
+--- text/plain ---
+<IPython.core.display.Markdown object>
+--- text/plain ---
+<IPython.core.display.HTML object>
+--- text/plain ---
+<IPython.core.display.Markdown object>
+--- text/plain ---
+<IPython.core.display.HTML object>
+--- text/plain ---
+<IPython.core.display.Markdown object>
+--- text/plain ---
+<IPython.core.display.HTML object>
+
+================================================================================
+[CELL 23 | markdown]
+## 10. Methodology and limitations
+
+- **Request pacing:** all Kaggle API request start times are spaced at least one
+  second apart through one shared pacer.
+- **HTTP 429 policy:** an HTTP 429 response is not retried. The affected team is
+  skipped for that collection stage and counted in `http_429_skipped_teams`.
+  If the leaderboard request itself returns HTTP 429, the run stops because a
+  trustworthy score-band denominator cannot be calculated.
+- **Score timing:** score bands use the leaderboard snapshot taken when this
+  notebook runs. A replay may have been played before that snapshot.
+- **Submission matching:** when several active submissions exist, the closest
+  public score is used as a practical matching heuristic.
+- **Replay availability:** each team needs at least one accessible completed
+  public episode. Missing or malformed replays reduce retrieval coverage.
+- **Retrieval denominator:** `leaderboard_teams` is the total team count in the
+  score band. `decks_retrieved` and `decks_not_retrieved` show collection
+  completeness, with HTTP 429 skips reported separately.
+- **Rule-based labels:** archetypes are assigned by ordered marker-card rules.
+  New or hybrid lists may fall back to `Other / <main Pokémon>` or be mislabeled.
+- **Usage denominator:** usage is calculated among classified teams, not all
+  leaderboard teams. Retrieval and classification coverage are both reported.
+- **Small groups:** archetype shares are suppressed when fewer than
+  `MIN_CLASSIFIED_TEAMS_TO_PUBLISH` teams are classified in a score band.
+- **Interpretation:** this is a metagame snapshot, not a measurement of deck
+  strength, win rate, causal performance, or the full submitted field.
+- **API stability:** the competition API and replay schema may change while the
+  competition is active.
+
+The notebook accesses only Kaggle's public-safe leaderboard, submission, episode,
+and replay interfaces. It intentionally publishes aggregate results only.
+
+
+================================================================================
+[CELL 24 | markdown]
+## 11. Visualization and aggregate outputs
+
+================================================================================
+[CELL 25 | code]
+CHART_COLUMNS = 2
+CHART_ROWS = math.ceil(len(SCORE_BANDS) / CHART_COLUMNS)
+fig, axes = plt.subplots(
+    CHART_ROWS,
+    CHART_COLUMNS,
+    figsize=(18, 4.8 * CHART_ROWS),
+)
+axes = np.atleast_1d(axes).ravel()
+for ax, band in zip(axes, SCORE_BANDS):
+    plot_df = top10_df[top10_df["score_band"] == band].sort_values("usage_percent")
+    coverage = coverage_df[coverage_df["score_band"] == band].iloc[0]
+    chart_title = (
+        f"Score {band}\nRetrieved {int(coverage['decks_retrieved'])}/"
+        f"{int(coverage['leaderboard_teams'])}"
+    )
+    if plot_df.empty:
+        empty_message = (
+            f"Suppressed: fewer than\n{MIN_CLASSIFIED_TEAMS_TO_PUBLISH} classified teams"
+            if not bool(coverage["archetype_results_published"])
+            else "No classified decks"
+        )
+        ax.text(0.5, 0.5, empty_message, ha="center", va="center")
+        ax.set_axis_off()
+        ax.set_title(chart_title)
+        continue
+    ax.barh(plot_df["deck_type"], plot_df["usage_percent"], color="#4f46e5")
+    ax.set_title(chart_title)
+    ax.set_xlabel("Usage (%)")
+    ax.grid(axis="x", alpha=0.2)
+    for y, value in enumerate(plot_df["usage_percent"]):
+        ax.text(value + 0.4, y, f"{value:.1f}%", va="center", fontsize=8)
+
+for unused_ax in axes[len(SCORE_BANDS):]:
+    unused_ax.set_visible(False)
+
+fig.suptitle(
+    f"PTCG AI Battle — Deck usage by leaderboard score ({SNAPSHOT_DATE_UTC} UTC)",
+    fontsize=18,
+    y=1.01,
+)
+plt.tight_layout()
+chart_path = OUTPUT_DIR / "score_band_deck_top10.png"
+fig.savefig(chart_path, dpi=170, bbox_inches="tight")
+plt.show()
+
+
+# Cross-band heatmap: calculate from every classified deck, not the per-band
+# Top 10 table, so a deck outside a band's Top 10 is not mistaken for 0%.
+HEATMAP_TOP_N = 20
+# PDF-embedded card images have different source resolutions. Normalize by
+# source height so every thumbnail is displayed at the same visual size.
+HEATMAP_CARD_TARGET_HEIGHT_PX = 48.0
+HEATMAP_SCORE_BANDS = list(reversed(SCORE_BANDS))
+classified_heatmap_df = team_decks_df[
+    team_decks_df["archetype"] != "Unknown"
+].copy()
+publishable_heatmap_bands = set(
+    coverage_df.loc[
+        coverage_df["archetype_results_published"], "score_band"
+    ].astype(str)
+)
+heatmap_selection_df = classified_heatmap_df[
+    classified_heatmap_df["score_band"].astype(str).isin(
+        publishable_heatmap_bands
+    )
+]
+global_archetype_counts = heatmap_selection_df["archetype"].value_counts()
+heatmap_archetypes = [
+    archetype
+    for archetype, count in sorted(
+        global_archetype_counts.items(),
+        key=lambda item: (-int(item[1]), str(item[0])),
+    )[:HEATMAP_TOP_N]
+]
+highest_score_band = "1100+"
+highest_band_counts = heatmap_selection_df.loc[
+    heatmap_selection_df["score_band"].astype(str) == highest_score_band,
+    "archetype",
+].value_counts()
+# Keep the global Top N selection, but order its rows by share in 1100+.
+# The denominator is common within that band, so sorting by team count is
+# equivalent to sorting by usage percentage.
+heatmap_archetypes = sorted(
+    heatmap_archetypes,
+    key=lambda archetype: (
+        -int(highest_band_counts.get(archetype, 0)),
+        -int(global_archetype_counts.get(archetype, 0)),
+        str(archetype),
+    ),
+)
+heatmap_representative_card_ids = {
+    archetype: most_common_representative_card_id(
+        heatmap_selection_df[
+            heatmap_selection_df["archetype"] == archetype
+        ]
+    )
+    for archetype in heatmap_archetypes
+}
+
+heatmap_denominators: dict[str, int] = {}
+heatmap_values = pd.DataFrame(
+    0.0,
+    index=heatmap_archetypes,
+    columns=HEATMAP_SCORE_BANDS,
+    dtype=float,
+)
+for band in HEATMAP_SCORE_BANDS:
+    band_rows = classified_heatmap_df[
+        classified_heatmap_df["score_band"].astype(str) == band
+    ]
+    denominator = len(band_rows)
+    heatmap_denominators[band] = denominator
+    if denominator < MIN_CLASSIFIED_TEAMS_TO_PUBLISH:
+        heatmap_values.loc[:, band] = np.nan
+        continue
+    band_counts = band_rows["archetype"].value_counts()
+    for archetype in heatmap_archetypes:
+        heatmap_values.loc[archetype, band] = (
+            100.0 * int(band_counts.get(archetype, 0)) / denominator
+        )
+
+heatmap_height = max(4.5, 0.58 * max(len(heatmap_archetypes), 1) + 2.8)
+heatmap_fig, heatmap_ax = plt.subplots(figsize=(15, heatmap_height))
+if not heatmap_archetypes:
+    heatmap_ax.text(
+        0.5,
+        0.5,
+        "No publishable classified decks",
+        ha="center",
+        va="center",
+        fontsize=14,
+    )
+    heatmap_ax.set_axis_off()
+else:
+    heatmap_array = heatmap_values.to_numpy(dtype=float)
+    finite_values = heatmap_array[np.isfinite(heatmap_array)]
+    heatmap_vmax = (
+        max(1.0, float(finite_values.max()))
+        if finite_values.size
+        else 1.0
+    )
+    heatmap_cmap = plt.get_cmap("YlGnBu").copy()
+    heatmap_cmap.set_bad("#d1d5db")
+    heatmap_image = heatmap_ax.imshow(
+        np.ma.masked_invalid(heatmap_array),
+        aspect="auto",
+        cmap=heatmap_cmap,
+        vmin=0.0,
+        vmax=heatmap_vmax,
+    )
+    heatmap_ax.set_xticks(np.arange(len(HEATMAP_SCORE_BANDS)))
+    heatmap_ax.set_xticklabels(
+        [
+            f"{band}\nn={heatmap_denominators[band]}"
+            for band in HEATMAP_SCORE_BANDS
+        ]
+    )
+    heatmap_ax.set_yticks(np.arange(len(heatmap_archetypes)))
+    heatmap_ax.set_yticklabels(heatmap_archetypes)
+    # Leave a card-width gap between the deck label and the heatmap.
+    heatmap_ax.tick_params(axis="y", pad=54)
+    heatmap_ax.set_xlabel("Leaderboard score band")
+    heatmap_ax.set_ylabel("Deck archetype", labelpad=92)
+
+    for row_index, archetype in enumerate(heatmap_archetypes):
+        representative_id = heatmap_representative_card_ids[archetype]
+        if representative_id is None:
+            continue
+        card_asset = extract_card_image(representative_id)
+        card_file_name = card_asset.get("file_name", "")
+        card_path = CARD_IMAGE_DIR / card_file_name if card_file_name else None
+        if card_path is None or not card_path.exists():
+            continue
+        try:
+            card_pixels = plt.imread(card_path)
+        except (OSError, ValueError):
+            continue
+        if card_pixels.ndim < 2 or card_pixels.shape[0] <= 0:
+            continue
+        card_zoom = HEATMAP_CARD_TARGET_HEIGHT_PX / float(card_pixels.shape[0])
+        card_thumbnail = OffsetImage(
+            card_pixels,
+            zoom=card_zoom,
+            resample=True,
+        )
+        card_annotation = AnnotationBbox(
+            card_thumbnail,
+            (-0.012, row_index),
+            xycoords=("axes fraction", "data"),
+            box_alignment=(1.0, 0.5),
+            frameon=False,
+            pad=0.0,
+            annotation_clip=False,
+        )
+        heatmap_ax.add_artist(card_annotation)
+
+    for row_index in range(len(heatmap_archetypes)):
+        for column_index in range(len(HEATMAP_SCORE_BANDS)):
+            value = heatmap_array[row_index, column_index]
+            if np.isnan(value):
+                label = "n/a"
+                text_color = "#475467"
+            else:
+                label = f"{value:.1f}%"
+                text_color = (
+                    "white"
+                    if value >= 0.55 * heatmap_vmax
+                    else "#172033"
+                )
+            heatmap_ax.text(
+                column_index,
+                row_index,
+                label,
+                ha="center",
+                va="center",
+                color=text_color,
+                fontsize=9,
+                fontweight="bold",
+            )
+
+    heatmap_colorbar = heatmap_fig.colorbar(
+        heatmap_image,
+        ax=heatmap_ax,
+        fraction=0.025,
+        pad=0.025,
+    )
+    heatmap_colorbar.set_label("Usage among classified teams (%)")
+
+heatmap_ax.set_title(
+    "How deck share changes across leaderboard score bands\n"
+    f"Global Top {HEATMAP_TOP_N} archetypes · {SNAPSHOT_DATE_UTC} UTC",
+    fontsize=16,
+    pad=14,
+)
+heatmap_fig.tight_layout()
+heatmap_path = OUTPUT_DIR / "score_band_deck_share_heatmap.png"
+heatmap_fig.savefig(heatmap_path, dpi=170, bbox_inches="tight")
+plt.show()
+--- text/plain ---
+<Figure size 1800x1920 with 8 Axes>
+--- stdout ---
+image and mask size not matching: {'/BitsPerComponent': 8, '/ColorSpace': '/DeviceRGB', '/Filter': '/DCTDecode', '/Height': 630, '/SMask': IndirectObject(6390, 0, 138390225001440), '/Subtype': '/Image', '/Type': '/XObject', '/Width': 451}
+
+--- text/plain ---
+<Figure size 1500x1440 with 2 Axes>
+
+================================================================================
+[CELL 26 | code]
+top10_path = OUTPUT_DIR / "score_band_top10.csv"
+overall_ranking_path = OUTPUT_DIR / "overall_deck_ranking.csv"
+coverage_path = OUTPUT_DIR / "classification_coverage.csv"
+error_summary_path = OUTPUT_DIR / "aggregate_error_summary.csv"
+rules_path = OUTPUT_DIR / "archetype_rules.csv"
+
+top10_df.to_csv(top10_path, index=False, encoding="utf-8-sig")
+overall_ranking_df.to_csv(overall_ranking_path, index=False, encoding="utf-8-sig")
+coverage_df.to_csv(coverage_path, index=False, encoding="utf-8-sig")
+
+# Save only aggregate error counts. No team, submission, or episode identifier is retained.
+all_errors = pd.DataFrame(
+    selection_errors + replay_errors,
+    columns=["stage", "error_type"],
+)
+if all_errors.empty:
+    error_summary_df = pd.DataFrame(columns=["stage", "error_type", "count"])
+else:
+    error_summary_df = (
+        all_errors.groupby(["stage", "error_type"], dropna=False)
+        .size()
+        .rename("count")
+        .reset_index()
+        .sort_values(["count", "stage", "error_type"], ascending=[False, True, True])
+    )
+error_summary_df.to_csv(error_summary_path, index=False, encoding="utf-8-sig")
+
+rules_df = pd.DataFrame(
+    [
+        {
+            "match_stage": "explicit_rule",
+            "priority": priority,
+            "archetype": rule["name"],
+            "all_markers": " | ".join(rule.get("all", [])),
+            "any_markers": " | ".join(rule.get("any", [])),
+        }
+        for priority, rule in enumerate(ARCHETYPE_RULES, start=1)
+    ]
+    + [
+        {
+            "match_stage": "named_main_pokemon_fallback",
+            "priority": "",
+            "archetype": archetype,
+            "all_markers": "",
+            "any_markers": marker,
+        }
+        for marker, archetype in FALLBACK_ARCHETYPE_NAMES.items()
+    ]
+)
+rules_df.to_csv(rules_path, index=False, encoding="utf-8-sig")
+
+
+def format_coverage(value: float) -> str:
+    return "n/a" if pd.isna(value) else f"{value:.1%}"
+
+
+def build_html_report(
+    top10: pd.DataFrame,
+    coverage: pd.DataFrame,
+    overall_ranking: pd.DataFrame,
+) -> str:
+    sections = []
+    retrieved_total = int(coverage["decks_retrieved"].sum())
+    not_retrieved_total = int(coverage["decks_not_retrieved"].sum())
+    not_aggregated_total = int(coverage["not_aggregated_teams"].sum())
+    http_429_skipped_total = int(coverage["http_429_skipped_teams"].sum())
+    for band in SCORE_BANDS:
+        band_top = top10[top10["score_band"] == band]
+        cov = coverage[coverage["score_band"] == band].iloc[0]
+        rows = []
+        for row in band_top.to_dict("records"):
+            rows.append(
+                "<tr>"
+                f"<td>{int(row['rank'])}</td>"
+                f"<td>{html.escape(str(row['deck_type']))}</td>"
+                f"<td>{int(row['teams'])}</td>"
+                f"<td><strong>{row['usage_percent']:.1f}%</strong></td>"
+                "</tr>"
+            )
+        if not rows:
+            empty_message = (
+                f"Suppressed: fewer than {MIN_CLASSIFIED_TEAMS_TO_PUBLISH} classified teams"
+                if not bool(cov["archetype_results_published"])
+                else "No classified decks"
+            )
+            rows.append(
+                f"<tr><td colspan='4'>{html.escape(empty_message)}</td></tr>"
+            )
+        sections.append(
+            f"<section><h2>Score {html.escape(band)}</h2>"
+            f"<p>Leaderboard denominator: {int(cov['leaderboard_teams'])} · "
+            f"Decks retrieved: {int(cov['decks_retrieved'])} "
+            f"({format_coverage(cov['retrieval_coverage'])}) · "
+            f"Not retrieved: {int(cov['decks_not_retrieved'])} · "
+            f"HTTP 429 skipped: {int(cov['http_429_skipped_teams'])} · "
+            f"Usage denominator (classified): {int(cov['classified_teams'])} "
+            f"({format_coverage(cov['classification_coverage'])})</p>"
+            f"{build_top10_with_card_images(band_top, embed_images=False) if len(band_top) else ''}</section>"
+        )
+    sample_notice = (
+        f"<div class='warning'>Score-band stratified sample — at most {SAMPLE_TEAMS_PER_BAND} teams per band.</div>"
+        if RUN_MODE == "score-band stratified sample" else ""
+    )
+    gap_class = "warning" if not_retrieved_total else "note"
+    return f"""<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PTCG AI Battle Leaderboard Deck Meta</title>
+<style>
+body{{font-family:system-ui,-apple-system,sans-serif;background:#f5f7fb;color:#172033;margin:0}}
+main{{max-width:1400px;margin:auto;padding:40px 22px}}h1{{margin-bottom:6px}}.sub{{color:#667085}}
+.note,.warning{{margin-top:18px;padding:14px 16px;border-radius:10px}}.note{{background:#eef4ff}}.warning{{background:#fff4e5;color:#8a4b08}}
+.grid{{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px;margin-top:28px}}
+section{{background:white;border:1px solid #e5e7eb;border-radius:14px;padding:18px;box-shadow:0 4px 18px #1018280c}}
+.overall,.trend{{margin-top:28px;background:white;border:1px solid #e5e7eb;border-radius:14px;padding:18px;box-shadow:0 4px 18px #1018280c}}
+.trend img{{display:block;width:100%;height:auto;margin-top:12px;border-radius:8px}}
+h2{{margin:0 0 4px}}p{{color:#667085}}table{{border-collapse:collapse;width:100%}}
+th,td{{padding:9px 7px;border-bottom:1px solid #eef0f3;text-align:left}}th{{font-size:12px;color:#667085}}
+</style></head><body><main><h1>PTCG AI Battle — Leaderboard Deck Meta</h1>
+<div class="sub">Snapshot: {RUN_AT_UTC.isoformat()} · Run mode: {RUN_MODE}</div>
+{sample_notice}
+<div class="note"><strong>How to read this:</strong> The leaderboard team count is the collection denominator. “Decks retrieved” shows successful replay/deck collection, while “HTTP 429 skipped” shows teams skipped immediately without retry after a rate-limit response. Usage percentages use classified teams as their denominator. Archetype shares are suppressed when fewer than {MIN_CLASSIFIED_TEAMS_TO_PUBLISH} teams are classified in a band. This is an unofficial metagame snapshot, not a deck-strength ranking.</div>
+<div class="{gap_class}"><strong>Collection coverage:</strong> Retrieved: {retrieved_total}/{int(coverage['leaderboard_teams'].sum())} teams · Not retrieved: {not_retrieved_total} · HTTP 429 skipped: {http_429_skipped_total} · Not classified: {not_aggregated_total}.</div>
+<div class="overall"><h2>Overall deck ranking — all included score bands</h2>
+<p>{html.escape(overall_scope_note)} The denominator is {overall_classified_teams:,} classified teams.</p>
+{build_overall_ranking_table(overall_ranking)}</div>
+<div class="trend"><h2>Deck share across score bands</h2>
+<p>Global Top {HEATMAP_TOP_N} deck archetypes. Percentages use classified teams in each score band as their denominator; gray n/a cells are suppressed for small groups.</p>
+<img src="{html.escape(heatmap_path.name, quote=True)}" alt="Heatmap of deck share across leaderboard score bands"></div>
+<div class="grid">{''.join(sections)}</div>
+<div class="note">Only aggregate results are published. No team-level mapping, submission ID, episode ID, raw replay, or full deck list is included.</div>
+</main></body></html>"""
+
+
+report_path = OUTPUT_DIR / "leaderboard_deck_meta_report.html"
+report_path.write_text(
+    build_html_report(top10_df, coverage_df, overall_ranking_df),
+    encoding="utf-8",
+)
+
+run_summary = {
+    "competition": COMPETITION,
+    "snapshot_at_utc": RUN_AT_UTC.isoformat(),
+    "run_mode": RUN_MODE,
+    "aggregate_only": True,
+    "minimum_classified_teams_to_publish": MIN_CLASSIFIED_TEAMS_TO_PUBLISH,
+    "score_bands": SCORE_BANDS,
+    "leaderboard_teams": int(len(leaderboard_df)),
+    "matched_submissions": int(len(selected_df)),
+    "decks_retrieved": retrieved_count,
+    "decks_not_retrieved": not_retrieved_count,
+    "retrieval_coverage": retrieval_rate,
+    "http_429_skipped_teams": http_429_skipped_count,
+    "classified_teams": classified_count,
+    "overall_ranking_rows": int(len(overall_ranking_df)),
+    "not_aggregated_teams": not_aggregated_count,
+    "classification_coverage": classification_rate,
+    "unique_replays_processed": int(len(processed_episode_ids)),
+    "aggregate_error_events": int(len(all_errors)),
+    "api_request_summary": {
+        "request_interval_seconds": API_REQUEST_INTERVAL_SECONDS,
+        "batch_size": API_BATCH_SIZE,
+        "batch_cooldown_seconds": API_BATCH_COOLDOWN_SECONDS,
+        "batch_cooldowns": int(API_PACER.batch_cooldown_count),
+        "total_api_requests": int(API_PACER.request_count),
+        "submission_to_episode_cooldown_seconds": SUBMISSION_TO_EPISODE_COOLDOWN_SECONDS,
+        "team_submission_endpoint_calls": int(team_submission_endpoint_calls),
+        "temporary_submission_cache_hits": int(submission_cache_hits),
+        "api_error_events": int(sum(API_ERROR_COUNTS.values())),
+        "http_429_skipped_requests": int(API_ERROR_COUNTS.get("http_429", 0)),
+        "non_429_error_events": int(
+            sum(API_ERROR_COUNTS.values()) - API_ERROR_COUNTS.get("http_429", 0)
+        ),
+    },
+    "outputs": [
+        top10_path.name,
+        overall_ranking_path.name,
+        coverage_path.name,
+        error_summary_path.name,
+        rules_path.name,
+        chart_path.name,
+        heatmap_path.name,
+        report_path.name,
+        CARD_IMAGE_DIR.name,
+    ],
+}
+summary_path = OUTPUT_DIR / "run_summary.json"
+summary_path.write_text(json.dumps(run_summary, ensure_ascii=False, indent=2), encoding="utf-8")
+
+# Raw replays are no longer needed and are removed before the Notebook version is saved.
+shutil.rmtree(REPLAY_DIR, ignore_errors=True)
+# The resumable team-submission checkpoint is temporary and never becomes a
+# published Notebook output.
+SUBMISSION_CACHE_PATH.unlink(missing_ok=True)
+SUBMISSION_CACHE_PATH.with_suffix(".tmp").unlink(missing_ok=True)
+
+display(Markdown("## Complete"))
+display(Markdown(f"Aggregate HTML report: `{report_path}`"))
+display(Markdown(f"Overall deck ranking CSV: `{overall_ranking_path}`"))
+display(Markdown(f"Score-band Top 10 CSV: `{top10_path}`"))
+print(json.dumps(run_summary, ensure_ascii=False, indent=2))
+--- text/plain ---
+<IPython.core.display.Markdown object>
+--- text/plain ---
+<IPython.core.display.Markdown object>
+--- text/plain ---
+<IPython.core.display.Markdown object>
+--- text/plain ---
+<IPython.core.display.Markdown object>
+--- stdout ---
+{
+  "competition": "pokemon-tcg-ai-battle",
+  "snapshot_at_utc": "2026-08-09T00:12:51.432097+00:00",
+  "run_mode": "score-band stratified sample",
+  "aggregate_only": true,
+  "minimum_classified_teams_to_publish": 3,
+  "score_bands": [
+    "1100+",
+    "1000-1099",
+    "900-999",
+    "800-899",
+    "700-799",
+    "600-699",
+    "500-599"
+  ],
+  "leaderboard_teams": 2359,
+  "matched_submissions": 2359,
+  "decks_retrieved": 2359,
+  "decks_not_retrieved": 0,
+  "retrieval_coverage": 1.0,
+  "http_429_skipped_teams": 0,
+  "classified_teams": 2359,
+  "overall_ranking_rows": 38,
+  "not_aggregated_teams": 0,
+  "classification_coverage": 1.0,
+  "unique_replays_processed": 2212,
+  "aggregate_error_events": 0,
+  "api_request_summary": {
+    "request_interval_seconds": 2.0,
+    "batch_size": 100,
+    "batch_cooldown_seconds": 60.0,
+    "batch_cooldowns": 68,
+    "total_api_requests": 6817,
+    "submission_to_episode_cooldown_seconds": 60.0,
+    "team_submission_endpoint_calls": 2359,
+    "temporary_submission_cache_hits": 0,
+    "api_error_events": 0,
+    "http_429_skipped_requests": 0,
+    "non_429_error_events": 0
+  },
+  "outputs": [
+    "score_band_top10.csv",
+    "overall_deck_ranking.csv",
+    "classification_coverage.csv",
+    "aggregate_error_summary.csv",
+    "archetype_rules.csv",
+    "score_band_deck_top10.png",
+    "score_band_deck_share_heatmap.png",
+    "leaderboard_deck_meta_report.html",
+    "representative_card_images"
+  ]
+}
+
+
+================================================================================
+[CELL 27 | markdown]
+## 12. Publication and daily scheduling checklist
+
+Before publishing a version:
+
+1. Choose `RUN_MODE = "score-band stratified sample"` for the recommended bounded run, or `"full leaderboard"` to attempt every eligible team.
+2. Confirm the competition data is attached and **Internet is on**.
+3. Use **Save Version → Save & Run All**.
+4. Check that the final run says `aggregate_only: true` and review coverage.
+5. Confirm that `/kaggle/working/ptcg_leaderboard_meta/` contains only the
+   aggregate files listed in `run_summary.json`.
+6. Set an appropriate open-source license in the Kaggle Notebook settings.
+7. Make the Notebook public only after the full run completes successfully.
+
+To refresh it daily, open **Schedule**, choose **Daily**, and enable saved
+outputs. The main deliverables are:
+
+- `ptcg_leaderboard_meta/leaderboard_deck_meta_report.html`
+- `ptcg_leaderboard_meta/overall_deck_ranking.csv`
+- `ptcg_leaderboard_meta/score_band_top10.csv`
+- `ptcg_leaderboard_meta/classification_coverage.csv`
+
+### Maintenance notes
+
+- Missing public episodes and temporary API failures reduce coverage and are
+  summarized without identifiers in `aggregate_error_summary.csv`.
+- Every API endpoint uses the shared one-second pacer. HTTP 429 responses
+  are not retried; skipped teams are reported by score band and in the run summary.
+- If a new deck appears as `Other / <main Pokémon>`, add a transparent marker
+  rule to `ARCHETYPE_RULES` and rerun the Notebook.
+- Review the archetype rules whenever new cards or strategies enter the field.

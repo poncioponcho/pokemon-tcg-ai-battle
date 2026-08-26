@@ -1,0 +1,7 @@
+{
+  "minimum_support": 12,
+  "minimum_margin": 0.5,
+  "minimum_turn": 0,
+  "maximum_turn": 999,
+  "override_mode": "same_type"
+}

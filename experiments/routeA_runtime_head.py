@@ -11,7 +11,7 @@ import json
 import math
 import os
 
-from . import validated_fallback_policy as fallback
+from . import validated_fallback_policy as fallback  # type: ignore[attr-defined]
 
 
 MAX_SCORE_GAP = 25.0

@@ -1,0 +1,117 @@
+{
+  "artifact": "/Users/seyonmacbook/Desktop/Pokemon_TCG_AI_Battle_Challenge/artifacts/alakazam_msato_lottery_v1/submission.tar.gz",
+  "archive_sha256": "83372cfecfe0308a129c9e11b87e4730fa204251ed23f8d8d599a8cf035993a9",
+  "archive_bytes": 2212706,
+  "main_sha256": "be951716ba3bd49aa86ed2e524e72fa8f3cac8799e6be2bf12db942eccfea505",
+  "deck_sha256": "0598646548d081832ec311c15fdc369b32c6f5e63175b0cfd1904d21fd082451",
+  "entrypoint": "agent",
+  "member_count": 19,
+  "members": [
+    "base_main.py",
+    "cg/__init__.py",
+    "cg/api.py",
+    "cg/cg.dll",
+    "cg/game.py",
+    "cg/libcg-arm64.so",
+    "cg/libcg.dylib",
+    "cg/libcg.so",
+    "cg/sim.py",
+    "cg/utils.py",
+    "dailyprior_main.py",
+    "deck.csv",
+    "main.py",
+    "marnie_belief.json",
+    "msato_model.json",
+    "parent_main.py",
+    "policy.json",
+    "policy_support.json",
+    "strongguard_main.py"
+  ],
+  "includes_cg": true,
+  "validation": {
+    "candidate_dir": "/Users/seyonmacbook/Desktop/Pokemon_TCG_AI_Battle_Challenge/candidates/alakazam_msato_imitation_v5_margin1",
+    "main_sha256": "be951716ba3bd49aa86ed2e524e72fa8f3cac8799e6be2bf12db942eccfea505",
+    "deck_sha256": "0598646548d081832ec311c15fdc369b32c6f5e63175b0cfd1904d21fd082451",
+    "entrypoint": "agent",
+    "module_entrypoint": "agent",
+    "callable_tail": [
+      "_zone_card_id",
+      "_descriptor",
+      "_classify_visible",
+      "_visible_archetype",
+      "_active_id",
+      "_features",
+      "_model_pick",
+      "agent"
+    ],
+    "deck_count": 60,
+    "startup_probes": [
+      60,
+      60
+    ],
+    "module_startup_probes": [
+      60,
+      60
+    ],
+    "files": [
+      {
+        "path": "base_main.py",
+        "sha256": "570eacb2c5d0362816acb60b59855d44e665bea19e90274d6907fda07beb1ef0",
+        "bytes": 54988
+      },
+      {
+        "path": "dailyprior_main.py",
+        "sha256": "0480e1d019c8e81a9beb2cd8284a697c7fec0b3a1af518e0df53694b7b59f4a3",
+        "bytes": 5388
+      },
+      {
+        "path": "deck.csv",
+        "sha256": "0598646548d081832ec311c15fdc369b32c6f5e63175b0cfd1904d21fd082451",
+        "bytes": 263
+      },
+      {
+        "path": "main.py",
+        "sha256": "be951716ba3bd49aa86ed2e524e72fa8f3cac8799e6be2bf12db942eccfea505",
+        "bytes": 7764
+      },
+      {
+        "path": "marnie_belief.json",
+        "sha256": "860014d0e19693607a819dcd2951fa8d186e6e95464cc2406095ffb582518a7f",
+        "bytes": 1501
+      },
+      {
+        "path": "msato_model.json",
+        "sha256": "eac2c69ac250298535db0066f93bd3ae644651461c85b80507b8659ccbc55f16",
+        "bytes": 748416
+      },
+      {
+        "path": "parent_main.py",
+        "sha256": "567ea9bec00f60204510e7b507833de06d6ced9b5f25e3e1d2f01ddf647ae749",
+        "bytes": 1763
+      },
+      {
+        "path": "policy.json",
+        "sha256": "9aa04e01844e7c193f24ad0e09d525ddfccdf685a7c10ba8b004f464dc592e63",
+        "bytes": 193212
+      },
+      {
+        "path": "policy_support.json",
+        "sha256": "28b3a58b30eb4616a3effdbf6be0e782b7b44b467b162fd8f2631329490b924b",
+        "bytes": 138566
+      },
+      {
+        "path": "strongguard_main.py",
+        "sha256": "9b7e5d2f4bf8b6fbdbdf93935d54d901cb6a0c633645ed312d49a2f08699cf34",
+        "bytes": 5749
+      }
+    ],
+    "card_legality": {
+      "checked": true,
+      "card_rows": 2022,
+      "unknown": [],
+      "copy_limit": "PASS"
+    },
+    "status": "PASS"
+  },
+  "status": "PACKED"
+}

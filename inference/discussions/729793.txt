@@ -1,0 +1,123 @@
+The Pokémon Company - PTCG AI Battle Challenge Simulation | Kaggle
+=====
+menu
+Skip to
+content
+Create
+explore
+
+Home
+
+emoji_events
+
+Competitions
+
+leaderboard
+
+Benchmarks
+
+smart_toy
+
+Game Arena
+
+code
+
+Data Hub
+
+expand_more
+format_list_bulleted
+
+More
+
+expand_more
+note_alt
+
+Your Work
+
+expand_less
+
+Viewed
+
+expand_less
+
+The Pokémon Company - PTCG AI Battle Challenge Simulation
+
+Sharing my Reinforcement Learning journey (updated)
+
+Tracking 3,057 teams through 6 weeks of meta: who switched decks, when — and why it was always too late
+
+Is That Matchup Table Measuring the Deck—or the Player? (Part 1)
+
+ELO inconsistency
+
+Edited
+
+expand_less
+
+notebooke2441e9455
+
+PTCG Strategy MRI | 2,022 Cards to 60 Decis 66517c
+
+pokemon-tcg-strategy-mega-lucario
+
+PTCG Strategy MRI | 2,022 Cards to 60 Decisions
+
+titanic最后一舞
+
+auto_awesome_motion
+
+View Active Events
+
+search
+​
+THE POKÉMON COMPANY - PTCGABC TEAM · FEATURED SIMULATION COMPETITION · 6 DAYS TO GO
+Submit Agent
+more_horiz
+The Pokémon Company - PTCG AI Battle Challenge Simulation
+
+Build an AI Training Agent to play the Pokémon Trading Card Game
+
+Overview
+Data
+Code
+Models
+Discussion
+Leaderboard
+Rules
+Team
+Submissions
+FT.DEV · POSTED 15 DAYS AGO
+arrow_drop_up
+0
+more_vert
+Deck of opponent
+
+In this competition, all participants' decks are transparent in the game logs. Couldn't a bot maker track every opponent and their deck composition? By combining this historical data with in-game card counting and deduction, a bot could map out the opponent's exact remaining deck. Wouldn't this create a significant unfair advantage when planning optimal moves?
+
+add_reaction
+React
+comment
+0 Comments
+Hotness
+undo
+redo
+format_size
+format_bold
+format_italic
+format_strikethrough
+insert_link
+format_quote
+code
+format_list_numbered
+format_list_bulleted
+table_chart
+insert_photo
+smart_display
+insert_emoticon
+help
+ 
+
+This comment will be made public once posted.
+
+attach_file
+Post Comment

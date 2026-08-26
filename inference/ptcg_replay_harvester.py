@@ -449,7 +449,11 @@ def get_episodes(submission_id, max_eps, delay):
     eps = []
     for row in rows:
         eid = find_col(row, "episodeId", "episode_id", "episode", "id")
-        if eid:
+        # [2026-08-11 修复] 空列表时 CLI 会在 CSV 后追加提示行
+        # 'Use "kaggle competitions replay <episode_id>" to download a replay',
+        # DictReader 把它当成数据行、整串落进第一列 → 之前原样透传给
+        # `kaggle competitions replay` 致 rc=2 (invalid int)。episode id 必为纯数字。
+        if eid and eid.strip().isdigit():
             eps.append(eid.strip())
     return eps[:max_eps]
 
@@ -873,20 +877,45 @@ def load_manifest(out_dir):
         except Exception:
             continue
         for ep in rec.get("episodes", []):
-            episode_id = str(ep["episode_id"])
-            candidate = {
-                "team_id": rec["team_id"], "team_name": rec["team_name"],
-                "rank_at_capture": rec.get("rank_at_capture", rec.get("rank")),
-                "score_at_capture": rec.get(
-                    "score_at_capture", rec.get("leaderboard_score")
-                ),
-                "captured_at": rec.get("captured_at", rec.get("date")),
-                "submission_id": rec["best_submission_id"],
-            }
+            # [fix 08-09] 坏记录容错: JSON 合法但缺键(episode_id/team_id/
+            # best_submission_id 等)时跳过该条, 不再整函数崩溃拖垮整批
+            try:
+                episode_id = str(ep["episode_id"])
+                candidate = {
+                    "team_id": rec["team_id"], "team_name": rec["team_name"],
+                    "rank_at_capture": rec.get("rank_at_capture", rec.get("rank")),
+                    "score_at_capture": rec.get(
+                        "score_at_capture", rec.get("leaderboard_score")
+                    ),
+                    "captured_at": rec.get("captured_at", rec.get("date")),
+                    "submission_id": rec["best_submission_id"],
+                }
+            except KeyError:
+                continue
             previous = meta.get(episode_id)
-            if previous is None or str(candidate["captured_at"]) < str(previous["captured_at"]):
+            # [fix 08-09] captured_at 混用 epoch 数值与 ISO 字符串时, 字典序
+            # ("1..." 恒 < "2026...") 会误判早晚, 统一归一为 ISO 字符串再比
+            if previous is None or _ts_key(candidate["captured_at"]) < _ts_key(previous["captured_at"]):
                 meta[episode_id] = candidate
     return meta
+
+
+def _ts_key(v):
+    """captured_at 归一为可字典序比较的键: epoch 数值(含数字字符串)转 ISO
+    字符串, ISO/日期字符串原样, None 排最后。ISO 格式字典序即时间序。"""
+    from datetime import datetime
+    if v is None:
+        return "\uffff"
+    if isinstance(v, (int, float)):
+        try:
+            return datetime.fromtimestamp(v).isoformat()
+        except (OverflowError, OSError, ValueError):
+            return str(v)
+    s = str(v)
+    try:  # 字符串里包着 epoch 的情况
+        return datetime.fromtimestamp(float(s)).isoformat()
+    except (ValueError, OverflowError, OSError):
+        return s
 
 
 def cmd_parse(args):

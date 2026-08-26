@@ -1,0 +1,1886 @@
+{
+  "created_unix": 1786804802.6190772,
+  "method": "visible-state-pairwise-option-imitation-v1",
+  "source": {
+    "games": [
+      {
+        "episode": 89621939,
+        "end": "2026-08-03 01:03:49.544000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 24
+      },
+      {
+        "episode": 89625875,
+        "end": "2026-08-03 01:39:44.826000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 49
+      },
+      {
+        "episode": 89632627,
+        "end": "2026-08-03 02:21:10.844000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 39
+      },
+      {
+        "episode": 89633754,
+        "end": "2026-08-03 02:28:13.639000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 50
+      },
+      {
+        "episode": 89634883,
+        "end": "2026-08-03 02:36:05.467000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 43
+      },
+      {
+        "episode": 89636034,
+        "end": "2026-08-03 02:43:57.003000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 14
+      },
+      {
+        "episode": 89636595,
+        "end": "2026-08-03 02:48:18.795000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 36
+      },
+      {
+        "episode": 89637723,
+        "end": "2026-08-03 02:56:04.227000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 34
+      },
+      {
+        "episode": 89638295,
+        "end": "2026-08-03 03:00:10.998000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 38
+      },
+      {
+        "episode": 89640587,
+        "end": "2026-08-03 03:16:00.797000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 46
+      },
+      {
+        "episode": 89640616,
+        "end": "2026-08-03 03:16:07.999000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 40
+      },
+      {
+        "episode": 89643411,
+        "end": "2026-08-03 03:36:04.994000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 39
+      },
+      {
+        "episode": 89643980,
+        "end": "2026-08-03 03:40:18.096000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 56
+      },
+      {
+        "episode": 89644544,
+        "end": "2026-08-03 03:44:06.512000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 71
+      },
+      {
+        "episode": 89645119,
+        "end": "2026-08-03 03:48:12.468000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 39
+      },
+      {
+        "episode": 89646797,
+        "end": "2026-08-03 04:00:04.719000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 46
+      },
+      {
+        "episode": 89647925,
+        "end": "2026-08-03 04:08:08.007000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 46
+      },
+      {
+        "episode": 89648498,
+        "end": "2026-08-03 04:12:02.623000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 36
+      },
+      {
+        "episode": 89651731,
+        "end": "2026-08-03 04:35:58.512000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 28
+      },
+      {
+        "episode": 89655819,
+        "end": "2026-08-03 05:04:18.818000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 46
+      },
+      {
+        "episode": 89659820,
+        "end": "2026-08-03 05:32:21.708000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 45
+      },
+      {
+        "episode": 89664891,
+        "end": "2026-08-03 06:08:19.754000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 42
+      },
+      {
+        "episode": 89682298,
+        "end": "2026-08-03 08:12:49.617000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 42
+      },
+      {
+        "episode": 89682426,
+        "end": "2026-08-03 08:15:17.129000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 47
+      },
+      {
+        "episode": 89690942,
+        "end": "2026-08-03 09:12:21.535000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 32
+      },
+      {
+        "episode": 89784785,
+        "end": "2026-08-03 20:06:22.176000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 32
+      },
+      {
+        "episode": 89797033,
+        "end": "2026-08-03 21:32:53.927000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 41
+      },
+      {
+        "episode": 89798372,
+        "end": "2026-08-03 21:40:49.462000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 44
+      },
+      {
+        "episode": 89801221,
+        "end": "2026-08-03 22:01:03.229000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 40
+      },
+      {
+        "episode": 89807254,
+        "end": "2026-08-03 22:41:20.361000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 41
+      },
+      {
+        "episode": 89807857,
+        "end": "2026-08-03 22:45:42.930000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 42
+      },
+      {
+        "episode": 89809085,
+        "end": "2026-08-03 22:53:02.933000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 34
+      },
+      {
+        "episode": 89810976,
+        "end": "2026-08-03 23:04:52.769000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 41
+      },
+      {
+        "episode": 89816553,
+        "end": "2026-08-03 23:40:54.367000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 40
+      },
+      {
+        "episode": 89820134,
+        "end": "2026-08-04 00:04:48.769000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 26
+      },
+      {
+        "episode": 89820740,
+        "end": "2026-08-04 00:09:09.839000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 35
+      },
+      {
+        "episode": 89823110,
+        "end": "2026-08-04 00:24:49.662000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 38
+      },
+      {
+        "episode": 89823149,
+        "end": "2026-08-04 00:25:10.919000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 41
+      },
+      {
+        "episode": 89830501,
+        "end": "2026-08-04 01:16:48.119000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 47
+      },
+      {
+        "episode": 89868254,
+        "end": "2026-08-04 05:28:58.722000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 33
+      },
+      {
+        "episode": 89878383,
+        "end": "2026-08-04 06:38:08.389000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 40
+      },
+      {
+        "episode": 89882409,
+        "end": "2026-08-04 07:04:55.284000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 42
+      },
+      {
+        "episode": 89884392,
+        "end": "2026-08-04 07:17:09.443000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 43
+      },
+      {
+        "episode": 89884948,
+        "end": "2026-08-04 07:20:58.421000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 54
+      },
+      {
+        "episode": 90019003,
+        "end": "2026-08-04 21:29:31.119000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 48
+      },
+      {
+        "episode": 90023541,
+        "end": "2026-08-04 21:57:44.479000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 35
+      },
+      {
+        "episode": 90024191,
+        "end": "2026-08-04 22:01:50.958000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 47
+      },
+      {
+        "episode": 90024882,
+        "end": "2026-08-04 22:05:43.700000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 40
+      },
+      {
+        "episode": 90029011,
+        "end": "2026-08-04 22:29:51.276000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 26
+      },
+      {
+        "episode": 90029001,
+        "end": "2026-08-04 22:29:51.336000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 54
+      },
+      {
+        "episode": 90035161,
+        "end": "2026-08-04 23:05:42.654000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 39
+      },
+      {
+        "episode": 90037169,
+        "end": "2026-08-04 23:17:35.103000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 42
+      },
+      {
+        "episode": 90045495,
+        "end": "2026-08-05 00:05:59.993000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 47
+      },
+      {
+        "episode": 90080961,
+        "end": "2026-08-05 03:34:00.918000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 53
+      },
+      {
+        "episode": 90163503,
+        "end": "2026-08-05 11:38:00.649000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 63
+      },
+      {
+        "episode": 90264352,
+        "end": "2026-08-05 21:13:39.067000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 31
+      },
+      {
+        "episode": 90269351,
+        "end": "2026-08-05 21:41:31.185000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 47
+      },
+      {
+        "episode": 90269908,
+        "end": "2026-08-05 21:45:45.609000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 30
+      },
+      {
+        "episode": 90270079,
+        "end": "2026-08-05 21:46:04.050000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 47
+      },
+      {
+        "episode": 90272205,
+        "end": "2026-08-05 21:57:40.958000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 42
+      },
+      {
+        "episode": 90277353,
+        "end": "2026-08-05 22:26:36.462000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 32
+      },
+      {
+        "episode": 90284386,
+        "end": "2026-08-05 23:05:55.602000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 47
+      },
+      {
+        "episode": 90286548,
+        "end": "2026-08-05 23:17:40.921000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 46
+      },
+      {
+        "episode": 90297438,
+        "end": "2026-08-06 00:17:57.331000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 50
+      },
+      {
+        "episode": 90386539,
+        "end": "2026-08-06 08:22:25.477000",
+        "reward": 1,
+        "opponent_archetype": "Grimmsnarl",
+        "main_decisions": 30
+      }
+    ],
+    "excluded_replay_files": 10,
+    "target_deck_hash": "b2178b76f546fd82d693e5da36630424b30336a8b5f73f579770fad5bebff042",
+    "opponent_archetype_filter": "Grimmsnarl",
+    "context": 0,
+    "reward_filter": 1
+  },
+  "split": {
+    "train": {
+      "episodes": 39,
+      "decisions": 1570,
+      "oldest_end": "2026-08-03 01:03:49.544000",
+      "newest_end": "2026-08-04 01:16:48.119000"
+    },
+    "validation": {
+      "episodes": 13,
+      "decisions": 543,
+      "oldest_end": "2026-08-04 05:28:58.722000",
+      "newest_end": "2026-08-04 23:17:35.103000"
+    },
+    "test": {
+      "episodes": 13,
+      "decisions": 565,
+      "oldest_end": "2026-08-05 00:05:59.993000",
+      "newest_end": "2026-08-06 08:22:25.477000"
+    }
+  },
+  "training": {
+    "pair_rows": 34582,
+    "features": 4407,
+    "regularization_candidates": [
+      {
+        "C": 0.03,
+        "validation": {
+          "decisions": 543,
+          "covered": 543,
+          "coverage": 1.0,
+          "exact": 202,
+          "exact_accuracy": 0.372007,
+          "semantic": 260,
+          "semantic_accuracy": 0.478821,
+          "margin_mean": 0.476867,
+          "by_turn": {
+            "gt10": {
+              "n": 58,
+              "exact_accuracy": 0.344828
+            },
+            "le10": {
+              "n": 138,
+              "exact_accuracy": 0.326087
+            },
+            "le2": {
+              "n": 46,
+              "exact_accuracy": 0.608696
+            },
+            "le4": {
+              "n": 115,
+              "exact_accuracy": 0.382609
+            },
+            "le7": {
+              "n": 186,
+              "exact_accuracy": 0.349462
+            }
+          }
+        }
+      },
+      {
+        "C": 0.1,
+        "validation": {
+          "decisions": 543,
+          "covered": 543,
+          "coverage": 1.0,
+          "exact": 228,
+          "exact_accuracy": 0.41989,
+          "semantic": 292,
+          "semantic_accuracy": 0.537753,
+          "margin_mean": 0.667041,
+          "by_turn": {
+            "gt10": {
+              "n": 58,
+              "exact_accuracy": 0.413793
+            },
+            "le10": {
+              "n": 138,
+              "exact_accuracy": 0.347826
+            },
+            "le2": {
+              "n": 46,
+              "exact_accuracy": 0.673913
+            },
+            "le4": {
+              "n": 115,
+              "exact_accuracy": 0.434783
+            },
+            "le7": {
+              "n": 186,
+              "exact_accuracy": 0.403226
+            }
+          }
+        }
+      },
+      {
+        "C": 0.3,
+        "validation": {
+          "decisions": 543,
+          "covered": 543,
+          "coverage": 1.0,
+          "exact": 239,
+          "exact_accuracy": 0.440147,
+          "semantic": 305,
+          "semantic_accuracy": 0.561694,
+          "margin_mean": 0.873164,
+          "by_turn": {
+            "gt10": {
+              "n": 58,
+              "exact_accuracy": 0.413793
+            },
+            "le10": {
+              "n": 138,
+              "exact_accuracy": 0.391304
+            },
+            "le2": {
+              "n": 46,
+              "exact_accuracy": 0.673913
+            },
+            "le4": {
+              "n": 115,
+              "exact_accuracy": 0.452174
+            },
+            "le7": {
+              "n": 186,
+              "exact_accuracy": 0.419355
+            }
+          }
+        }
+      },
+      {
+        "C": 1.0,
+        "validation": {
+          "decisions": 543,
+          "covered": 543,
+          "coverage": 1.0,
+          "exact": 249,
+          "exact_accuracy": 0.458564,
+          "semantic": 320,
+          "semantic_accuracy": 0.589319,
+          "margin_mean": 1.121603,
+          "by_turn": {
+            "gt10": {
+              "n": 58,
+              "exact_accuracy": 0.465517
+            },
+            "le10": {
+              "n": 138,
+              "exact_accuracy": 0.405797
+            },
+            "le2": {
+              "n": 46,
+              "exact_accuracy": 0.673913
+            },
+            "le4": {
+              "n": 115,
+              "exact_accuracy": 0.452174
+            },
+            "le7": {
+              "n": 186,
+              "exact_accuracy": 0.446237
+            }
+          }
+        }
+      },
+      {
+        "C": 3.0,
+        "validation": {
+          "decisions": 543,
+          "covered": 543,
+          "coverage": 1.0,
+          "exact": 251,
+          "exact_accuracy": 0.462247,
+          "semantic": 320,
+          "semantic_accuracy": 0.589319,
+          "margin_mean": 1.368754,
+          "by_turn": {
+            "gt10": {
+              "n": 58,
+              "exact_accuracy": 0.482759
+            },
+            "le10": {
+              "n": 138,
+              "exact_accuracy": 0.413043
+            },
+            "le2": {
+              "n": 46,
+              "exact_accuracy": 0.673913
+            },
+            "le4": {
+              "n": 115,
+              "exact_accuracy": 0.443478
+            },
+            "le7": {
+              "n": 186,
+              "exact_accuracy": 0.451613
+            }
+          }
+        }
+      }
+    ],
+    "selected_C": 3.0
+  },
+  "gate_search": [
+    {
+      "minimum_support": 0,
+      "minimum_margin": -1.0,
+      "estimated_with_40pct_fallback": 0.462247,
+      "validation": {
+        "decisions": 543,
+        "covered": 543,
+        "coverage": 1.0,
+        "exact": 251,
+        "exact_accuracy": 0.462247,
+        "semantic": 320,
+        "semantic_accuracy": 0.589319,
+        "margin_mean": 1.368754,
+        "by_turn": {
+          "gt10": {
+            "n": 58,
+            "exact_accuracy": 0.482759
+          },
+          "le10": {
+            "n": 138,
+            "exact_accuracy": 0.413043
+          },
+          "le2": {
+            "n": 46,
+            "exact_accuracy": 0.673913
+          },
+          "le4": {
+            "n": 115,
+            "exact_accuracy": 0.443478
+          },
+          "le7": {
+            "n": 186,
+            "exact_accuracy": 0.451613
+          }
+        }
+      }
+    },
+    {
+      "minimum_support": 0,
+      "minimum_margin": 0.0,
+      "estimated_with_40pct_fallback": 0.462247,
+      "validation": {
+        "decisions": 543,
+        "covered": 543,
+        "coverage": 1.0,
+        "exact": 251,
+        "exact_accuracy": 0.462247,
+        "semantic": 320,
+        "semantic_accuracy": 0.589319,
+        "margin_mean": 1.368754,
+        "by_turn": {
+          "gt10": {
+            "n": 58,
+            "exact_accuracy": 0.482759
+          },
+          "le10": {
+            "n": 138,
+            "exact_accuracy": 0.413043
+          },
+          "le2": {
+            "n": 46,
+            "exact_accuracy": 0.673913
+          },
+          "le4": {
+            "n": 115,
+            "exact_accuracy": 0.443478
+          },
+          "le7": {
+            "n": 186,
+            "exact_accuracy": 0.451613
+          }
+        }
+      }
+    },
+    {
+      "minimum_support": 0,
+      "minimum_margin": 0.25,
+      "estimated_with_40pct_fallback": 0.544383,
+      "validation": {
+        "decisions": 543,
+        "covered": 369,
+        "coverage": 0.679558,
+        "exact": 226,
+        "exact_accuracy": 0.612466,
+        "semantic": 228,
+        "semantic_accuracy": 0.617886,
+        "margin_mean": 1.998285,
+        "by_turn": {
+          "gt10": {
+            "n": 50,
+            "exact_accuracy": 0.5
+          },
+          "le10": {
+            "n": 88,
+            "exact_accuracy": 0.556818
+          },
+          "le2": {
+            "n": 36,
+            "exact_accuracy": 0.833333
+          },
+          "le4": {
+            "n": 74,
+            "exact_accuracy": 0.648649
+          },
+          "le7": {
+            "n": 121,
+            "exact_accuracy": 0.61157
+          }
+        }
+      }
+    },
+    {
+      "minimum_support": 0,
+      "minimum_margin": 0.5,
+      "estimated_with_40pct_fallback": 0.537017,
+      "validation": {
+        "decisions": 543,
+        "covered": 324,
+        "coverage": 0.596685,
+        "exact": 204,
+        "exact_accuracy": 0.62963,
+        "semantic": 206,
+        "semantic_accuracy": 0.635802,
+        "margin_mean": 2.22491,
+        "by_turn": {
+          "gt10": {
+            "n": 48,
+            "exact_accuracy": 0.479167
+          },
+          "le10": {
+            "n": 77,
+            "exact_accuracy": 0.571429
+          },
+          "le2": {
+            "n": 34,
+            "exact_accuracy": 0.852941
+          },
+          "le4": {
+            "n": 64,
+            "exact_accuracy": 0.671875
+          },
+          "le7": {
+            "n": 101,
+            "exact_accuracy": 0.643564
+          }
+        }
+      }
+    },
+    {
+      "minimum_support": 0,
+      "minimum_margin": 1.0,
+      "estimated_with_40pct_fallback": 0.530018,
+      "validation": {
+        "decisions": 543,
+        "covered": 261,
+        "coverage": 0.480663,
+        "exact": 175,
+        "exact_accuracy": 0.670498,
+        "semantic": 176,
+        "semantic_accuracy": 0.67433,
+        "margin_mean": 2.587241,
+        "by_turn": {
+          "gt10": {
+            "n": 36,
+            "exact_accuracy": 0.444444
+          },
+          "le10": {
+            "n": 66,
+            "exact_accuracy": 0.606061
+          },
+          "le2": {
+            "n": 30,
+            "exact_accuracy": 0.9
+          },
+          "le4": {
+            "n": 50,
+            "exact_accuracy": 0.74
+          },
+          "le7": {
+            "n": 79,
+            "exact_accuracy": 0.696203
+          }
+        }
+      }
+    },
+    {
+      "minimum_support": 0,
+      "minimum_margin": 2.0,
+      "estimated_with_40pct_fallback": 0.507182,
+      "validation": {
+        "decisions": 543,
+        "covered": 137,
+        "coverage": 0.252302,
+        "exact": 113,
+        "exact_accuracy": 0.824818,
+        "semantic": 114,
+        "semantic_accuracy": 0.832117,
+        "margin_mean": 3.646155,
+        "by_turn": {
+          "gt10": {
+            "n": 19,
+            "exact_accuracy": 0.578947
+          },
+          "le10": {
+            "n": 23,
+            "exact_accuracy": 0.826087
+          },
+          "le2": {
+            "n": 24,
+            "exact_accuracy": 0.958333
+          },
+          "le4": {
+            "n": 34,
+            "exact_accuracy": 0.823529
+          },
+          "le7": {
+            "n": 37,
+            "exact_accuracy": 0.864865
+          }
+        }
+      }
+    },
+    {
+      "minimum_support": 3,
+      "minimum_margin": -1.0,
+      "estimated_with_40pct_fallback": 0.462247,
+      "validation": {
+        "decisions": 543,
+        "covered": 543,
+        "coverage": 1.0,
+        "exact": 251,
+        "exact_accuracy": 0.462247,
+        "semantic": 320,
+        "semantic_accuracy": 0.589319,
+        "margin_mean": 1.368754,
+        "by_turn": {
+          "gt10": {
+            "n": 58,
+            "exact_accuracy": 0.482759
+          },
+          "le10": {
+            "n": 138,
+            "exact_accuracy": 0.413043
+          },
+          "le2": {
+            "n": 46,
+            "exact_accuracy": 0.673913
+          },
+          "le4": {
+            "n": 115,
+            "exact_accuracy": 0.443478
+          },
+          "le7": {
+            "n": 186,
+            "exact_accuracy": 0.451613
+          }
+        }
+      }
+    },
+    {
+      "minimum_support": 3,
+      "minimum_margin": 0.0,
+      "estimated_with_40pct_fallback": 0.462247,
+      "validation": {
+        "decisions": 543,
+        "covered": 543,
+        "coverage": 1.0,
+        "exact": 251,
+        "exact_accuracy": 0.462247,
+        "semantic": 320,
+        "semantic_accuracy": 0.589319,
+        "margin_mean": 1.368754,
+        "by_turn": {
+          "gt10": {
+            "n": 58,
+            "exact_accuracy": 0.482759
+          },
+          "le10": {
+            "n": 138,
+            "exact_accuracy": 0.413043
+          },
+          "le2": {
+            "n": 46,
+            "exact_accuracy": 0.673913
+          },
+          "le4": {
+            "n": 115,
+            "exact_accuracy": 0.443478
+          },
+          "le7": {
+            "n": 186,
+            "exact_accuracy": 0.451613
+          }
+        }
+      }
+    },
+    {
+      "minimum_support": 3,
+      "minimum_margin": 0.25,
+      "estimated_with_40pct_fallback": 0.544383,
+      "validation": {
+        "decisions": 543,
+        "covered": 369,
+        "coverage": 0.679558,
+        "exact": 226,
+        "exact_accuracy": 0.612466,
+        "semantic": 228,
+        "semantic_accuracy": 0.617886,
+        "margin_mean": 1.998285,
+        "by_turn": {
+          "gt10": {
+            "n": 50,
+            "exact_accuracy": 0.5
+          },
+          "le10": {
+            "n": 88,
+            "exact_accuracy": 0.556818
+          },
+          "le2": {
+            "n": 36,
+            "exact_accuracy": 0.833333
+          },
+          "le4": {
+            "n": 74,
+            "exact_accuracy": 0.648649
+          },
+          "le7": {
+            "n": 121,
+            "exact_accuracy": 0.61157
+          }
+        }
+      }
+    },
+    {
+      "minimum_support": 3,
+      "minimum_margin": 0.5,
+      "estimated_with_40pct_fallback": 0.537017,
+      "validation": {
+        "decisions": 543,
+        "covered": 324,
+        "coverage": 0.596685,
+        "exact": 204,
+        "exact_accuracy": 0.62963,
+        "semantic": 206,
+        "semantic_accuracy": 0.635802,
+        "margin_mean": 2.22491,
+        "by_turn": {
+          "gt10": {
+            "n": 48,
+            "exact_accuracy": 0.479167
+          },
+          "le10": {
+            "n": 77,
+            "exact_accuracy": 0.571429
+          },
+          "le2": {
+            "n": 34,
+            "exact_accuracy": 0.852941
+          },
+          "le4": {
+            "n": 64,
+            "exact_accuracy": 0.671875
+          },
+          "le7": {
+            "n": 101,
+            "exact_accuracy": 0.643564
+          }
+        }
+      }
+    },
+    {
+      "minimum_support": 3,
+      "minimum_margin": 1.0,
+      "estimated_with_40pct_fallback": 0.530018,
+      "validation": {
+        "decisions": 543,
+        "covered": 261,
+        "coverage": 0.480663,
+        "exact": 175,
+        "exact_accuracy": 0.670498,
+        "semantic": 176,
+        "semantic_accuracy": 0.67433,
+        "margin_mean": 2.587241,
+        "by_turn": {
+          "gt10": {
+            "n": 36,
+            "exact_accuracy": 0.444444
+          },
+          "le10": {
+            "n": 66,
+            "exact_accuracy": 0.606061
+          },
+          "le2": {
+            "n": 30,
+            "exact_accuracy": 0.9
+          },
+          "le4": {
+            "n": 50,
+            "exact_accuracy": 0.74
+          },
+          "le7": {
+            "n": 79,
+            "exact_accuracy": 0.696203
+          }
+        }
+      }
+    },
+    {
+      "minimum_support": 3,
+      "minimum_margin": 2.0,
+      "estimated_with_40pct_fallback": 0.507182,
+      "validation": {
+        "decisions": 543,
+        "covered": 137,
+        "coverage": 0.252302,
+        "exact": 113,
+        "exact_accuracy": 0.824818,
+        "semantic": 114,
+        "semantic_accuracy": 0.832117,
+        "margin_mean": 3.646155,
+        "by_turn": {
+          "gt10": {
+            "n": 19,
+            "exact_accuracy": 0.578947
+          },
+          "le10": {
+            "n": 23,
+            "exact_accuracy": 0.826087
+          },
+          "le2": {
+            "n": 24,
+            "exact_accuracy": 0.958333
+          },
+          "le4": {
+            "n": 34,
+            "exact_accuracy": 0.823529
+          },
+          "le7": {
+            "n": 37,
+            "exact_accuracy": 0.864865
+          }
+        }
+      }
+    },
+    {
+      "minimum_support": 8,
+      "minimum_margin": -1.0,
+      "estimated_with_40pct_fallback": 0.462247,
+      "validation": {
+        "decisions": 543,
+        "covered": 543,
+        "coverage": 1.0,
+        "exact": 251,
+        "exact_accuracy": 0.462247,
+        "semantic": 320,
+        "semantic_accuracy": 0.589319,
+        "margin_mean": 1.368754,
+        "by_turn": {
+          "gt10": {
+            "n": 58,
+            "exact_accuracy": 0.482759
+          },
+          "le10": {
+            "n": 138,
+            "exact_accuracy": 0.413043
+          },
+          "le2": {
+            "n": 46,
+            "exact_accuracy": 0.673913
+          },
+          "le4": {
+            "n": 115,
+            "exact_accuracy": 0.443478
+          },
+          "le7": {
+            "n": 186,
+            "exact_accuracy": 0.451613
+          }
+        }
+      }
+    },
+    {
+      "minimum_support": 8,
+      "minimum_margin": 0.0,
+      "estimated_with_40pct_fallback": 0.462247,
+      "validation": {
+        "decisions": 543,
+        "covered": 543,
+        "coverage": 1.0,
+        "exact": 251,
+        "exact_accuracy": 0.462247,
+        "semantic": 320,
+        "semantic_accuracy": 0.589319,
+        "margin_mean": 1.368754,
+        "by_turn": {
+          "gt10": {
+            "n": 58,
+            "exact_accuracy": 0.482759
+          },
+          "le10": {
+            "n": 138,
+            "exact_accuracy": 0.413043
+          },
+          "le2": {
+            "n": 46,
+            "exact_accuracy": 0.673913
+          },
+          "le4": {
+            "n": 115,
+            "exact_accuracy": 0.443478
+          },
+          "le7": {
+            "n": 186,
+            "exact_accuracy": 0.451613
+          }
+        }
+      }
+    },
+    {
+      "minimum_support": 8,
+      "minimum_margin": 0.25,
+      "estimated_with_40pct_fallback": 0.544383,
+      "validation": {
+        "decisions": 543,
+        "covered": 369,
+        "coverage": 0.679558,
+        "exact": 226,
+        "exact_accuracy": 0.612466,
+        "semantic": 228,
+        "semantic_accuracy": 0.617886,
+        "margin_mean": 1.998285,
+        "by_turn": {
+          "gt10": {
+            "n": 50,
+            "exact_accuracy": 0.5
+          },
+          "le10": {
+            "n": 88,
+            "exact_accuracy": 0.556818
+          },
+          "le2": {
+            "n": 36,
+            "exact_accuracy": 0.833333
+          },
+          "le4": {
+            "n": 74,
+            "exact_accuracy": 0.648649
+          },
+          "le7": {
+            "n": 121,
+            "exact_accuracy": 0.61157
+          }
+        }
+      }
+    },
+    {
+      "minimum_support": 8,
+      "minimum_margin": 0.5,
+      "estimated_with_40pct_fallback": 0.537017,
+      "validation": {
+        "decisions": 543,
+        "covered": 324,
+        "coverage": 0.596685,
+        "exact": 204,
+        "exact_accuracy": 0.62963,
+        "semantic": 206,
+        "semantic_accuracy": 0.635802,
+        "margin_mean": 2.22491,
+        "by_turn": {
+          "gt10": {
+            "n": 48,
+            "exact_accuracy": 0.479167
+          },
+          "le10": {
+            "n": 77,
+            "exact_accuracy": 0.571429
+          },
+          "le2": {
+            "n": 34,
+            "exact_accuracy": 0.852941
+          },
+          "le4": {
+            "n": 64,
+            "exact_accuracy": 0.671875
+          },
+          "le7": {
+            "n": 101,
+            "exact_accuracy": 0.643564
+          }
+        }
+      }
+    },
+    {
+      "minimum_support": 8,
+      "minimum_margin": 1.0,
+      "estimated_with_40pct_fallback": 0.530018,
+      "validation": {
+        "decisions": 543,
+        "covered": 261,
+        "coverage": 0.480663,
+        "exact": 175,
+        "exact_accuracy": 0.670498,
+        "semantic": 176,
+        "semantic_accuracy": 0.67433,
+        "margin_mean": 2.587241,
+        "by_turn": {
+          "gt10": {
+            "n": 36,
+            "exact_accuracy": 0.444444
+          },
+          "le10": {
+            "n": 66,
+            "exact_accuracy": 0.606061
+          },
+          "le2": {
+            "n": 30,
+            "exact_accuracy": 0.9
+          },
+          "le4": {
+            "n": 50,
+            "exact_accuracy": 0.74
+          },
+          "le7": {
+            "n": 79,
+            "exact_accuracy": 0.696203
+          }
+        }
+      }
+    },
+    {
+      "minimum_support": 8,
+      "minimum_margin": 2.0,
+      "estimated_with_40pct_fallback": 0.507182,
+      "validation": {
+        "decisions": 543,
+        "covered": 137,
+        "coverage": 0.252302,
+        "exact": 113,
+        "exact_accuracy": 0.824818,
+        "semantic": 114,
+        "semantic_accuracy": 0.832117,
+        "margin_mean": 3.646155,
+        "by_turn": {
+          "gt10": {
+            "n": 19,
+            "exact_accuracy": 0.578947
+          },
+          "le10": {
+            "n": 23,
+            "exact_accuracy": 0.826087
+          },
+          "le2": {
+            "n": 24,
+            "exact_accuracy": 0.958333
+          },
+          "le4": {
+            "n": 34,
+            "exact_accuracy": 0.823529
+          },
+          "le7": {
+            "n": 37,
+            "exact_accuracy": 0.864865
+          }
+        }
+      }
+    },
+    {
+      "minimum_support": 16,
+      "minimum_margin": -1.0,
+      "estimated_with_40pct_fallback": 0.462247,
+      "validation": {
+        "decisions": 543,
+        "covered": 543,
+        "coverage": 1.0,
+        "exact": 251,
+        "exact_accuracy": 0.462247,
+        "semantic": 320,
+        "semantic_accuracy": 0.589319,
+        "margin_mean": 1.368754,
+        "by_turn": {
+          "gt10": {
+            "n": 58,
+            "exact_accuracy": 0.482759
+          },
+          "le10": {
+            "n": 138,
+            "exact_accuracy": 0.413043
+          },
+          "le2": {
+            "n": 46,
+            "exact_accuracy": 0.673913
+          },
+          "le4": {
+            "n": 115,
+            "exact_accuracy": 0.443478
+          },
+          "le7": {
+            "n": 186,
+            "exact_accuracy": 0.451613
+          }
+        }
+      }
+    },
+    {
+      "minimum_support": 16,
+      "minimum_margin": 0.0,
+      "estimated_with_40pct_fallback": 0.462247,
+      "validation": {
+        "decisions": 543,
+        "covered": 543,
+        "coverage": 1.0,
+        "exact": 251,
+        "exact_accuracy": 0.462247,
+        "semantic": 320,
+        "semantic_accuracy": 0.589319,
+        "margin_mean": 1.368754,
+        "by_turn": {
+          "gt10": {
+            "n": 58,
+            "exact_accuracy": 0.482759
+          },
+          "le10": {
+            "n": 138,
+            "exact_accuracy": 0.413043
+          },
+          "le2": {
+            "n": 46,
+            "exact_accuracy": 0.673913
+          },
+          "le4": {
+            "n": 115,
+            "exact_accuracy": 0.443478
+          },
+          "le7": {
+            "n": 186,
+            "exact_accuracy": 0.451613
+          }
+        }
+      }
+    },
+    {
+      "minimum_support": 16,
+      "minimum_margin": 0.25,
+      "estimated_with_40pct_fallback": 0.544383,
+      "validation": {
+        "decisions": 543,
+        "covered": 369,
+        "coverage": 0.679558,
+        "exact": 226,
+        "exact_accuracy": 0.612466,
+        "semantic": 228,
+        "semantic_accuracy": 0.617886,
+        "margin_mean": 1.998285,
+        "by_turn": {
+          "gt10": {
+            "n": 50,
+            "exact_accuracy": 0.5
+          },
+          "le10": {
+            "n": 88,
+            "exact_accuracy": 0.556818
+          },
+          "le2": {
+            "n": 36,
+            "exact_accuracy": 0.833333
+          },
+          "le4": {
+            "n": 74,
+            "exact_accuracy": 0.648649
+          },
+          "le7": {
+            "n": 121,
+            "exact_accuracy": 0.61157
+          }
+        }
+      }
+    },
+    {
+      "minimum_support": 16,
+      "minimum_margin": 0.5,
+      "estimated_with_40pct_fallback": 0.537017,
+      "validation": {
+        "decisions": 543,
+        "covered": 324,
+        "coverage": 0.596685,
+        "exact": 204,
+        "exact_accuracy": 0.62963,
+        "semantic": 206,
+        "semantic_accuracy": 0.635802,
+        "margin_mean": 2.22491,
+        "by_turn": {
+          "gt10": {
+            "n": 48,
+            "exact_accuracy": 0.479167
+          },
+          "le10": {
+            "n": 77,
+            "exact_accuracy": 0.571429
+          },
+          "le2": {
+            "n": 34,
+            "exact_accuracy": 0.852941
+          },
+          "le4": {
+            "n": 64,
+            "exact_accuracy": 0.671875
+          },
+          "le7": {
+            "n": 101,
+            "exact_accuracy": 0.643564
+          }
+        }
+      }
+    },
+    {
+      "minimum_support": 16,
+      "minimum_margin": 1.0,
+      "estimated_with_40pct_fallback": 0.530018,
+      "validation": {
+        "decisions": 543,
+        "covered": 261,
+        "coverage": 0.480663,
+        "exact": 175,
+        "exact_accuracy": 0.670498,
+        "semantic": 176,
+        "semantic_accuracy": 0.67433,
+        "margin_mean": 2.587241,
+        "by_turn": {
+          "gt10": {
+            "n": 36,
+            "exact_accuracy": 0.444444
+          },
+          "le10": {
+            "n": 66,
+            "exact_accuracy": 0.606061
+          },
+          "le2": {
+            "n": 30,
+            "exact_accuracy": 0.9
+          },
+          "le4": {
+            "n": 50,
+            "exact_accuracy": 0.74
+          },
+          "le7": {
+            "n": 79,
+            "exact_accuracy": 0.696203
+          }
+        }
+      }
+    },
+    {
+      "minimum_support": 16,
+      "minimum_margin": 2.0,
+      "estimated_with_40pct_fallback": 0.507182,
+      "validation": {
+        "decisions": 543,
+        "covered": 137,
+        "coverage": 0.252302,
+        "exact": 113,
+        "exact_accuracy": 0.824818,
+        "semantic": 114,
+        "semantic_accuracy": 0.832117,
+        "margin_mean": 3.646155,
+        "by_turn": {
+          "gt10": {
+            "n": 19,
+            "exact_accuracy": 0.578947
+          },
+          "le10": {
+            "n": 23,
+            "exact_accuracy": 0.826087
+          },
+          "le2": {
+            "n": 24,
+            "exact_accuracy": 0.958333
+          },
+          "le4": {
+            "n": 34,
+            "exact_accuracy": 0.823529
+          },
+          "le7": {
+            "n": 37,
+            "exact_accuracy": 0.864865
+          }
+        }
+      }
+    },
+    {
+      "minimum_support": 32,
+      "minimum_margin": -1.0,
+      "estimated_with_40pct_fallback": 0.462247,
+      "validation": {
+        "decisions": 543,
+        "covered": 543,
+        "coverage": 1.0,
+        "exact": 251,
+        "exact_accuracy": 0.462247,
+        "semantic": 320,
+        "semantic_accuracy": 0.589319,
+        "margin_mean": 1.368754,
+        "by_turn": {
+          "gt10": {
+            "n": 58,
+            "exact_accuracy": 0.482759
+          },
+          "le10": {
+            "n": 138,
+            "exact_accuracy": 0.413043
+          },
+          "le2": {
+            "n": 46,
+            "exact_accuracy": 0.673913
+          },
+          "le4": {
+            "n": 115,
+            "exact_accuracy": 0.443478
+          },
+          "le7": {
+            "n": 186,
+            "exact_accuracy": 0.451613
+          }
+        }
+      }
+    },
+    {
+      "minimum_support": 32,
+      "minimum_margin": 0.0,
+      "estimated_with_40pct_fallback": 0.462247,
+      "validation": {
+        "decisions": 543,
+        "covered": 543,
+        "coverage": 1.0,
+        "exact": 251,
+        "exact_accuracy": 0.462247,
+        "semantic": 320,
+        "semantic_accuracy": 0.589319,
+        "margin_mean": 1.368754,
+        "by_turn": {
+          "gt10": {
+            "n": 58,
+            "exact_accuracy": 0.482759
+          },
+          "le10": {
+            "n": 138,
+            "exact_accuracy": 0.413043
+          },
+          "le2": {
+            "n": 46,
+            "exact_accuracy": 0.673913
+          },
+          "le4": {
+            "n": 115,
+            "exact_accuracy": 0.443478
+          },
+          "le7": {
+            "n": 186,
+            "exact_accuracy": 0.451613
+          }
+        }
+      }
+    },
+    {
+      "minimum_support": 32,
+      "minimum_margin": 0.25,
+      "estimated_with_40pct_fallback": 0.544383,
+      "validation": {
+        "decisions": 543,
+        "covered": 369,
+        "coverage": 0.679558,
+        "exact": 226,
+        "exact_accuracy": 0.612466,
+        "semantic": 228,
+        "semantic_accuracy": 0.617886,
+        "margin_mean": 1.998285,
+        "by_turn": {
+          "gt10": {
+            "n": 50,
+            "exact_accuracy": 0.5
+          },
+          "le10": {
+            "n": 88,
+            "exact_accuracy": 0.556818
+          },
+          "le2": {
+            "n": 36,
+            "exact_accuracy": 0.833333
+          },
+          "le4": {
+            "n": 74,
+            "exact_accuracy": 0.648649
+          },
+          "le7": {
+            "n": 121,
+            "exact_accuracy": 0.61157
+          }
+        }
+      }
+    },
+    {
+      "minimum_support": 32,
+      "minimum_margin": 0.5,
+      "estimated_with_40pct_fallback": 0.537017,
+      "validation": {
+        "decisions": 543,
+        "covered": 324,
+        "coverage": 0.596685,
+        "exact": 204,
+        "exact_accuracy": 0.62963,
+        "semantic": 206,
+        "semantic_accuracy": 0.635802,
+        "margin_mean": 2.22491,
+        "by_turn": {
+          "gt10": {
+            "n": 48,
+            "exact_accuracy": 0.479167
+          },
+          "le10": {
+            "n": 77,
+            "exact_accuracy": 0.571429
+          },
+          "le2": {
+            "n": 34,
+            "exact_accuracy": 0.852941
+          },
+          "le4": {
+            "n": 64,
+            "exact_accuracy": 0.671875
+          },
+          "le7": {
+            "n": 101,
+            "exact_accuracy": 0.643564
+          }
+        }
+      }
+    },
+    {
+      "minimum_support": 32,
+      "minimum_margin": 1.0,
+      "estimated_with_40pct_fallback": 0.530018,
+      "validation": {
+        "decisions": 543,
+        "covered": 261,
+        "coverage": 0.480663,
+        "exact": 175,
+        "exact_accuracy": 0.670498,
+        "semantic": 176,
+        "semantic_accuracy": 0.67433,
+        "margin_mean": 2.587241,
+        "by_turn": {
+          "gt10": {
+            "n": 36,
+            "exact_accuracy": 0.444444
+          },
+          "le10": {
+            "n": 66,
+            "exact_accuracy": 0.606061
+          },
+          "le2": {
+            "n": 30,
+            "exact_accuracy": 0.9
+          },
+          "le4": {
+            "n": 50,
+            "exact_accuracy": 0.74
+          },
+          "le7": {
+            "n": 79,
+            "exact_accuracy": 0.696203
+          }
+        }
+      }
+    },
+    {
+      "minimum_support": 32,
+      "minimum_margin": 2.0,
+      "estimated_with_40pct_fallback": 0.507182,
+      "validation": {
+        "decisions": 543,
+        "covered": 137,
+        "coverage": 0.252302,
+        "exact": 113,
+        "exact_accuracy": 0.824818,
+        "semantic": 114,
+        "semantic_accuracy": 0.832117,
+        "margin_mean": 3.646155,
+        "by_turn": {
+          "gt10": {
+            "n": 19,
+            "exact_accuracy": 0.578947
+          },
+          "le10": {
+            "n": 23,
+            "exact_accuracy": 0.826087
+          },
+          "le2": {
+            "n": 24,
+            "exact_accuracy": 0.958333
+          },
+          "le4": {
+            "n": 34,
+            "exact_accuracy": 0.823529
+          },
+          "le7": {
+            "n": 37,
+            "exact_accuracy": 0.864865
+          }
+        }
+      }
+    }
+  ],
+  "selected_gate": {
+    "minimum_support": 0,
+    "minimum_margin": 0.25,
+    "estimated_with_40pct_fallback": 0.544383,
+    "validation": {
+      "decisions": 543,
+      "covered": 369,
+      "coverage": 0.679558,
+      "exact": 226,
+      "exact_accuracy": 0.612466,
+      "semantic": 228,
+      "semantic_accuracy": 0.617886,
+      "margin_mean": 1.998285,
+      "by_turn": {
+        "gt10": {
+          "n": 50,
+          "exact_accuracy": 0.5
+        },
+        "le10": {
+          "n": 88,
+          "exact_accuracy": 0.556818
+        },
+        "le2": {
+          "n": 36,
+          "exact_accuracy": 0.833333
+        },
+        "le4": {
+          "n": 74,
+          "exact_accuracy": 0.648649
+        },
+        "le7": {
+          "n": 121,
+          "exact_accuracy": 0.61157
+        }
+      }
+    }
+  },
+  "blind_test_gated": {
+    "decisions": 565,
+    "covered": 405,
+    "coverage": 0.716814,
+    "exact": 239,
+    "exact_accuracy": 0.590123,
+    "semantic": 241,
+    "semantic_accuracy": 0.595062,
+    "margin_mean": 1.902434,
+    "by_turn": {
+      "gt10": {
+        "n": 51,
+        "exact_accuracy": 0.490196
+      },
+      "le10": {
+        "n": 83,
+        "exact_accuracy": 0.518072
+      },
+      "le2": {
+        "n": 36,
+        "exact_accuracy": 0.75
+      },
+      "le4": {
+        "n": 91,
+        "exact_accuracy": 0.67033
+      },
+      "le7": {
+        "n": 144,
+        "exact_accuracy": 0.576389
+      }
+    }
+  },
+  "blind_test_always_model": {
+    "decisions": 565,
+    "covered": 565,
+    "coverage": 1.0,
+    "exact": 258,
+    "exact_accuracy": 0.456637,
+    "semantic": 332,
+    "semantic_accuracy": 0.587611,
+    "margin_mean": 1.376501,
+    "by_turn": {
+      "gt10": {
+        "n": 60,
+        "exact_accuracy": 0.45
+      },
+      "le10": {
+        "n": 116,
+        "exact_accuracy": 0.405172
+      },
+      "le2": {
+        "n": 43,
+        "exact_accuracy": 0.627907
+      },
+      "le4": {
+        "n": 141,
+        "exact_accuracy": 0.48227
+      },
+      "le7": {
+        "n": 205,
+        "exact_accuracy": 0.434146
+      }
+    }
+  },
+  "model_out": "/Users/seyonmacbook/Desktop/Pokemon_TCG_AI_Battle_Challenge/experiments/runs/alakazam_msato_imitation_model_v8_grimwins65_20260815.json",
+  "elapsed_s": 29.824,
+  "interpretation_limit": "held-out action fidelity is not W/L; promotion still requires native H2H, cross-meta regression, zero-fault, and exact-archive checks"
+}

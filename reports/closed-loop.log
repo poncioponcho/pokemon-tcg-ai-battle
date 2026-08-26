@@ -1,0 +1,398 @@
+[23:33:23] STATE: MONITOR_TEACHER
+[23:33:25] teacher status: RUNNING
+[06:30:01] STATE: MONITOR_TEACHER
+[06:30:01] STATE: MONITOR_TEACHER
+[06:30:01] teacher TLE 到点，尝试抢救 ckpt
+[06:30:01] teacher TLE 到点，尝试抢救 ckpt
+[06:30:05] teacher status: RUNNING
+[06:30:05] teacher status: RUNNING
+[06:30:05] 终态: FAILED (teacher TLE 且无 ckpt 可抢救)
+[06:30:05] 终态: FAILED (teacher TLE 且无 ckpt 可抢救)
+[06:31:57] STATE: MONITOR_TEACHER
+[06:32:00] teacher status: RUNNING | elapsed 16.5h
+[06:32:04] STATE: MONITOR_TEACHER
+[06:32:04] STATE: MONITOR_TEACHER
+[06:32:07] teacher status: RUNNING | elapsed 16.5h
+[06:32:07] teacher status: RUNNING | elapsed 16.5h
+[06:34:07] STATE: MONITOR_TEACHER
+[06:34:07] STATE: MONITOR_TEACHER
+[06:34:09] teacher status: RUNNING | elapsed 16.5h
+[06:34:09] teacher status: RUNNING | elapsed 16.5h
+[06:36:09] STATE: MONITOR_TEACHER
+[06:36:09] STATE: MONITOR_TEACHER
+[06:36:12] teacher status: RUNNING | elapsed 16.6h
+[06:36:12] teacher status: RUNNING | elapsed 16.6h
+[06:38:12] STATE: MONITOR_TEACHER
+[06:38:12] STATE: MONITOR_TEACHER
+[06:38:14] teacher status: RUNNING | elapsed 16.6h
+[06:38:14] teacher status: RUNNING | elapsed 16.6h
+[06:40:14] STATE: MONITOR_TEACHER
+[06:40:14] STATE: MONITOR_TEACHER
+[06:40:16] teacher status: RUNNING | elapsed 16.6h
+[06:40:16] teacher status: RUNNING | elapsed 16.6h
+[06:42:16] STATE: MONITOR_TEACHER
+[06:42:16] STATE: MONITOR_TEACHER
+[06:42:17] teacher status: RUNNING | elapsed 16.7h
+[06:42:17] teacher status: RUNNING | elapsed 16.7h
+[06:44:17] STATE: MONITOR_TEACHER
+[06:44:17] STATE: MONITOR_TEACHER
+[06:44:19] teacher status: RUNNING | elapsed 16.7h
+[06:44:19] teacher status: RUNNING | elapsed 16.7h
+[06:46:19] STATE: MONITOR_TEACHER
+[06:46:19] STATE: MONITOR_TEACHER
+[06:46:22] teacher status: RUNNING | elapsed 16.7h
+[06:46:22] teacher status: RUNNING | elapsed 16.7h
+[06:48:22] STATE: MONITOR_TEACHER
+[06:48:22] STATE: MONITOR_TEACHER
+[06:48:24] teacher status: RUNNING | elapsed 16.8h
+[06:48:24] teacher status: RUNNING | elapsed 16.8h
+[06:50:24] STATE: MONITOR_TEACHER
+[06:50:24] STATE: MONITOR_TEACHER
+[06:50:25] teacher status: RUNNING | elapsed 16.8h
+[06:50:25] teacher status: RUNNING | elapsed 16.8h
+[06:52:25] STATE: MONITOR_TEACHER
+[06:52:25] STATE: MONITOR_TEACHER
+[06:52:28] teacher status: RUNNING | elapsed 16.8h
+[06:52:28] teacher status: RUNNING | elapsed 16.8h
+[06:54:28] STATE: MONITOR_TEACHER
+[06:54:28] STATE: MONITOR_TEACHER
+[06:54:30] teacher status: RUNNING | elapsed 16.9h
+[06:54:30] teacher status: RUNNING | elapsed 16.9h
+[06:56:30] STATE: MONITOR_TEACHER
+[06:56:30] STATE: MONITOR_TEACHER
+[06:56:32] teacher status: RUNNING | elapsed 16.9h
+[06:56:32] teacher status: RUNNING | elapsed 16.9h
+[06:58:32] STATE: MONITOR_TEACHER
+[06:58:32] STATE: MONITOR_TEACHER
+[06:58:35] teacher status: RUNNING | elapsed 16.9h
+[06:58:35] teacher status: RUNNING | elapsed 16.9h
+[07:00:35] STATE: MONITOR_TEACHER
+[07:00:35] STATE: MONITOR_TEACHER
+[07:00:37] teacher status: RUNNING | elapsed 17.0h
+[07:00:37] teacher status: RUNNING | elapsed 17.0h
+[07:02:37] STATE: MONITOR_TEACHER
+[07:02:37] STATE: MONITOR_TEACHER
+[07:02:39] teacher status: RUNNING | elapsed 17.0h
+[07:02:39] teacher status: RUNNING | elapsed 17.0h
+[07:04:39] STATE: MONITOR_TEACHER
+[07:04:39] STATE: MONITOR_TEACHER
+[07:04:41] teacher status: RUNNING | elapsed 17.0h
+[07:04:41] teacher status: RUNNING | elapsed 17.0h
+[07:06:41] STATE: MONITOR_TEACHER
+[07:06:41] STATE: MONITOR_TEACHER
+[07:06:43] teacher status: RUNNING | elapsed 17.1h
+[07:06:43] teacher status: RUNNING | elapsed 17.1h
+[07:08:43] STATE: MONITOR_TEACHER
+[07:08:43] STATE: MONITOR_TEACHER
+[07:08:45] teacher status: RUNNING | elapsed 17.1h
+[07:08:45] teacher status: RUNNING | elapsed 17.1h
+[07:22:50] STATE: MONITOR_TEACHER
+[07:22:50] STATE: MONITOR_TEACHER
+[07:22:52] teacher status: RUNNING | elapsed 17.3h
+[07:22:52] teacher status: RUNNING | elapsed 17.3h
+[07:24:52] STATE: MONITOR_TEACHER
+[07:24:52] STATE: MONITOR_TEACHER
+[07:24:54] teacher status: RUNNING | elapsed 17.4h
+[07:24:54] teacher status: RUNNING | elapsed 17.4h
+[07:26:54] STATE: MONITOR_TEACHER
+[07:26:54] STATE: MONITOR_TEACHER
+[07:26:57] teacher status: RUNNING | elapsed 17.4h
+[07:26:57] teacher status: RUNNING | elapsed 17.4h
+[07:28:57] STATE: MONITOR_TEACHER
+[07:28:57] STATE: MONITOR_TEACHER
+[07:29:00] teacher status: RUNNING | elapsed 17.5h
+[07:29:00] teacher status: RUNNING | elapsed 17.5h
+[07:31:00] STATE: MONITOR_TEACHER
+[07:31:00] STATE: MONITOR_TEACHER
+[07:31:02] teacher status: RUNNING | elapsed 17.5h
+[07:31:02] teacher status: RUNNING | elapsed 17.5h
+[07:33:02] STATE: MONITOR_TEACHER
+[07:33:02] STATE: MONITOR_TEACHER
+[07:33:04] teacher status: RUNNING | elapsed 17.5h
+[07:33:04] teacher status: RUNNING | elapsed 17.5h
+[07:35:04] STATE: MONITOR_TEACHER
+[07:35:04] STATE: MONITOR_TEACHER
+[07:35:06] teacher status: RUNNING | elapsed 17.6h
+[07:35:06] teacher status: RUNNING | elapsed 17.6h
+[07:37:06] STATE: MONITOR_TEACHER
+[07:37:06] STATE: MONITOR_TEACHER
+[07:37:08] teacher status: RUNNING | elapsed 17.6h
+[07:37:08] teacher status: RUNNING | elapsed 17.6h
+[07:39:08] STATE: MONITOR_TEACHER
+[07:39:08] STATE: MONITOR_TEACHER
+[07:39:10] teacher status: RUNNING | elapsed 17.6h
+[07:39:10] teacher status: RUNNING | elapsed 17.6h
+[07:41:10] STATE: MONITOR_TEACHER
+[07:41:10] STATE: MONITOR_TEACHER
+[07:41:13] teacher status: RUNNING | elapsed 17.7h
+[07:41:13] teacher status: RUNNING | elapsed 17.7h
+[07:43:13] STATE: MONITOR_TEACHER
+[07:43:13] STATE: MONITOR_TEACHER
+[07:43:16] teacher status: RUNNING | elapsed 17.7h
+[07:43:16] teacher status: RUNNING | elapsed 17.7h
+[07:45:16] STATE: MONITOR_TEACHER
+[07:45:16] STATE: MONITOR_TEACHER
+[07:45:18] teacher status: RUNNING | elapsed 17.7h
+[07:45:18] teacher status: RUNNING | elapsed 17.7h
+[07:47:18] STATE: MONITOR_TEACHER
+[07:47:18] STATE: MONITOR_TEACHER
+[07:47:20] teacher status: RUNNING | elapsed 17.8h
+[07:47:20] teacher status: RUNNING | elapsed 17.8h
+[07:49:20] STATE: MONITOR_TEACHER
+[07:49:20] STATE: MONITOR_TEACHER
+[07:49:23] teacher status: RUNNING | elapsed 17.8h
+[07:49:23] teacher status: RUNNING | elapsed 17.8h
+[07:51:23] STATE: MONITOR_TEACHER
+[07:51:23] STATE: MONITOR_TEACHER
+[07:51:24] teacher status: RUNNING | elapsed 17.8h
+[07:51:24] teacher status: RUNNING | elapsed 17.8h
+[07:53:24] STATE: MONITOR_TEACHER
+[07:53:24] STATE: MONITOR_TEACHER
+[07:53:26] teacher status: RUNNING | elapsed 17.9h
+[07:53:26] teacher status: RUNNING | elapsed 17.9h
+[07:55:26] STATE: MONITOR_TEACHER
+[07:55:26] STATE: MONITOR_TEACHER
+[07:55:28] teacher status: RUNNING | elapsed 17.9h
+[07:55:28] teacher status: RUNNING | elapsed 17.9h
+[07:57:28] STATE: MONITOR_TEACHER
+[07:57:28] STATE: MONITOR_TEACHER
+[07:57:31] teacher status: RUNNING | elapsed 17.9h
+[07:57:31] teacher status: RUNNING | elapsed 17.9h
+[07:59:31] STATE: MONITOR_TEACHER
+[07:59:31] STATE: MONITOR_TEACHER
+[07:59:33] teacher status: RUNNING | elapsed 18.0h
+[07:59:33] teacher status: RUNNING | elapsed 18.0h
+[08:01:33] STATE: MONITOR_TEACHER
+[08:01:33] STATE: MONITOR_TEACHER
+[08:01:35] teacher status: RUNNING | elapsed 18.0h
+[08:01:35] teacher status: RUNNING | elapsed 18.0h
+[08:03:35] STATE: MONITOR_TEACHER
+[08:03:35] STATE: MONITOR_TEACHER
+[08:03:38] teacher status: RUNNING | elapsed 18.0h
+[08:03:38] teacher status: RUNNING | elapsed 18.0h
+[08:05:38] STATE: MONITOR_TEACHER
+[08:05:38] STATE: MONITOR_TEACHER
+[08:05:41] teacher status: RUNNING | elapsed 18.1h
+[08:05:41] teacher status: RUNNING | elapsed 18.1h
+[08:07:41] STATE: MONITOR_TEACHER
+[08:07:41] STATE: MONITOR_TEACHER
+[08:07:43] teacher status: RUNNING | elapsed 18.1h
+[08:07:43] teacher status: RUNNING | elapsed 18.1h
+[08:09:43] STATE: MONITOR_TEACHER
+[08:09:43] STATE: MONITOR_TEACHER
+[08:09:47] teacher status: RUNNING | elapsed 18.1h
+[08:09:47] teacher status: RUNNING | elapsed 18.1h
+[08:11:47] STATE: MONITOR_TEACHER
+[08:11:47] STATE: MONITOR_TEACHER
+[08:11:50] teacher status: RUNNING | elapsed 18.2h
+[08:11:50] teacher status: RUNNING | elapsed 18.2h
+[08:13:50] STATE: MONITOR_TEACHER
+[08:13:50] STATE: MONITOR_TEACHER
+[08:13:52] teacher status: RUNNING | elapsed 18.2h
+[08:13:52] teacher status: RUNNING | elapsed 18.2h
+[08:15:52] STATE: MONITOR_TEACHER
+[08:15:52] STATE: MONITOR_TEACHER
+[08:15:56] teacher status: RUNNING | elapsed 18.2h
+[08:15:56] teacher status: RUNNING | elapsed 18.2h
+[08:17:56] STATE: MONITOR_TEACHER
+[08:17:56] STATE: MONITOR_TEACHER
+[08:17:58] teacher status: RUNNING | elapsed 18.3h
+[08:17:58] teacher status: RUNNING | elapsed 18.3h
+[08:19:58] STATE: MONITOR_TEACHER
+[08:19:58] STATE: MONITOR_TEACHER
+[08:20:01] teacher status: RUNNING | elapsed 18.3h
+[08:20:01] teacher status: RUNNING | elapsed 18.3h
+[08:22:01] STATE: MONITOR_TEACHER
+[08:22:01] STATE: MONITOR_TEACHER
+[08:22:03] teacher status: RUNNING | elapsed 18.3h
+[08:22:03] teacher status: RUNNING | elapsed 18.3h
+[08:24:03] STATE: MONITOR_TEACHER
+[08:24:03] STATE: MONITOR_TEACHER
+[08:24:05] teacher status: RUNNING | elapsed 18.4h
+[08:24:05] teacher status: RUNNING | elapsed 18.4h
+[08:26:05] STATE: MONITOR_TEACHER
+[08:26:05] STATE: MONITOR_TEACHER
+[08:26:07] teacher status: RUNNING | elapsed 18.4h
+[08:26:07] teacher status: RUNNING | elapsed 18.4h
+[08:28:07] STATE: MONITOR_TEACHER
+[08:28:07] STATE: MONITOR_TEACHER
+[08:28:08] teacher status: RUNNING | elapsed 18.4h
+[08:28:08] teacher status: RUNNING | elapsed 18.4h
+[08:30:08] STATE: MONITOR_TEACHER
+[08:30:08] STATE: MONITOR_TEACHER
+[08:30:10] teacher status: RUNNING | elapsed 18.5h
+[08:30:10] teacher status: RUNNING | elapsed 18.5h
+[08:32:10] STATE: MONITOR_TEACHER
+[08:32:10] STATE: MONITOR_TEACHER
+[08:32:13] teacher status: RUNNING | elapsed 18.5h
+[08:32:13] teacher status: RUNNING | elapsed 18.5h
+[08:34:13] STATE: MONITOR_TEACHER
+[08:34:13] STATE: MONITOR_TEACHER
+[08:34:15] teacher status: RUNNING | elapsed 18.5h
+[08:34:15] teacher status: RUNNING | elapsed 18.5h
+[08:36:15] STATE: MONITOR_TEACHER
+[08:36:15] STATE: MONITOR_TEACHER
+[08:36:17] teacher status: RUNNING | elapsed 18.6h
+[08:36:17] teacher status: RUNNING | elapsed 18.6h
+[08:38:18] STATE: MONITOR_TEACHER
+[08:38:18] STATE: MONITOR_TEACHER
+[08:38:21] teacher status: RUNNING | elapsed 18.6h
+[08:38:21] teacher status: RUNNING | elapsed 18.6h
+[08:40:21] STATE: MONITOR_TEACHER
+[08:40:21] STATE: MONITOR_TEACHER
+[08:40:23] teacher status: RUNNING | elapsed 18.6h
+[08:40:23] teacher status: RUNNING | elapsed 18.6h
+[08:42:23] STATE: MONITOR_TEACHER
+[08:42:23] STATE: MONITOR_TEACHER
+[08:42:26] teacher status: RUNNING | elapsed 18.7h
+[08:42:26] teacher status: RUNNING | elapsed 18.7h
+[08:44:26] STATE: MONITOR_TEACHER
+[08:44:26] STATE: MONITOR_TEACHER
+[08:44:28] teacher status: RUNNING | elapsed 18.7h
+[08:44:28] teacher status: RUNNING | elapsed 18.7h
+[08:46:28] STATE: MONITOR_TEACHER
+[08:46:28] STATE: MONITOR_TEACHER
+[08:46:29] teacher status: RUNNING | elapsed 18.7h
+[08:46:29] teacher status: RUNNING | elapsed 18.7h
+[08:48:29] STATE: MONITOR_TEACHER
+[08:48:29] STATE: MONITOR_TEACHER
+[08:48:31] teacher status: RUNNING | elapsed 18.8h
+[08:48:31] teacher status: RUNNING | elapsed 18.8h
+[08:50:31] STATE: MONITOR_TEACHER
+[08:50:31] STATE: MONITOR_TEACHER
+[08:50:33] teacher status: RUNNING | elapsed 18.8h
+[08:50:33] teacher status: RUNNING | elapsed 18.8h
+[08:52:33] STATE: MONITOR_TEACHER
+[08:52:33] STATE: MONITOR_TEACHER
+[08:52:35] teacher status: RUNNING | elapsed 18.8h
+[08:52:35] teacher status: RUNNING | elapsed 18.8h
+[08:54:35] STATE: MONITOR_TEACHER
+[08:54:35] STATE: MONITOR_TEACHER
+[08:54:37] teacher status: RUNNING | elapsed 18.9h
+[08:54:37] teacher status: RUNNING | elapsed 18.9h
+[08:56:37] STATE: MONITOR_TEACHER
+[08:56:37] STATE: MONITOR_TEACHER
+[08:56:39] teacher status: RUNNING | elapsed 18.9h
+[08:56:39] teacher status: RUNNING | elapsed 18.9h
+[08:58:39] STATE: MONITOR_TEACHER
+[08:58:39] STATE: MONITOR_TEACHER
+[08:58:42] teacher status: RUNNING | elapsed 18.9h
+[08:58:42] teacher status: RUNNING | elapsed 18.9h
+[09:00:42] STATE: MONITOR_TEACHER
+[09:00:42] STATE: MONITOR_TEACHER
+[09:00:43] teacher status: RUNNING | elapsed 19.0h
+[09:00:43] teacher status: RUNNING | elapsed 19.0h
+[09:02:43] STATE: MONITOR_TEACHER
+[09:02:43] STATE: MONITOR_TEACHER
+[09:02:46] teacher status: RUNNING | elapsed 19.0h
+[09:02:46] teacher status: RUNNING | elapsed 19.0h
+[09:04:46] STATE: MONITOR_TEACHER
+[09:04:46] STATE: MONITOR_TEACHER
+[09:04:49] teacher status: RUNNING | elapsed 19.0h
+[09:04:49] teacher status: RUNNING | elapsed 19.0h
+[09:06:49] STATE: MONITOR_TEACHER
+[09:06:49] STATE: MONITOR_TEACHER
+[09:06:51] teacher status: RUNNING | elapsed 19.1h
+[09:06:51] teacher status: RUNNING | elapsed 19.1h
+[09:08:51] STATE: MONITOR_TEACHER
+[09:08:51] STATE: MONITOR_TEACHER
+[09:08:53] teacher status: RUNNING | elapsed 19.1h
+[09:08:53] teacher status: RUNNING | elapsed 19.1h
+[09:10:53] STATE: MONITOR_TEACHER
+[09:10:53] STATE: MONITOR_TEACHER
+[09:10:55] teacher status: RUNNING | elapsed 19.1h
+[09:10:55] teacher status: RUNNING | elapsed 19.1h
+[09:12:55] STATE: MONITOR_TEACHER
+[09:12:55] STATE: MONITOR_TEACHER
+[09:12:58] teacher status: RUNNING | elapsed 19.2h
+[09:12:58] teacher status: RUNNING | elapsed 19.2h
+[09:14:58] STATE: MONITOR_TEACHER
+[09:14:58] STATE: MONITOR_TEACHER
+[09:14:59] teacher status: RUNNING | elapsed 19.2h
+[09:14:59] teacher status: RUNNING | elapsed 19.2h
+[09:16:59] STATE: MONITOR_TEACHER
+[09:16:59] STATE: MONITOR_TEACHER
+[09:17:02] teacher status: RUNNING | elapsed 19.3h
+[09:17:02] teacher status: RUNNING | elapsed 19.3h
+[09:19:02] STATE: MONITOR_TEACHER
+[09:19:02] STATE: MONITOR_TEACHER
+[09:19:04] teacher status: RUNNING | elapsed 19.3h
+[09:19:04] teacher status: RUNNING | elapsed 19.3h
+[09:21:04] STATE: MONITOR_TEACHER
+[09:21:04] STATE: MONITOR_TEACHER
+[09:21:06] teacher status: RUNNING | elapsed 19.3h
+[09:21:06] teacher status: RUNNING | elapsed 19.3h
+[09:23:06] STATE: MONITOR_TEACHER
+[09:23:06] STATE: MONITOR_TEACHER
+[09:23:08] teacher status: RUNNING | elapsed 19.4h
+[09:23:08] teacher status: RUNNING | elapsed 19.4h
+[09:25:08] STATE: MONITOR_TEACHER
+[09:25:08] STATE: MONITOR_TEACHER
+[09:25:11] teacher status: RUNNING | elapsed 19.4h
+[09:25:11] teacher status: RUNNING | elapsed 19.4h
+[09:27:11] STATE: MONITOR_TEACHER
+[09:27:11] STATE: MONITOR_TEACHER
+[09:27:14] teacher status: RUNNING | elapsed 19.4h
+[09:27:14] teacher status: RUNNING | elapsed 19.4h
+[09:29:14] STATE: MONITOR_TEACHER
+[09:29:14] STATE: MONITOR_TEACHER
+[09:29:16] teacher status: RUNNING | elapsed 19.5h
+[09:29:16] teacher status: RUNNING | elapsed 19.5h
+[09:31:16] STATE: MONITOR_TEACHER
+[09:31:16] STATE: MONITOR_TEACHER
+[09:31:18] teacher status: RUNNING | elapsed 19.5h
+[09:31:18] teacher status: RUNNING | elapsed 19.5h
+[09:33:18] STATE: MONITOR_TEACHER
+[09:33:18] STATE: MONITOR_TEACHER
+[09:33:21] teacher status: RUNNING | elapsed 19.5h
+[09:33:21] teacher status: RUNNING | elapsed 19.5h
+[09:35:21] STATE: MONITOR_TEACHER
+[09:35:21] STATE: MONITOR_TEACHER
+[09:35:23] teacher status: RUNNING | elapsed 19.6h
+[09:35:23] teacher status: RUNNING | elapsed 19.6h
+[09:37:23] STATE: MONITOR_TEACHER
+[09:37:23] STATE: MONITOR_TEACHER
+[09:37:26] teacher status: RUNNING | elapsed 19.6h
+[09:37:26] teacher status: RUNNING | elapsed 19.6h
+[09:39:26] STATE: MONITOR_TEACHER
+[09:39:26] STATE: MONITOR_TEACHER
+[09:39:28] teacher status: RUNNING | elapsed 19.6h
+[09:39:28] teacher status: RUNNING | elapsed 19.6h
+[09:41:28] STATE: MONITOR_TEACHER
+[09:41:28] STATE: MONITOR_TEACHER
+[09:41:30] teacher status: RUNNING | elapsed 19.7h
+[09:41:30] teacher status: RUNNING | elapsed 19.7h
+[09:43:30] STATE: MONITOR_TEACHER
+[09:43:30] STATE: MONITOR_TEACHER
+[09:43:32] teacher status: RUNNING | elapsed 19.7h
+[09:43:32] teacher status: RUNNING | elapsed 19.7h
+[09:45:32] STATE: MONITOR_TEACHER
+[09:45:32] STATE: MONITOR_TEACHER
+[09:45:35] teacher status: RUNNING | elapsed 19.7h
+[09:45:35] teacher status: RUNNING | elapsed 19.7h
+[09:47:35] STATE: MONITOR_TEACHER
+[09:47:35] STATE: MONITOR_TEACHER
+[09:47:37] teacher status: RUNNING | elapsed 19.8h
+[09:47:37] teacher status: RUNNING | elapsed 19.8h
+[09:49:37] STATE: MONITOR_TEACHER
+[09:49:37] STATE: MONITOR_TEACHER
+[09:49:39] teacher status: RUNNING | elapsed 19.8h
+[09:49:39] teacher status: RUNNING | elapsed 19.8h
+[09:51:39] STATE: MONITOR_TEACHER
+[09:51:39] STATE: MONITOR_TEACHER
+[09:51:41] teacher status: RUNNING | elapsed 19.8h
+[09:51:41] teacher status: RUNNING | elapsed 19.8h
+[09:53:42] STATE: MONITOR_TEACHER
+[09:53:42] STATE: MONITOR_TEACHER
+[09:53:44] teacher status: RUNNING | elapsed 19.9h
+[09:53:44] teacher status: RUNNING | elapsed 19.9h
+[09:55:44] STATE: MONITOR_TEACHER
+[09:55:44] STATE: MONITOR_TEACHER
+[09:55:47] teacher status: RUNNING | elapsed 19.9h
+[09:55:47] teacher status: RUNNING | elapsed 19.9h
+[09:56:45] STATE: MONITOR_TEACHER
+[09:56:47] teacher status: RUNNING
+[09:56:53] STATE: MONITOR_TEACHER
+[09:56:53] STATE: MONITOR_TEACHER
+[09:56:54] teacher status: RUNNING
+[09:56:54] teacher status: RUNNING

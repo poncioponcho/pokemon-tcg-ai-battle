@@ -1,0 +1,177 @@
+
+===== [CELL 14 HTML] =====
+score_band
+teams
+1100+
+16
+1000-1099
+81
+900-999
+262
+800-899
+500
+700-799
+500
+600-699
+500
+500-599
+500
+
+===== [CELL 22 HTML] =====
+Rank | Deck archetype | Teams | Share of 2,359 classified teams
+1 | Marnie Grimmsnarl | 462 | 19.58%
+2 | Alakazam | 460 | 19.50%
+3 | Mega Lucario | 419 | 17.76%
+4 | Crustle Wall | 209 | 8.86%
+5 | Archaludon | 186 | 7.88%
+6 | Dragapult | 135 | 5.72%
+7 | Mega Froslass | 63 | 2.67%
+8 | Mega Starmie | 56 | 2.37%
+9 | Teal Mask Ogerpon | 56 | 2.37%
+10 | Cynthia Garchomp | 45 | 1.91%
+11 | Festival Lead | 31 | 1.31%
+12 | Team Rocket Mewtwo | 30 | 1.27%
+13 | Hop Trevenant | 29 | 1.23%
+14 | Great Tusk / Crustle | 28 | 1.19%
+15 | Iono Bellibolt | 28 | 1.19%
+16 | Mega Abomasnow | 22 | 0.93%
+17 | Mega Lopunny | 22 | 0.93%
+18 | Mega Kangaskhan | 14 | 0.59%
+19 | Chandelure | 8 | 0.34%
+20 | Comfey | 8 | 0.34%
+21 | Raging Bolt | 7 | 0.30%
+22 | Cornerstone Mask Ogerpon | 6 | 0.25%
+23 | N's Zoroark | 5 | 0.21%
+24 | Ceruledge | 4 | 0.17%
+25 | Cubchoo | 4 | 0.17%
+26 | Ethan's Cyndaquil | 3 | 0.13%
+27 | Mega Gardevoir | 3 | 0.13%
+28 | Team Rocket's Murkrow | 3 | 0.13%
+29 | Eevee | 2 | 0.08%
+30 | Other / Espeon ex | 2 | 0.08%
+31 | Team Rocket's Honchkrow | 2 | 0.08%
+32 | Empoleon | 1 | 0.04%
+33 | Okidogi | 1 | 0.04%
+34 | Other / Erika's Vileplume ex | 1 | 0.04%
+35 | Other / Mega Venusaur ex | 1 | 0.04%
+36 | Paldean Tauros | 1 | 0.04%
+37 | Solrock | 1 | 0.04%
+38 | Team Rocket's Arbok | 1 | 0.04%
+
+===== [CELL 22 HTML] =====
+Rank | Deck archetype | Teams | Usage
+1 | Alakazam | 4 | 25.0%
+2 | Festival Lead | 2 | 12.5%
+3 | Marnie Grimmsnarl | 2 | 12.5%
+4 | Mega Froslass | 2 | 12.5%
+5 | Mega Kangaskhan | 2 | 12.5%
+6 | Crustle Wall | 1 | 6.2%
+7 | Cynthia Garchomp | 1 | 6.2%
+8 | Dragapult | 1 | 6.2%
+9 | Mega Lucario | 1 | 6.2%
+#1 Alakazam
+Alakazam#2 Festival Lead
+Dipplin#3 Marnie Grimmsnarl
+Marnie's Grimmsnarl ex
+
+===== [CELL 22 HTML] =====
+Rank | Deck archetype | Teams | Usage
+1 | Marnie Grimmsnarl | 24 | 29.6%
+2 | Alakazam | 13 | 16.1%
+3 | Mega Froslass | 11 | 13.6%
+4 | Teal Mask Ogerpon | 9 | 11.1%
+5 | Dragapult | 7 | 8.6%
+6 | Crustle Wall | 5 | 6.2%
+7 | Mega Lopunny | 5 | 6.2%
+8 | Festival Lead | 3 | 3.7%
+9 | Mega Kangaskhan | 2 | 2.5%
+10 | Mega Lucario | 1 | 1.2%
+#1 Marnie Grimmsnarl
+Marnie's Grimmsnarl ex#2 Alakazam
+Alakazam#3 Mega Froslass
+Mega Froslass ex
+
+===== [CELL 22 HTML] =====
+Rank | Deck archetype | Teams | Usage
+1 | Marnie Grimmsnarl | 120 | 45.8%
+2 | Alakazam | 50 | 19.1%
+3 | Crustle Wall | 29 | 11.1%
+4 | Teal Mask Ogerpon | 12 | 4.6%
+5 | Mega Froslass | 9 | 3.4%
+6 | Mega Lucario | 9 | 3.4%
+7 | Cynthia Garchomp | 8 | 3.0%
+8 | Dragapult | 6 | 2.3%
+9 | Festival Lead | 6 | 2.3%
+10 | Mega Lopunny | 3 | 1.1%
+#1 Marnie Grimmsnarl
+Marnie's Grimmsnarl ex#2 Alakazam
+Alakazam#3 Crustle Wall
+Crustle
+
+===== [CELL 22 HTML] =====
+Rank | Deck archetype | Teams | Usage
+1 | Marnie Grimmsnarl | 214 | 42.8%
+2 | Alakazam | 100 | 20.0%
+3 | Crustle Wall | 45 | 9.0%
+4 | Mega Lucario | 27 | 5.4%
+5 | Archaludon | 26 | 5.2%
+6 | Teal Mask Ogerpon | 17 | 3.4%
+7 | Cynthia Garchomp | 16 | 3.2%
+8 | Mega Froslass | 11 | 2.2%
+9 | Dragapult | 9 | 1.8%
+10 | Team Rocket Mewtwo | 6 | 1.2%
+#1 Marnie Grimmsnarl
+Marnie's Grimmsnarl ex#2 Alakazam
+Alakazam#3 Crustle Wall
+Crustle
+
+===== [CELL 22 HTML] =====
+Rank | Deck archetype | Teams | Usage
+1 | Alakazam | 153 | 30.6%
+2 | Archaludon | 121 | 24.2%
+3 | Mega Lucario | 63 | 12.6%
+4 | Marnie Grimmsnarl | 49 | 9.8%
+5 | Crustle Wall | 27 | 5.4%
+6 | Dragapult | 15 | 3.0%
+7 | Iono Bellibolt | 13 | 2.6%
+8 | Cynthia Garchomp | 8 | 1.6%
+9 | Great Tusk / Crustle | 7 | 1.4%
+10 | Mega Starmie | 7 | 1.4%
+#1 Alakazam
+Alakazam#2 Archaludon
+Archaludon ex#3 Mega Lucario
+Mega Lucario ex
+
+===== [CELL 22 HTML] =====
+Rank | Deck archetype | Teams | Usage
+1 | Mega Lucario | 143 | 28.6%
+2 | Alakazam | 75 | 15.0%
+3 | Dragapult | 70 | 14.0%
+4 | Crustle Wall | 40 | 8.0%
+5 | Archaludon | 30 | 6.0%
+6 | Marnie Grimmsnarl | 29 | 5.8%
+7 | Great Tusk / Crustle | 17 | 3.4%
+8 | Iono Bellibolt | 13 | 2.6%
+9 | Mega Froslass | 13 | 2.6%
+10 | Mega Starmie | 13 | 2.6%
+#1 Mega Lucario
+Mega Lucario ex#2 Alakazam
+Alakazam#3 Dragapult
+Dragapult ex
+
+===== [CELL 22 HTML] =====
+Rank | Deck archetype | Teams | Usage
+1 | Mega Lucario | 175 | 35.0%
+2 | Alakazam | 65 | 13.0%
+3 | Crustle Wall | 62 | 12.4%
+4 | Mega Starmie | 33 | 6.6%
+5 | Dragapult | 27 | 5.4%
+6 | Marnie Grimmsnarl | 24 | 4.8%
+7 | Mega Abomasnow | 18 | 3.6%
+8 | Hop Trevenant | 16 | 3.2%
+9 | Mega Froslass | 12 | 2.4%
+10 | Archaludon | 8 | 1.6%
+#1 Mega Lucario
+Mega Lucario ex#2 Alakazam
+Alakazam#3 Crustle Wall
+Crustle

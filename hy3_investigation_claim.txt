@@ -1,0 +1,48 @@
+I'll investigate the project to find suspected bugs. Let me start by examining the key source files and any existing audit reports.
+This is a large project. Let me read the core engine (`main.py`) in chunks and scan for common bug patterns across all Python files in parallel.
+`main.py` is mostly a giant card-data table. Let me find the actual logic functions and scan for common bug anti-patterns across the whole codebase, plus check existing audit docs.
+This is a large codebase with many near-identical `main.py` copies. Let me examine the core decision-logic helper functions in `main.py` for real logic bugs, and check the existing audit/HANDOFF docs.
+The core `main.py` helpers look carefully maintained with bugfix comments. Let me verify a few concrete suspected issues: undefined data structures in `main.py`, the SDK engine files, the card-DB generator, and what existing audits already documented.
+I need to verify how the two card databases (`_GEN_CARD_DATA` tuples vs the hand-maintained `_CARD_DB` dicts) are merged — a format mismatch there would be a critical bug. Let me read that section.
+The merge is correct (tuples converted to dicts). Good — no format mismatch. Let me check whether the active `deck.csv` matches the inline deck (a deck/strategy mismatch would be a real bug), and whether the many duplicate `main.py` copies are stale versions.
+Key finding: `deck.csv` matches `_INLINE_DECK` (Lucario deck) — consistent. But `submission/main.py` only has 6 version-string lines vs 58 in the root `main.py`, suggesting the submitted copy may be stale. Let me verify the submission header and check whether `pack.sh` regenerates it from root.
+I've completed a static audit of the project's core code. Because I'm in **Ask mode (read-only)**, I could not execute `py_compile`/unit tests or run the scripts — this is a code-reading audit only. Here are the findings, prioritized.
+
+## Scope
+Audited: `main.py` (core agent, ~3700 lines), `build_deck.py`, `gen_deck.py`, `gen_card_db.py`, `analyze_cards.py`, `sdk/cabt.py`, `deck.csv`, `pack.sh`, `submission/main.py`. The heavy `_GEN_CARD_DATA` table and ~100 near-duplicate `main.py` copies were spot-checked.
+
+## Suspected bugs / issues
+
+**HIGH — real defects**
+
+1. **`build_deck.py:81` — unguarded `int(c['HP'])` crash**
+   `and int(c['HP']) >= 60` has no empty-string guard, unlike the sibling filters at lines 72 and 85 (`int(x['HP']) if x['HP'] else 0`). If any "Basic Pokémon" row in the CSV has an empty `HP`, this raises `ValueError` and aborts deck building. Fix: `int(c['HP']) if c['HP'] else 0 >= 60`.
+
+2. **`submission/main.py` is a STALE v23.2 copy (root is v24.5)**
+   `submission/main.py` still carries the v23.2 header (BUG-1/2/3 era), while the root `main.py` is **v24.5** with oscillation guard (`_OSC`), opponent modeling (`_GAME_STATE`), ttw arbitration, etc. `pack.sh` actually uses the root `main.py` (line 53: `tar ... main.py deck.csv`), so the real submission is fine — but the leftover `submission/` copy is a **footgun**: anyone who manually zips `submission/` ships a 2-version-old agent missing critical fixes. Recommend deleting or regenerating it.
+
+3. **`sdk/cabt.py:136` — bare `except:` masks engine errors**
+   `except:` around `battle_select()` catches *everything* (including `KeyboardInterrupt`/`SystemExit`) and silently marks the player "INVALID", hiding real bugs as gameplay errors. Change to `except Exception:`. Also `== None` at lines 73/79/104/126 should be `is None` (the project's own `test_cabt.py` already uses `is None`).
+
+**MEDIUM**
+
+4. **`main.py` documentation drift** — the header "制胜公式" (line 119) and `_INLINE_DECK` comment (line 125: "Mega Wall Push v2") still describe the old 756+345 wall-push deck, but the actual deck/strategy is Mega Lucario ex (678). Misleading for future maintainers, not a runtime bug.
+
+5. **`gen_card_db.py:111-114` — `evolves_to` drops alternate evolutions**
+   Only `children[0]` is kept, so multi-evolution Pokémon (e.g. Eevee) lose branch info in `_CARD_DB` (affects only the evolve-bonus score, not moves/weakness). Also `build_card_db()` has no fallback if `JP_Card_Data_Cleaned.csv` is missing → it crashes, which would break any `--inline` regeneration of `main.py`.
+
+6. **`analyze_cards.py:122` — bare `except:` masks bad data**
+   In `analyze_high_damage_attacks`, a malformed `Damage` string is silently dropped instead of reported. Combined with the relative CSV path (`pokemon-tcg-ai-battle-challenge-strategy/EN_Card_Data.csv`), these scripts can also silently no-op if run from a different CWD.
+
+**LOW / structural**
+
+7. **Hundreds of `except Exception`/`except:` sites** across `main.py` helper getters — mostly defensive, acceptable, but several swallow genuine data errors and make subtle card-DB issues invisible. Recommend a targeted regression test rather than re-auditing by eye (the decision handlers are heavily patched per their own bugfix comments).
+
+8. **~100 duplicate `main.py` copies** in `experiments/runs/*` and `experiments/arena_pool/*` at version tags (v232/v240/v242/v244/v245). These are intentional experiment snapshots — only `submission/main.py` (item #2) is a stale deliverable hazard.
+
+## Not audited this pass (offer to continue)
+- `inference/` (35 py) and `experiments/` training scripts (60 py) — large, separate subsystems; not scanned for logic bugs yet.
+- I could not run syntax/unit checks (Ask mode = no execution).
+
+## Recommended next step
+Switch to **Craft mode** and I'll: (a) fix `build_deck.py:81`, (b) delete/regenerate the stale `submission/main.py`, (c) tighten `sdk/cabt.py` exception handling, and (d) optionally extend the audit into `inference/` and `experiments/`. Want me to proceed, and should I include the deeper `inference/`/`experiments/` scan?

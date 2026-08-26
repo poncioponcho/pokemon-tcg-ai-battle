@@ -7,8 +7,8 @@
 
 1. 拉 team submissions 与 leaderboard，只读确认 latest-2。
 2. latest-2 必须均为 exact Grim v22：
-   - 8/16 新 ref（以 `reports/candidate_delivery.jsonl` 实际返回值为准）；
-   - ref `55516725`。
+   - 新独立实例 ref `55547740`；
+   - 成熟托底实例 ref `55539446`。
 3. 两件交付来源必须对应 archive SHA
    `599e19ae9c6f5f09160565a9ffb0f3662062bde921dd196ad20c81f6b4c8bfcf`；
    新 ref 状态必须 COMPLETE/有效。

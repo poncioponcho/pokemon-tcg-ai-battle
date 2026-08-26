@@ -1,0 +1,711 @@
+The Pokémon Company - PTCG AI Battle Challenge Simulation | Kaggle
+=====
+menu
+Skip to
+content
+Create
+explore
+
+Home
+
+emoji_events
+
+Competitions
+
+leaderboard
+
+Benchmarks
+
+smart_toy
+
+Game Arena
+
+code
+
+Data Hub
+
+expand_more
+format_list_bulleted
+
+More
+
+expand_more
+note_alt
+
+Your Work
+
+expand_less
+
+Viewed
+
+expand_less
+
+The Pokémon Company - PTCG AI Battle Challenge Simulation
+
+Tracking 3,057 teams through 6 weeks of meta: who switched decks, when — and why it was always too late
+
+Is That Matchup Table Measuring the Deck—or the Player? (Part 1)
+
+ELO inconsistency
+
+my plan on how to do RL training ... is it my hallucinations?
+
+Edited
+
+expand_less
+
+notebooke2441e9455
+
+PTCG Strategy MRI | 2,022 Cards to 60 Decis 66517c
+
+pokemon-tcg-strategy-mega-lucario
+
+PTCG Strategy MRI | 2,022 Cards to 60 Decisions
+
+titanic最后一舞
+
+auto_awesome_motion
+
+View Active Events
+
+search
+​
+THE POKÉMON COMPANY - PTCGABC TEAM · FEATURED SIMULATION COMPETITION · 6 DAYS TO GO
+Submit Agent
+more_horiz
+The Pokémon Company - PTCG AI Battle Challenge Simulation
+
+Build an AI Training Agent to play the Pokémon Trading Card Game
+
+Overview
+Data
+Code
+Models
+Discussion
+Leaderboard
+Rules
+Team
+Submissions
+ABHYUDAY · 124TH IN THIS COMPETITION · POSTED A MONTH AGO
+arrow_drop_up
+40
+more_vert
+Sharing my Reinforcement Learning journey (updated)
+
+Most of current decks are clearly rule-based. I'm in the bucket of pure RL players. What has your RL journey been like so far? I've never played the game before so I'm letting self-play teach itself (and me).
+
+For me:
+
+Developed an efficient representation of the board, on a relatively small policy
+~4 hours of training is beating the top public bots - landing around top 30th percentile on the leaderboard. It is also clearly stronger than me so I'm having a hard time deducing what it did wrong.
+Weaknesses are very clear - lot of game and card knowledge is required. I expect it to perform a lot better once I fix this.
+
+Update: Some more training + fixing the bugs above - made it into silver!
+
+add_reaction
+React
+comment
+20 Comments
+Hotness
+undo
+redo
+format_size
+format_bold
+format_italic
+format_strikethrough
+insert_link
+format_quote
+code
+format_list_numbered
+format_list_bulleted
+table_chart
+insert_photo
+smart_display
+insert_emoticon
+help
+ 
+
+This comment will be made public once posted.
+
+attach_file
+Post Comment
+Ryan Rumble
+
+Posted a month ago
+
+· 5723rd in this Competition
+
+arrow_drop_up
+2
+more_vert
+
+I'm "learning" RL for the first time, heavy-handed vibe coding is helping me a ton in getting it set up. Otherwise I'm slowly working on a rules-based agent for Alakazam and Honchkrow. If you have general PTCG questions for a domain expert, I've been playing competitively this season and placed in the top 1% of players (whiffed my Worlds invite, though) and would be happy to answer anything if you haven't found that resource, yet. PTCG Players in general love to talk about the hobby. =]
+
+reply
+Reply
+2
+add_reaction
+Abhyuday
+TOPIC AUTHOR
+
+Posted a month ago
+
+· 124th in this Competition
+
+arrow_drop_up
+2
+more_vert
+
+Good luck on your endeavour! You can get far just vibe coding (and some persistence). This helped me understand the basics quite quickly: https://spinningup.openai.com/en/latest/spinningup/spinningup.html. Rest was experimentation.
+
+My approach for this competition is pure self play. Which means neither me or my agent ever knows the complex rules of the game. It just learns by trying millions of different variations to learn it. One difficulty of this is that my agent is vastly superior to me so I have no chance of finding weaknesses in its play. I'm very curious how difficult it would be for you to face it.
+
+Congrats on being the top 1%! I have quite a few questions, I've played fewer than 3 games myself. I'll drop a few that are puzzling me right now:
+
+Any general resources/forums/wiki that I can use to understand fundamental strategies, etc? I've just been picking up a deck and looking at what the "how to play X" videos suggest on YouTube.
+Are there situations that can be marked as clear blunders? I've only identified a few like missing a winning move or attacking when it doesn't actually do any damage.
+How confidently can you tell whether you are behind or ahead in a game? I'm referring to the value function here.
+And as a result of 4 - how uncertain are games? What proportion of games are just unwinnable due to your hand? Due to the variance of the card drawing etc.
+
+I have many more but I'll keep this relatively short.
+
+reply
+Reply
+add_reaction
+React
+Ryan Rumble
+
+Posted a month ago
+
+· 5723rd in this Competition
+
+arrow_drop_up
+2
+more_vert
+
+Absolutely! Happy to share. 1-a. You can look up high placing decks here: https://limitlesstcg.com/ . There's also past tournaments here which have a wildly different metagame than Kaggle https://labs.limitlesstcg.com/ . Recent tournaments Indianapolis through Prague match the card pool of this competition. 1-b. I wouldn't normally recommend the strategy articles from pokemon, but they sound like they'd be perfect for you in your scenario. They're written by pros (consistent YoY top 0.5% players). Here's an example: https://www.pokemon.com/us/features/pokemon-tcg-deck-list-and-strategy-building-a-mega-lucario-ex-deck . 1-c. All of the videos here are good value for time invested https://www.youtube.com/@sixpokemanstcg . I'd specifically recommend https://www.youtube.com/watch?v=Jru0f1x7E14 and https://www.youtube.com/watch?v=owUa7ohI7R0 . The concept of **sequencing **and prize mapping are important for almost every deck. Since I'm newer I'm not 100% confident I use the phrases 100% correct but I'm more correct than I'm not. ;-] **Sequencing **is knowing the right actions to take to have the most information available. Here's a very common example - you have Fezandipiti Ex (Fez) and Drakloak and Dreepy in play, and you have a Poke Pad (Pad) in hand. Let's say your goal is to find Stage 1 Drakloak, Basic Dreepy, and Basic Duskull on your turn. The less optimal sequencing is to use Poke Pad first for one of your 3 targets, then using Fez's Flip The Scripts (Draw3). For example, maybe I poke pad for Drakloak so I guarantee have 2 Drakloak abilities to use in order to see more cards, but there's a chance I find more Drakloak in my Fez's Draw 3 afterwards. Instead, if we use the generic draw of Fez first, we have the opportunity to see any of our 3 finds - if we found an item Buddy-Buddy Poffin (Poffin) off of Fez draw, we now are guaranteed to find those 3 cards we want with Poffin and Poke Pad! At this point, it could be optimal to use the Poffin and Pad now: I need to ask myself, "With the cards I now have, if I use Drakloak's ability and see a Dreepy (replace Dreepy as many times as needed with other cards).. would I have wished I saw different options?" and then decide to 'thin' the deck of cards I didn't want to see with other cards in my hand, in order to improve my chances of seeing other cards. In this example I've described, I may prefer to use my Poffin and Pad before using my 2 Drakloak's abilities, because I perceive higher value in seeing other cards that I cannot specifically search for at this point (from Magic the Gathering, searching your deck for a specific card is called 'tutor' or 'tutoring' so you may see that in PTCG too). So, the basic lesson is generic draw first, then search for specific cards. The primary exception to this rule is if you guarantee know what you need to see in your deck, you will "thin to win" aka discard your deck in order to have a better chance to randomly draw a card you're seeking. Prize mapping is basically asking, "How will I take knockouts in order to get 6 prizes this game?" People will say a series of numbers like 2-2-2 meaning "I will take 3 knockouts across 3 turns in a way that gets me two prizes (usually a 2-prize pokemon and not 2 single prize pokemon, but it depends) at a time." There's a lot of minutiae / things to focus in on around prize mapping.. usually matchup dependent. It ties in a lot with "prize trading / prize racing". Prize trading is simply knowing how many prizes you intend to give up as a result of your actions. A good trade can be taking a 2-prize knockout on Fez and losing a 1-prize Alakazam in return. This prize trading builds into and augments your prize race against your opponent. Your prize map may look like 2-2-2, and your opponent on the other end will be looking to disrupt your prize map. For example if you only need 2 prizes left to win and your opponent's board is single prizers plus one Meowth Ex, they could play Scoop Up Cyclone on Meowth to change into a single prize board state, now forcing you to play for one more turn. Some decks strategize to 'make your opponent take 7 or 8 prizes' by forcing your opponent into a 1-2-2 prize map, and then benching a 3-prizer (a mega pokemon in this format) afterwards, ensuring your opponent has to work harder to reach their goal of passing 6 prizes. Legacy Energy is good to disrupt a prize map. Having cards like Boss's Orders let's you maintain your prize map in case your targets are not being pushed to the active. Some decks can maintain a 1 prize board state for a long time Grimmsnarl Froslass is good at this) until they want to evolve into their 2 prize pokemon.
+
+I wish! LOL There are a lot of niche situations that can come up with most decks. Right now I'm focused on teaching my agent to consistently make the "generically good" play instead of overfitting to rare, low-percentage scenarios that might stunt its overall decision-making. We'll see how that goes.. The tricky part is that those edge cases are really hard to describe as specific board states, and for my current deck these scenarios never happen in the early game. If I had to pick the most obvious errors, it would be over-attaching energy beyond your pokemon's attack cost (this is sometimes OK if you plan to retreat or are against a Crushing Hammer build, but it still depends), using a card that would put your deck at 0 cards, or choosing to not attack when doing so would take a knockout (IRL this is not true at all because a card called Unfair Stamp is in ~50% of decks, but this is for Dragapult decks that are not in our Kaggle meta, so I would always question if my agent decided against taking a knockout).
+I've only been training my agent against ~10 decks I've seen in the top 30 piloted by a random decision policy. Still learning about the ML basics like 'save the best agent and the final agent' in order to make better agents, etc.. So I don't have strong signals about if I'm winning or not, yet. IRL I'll know the archetype of my opponent and be thinking about what lines or plays they have available to win a game. I don't have a value function at all, actually. I should look into that LOL. I vibed matplotlib very recently to track a whole bunch of random data, this is my closest thing to a value function.. The reports showed me my losses to the random agents were due to me decking out (i decked out more than my opponents), so I changed my reward from "generic loss = -1.0" to "generic loss = -1.0, losing to deckout = -1.5" and now my opponent's deck out more than me, so that's probably my "Hello World" of finding out how the reward shaping can benefit me. I attached a copy if you or anyone wants to see. The first chart, "Finish Reason Distribution" and "Reward Component Breakdown" have been good info for me, and I probably need to work on how I visualize my other data.
+Hard question to answer.. I think almost every game is winnable (this is the ego/competitor in me speaking). This game is more random than chess, but we still constantly have the same players reaching the top placements in pokemon regionals. Of course it can be possible to brick for some turns and be behind, but so can your opponent (a well-timed Unfair Stamp + Team Rocket's Watchtower is SO oppressive for an Alakazam deck). In order to answer question in one facet, you could probably get data on your opening card hand or maybe clusters of cards that you do/don't have in your opening hand, maybe how many combined uses of Lillie's Determination, Fez, and other card draw actions were performed in a game, and draw a conclusion that you're more likely to lose if you do or don't have certain cards in your opening hand? For an Alakazam deck that doesn't have much in the way of disruption, you could probably guess you will lose if you are down 2 prizes into an opponent with a single prize board state - you're likely trading 1 for 1 and even if your opponent fails to get one attack off in one turn, they're still going to be ahead on the prize race. For my Honchkrow deck, I posit I'm more likely to lose if I don't use Team Rocket's Proton in my first 2 turns of the game (and extremely likely to lose if I use Proton beyond the first 2 turns), so that's something I've been trying to shape in my agent.
+
+Here's a small tangent: In the limitless tournaments, good players tend to play the good decks which is why Dragapult is selected so much. Every other card in that deck lets you see so many cards, so it's really hard to have anything inconsistent with that deck. An Alakazam deck won Indianapolis because it hard teched for Dragapult which was a majority of the room, it built it's deck in a way no one else considered at the time (it had 4 Nighttime Mine, an Elgyem, and a Dedenne which are very strong 'control' element cards whereas your normal Alakazam deck is swinging for the fences). The zam decks for Kaggle are following recent Zam lists, but could probably be built better since there are so few Tera pokemon decks in the ladder and so few Team Rocket's Watchtower. Those tournaments are also in a best of 3 format, whereas Kaggle is in a Bo1 format (Japan tournaments are Bo1, data is harder to find but is available. Limitless has one that was in a close-enough format to Kaggle https://limitlesstcg.com/tournaments/547 but only has a few placements and decks).
+
+Cheers happy to answer more questions, hope it helps. I'll take any generic/helpful machine learning tips on how to make a good agent from you or anyone inclined. :P
+
+report.html
+reply
+Reply
+add_reaction
+React
+5 more replies
+arrow_drop_down
+Yigit Kayali
+
+Posted a month ago
+
+· 102nd in this Competition
+
+arrow_drop_up
+4
+more_vert
+
+RL seems tough here. I've tried different architectures and training paradigms and failed a lot. I think after reaching an average 700 elo going for bigger opponent pool with variety of decks and maybe exploiters is the key for improvements. Maybe big nets with MTCS might work however requires too much compute which I don't want to waste here. Would love to hear other approaches and diagnostics on how to improve though.
+
+reply
+Reply
+add_reaction
+React
+Abhyuday
+TOPIC AUTHOR
+
+Posted a month ago
+
+· 124th in this Competition
+
+arrow_drop_up
+0
+more_vert
+
+I think you are correct. I have a few promising experiments in progress. I have had good success on a small deck pool so far. I agree scaling that isn't easy.
+
+reply
+Reply
+add_reaction
+React
+Gerardo Del Toro
+
+Posted a month ago
+
+· 1344th in this Competition
+
+arrow_drop_up
+1
+more_vert
+
+Is it there so much deck diversity though? Could we not explain around 90% of players' decks within a fixed set of cards? And some minor internal deck diveristy around a deck goal or main card obvsiouly.
+
+reply
+Reply
+add_reaction
+React
+Abhyuday
+TOPIC AUTHOR
+
+Posted a month ago
+
+· 124th in this Competition
+
+arrow_drop_up
+0
+more_vert
+
+Yes, most of my results have been from the top 250 cards. In fact I haven't even taught it about the rest yet.
+
+reply
+Reply
+add_reaction
+React
+9 more replies
+arrow_drop_down
+Gerardo Del Toro
+
+Posted a month ago
+
+· 1344th in this Competition
+
+arrow_drop_up
+1
+more_vert
+
+Have you been able to get a fast environment from scratch, use the original one or a modified version of it without overhead?
+
+I am only working on a vectorized env for the moment, but the amount of habilities, card effects to consider is huge…
+
+reply
+Reply
+add_reaction
+React
+Abhyuday
+TOPIC AUTHOR
+
+Posted a month ago
+
+· 124th in this Competition
+
+arrow_drop_up
+0
+more_vert
+
+I've been using the original one even before the source code came out. Training at around 7k SPS on a single GPU.
+
+reply
+Reply
+add_reaction
+React
+Gerardo Del Toro
+
+Posted a month ago
+
+· 1344th in this Competition
+
+arrow_drop_up
+0
+more_vert
+
+Fully gpu? Or game stepping is at CPU? How about model params?
+
+I think I will try a few more days getting the parallel environment working. But if it’s not needed so many sps will take the same original game env approach
+
+reply
+Reply
+add_reaction
+React
+Abhyuday
+TOPIC AUTHOR
+
+Posted a month ago
+
+· 124th in this Competition
+
+arrow_drop_up
+0
+more_vert
+
+CPU + GPU with some optimisations. <2M params
+
+reply
+Reply
+add_reaction
+React
+emoji_people
+Omkar Kadam
+
+Posted a month ago
+
+· 929th in this Competition
+
+arrow_drop_up
+0
+more_vert
+
+can i know your system specs
+
+reply
+Reply
+add_reaction
+React
+Jake
+
+Posted a month ago
+
+· 291st in this Competition
+
+arrow_drop_up
+1
+more_vert
+
+We are using a pure RL approach as well. Progress comes in fits and starts. Local round-robin play against our stable of agents usually correlates with better kaggle performance, but not always. 'Walls' of relatively low scoring agents with advantageous match ups against your deck can be frustrating at times. We currently run 6 learned agents and 3 public rule based agents in local mini-tournaments. With some held out from training data for validation purposes.
+
+reply
+Reply
+add_reaction
+React
+Abhyuday
+TOPIC AUTHOR
+
+Posted a month ago
+
+· 124th in this Competition
+
+arrow_drop_up
+0
+more_vert
+
+One thing I learnt: the representation is very important for this particular game. I would check very carefully if your observation space is sufficiently rich enough for your agent to be making its decisions. Are there particular decks that your agent is weak against?
+
+reply
+Reply
+add_reaction
+React
+Jake
+
+Posted a month ago
+
+· 291st in this Competition
+
+arrow_drop_up
+1
+more_vert
+
+Absolutely. The state space representation is key, we're overdue for another audit for improvements on that. Our Archaludon deck was our best for a while (~1000 ELO), but like many others ours started to drop as the field shifted. We just increased the number of different deck types we're playing locally to nine. So far our learned agents experience about the same deck matchup strengths when playing eachother as the public kaggle game corpus does. With the exception of Dragapult, our agent does not play that deck as well as would be expected.
+
+reply
+Reply
+2
+add_reaction
+Dapp
+
+Posted a month ago
+
+· 692nd in this Competition
+
+arrow_drop_up
+1
+more_vert
+
+It's interesting I've been trying to go pure RL as well and have plateaued just under the 800 Elo mark too. Internal leaderboard and metrics all point to a stronger local agent but then on Kaggle it doesn't translate. I've explored both increasing and decreasing deck diversity to but results have been pretty random.
+
+reply
+Reply
+add_reaction
+React
+Abhyuday
+TOPIC AUTHOR
+
+Posted a month ago
+
+· 124th in this Competition
+
+arrow_drop_up
+1
+more_vert
+
+How many of the meta cards is your agent familiar with? And how good is your value function?
+
+Which decks/situations does it actually lose against on the leaderboard?
+
+reply
+Reply
+add_reaction
+React
+Dapp
+
+Posted a month ago
+
+· 692nd in this Competition
+
+arrow_drop_up
+1
+more_vert
+
+I'm completely self taught / ChatGPT taught so it's probably just me not understanding. But I think it's just win/loss for value function. I have about 30% of all cards in my local deck pool and rest of the cards I encode to closest card. I have no idea what it loses against I don't play pokemon but I guess I should review replays.
+
+reply
+Reply
+add_reaction
+React
+5 more replies
+arrow_drop_down
+Tommy Mancino
+
+Posted a month ago
+
+· 2387th in this Competition
+
+arrow_drop_up
+0
+more_vert
+
+I had the same experience. Lack of strength in local decks caused me to overestimate RL-trained play.
+
+reply
+Reply
+add_reaction
+React
+Dapp
+
+Posted a month ago
+
+· 692nd in this Competition
+
+arrow_drop_up
+0
+more_vert
+
+I spent a few days improving my local leaderboard. Time well worth spent as it helps find improvements a lot faster than waiting for kaggle submissions to stabilize.
+
+reply
+Reply
+add_reaction
+React
+Shiv Satyam
+
+Posted 21 days ago
+
+· 296th in this Competition
+
+arrow_drop_up
+0
+more_vert
+
+Do you think its possible to reach a great score with Kaggle's 30 hours GPU quota? I did self play for 10000 games (approx 20 hours) and the score didn't even cross 200.
+
+This contest is certainly difficult than Orbit Wars. With your momentum, you should definitely go for the gold.
+
+reply
+Reply
+add_reaction
+React
+Mahog
+
+Posted 20 days ago
+
+· 765th in this Competition
+
+arrow_drop_up
+1
+more_vert
+
+My current best model, which is > 700 score, was trained for ~10 hours, 60k games, on Kaggle's GPU. Certainly not a great score, but at least > 600 :V
+
+reply
+Reply
+add_reaction
+React
+Shiv Satyam
+
+Posted 17 days ago
+
+· 296th in this Competition
+
+arrow_drop_up
+0
+more_vert
+
+I crossed 700 with PPO but its hard for me. I will have to play a few games myself to think about a good representation that could provide signals to the value head.
+
+I did self play for 10000 games (approx 20 hours)
+
+I forgot to transfer tensors to GPU :P
+
+Otherwise even a transformer based encoder could give 300-400 rollouts in 2-3 minutes. There is no way 10k games would take 20 hours.
+
+reply
+Reply
+add_reaction
+React
+Ryan Rumble
+
+Posted 16 days ago
+
+· 5723rd in this Competition
+
+arrow_drop_up
+0
+more_vert
+
+Another data point for anyone, I just scrapped everything again (lol) and did self play… ~50,000 games in ~5 hrs. I am using my GPUs, too.
+
+reply
+Reply
+add_reaction
+React
+Shiv Satyam
+
+Posted 16 days ago
+
+· 296th in this Competition
+
+arrow_drop_up
+1
+more_vert
+
+Yeah. This is accurate. 50k games would take ~5 hrs if you are "detaching" variables and moving everything to GPU.
+
+reply
+Reply
+add_reaction
+React
+theredbluepill
+
+Posted 20 days ago
+
+· 488th in this Competition
+
+arrow_drop_up
+1
+more_vert
+
+Indiscriminate self-play is nowhere helpful
+
+reply
+Reply
+add_reaction
+React
+Shiv Satyam
+
+Posted 17 days ago
+
+· 296th in this Competition
+
+arrow_drop_up
+0
+more_vert
+
+I actually realized why my PPO was failing. It was the state representation. I tried checkpoint-based PPO (which somehow worked in Orbit Wars) and alternated training between my previous best checkpoint and a strong public agent, which got me my best score yet. I'm thinking of moving toward Imitation Learning / BC now. It feels like the best time to switch.
+
+reply
+Reply
+add_reaction
+React
+ShikeChen
+
+Posted 23 days ago
+
+· 1468th in this Competition
+
+arrow_drop_up
+0
+more_vert
+
+I tried for a few days, the deck selection never converge and often collapse, I have much better result when I hand pick agent the deck, even I'm confident with the architecture, it still fails. I assumption is eliminate the deck pool would help, but the solution won't be as elegant. I also not sure whether if it is a problem with model size, perhaps it is out of compacity for a small agent (mine is 3M weight).
+
+reply
+Reply
+add_reaction
+React
+Shiv Satyam
+
+Posted a month ago
+
+· 296th in this Competition
+
+arrow_drop_up
+0
+more_vert
+
+Did you go from AlphaZero style RL -> PPO? Also, what do you think about the RL starter? (You can choose not to answer if these are too revealing).
+
+reply
+Reply
+add_reaction
+React
+Abhyuday
+TOPIC AUTHOR
+
+Posted a month ago
+
+· 124th in this Competition
+
+arrow_drop_up
+1
+more_vert
+
+Not alphazero style, but yes RL. The starter is terrible.
+
+reply
+Reply
+add_reaction
+React
+theredbluepill
+
+Posted a month ago
+
+· 488th in this Competition
+
+arrow_drop_up
+0
+more_vert
+
+Do you use motifs/ curriculum in self-play? I've also tried self-play earlier, it went not that well, maybe I am lacking a broad generalization technique in it.
+
+reply
+Reply
+add_reaction
+React
+Abhyuday
+TOPIC AUTHOR
+
+Posted a month ago
+
+· 124th in this Competition
+
+arrow_drop_up
+0
+more_vert
+
+Yes I have a very refined curriculum that I've come up with. I have a rough idea of why it's working. I'm assuming your top bot is using either BC or is rule based?
+
+reply
+Reply
+add_reaction
+React
+theredbluepill
+
+Posted a month ago
+
+· 488th in this Competition
+
+arrow_drop_up
+1
+more_vert
+
+Yup, BC. I am layering some RL on top of it, with some searching. I used heuristic agents locally for evaluations.
+
+reply
+Reply
+add_reaction
+React
+3 more replies
+arrow_drop_down

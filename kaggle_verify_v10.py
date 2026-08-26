@@ -1,5 +1,11 @@
 # -*- coding: utf-8 -*-
 """
+⚠️ [已废弃 STALE — 2026-08-09 标记] ⚠️
+本脚本验证的是远古 v10 牌组 (111/223/741/742/743 胡地链时代)，
+与当前 v24.5 Lucario 牌组 (678 等) 完全无关。运行它只会验证错误牌组，
+产生虚假安全感。现役验证请用 experiments/deck_final_verify.py。
+保留本文件仅作历史存档，请勿再粘贴到 Kaggle Notebook 使用。
+
 Kaggle Notebook 验证脚本 — 检查 v10 deck 合法性
 ================================================
 在 Kaggle Notebook (Linux) 中运行此脚本：
@@ -15,6 +21,9 @@ Kaggle Notebook 验证脚本 — 检查 v10 deck 合法性
 
 import json
 import traceback
+
+print("⚠️ 警告: kaggle_verify_v10.py 已废弃 — 验证的是 v10 旧牌组, 与当前 v24.5 无关!"
+      " 现役验证请用 experiments/deck_final_verify.py")
 
 # ============================================================
 # Step 1: 获取完整卡池

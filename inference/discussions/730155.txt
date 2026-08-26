@@ -1,0 +1,133 @@
+The Pokémon Company - PTCG AI Battle Challenge Simulation | Kaggle
+=====
+menu
+Skip to
+content
+Create
+explore
+
+Home
+
+emoji_events
+
+Competitions
+
+leaderboard
+
+Benchmarks
+
+smart_toy
+
+Game Arena
+
+code
+
+Data Hub
+
+expand_more
+format_list_bulleted
+
+More
+
+expand_more
+note_alt
+
+Your Work
+
+expand_less
+
+Viewed
+
+expand_less
+
+The Pokémon Company - PTCG AI Battle Challenge Simulation
+
+my plan on how to do RL training ... is it my hallucinations?
+
+First or second — which do agents pick?
+
+Differences Between the Official Pokémon TCG Rules and the Simulator Behavior
+
+[Solved] [Bug] Player going first can attack on Turn 1
+
+Edited
+
+expand_less
+
+notebooke2441e9455
+
+PTCG Strategy MRI | 2,022 Cards to 60 Decis 66517c
+
+pokemon-tcg-strategy-mega-lucario
+
+PTCG Strategy MRI | 2,022 Cards to 60 Decisions
+
+titanic最后一舞
+
+auto_awesome_motion
+
+View Active Events
+
+search
+​
+THE POKÉMON COMPANY - PTCGABC TEAM · FEATURED SIMULATION COMPETITION · 6 DAYS TO GO
+Submit Agent
+more_horiz
+The Pokémon Company - PTCG AI Battle Challenge Simulation
+
+Build an AI Training Agent to play the Pokémon Trading Card Game
+
+Overview
+Data
+Code
+Models
+Discussion
+Leaderboard
+Rules
+Team
+Submissions
+SHOHEI YOSHIMOTO · 221ST IN THIS COMPETITION · POSTED 14 DAYS AGO
+arrow_drop_up
+0
+more_vert
+How do strong agents decide whether to search before drawing?
+
+Hi everyone,
+
+I am trying to understand how strong agents handle information order within a turn. A common choice is whether to use a deterministic search action first or draw first.
+
+Searching first can thin the deck and avoid drawing a card that could have been searched, but drawing first can reveal what is missing and preserve the search action for a better target. The correct order also seems to depend on the current hand, known deck contents, once-per-turn actions, and whether the deck is search-heavy or draw-heavy.
+
+If you are comfortable sharing broad design choices:
+
+Do you encode this as hand-written ordering rules, learn it from full-turn sequences, or compare short action sequences with search/rollouts?
+For behavior cloning, do you train each decision independently, or preserve the complete order of actions within the turn?
+How do you treat two action orders that reach a similar board but expose different information along the way?
+Have you found search-heavy decks easier or harder for learned policies than draw-heavy decks?  Broad method categories are enough; no code or deck-specific strategy is needed. Thanks!
+add_reaction
+React
+comment
+0 Comments
+Hotness
+undo
+redo
+format_size
+format_bold
+format_italic
+format_strikethrough
+insert_link
+format_quote
+code
+format_list_numbered
+format_list_bulleted
+table_chart
+insert_photo
+smart_display
+insert_emoticon
+help
+ 
+
+This comment will be made public once posted.
+
+attach_file
+Post Comment

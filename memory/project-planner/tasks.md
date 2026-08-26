@@ -12,7 +12,7 @@
 | C-004 | Grim pilot 四腿闸：retreat / Grim / Router / Alakazam | P0 | completed | v22 修复后 n=64 三腿 + exact Alakazam 51-13；v29 重审加权仅 +0.27pp、直接 H2H 区间跨 50%，不翻案 |
 | C-005 | 最佳 Grim 候选净包验证与确定性归档 | P0 | completed | v22 包含卡表/cg；双入口、60 卡、零 fault、双打包 SHA 一致、exact-archive 四腿通过 |
 | C-006 | 8/15 发射裁决 | P0 | completed | 08:46 精确重交 v22，ref `55516725`；latest-2={新/旧 v22}；+84m 新796.9/旧829.4/团队829.4，封口 best-of-latest-2 |
-| C-007 | 8/16 收官唯一一发 | P0 | ready | 约08:00 CST额度刷新后尽早精确重交 archive `599e19ae…`；只为留ERROR重试窗口，COMPLETE后禁止第二发 |
+| C-007 | 8/16 双 v22 旧收官分支 | P0 | superseded | 被 C-018/C-019 彩票分支覆盖；exact-v22 仍是最终不可丢托底 |
 | C-008 | 8/17 07:59 冻结 | P0 | pending | 最后一发必须是测量最充分件；按收官 checklist 执行 |
 | C-009 | v22 自生成 on-policy 残差 RL 单发 | P0 | completed-negative | 40-genome screen 后唯一幸存者对 exact v22 独立 n=256 为 133-123（51.95%）<55% 预注册线；`winner=null`，不生成/提交 challenger |
 | C-010 | 两个近失 guard 的触发级 2×2 可行性 | P0 | completed-negative | seat-balanced 四腿 n=144、每臂36且先后手18/18、零 fault；两 guard 均 0 触发，95% 上界2.06%<闸所需11.03%，`INSUFFICIENT_OPPORTUNITIES`，不扩至544 |
@@ -23,6 +23,12 @@
 | C-015 | Route-A Router 正切片只读归因 | P1 | completed-postseason | 正信号集中 turn>=9、gap=0、same-type ability/attach；仅形成赛后R1预注册，禁止翻案或赛前追跑 |
 | C-016 | live matchup 可见识别可行性 | P1 | completed-postseason | 新ref盲验turn2为20/32且20/20正确，A/L=12/12；裁决高精度可弃权router赛后GO，unknown仍exact-v22 |
 | C-017 | 决赛机制与收官runbook | P0 | ready | 自动latest-2、无需手选、截止后约两周对局；8/16一发exact-v22，8/17 07:30前封口 |
+| C-018 | M Sato 胡地 v5 高上限彩票 | P0 | completed-submitted | 455场专家审计；v5对v22独立42–86/128但较公开父策略+13.28pp；累计544局零fault、archive复验PASS；Kaggle ref `55537313` COMPLETE |
+| C-019 | 高分长毛巨魔公开策略学习与彩票构建 | P0 | completed-negative | 157票公开件=exact-v22同核旧wrapper；Raihan真正同牌表专家为 refs `55177269/55202823`，135场残差模仿两轮尖峰均未复现；最佳v14镜像累计约51.0%，且Lucario/Crustle较v22同批回归约−12.5/−14.1pp，所有Grim-X KILL、未提交 |
+| C-020 | 彩票分支最终锁定 | P0 | completed-superseded-by-C022 | 10:40曾KEEP `{55539395,55539446}`；16:00新增战绩与校正读数拉开后被C-022双v22最终编排覆盖 |
+| C-021 | Public Alakazam Courage v22 高上限彩票 | P0 | completed-submitted-out-of-final2 | ref `55539395` 已按预期被C-022挤出；署名台账继续保留，writeup不得宣称策略或LB950原创 |
+| C-022 | exact-v22 第二槽独立实例 | P0 | completed-submitted-final | 冻结SHA `599e19ae…b4c8bfcf` 单发为ref `55547740` COMPLETE；latest-2=`{55547740新v22,55539446成熟v22}`，禁止第二次成功提交，余1发仅ERROR恢复 |
+| C-023 | 8/16夜间封盘只读监视 | P0 | running | smoke HEALTHY；22:30/00:30/02:30/05:30固定采集两ref状态、latest-2与逐局数据；任何分数/WR波动不授权提交，05:30后进程自动退出 |
 
 当前禁止项：按瞬时峰值追单、用 config A 当主 baseline、重开 NN/search 训练、为寻找
 guard 尖峰把 C-010 扩到 544 局或降低预注册闸、修改七件既有 Automation。
@@ -32,9 +38,12 @@ exact-v22 永久回退的小型线性 advantage 头；不得外扩为完整 PPO/
 预注册见 `reports/20260815_routeA_prereg.md`，立项核算见
 `reports/20260815_routeA_gonogo_memo.md`。
 
-当前唯一 challenger：`artifacts/grim_v22_final/submission.tar.gz`，archive SHA256
-`599e19ae9c6f5f09160565a9ffb0f3662062bde921dd196ad20c81f6b4c8bfcf`。
-完整证据见 `reports/20260814_grim_v22_delivery.md`。
+当前 baseline/托底为 `artifacts/grim_v22_final/submission.tar.gz`（archive SHA256
+`599e19ae9c6f5f09160565a9ffb0f3662062bde921dd196ad20c81f6b4c8bfcf`）；当前活跃
+lottery challenger 为 `artifacts/roman_alakazam_public950_lottery/submission.tar.gz`
+（SHA256 `14dfb7666fc14c0fe16e5b9d5e843b0edcd4dd1187f06d22c5114d04e94a53fc`）。
+M Sato v5 归档 `83372cfe…993a9` 保留为明早两发回退链的候选。收官槽位规则见
+`reports/20260816_lottery_branch_runbook.md`。
 
 RL 负结果与测量修复见 `reports/20260815_v22_onpolicy_residual_rl.md`；8/16 不得以
 screen 尖峰替代 n=256 裁决。触发级封口见

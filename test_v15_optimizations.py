@@ -31,7 +31,7 @@ from main import (
     _handle_energy, _handle_evolve, _handle_count,
     _get_my_prize_count, _get_opp_bench,
     _HANDLERS, _OPT_NUM_TO_STR, _SELECT_NUM_TO_STR,
-    _PRIZE_SPRINT_THRESHOLD, _EVOLVE_PRIORITY,
+    _EVOLVE_PRIORITY,
     _OT_ATTACK, _OT_PLAY, _OT_END, _OT_EVOLVE, _OT_ATTACH,
     _ST_MAIN, _ST_CARD, _ST_YES_NO,
 )
@@ -363,31 +363,39 @@ def test_handle_main_ko_with_weakness():
 
 
 def test_handle_main_sprint_mode():
-    """[B2] 奖赏卡冲刺模式"""
+    """[B2] 奖赏卡冲刺模式 (机械验证: 临时阈值=2; 线上 tuned=0=冲刺常态关闭, main.py:1399)"""
     section("B2: _handle_main 奖赏卡冲刺")
-    # 剩余 2 张奖赏卡 → 冲刺模式，有攻击就打
-    obs = make_obs(
-        my_active={"id": 646, "hp": 70, "maxHp": 70, "energies": [{"id": 7}]},
-        opp_active={"id": 646, "hp": 70, "maxHp": 70, "energies": []},
-        my_prize=[1, 2],  # 仅剩 2 张 → 冲刺
-        my_hand=[{"id": 1142}],  # 有训练家卡但不打 (ゴング)
-    )
-    options = [
-        make_option("Play", index=0),  # 训练家卡
-        make_option("Attack", attackId=935),  # 10 dmg
-    ]
-    result = _handle_main(options, 1, None, obs["current"], 0)
-    assert_eq(result, [1], "冲刺模式 → 选 Attack 而非 Play 训练家卡")
+    # [2026-08-11 更新] tune 08-09 把 prize_sprint_threshold 调到 0 (confirm wr=0.5347,
+    # 冲刺实质关闭)。本测试目的是验证冲刺机械本身可用: 临时抬阈值到 2, 测完恢复。
+    import main as _m
+    _old_sprint = _m._PARAMS['prize_sprint_threshold']
+    _m._PARAMS['prize_sprint_threshold'] = 2
+    try:
+        # 剩余 2 张奖赏卡 → 冲刺模式，有攻击就打
+        obs = make_obs(
+            my_active={"id": 646, "hp": 70, "maxHp": 70, "energies": [{"id": 7}]},
+            opp_active={"id": 646, "hp": 70, "maxHp": 70, "energies": []},
+            my_prize=[1, 2],  # 仅剩 2 张 → 冲刺
+            my_hand=[{"id": 1142}],  # 有训练家卡但不打 (ゴング)
+        )
+        options = [
+            make_option("Play", index=0),  # 训练家卡
+            make_option("Attack", attackId=935),  # 10 dmg
+        ]
+        result = _handle_main(options, 1, None, obs["current"], 0)
+        assert_eq(result, [1], "冲刺模式 → 选 Attack 而非 Play 训练家卡")
 
-    # 非冲刺模式 → 优先打训练家卡
-    obs2 = make_obs(
-        my_active={"id": 646, "hp": 70, "maxHp": 70, "energies": [{"id": 7}]},
-        opp_active={"id": 646, "hp": 70, "maxHp": 70, "energies": []},
-        my_prize=[1, 2, 3, 4, 5, 6],  # 6 张 → 非冲刺
-        my_hand=[{"id": 1142}],
-    )
-    result2 = _handle_main(options, 1, None, obs2["current"], 0)
-    assert_eq(result2, [0], "非冲刺模式 → 优先 Play 训练家卡")
+        # 非冲刺模式 → 优先打训练家卡
+        obs2 = make_obs(
+            my_active={"id": 646, "hp": 70, "maxHp": 70, "energies": [{"id": 7}]},
+            opp_active={"id": 646, "hp": 70, "maxHp": 70, "energies": []},
+            my_prize=[1, 2, 3, 4, 5, 6],  # 6 张 → 非冲刺
+            my_hand=[{"id": 1142}],
+        )
+        result2 = _handle_main(options, 1, None, obs2["current"], 0)
+        assert_eq(result2, [0], "非冲刺模式 → 优先 Play 训练家卡")
+    finally:
+        _m._PARAMS['prize_sprint_threshold'] = _old_sprint
 
 
 def test_handle_main_evolve_priority():
@@ -803,23 +811,16 @@ def test_regression_v14_numeric_enum():
 
 
 def test_regression_deck_unchanged():
-    """回归: DECK 内容未变（v23 Mega Lucario ex 能量循环墙推卡组）"""
+    """回归: DECK 内容未变（v24.8 / v4 FINAL 牌组快照, 2026-08-11 校准）"""
     section("回归: DECK 内容未变")
     from collections import Counter as Cnt
     deck_counter = Cnt(DECK)
-    # 验证关键卡数量
-    assert_eq(deck_counter[678], 3, "メガルカリオex×3")
-    assert_eq(deck_counter[677], 3, "ルカリオ×3")
-    assert_eq(deck_counter[674], 2, "ハリテヤマ×2")
-    assert_eq(deck_counter[676], 2, "ソルロック×2")
-    assert_eq(deck_counter[675], 2, "ルナトーン×2")
-    assert_eq(deck_counter[1227], 4, "リーリエの決心×4")
-    assert_eq(deck_counter[1142], 3, "ファイティングゴング×3")
-    assert_eq(deck_counter[1152], 3, "ポケパッド×3")
-    assert_eq(deck_counter[1121], 3, "ハイパーボール×3")
-    assert_eq(deck_counter[1159], 1, "ヒーローマント×1")
-    assert_eq(deck_counter[235], 1, "含羞苞×1")
-    assert_eq(deck_counter[6], 13, "基本闘エネルギー×13")
+    # v24.8 (=v4 FINAL) 全牌组快照: 任何有意识的牌组改动都必须同步此处,
+    # 快照意义=防"无意牌组漂移", 不是防改动本身。
+    expected = {6: 13, 20: 4, 677: 4, 678: 4, 1097: 2, 1102: 4, 1121: 3,
+                1123: 2, 1141: 2, 1142: 4, 1145: 2, 1152: 4, 1159: 1,
+                1182: 2, 1205: 2, 1213: 2, 1227: 4, 1229: 1}
+    assert_eq(dict(deck_counter), expected, "v24.8 牌组快照 (18种60张)")
 
 
 def test_regression_action_legality():

@@ -1,0 +1,30 @@
+main_v6.py is self-contained (only imports os/random), so it's fine. The orphaned breakage is isolated to the main_entry.py/handlers.py/merge.py NN-agent pipeline. Here is the batch-4 audit.
+
+Batch 4 audit — findings
+ID	Severity	File:line	Issue
+B4-1	MEDIUM (off live-path)	inference/main_entry.py:12-19, inference/handlers.py:11-13, inference/merge.py:15-22,73-75	Four imported source modules (state_parser, option_scorer, decision_gate, card_meta) do not exist anywhere in the repo (confirmed via Glob + symbol grep). main_entry.py/handlers.py raise ImportError on load; merge.py silently skips missing modules (if not os.path.exists: print("⚠️ 跳过")) → would emit an incomplete/broken main.py. DecisionGate exists only in kaggle_explore.py:17 (wrong module), OptionType only in the comp reference copy → code is genuinely gone.
+B4-2	LOW	gen_deck.py:124-138,167-169	build_deck shuffles non-energy cards and fills 4 copies in shuffled order; if RNG places trainers first, the deck may have too few Basic Pokémon to start. The len(deck)!=60 fallback (167) never fires (always returns 60), so no guard catches "no basics".
+B4-3	LOW (needs-confirm)	experiments/param_tune_guard.sh:78	Auto-relaunch hardcodes --rounds 2. If the original param_tune.py launch used a different round count, a post-jetsam relaunch silently tunes shorter than intended.
+B4-4	LOW / cosmetic	sdk/cg/sim.py:48	raminingTime = [[], []] typo (vestigial, unused). Also inference/comp_data/sample_submission/... copies still use == None (game.py:37, main.py:32, api.py:530/547/553/568) — competition reference scaffold, not the live agent.
+B4-5	INFO	inference/dataset/agent.py:139-140	if model is None: return [0] under-selects when max_count > 1 and model unloaded (valid index, but fewer than required). Experimental NN agent, not live path.
+Detail on B4-1 (the one real defect)
+merge.py's MODULE_ORDER is ["card_meta.py","option_scorer.py","state_parser.py","decision_gate.py","handlers.py","main_entry.py"]. None of the first four exist. Consequences:
+
+Direct import inference.main_entry / import inference.handlers → ModuleNotFoundError.
+python3 inference/merge.py → prints 4 warnings and writes a main.py missing DecisionGate, get_card, parse_observation, etc. → broken agent.
+Not on the live path: the shipped agent is the self-contained root main.py (v24.5), packed by pack.sh. So submission integrity is unaffected.
+Resolution options: (a) delete main_entry.py/handlers.py/merge.py if the NN-agent pipeline is abandoned; or (b) restore the 4 modules from git history / experiments/runs/* snapshots if it's meant to be revived. Also fix merge.py to hard-fail on a missing required module rather than silently skipping.
+Confirmed clean (no bug) this batch
+mlops_registry.py — stable_split divides by 0xFFFFFFFF (earlier grep was a false positive); PSI/calibration guards correct; append_leaderboard_snapshot timezone [bugfix] in place.
+export_student.py — numpy mirror maps layers by the exact same indices as model_v2.PolicyStudent; strong self-check (diff>0.05 or top1 <0.99 → SystemExit).
+train_bc.py / model_v2.py — confirm B3-2 (9→7 meta.npy column drop) is consistent and an intentional descope; distill_per_sample_loss NaN guard is correct.
+param_tune.py — robust (guarded division, main.py-SHA fingerprinting invalidates stale checkpoints, per-task fail-safe).
+preflight.sh — thorough fail-closed pre-push gate.
+main_v6.py:601 random.sample — guarded by if max_count >= n at 599 (non-issue).
+handlers.py logic itself is correct (given its imports resolved).
+Status / next step
+I'm in Ask (read-only) mode, so no files were modified — these are findings for kimi to verify line-by-line and fix per the batches 1-3 pattern. B4-1 is the only finding worth acting on (cleanup/restore of the orphaned NN-agent pipeline); B4-2/B4-3 are low-risk hardening (and B4-3 only matters if the original tuning launch used non-default rounds).
+
+Coverage note: across batches 1-4 the entire live submission path (main.py, deck.csv, pack.sh, submit.sh, submit.py, sdk/cabt.py, sdk/cg/*) plus the training/export/preflight/MLOps pipeline and the running param_tune flow have been audited and are clean or already fixed. Remaining unread files are historical experiments/runs/* snapshots and report assets, which don't affect the build.
+
+Also note: this session has no write/edit tool exposed, so I could not append the batch-4 ledger to .workbuddy/memory/ — recommend recording B4-1 there for continuity.

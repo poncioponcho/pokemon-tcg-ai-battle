@@ -1,0 +1,270 @@
+The Pokémon Company - PTCG AI Battle Challenge Simulation | Kaggle
+=====
+menu
+Skip to
+content
+Create
+explore
+
+Home
+
+emoji_events
+
+Competitions
+
+leaderboard
+
+Benchmarks
+
+smart_toy
+
+Game Arena
+
+code
+
+Data Hub
+
+expand_more
+format_list_bulleted
+
+More
+
+expand_more
+note_alt
+
+Your Work
+
+expand_less
+
+Viewed
+
+expand_less
+
+The Pokémon Company - PTCG AI Battle Challenge Simulation
+
+my plan on how to do RL training ... is it my hallucinations?
+
+22 Curated Deck Archetypes for PTCG AI Battle - A Deck Intelligence Dataset
+
+First or second — which do agents pick?
+
+Are top agents mostly heuristic, or are people successfully using RL/BC?
+
+Edited
+
+expand_less
+
+notebooke2441e9455
+
+PTCG Strategy MRI | 2,022 Cards to 60 Decis 66517c
+
+pokemon-tcg-strategy-mega-lucario
+
+PTCG Strategy MRI | 2,022 Cards to 60 Decisions
+
+titanic最后一舞
+
+auto_awesome_motion
+
+View Active Events
+
+search
+​
+THE POKÉMON COMPANY - PTCGABC TEAM · FEATURED SIMULATION COMPETITION · 6 DAYS TO GO
+Submit Agent
+more_horiz
+The Pokémon Company - PTCG AI Battle Challenge Simulation
+
+Build an AI Training Agent to play the Pokémon Trading Card Game
+
+Overview
+Data
+Code
+Models
+Discussion
+Leaderboard
+Rules
+Team
+Submissions
+TIEN N. · 362ND IN THIS COMPETITION · POSTED 5 DAYS AGO
+arrow_drop_up
+2
+more_vert
+ELO inconsistency
+
+This is quite frustrating - I submitted the same agent twice, and they are 400 points apart (after 4+ hours). If you have couple of bad match ups at the beginning, it's really hard to get back to where the rating is supposed to be.
+
+add_reaction
+React
+comment
+9 Comments
+Hotness
+undo
+redo
+format_size
+format_bold
+format_italic
+format_strikethrough
+insert_link
+format_quote
+code
+format_list_numbered
+format_list_bulleted
+table_chart
+insert_photo
+smart_display
+insert_emoticon
+help
+ 
+
+This comment will be made public once posted.
+
+attach_file
+Post Comment
+李秉叡（ntumlnoob）
+
+Posted 5 days ago
+
+· 10th in this Competition
+
+arrow_drop_up
+1
+more_vert
+
+if you leave it there for like 2 days, i think it will be much more consistent.
+
+reply
+Reply
+add_reaction
+React
+Tien N.
+TOPIC AUTHOR
+
+Posted 4 days ago
+
+· 362nd in this Competition
+
+arrow_drop_up
+0
+more_vert
+
+You'll get much fewer games and the rating will also move more slowly. 400 is highly unlikely. I have submitted more than 100 times, so I do have some first hand experience.
+
+reply
+Reply
+add_reaction
+React
+Shiv Satyam
+
+Posted a day ago
+
+· 293rd in this Competition
+
+arrow_drop_up
+0
+more_vert
+
+Yeah, you're experienced. I submitted the same agent again about four hours after the first submission. Then I left it for a day or two, and it ended up outperforming the version I had submitted earlier.
+
+reply
+Reply
+add_reaction
+React
+Santiago J.
+
+Posted 4 days ago
+
+· 285th in this Competition
+
+arrow_drop_up
+0
+more_vert
+
+yup has been discussed a lot but the organizers said this works fine. It takes many many days for agents to stabilize since the amount of games is so low
+
+reply
+Reply
+add_reaction
+React
+Patrick Chan
+
+Posted 5 days ago
+
+· 837th in this Competition
+
+arrow_drop_up
+0
+more_vert
+
+I think the player dynamics and decks have been shifting grounds pretty quickly…. You are not competing on the same ground for both bots depending on who you matched up with.
+
+reply
+Reply
+add_reaction
+React
+Tien N.
+TOPIC AUTHOR
+
+Posted 5 days ago
+
+· 362nd in this Competition
+
+arrow_drop_up
+0
+more_vert
+
+No that is not the case. This happens even when I submit both at the same time. I understand that everybody's rating shifts all the time, but what I'm arguing is that ELO should be consistent - maybe we don't have enough compute but ideally if instead we have daily leaderboard, in which we do round-robin, that would be much more "fair".
+
+reply
+Reply
+add_reaction
+React
+VolodymyrBilyachat
+
+Posted 5 days ago
+
+· 59th in this Competition
+
+arrow_drop_up
+0
+more_vert
+
+I had this but in a different story, when got lucky my model scored over 1000 points and i landed into top 5 :) but then left it for a while and it went to normal 900ish range. So the way I test, I run 2 submissions over 4 hours it give me rough score, but then i would wait over a day and then its more stable. I am not pokemon player but too many random factors comes in play. Ive seen many times where model just cant do better as cards are bad. So i would say give it a day and then you can see where it goes.
+
+reply
+Reply
+add_reaction
+React
+horno1337
+
+Posted 5 days ago
+
+· 795th in this Competition
+
+arrow_drop_up
+0
+more_vert
+
+I get you, 2 days ago I uploaded a model twice to collect more replays, and the same agent was below 600 and @ 1000-ish at one point. You have to get lucky with your early placement games, the longer it takes the harder it is to climb with your agent. 😅
+
+reply
+Reply
+2
+add_reaction
+Tien N.
+TOPIC AUTHOR
+
+Posted 4 days ago
+
+· 362nd in this Competition
+
+arrow_drop_up
+0
+more_vert
+
+Yes exactly, and it really shouldn't be like that. Either we add more games even for older agents,do roubd robin, or we reset leaderboard each day. But the format is already decided, so nothing we can do :)
+
+reply
+Reply
+add_reaction
+React

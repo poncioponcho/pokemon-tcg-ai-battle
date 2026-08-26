@@ -1,0 +1,150 @@
+{
+  "params": {
+    "prize_sprint_threshold": 2,
+    "hariyama_self_ko_hp": 46,
+    "opp_ex_hp_guess": 200,
+    "mill_cant_break_ratio": 0.4380297642296272,
+    "mill_shield_min_hp": 117,
+    "mill_deck_max": 17,
+    "lillie_waste_hand": 6,
+    "judge_min_hand": 5,
+    "reroute_bench_energy_max": 0,
+    "reroute_aux_dmg_max": 60,
+    "switch_ready_bench_energy": 2,
+    "p9_attack_dmg_min": 101,
+    "retreat_hp_ratio": 0.3,
+    "boss_target_low_hp": 60,
+    "gong_early_turn_max": 3,
+    "gong_bench_min": 2,
+    "lillie_low_hand": 3,
+    "pokepad_bench_max": 3,
+    "trainer_priority": {
+      "1142": 100,
+      "1227": 95,
+      "1152": 70,
+      "1121": 90,
+      "1229": 88,
+      "1213": 48,
+      "1182": 71,
+      "1141": 84,
+      "1123": 75,
+      "1102": 72,
+      "1097": 65,
+      "1159": 35,
+      "1252": 25
+    },
+    "gong_timing_bonus": 59,
+    "lillie_timing_bonus": 40,
+    "pokepad_timing_bonus": 31,
+    "judge_timing_bonus": 35,
+    "boss_timing_bonus": 39,
+    "wally_timing_bonus": 30,
+    "play_trainer_base": 200,
+    "play_energy_score": -2,
+    "play_evolve_bonus": 57,
+    "play_can_attack_bonus": 444,
+    "bench_attach_can_attack_bonus": 896,
+    "bench_attach_mega_energy_full": 6,
+    "bench_attach_breaker_energy_full": 3,
+    "evolve_active_bonus": 50,
+    "evolve_priority": {
+      "678": 209,
+      "674": 156
+    },
+    "boss_unknown_hp": 863,
+    "setup_basic_bonus": 753,
+    "setup_evolve_bonus": 50,
+    "switch_core_bonus": 1788,
+    "switch_breaker_bonus": 1785,
+    "switch_wall_bonus": 1740,
+    "switch_wall_fallback": 900,
+    "tohand_trainer_base": 200,
+    "tohand_evolved_score": 169,
+    "tohand_basic_score": 100,
+    "tohand_energy_score": 41,
+    "discard_trainer_score": 9,
+    "discard_evolved_score": 100,
+    "discard_energy_score": 60,
+    "discard_basic_score": 19,
+    "todeck_trainer_score": 100,
+    "todeck_energy_score": 71,
+    "todeck_evolved_score": 30,
+    "todeck_basic_score": 50
+  },
+  "source_iter": 147,
+  "tune": {
+    "seed0": 1000,
+    "n": 1000,
+    "score": 0.644,
+    "per_opp": {
+      "v23_2_rules": {
+        "w": 571,
+        "l": 419,
+        "d": 10,
+        "invalid": 0,
+        "wr": 0.571,
+        "wilson_lo": 0.5401,
+        "avg_turns": 91.7
+      },
+      "first": {
+        "w": 335,
+        "l": 665,
+        "d": 0,
+        "invalid": 0,
+        "wr": 0.335,
+        "wilson_lo": 0.3064,
+        "avg_turns": 67.7
+      },
+      "random": {
+        "w": 790,
+        "l": 208,
+        "d": 2,
+        "invalid": 0,
+        "wr": 0.79,
+        "wilson_lo": 0.7637,
+        "avg_turns": 61.0
+      }
+    }
+  },
+  "confirm": {
+    "score": 0.6632,
+    "per_opp": {
+      "v23_2_rules": {
+        "w": 591,
+        "l": 406,
+        "d": 3,
+        "invalid": 0,
+        "wr": 0.591,
+        "wilson_lo": 0.5602,
+        "avg_turns": 95.1
+      },
+      "first": {
+        "w": 336,
+        "l": 664,
+        "d": 0,
+        "invalid": 0,
+        "wr": 0.336,
+        "wilson_lo": 0.3074,
+        "avg_turns": 66.9
+      },
+      "random": {
+        "w": 772,
+        "l": 228,
+        "d": 0,
+        "invalid": 0,
+        "wr": 0.772,
+        "wilson_lo": 0.745,
+        "avg_turns": 61.6
+      }
+    },
+    "invalid": 0,
+    "games": 3000,
+    "seed0": 5000,
+    "n": 1000
+  },
+  "overfit_gap": {
+    "score": -0.0192,
+    "mirror_wr": -0.02
+  },
+  "selected_at": "2026-08-08T15:57:16+00:00"
+}

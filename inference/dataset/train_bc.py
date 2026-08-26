@@ -125,12 +125,24 @@ class Policy(nn.Module):
         return h.masked_fill(mask == 0, float('-inf'))
 
 
-def batch_from_idx(idx, arrays):
-    st = torch.from_numpy(arrays['states_u8'][idx]).float()
-    sc = torch.from_numpy(arrays['scalars'][idx]).float()
-    op = torch.from_numpy(arrays['opts_u8'][idx]).float()
+def batch_from_idx(idx, arrays, to_float=True):
+    """Build a batch tensor tuple from numpy arrays.
+
+    to_float=True (default): uint8 state/opt tensors are converted to float32 on
+    the CPU (legacy behaviour). to_float=False: raw dtypes are returned so the
+    caller can move them to the device first and convert on-GPU, which cuts
+    host->device traffic ~4x (uint8 instead of float32) and offloads the
+    conversion to the GPU.
+    """
+    st = torch.from_numpy(arrays['states_u8'][idx])
+    sc = torch.from_numpy(arrays['scalars'][idx])
+    op = torch.from_numpy(arrays['opts_u8'][idx])
     lb = torch.from_numpy(arrays['labels'][idx])
     mk = torch.from_numpy(arrays['masks'][idx])
+    if to_float:
+        st = st.float()
+        sc = sc.float()
+        op = op.float()
     return st, sc, op, lb, mk
 
 

@@ -1,0 +1,26 @@
+{
+  "source_notebook": "/private/tmp/ptcg-public-roman950/strong-start-baseline-agent-v10-lb-950.ipynb",
+  "source_notebook_sha256": "3d49b09c4535743470db2ebcea35a7424ac0a88f02d81a79f152174146af55f2",
+  "extraction": "ast-top-level-string-literals-only-v1",
+  "post_extraction_patches": [
+    "import sys so the search exception fallback cannot raise NameError"
+  ],
+  "files": {
+    "main.py": {
+      "source_variable": "MAIN_SOURCE",
+      "bytes": 55648,
+      "extracted_sha256": "f31eba2e819ee2b3d46765b4195ea7dab8f32d0b5d09cafd39b3823661f6b5aa",
+      "current_sha256": "c1b2ee3fa88d465db37233829dc671ec218ad946e24648548c47a3008a3cfe9c"
+    },
+    "deck.csv": {
+      "source_variable": "DECK_SOURCE",
+      "bytes": 261,
+      "sha256": "8eccc69c3bf7d499f38c6116c33c5fac837050bf0ec71a5a1883f0f20f41ddbc"
+    },
+    "group.txt": {
+      "source_variable": "GROUP_SOURCE",
+      "bytes": 21,
+      "sha256": "579e4cacc84fa0d73287d319f8fb26ffbe502c3554a456bdec3d7bff2d99fa3e"
+    }
+  }
+}

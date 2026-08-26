@@ -1,0 +1,16 @@
+leg               w pristine     OFF      ON  OFF-Δpp   ON-Δpp
+Alakazam      0.227   0.8295  0.8310  0.8210    +0.15    -0.85
+other         0.197   0.9970  0.9955  0.9965    -0.15    -0.05
+Grimmsnarl    0.178   0.9495  0.9520  0.9565    +0.25    +0.70
+Archaludon    0.144   0.9480  0.9460  0.9515    -0.20    +0.35
+Lucario       0.120   0.9790  0.9800  0.9775    +0.10    -0.15
+Crustle       0.071   0.7915  0.8200  0.7930    +2.85    +0.15
+Dragapult     0.053   0.9865  0.9825  0.9790    -0.40    -0.75
+Cornerstone   0.011   0.5215  0.5125  0.5125    -0.90    -0.90
+Gardevoir     0.001   0.9640  0.9640  0.9510    +0.00    -1.30
+weighted      0.9210 0.9231 0.9202 OFFΔ+0.20pp ONΔ-0.09pp
+invalid: {'pristine': 0, 'OFF': 0, 'ON': 0}  (1345s)
+
+checks: {'parity': False, 'regression': True, 'on_delta_pp': -0.09, 'invalid_on': 0}
+VERDICT: NO-GO: 闸腿未过, 见 checks
+→ /Users/seyonmacbook/Desktop/Pokemon_TCG_AI_Battle_Challenge/experiments/runs/merge_gate_nrgbench.json

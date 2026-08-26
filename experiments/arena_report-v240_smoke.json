@@ -1,0 +1,25 @@
+{
+  "ts": "2026-08-08T12:28:06+00:00",
+  "experiment": "v240_smoke",
+  "npz": null,
+  "engine": "official sample_submission/cg libcg.dylib (arm64)",
+  "games_total": 200,
+  "wins": 158,
+  "losses": 42,
+  "draws": 0,
+  "invalid_actions": 0,
+  "win_rate": 0.79,
+  "ci95_lo": 0.7284,
+  "avg_turns": 61.1,
+  "elapsed_s": 2.8,
+  "per_opponent": [
+    {
+      "opponent": "random",
+      "w": 158,
+      "l": 42,
+      "d": 0,
+      "invalid": 0,
+      "wr": 0.79
+    }
+  ]
+}

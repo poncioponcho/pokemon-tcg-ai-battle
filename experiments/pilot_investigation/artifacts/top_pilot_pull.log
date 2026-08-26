@@ -1,0 +1,69 @@
+[SixthSense] sub 55439076: 可得 25 eps, 目标 25
+  [SixthSense] 6/25 ok=1 skip=5 fail=0
+  [SixthSense] 7/25 ok=2 skip=5 fail=0
+  [SixthSense] 8/25 ok=3 skip=5 fail=0
+  [SixthSense] 9/25 ok=4 skip=5 fail=0
+  [SixthSense] 10/25 ok=5 skip=5 fail=0
+  [SixthSense] 11/25 ok=6 skip=5 fail=0
+  [SixthSense] 12/25 ok=7 skip=5 fail=0
+  [SixthSense] 13/25 ok=8 skip=5 fail=0
+  [SixthSense] 14/25 ok=9 skip=5 fail=0
+  [SixthSense] 15/25 ok=10 skip=5 fail=0
+  [SixthSense] 16/25 ok=11 skip=5 fail=0
+  [SixthSense] 17/25 ok=12 skip=5 fail=0
+  [SixthSense] 18/25 ok=13 skip=5 fail=0
+  [SixthSense] 19/25 ok=14 skip=5 fail=0
+  [SixthSense] 20/25 ok=15 skip=5 fail=0
+  [SixthSense] 21/25 ok=16 skip=5 fail=0
+  [SixthSense] 22/25 ok=17 skip=5 fail=0
+  [SixthSense] 23/25 ok=18 skip=5 fail=0
+  [SixthSense] 24/25 ok=19 skip=5 fail=0
+  [SixthSense] 25/25 ok=20 skip=5 fail=0
+[SixthSense] done ok=20 skip=5 fail=0
+[Dipam] sub 55449184: 可得 25 eps, 目标 25
+  [Dipam] 1/25 ok=1 skip=0 fail=0
+  [Dipam] 2/25 ok=2 skip=0 fail=0
+  [Dipam] 3/25 ok=3 skip=0 fail=0
+  [Dipam] 4/25 ok=4 skip=0 fail=0
+  [Dipam] 5/25 ok=5 skip=0 fail=0
+  [Dipam] 6/25 ok=6 skip=0 fail=0
+  [Dipam] 7/25 ok=7 skip=0 fail=0
+  [Dipam] 8/25 ok=8 skip=0 fail=0
+  [Dipam] 9/25 ok=9 skip=0 fail=0
+  [Dipam] 10/25 ok=10 skip=0 fail=0
+  [Dipam] 12/25 ok=11 skip=1 fail=0
+  [Dipam] 13/25 ok=12 skip=1 fail=0
+  [Dipam] 14/25 ok=13 skip=1 fail=0
+  [Dipam] 15/25 ok=14 skip=1 fail=0
+  [Dipam] 16/25 ok=15 skip=1 fail=0
+  [Dipam] 17/25 ok=16 skip=1 fail=0
+  [Dipam] 18/25 ok=17 skip=1 fail=0
+  [Dipam] 19/25 ok=18 skip=1 fail=0
+  [Dipam] 20/25 ok=19 skip=1 fail=0
+  [Dipam] 21/25 ok=20 skip=1 fail=0
+  [Dipam] 22/25 ok=21 skip=1 fail=0
+  [Dipam] 23/25 ok=22 skip=1 fail=0
+  [Dipam] 24/25 ok=23 skip=1 fail=0
+  [Dipam] 25/25 ok=24 skip=1 fail=0
+[Dipam] done ok=24 skip=1 fail=0
+[MiwaHaruki] sub 55449976: 可得 25 eps, 目标 25
+  [MiwaHaruki] 2/25 ok=1 skip=1 fail=0
+  [MiwaHaruki] 4/25 ok=2 skip=2 fail=0
+  [MiwaHaruki] 6/25 ok=3 skip=3 fail=0
+  [MiwaHaruki] 7/25 ok=4 skip=3 fail=0
+  [MiwaHaruki] 8/25 ok=5 skip=3 fail=0
+  [MiwaHaruki] 9/25 ok=6 skip=3 fail=0
+  [MiwaHaruki] 10/25 ok=7 skip=3 fail=0
+  [MiwaHaruki] 11/25 ok=8 skip=3 fail=0
+  [MiwaHaruki] 12/25 ok=9 skip=3 fail=0
+  [MiwaHaruki] 14/25 ok=10 skip=4 fail=0
+  [MiwaHaruki] 15/25 ok=11 skip=4 fail=0
+  [MiwaHaruki] 16/25 ok=12 skip=4 fail=0
+  [MiwaHaruki] 17/25 ok=13 skip=4 fail=0
+  [MiwaHaruki] 18/25 ok=14 skip=4 fail=0
+  [MiwaHaruki] 19/25 ok=15 skip=4 fail=0
+  [MiwaHaruki] 20/25 ok=16 skip=4 fail=0
+  [MiwaHaruki] 21/25 ok=17 skip=4 fail=0
+  [MiwaHaruki] 23/25 ok=18 skip=5 fail=0
+  [MiwaHaruki] 25/25 ok=19 skip=6 fail=0
+[MiwaHaruki] done ok=19 skip=6 fail=0

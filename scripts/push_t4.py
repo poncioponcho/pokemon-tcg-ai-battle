@@ -7,8 +7,15 @@
 - machine_shape 是在 create_kernel_session 阶段生效的（不是 save 阶段）
 - 账号支持 GPU T4 x2（sm_75，与 cu128 torch 完全兼容，无需降级）
 
-用法: python3 push_t4.py [--shape "GPU T4 x2"|"GPU"]
-流程: 删除旧 kernel → save 代码 → create_kernel_session(machine_shape)
+[2026-08-08 提交纪律] 任何 push 前必须先通过 preflight 强制校验。
+  - --stage teacher|distill 必须显式指定（禁止默认推断，防 stage 漂移）
+  - preflight 不通过 → 阻止 push（exit 1）
+  - **没有 --skip-preflight 逃生开关**：想跳过只能在 preflight.sh 里手动改代码，
+    且 push 本身不可跳过。--dry-run 只跑 preflight 不实际 push（测试用）。
+
+用法:
+  python3 push_t4.py --stage teacher [--shape "NvidiaTeslaT4"]   # 正常推送（先过 preflight）
+  python3 push_t4.py --stage teacher --dry-run                    # 只跑 preflight，不 push
 """
 import json
 import sys
@@ -27,9 +34,36 @@ DATA_SOURCES = [s for s in (META.get('dataset_sources') or DEFAULT_SOURCES) if s
 if not DATA_SOURCES:
     DATA_SOURCES = list(DEFAULT_SOURCES)
 
-SHAPE = 'GPU T4 x2'
+SHAPE = 'NvidiaTeslaT4'
 if '--shape' in sys.argv:
-    SHAPE = sys.argv[sys.argv.index('--shape') + 1]
+    # [fix 08-09] --shape 为最后一个参数时 index+1 越界 IndexError, 给清晰报错
+    _i = sys.argv.index('--shape')
+    if _i + 1 >= len(sys.argv):
+        raise SystemExit('[错误] --shape 需要一个参数值, 例如 --shape NvidiaTeslaT4')
+    SHAPE = sys.argv[_i + 1]
+
+# [2026-08-08] 强制前置校验（不可绕过）：任何 push 前必须过 preflight。
+# 灾难复盘：auto_fix 曾把 stage 覆盖成 'all' + cu118 降级失败 → CPU 兜底跑 19h 作废；
+#           版本错配（kernel 带 --prefetch-* 参数但数据集 train_v2.py 旧版）→ ERROR。
+# 期望 stage 必须显式指定。--dry-run 只跑 preflight 不实际 push。
+DRY_RUN = '--dry-run' in sys.argv
+if '--stage' not in sys.argv:
+    print('PUSH BLOCKED: 必须显式指定 --stage teacher|distill（禁止默认推断，防 stage 漂移）')
+    sys.exit(1)
+expected_stage = sys.argv[sys.argv.index('--stage') + 1]
+import subprocess as _sp
+pf = _sp.run(['bash', str(KD.parent / 'scripts' / 'preflight.sh'),
+              '--stage', expected_stage],
+             capture_output=True, text=True)
+print(pf.stdout)
+if pf.returncode != 0:
+    print('PUSH BLOCKED: preflight failed（先修复上述 FAIL 项再推）')
+    sys.exit(1)
+print('preflight PASSED')
+if DRY_RUN:
+    print('DRY-RUN: preflight 通过，未实际 push')
+    sys.exit(0)
+print('继续 push')
 
 from kagglesdk import KaggleClient, KaggleEnv
 from kagglesdk.kernels.types.kernels_api_service import (

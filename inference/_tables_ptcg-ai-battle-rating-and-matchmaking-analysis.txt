@@ -1,0 +1,183 @@
+
+===== [CELL 5 HTML] =====
+Metric
+Value
+0
+Teams
+6113.0
+1
+Mean
+622.8
+2
+Population Standard Deviation
+186.6
+3
+Median
+637.8
+4
+Minimum
+-269.4
+5
+Maximum
+1262.2
+
+===== [CELL 7 HTML] =====
+Rating Band
+Observed Rating
+Submitted At (JST)
+Public Matches
+Record
+Win Rate
+Hours to First Match
+Observation Window to Final Public Match (h)
+0
+1000+
+1155.1
+2026-08-01 13:10:53
+260
+159-101
+61.2%
+0.05
+21.67
+1
+900
+928.0
+2026-08-01 13:10:50
+75
+49-26
+65.3%
+0.05
+21.54
+2
+800
+801.1
+2026-07-27 22:18:14
+71
+38-33
+53.5%
+0.05
+24.28
+3
+700
+719.7
+2026-07-27 22:57:47
+64
+37-27
+57.8%
+0.06
+23.68
+4
+600
+592.6
+2026-07-20 18:00:28
+55
+27-28
+49.1%
+0.08
+18.02
+5
+500
+475.8
+2026-07-17 22:55:10
+35
+16-19
+45.7%
+0.07
+12.89
+
+===== [CELL 9 HTML] =====
+Observed Rating
+Submitted At (JST)
+Matches in First 25 Hours
+Total Public Matches
+Hours to Final Public Match
+0
+1155.1
+2026-08-01 13:10:53
+260
+260
+21.67
+1
+1156.9
+2026-07-30 18:43:27
+177
+368
+41.84
+2
+1054.1
+2026-06-21 14:39:02
+152
+415
+244.82
+
+===== [CELL 13 HTML] =====
+Submission
+Submitted At (JST)
+First Match
+Rating After First Match
+First Six Matches
+Rating After Six Matches
+Rating After 48 Matches
+Public Matches
+Observation Window to Final Public Match (h)
+0
+Submission A
+2026-08-01 13:10:53
+Win
+689
+6-0
+1011
+1150
+260
+21.67
+1
+Submission B
+2026-08-01 13:10:50
+Loss
+489
+3-3
+642
+867
+75
+21.54
+
+===== [CELL 15 HTML] =====
+Submission
+Public Matches
+Unique Opponent Teams
+Opponent Teams Seen at Least Twice
+Rematches After First Encounter
+Maximum Matches Against One Team
+Rematch Share
+0
+Submission A
+260
+100
+45
+160
+30
+0.615385
+1
+Submission B
+75
+71
+4
+4
+2
+0.053333
+
+===== [CELL 15 HTML] =====
+Metric
+Count
+0
+Shared Opponent Teams
+3
+1
+Pairable Matches Against the Same Team
+3
+2
+Shared Opponent Submissions
+0
+3
+Pairable Matches Against the Same Opponent Sub...
+0

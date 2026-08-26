@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
 """
+⚠️ [孤儿管线 ORPHANED — 2026-08-09 hy3 审计 B4-1] ⚠️
+依赖的 state_parser / option_scorer 模块在全仓库及 git 历史中不存在,
+import 本文件必 ModuleNotFoundError。现役 NN 提交线走 build_pure.py, 勿用。
+
 main_entry.py — Kaggle Agent 入口
 
 提交格式：与 deck.csv 一起打包为 submission.tar.gz

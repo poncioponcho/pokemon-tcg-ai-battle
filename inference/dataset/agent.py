@@ -137,7 +137,9 @@ def agent(obs, model=None, deck=None, max_count_hint=None):
     if mc >= n:
         return list(range(n))
     if model is None:
-        return [0]
+        # [fix 08-09] 原为 return [0]: mc>1 时欠选(长度<maxCount 违反动作铁律),
+        # 改为返回前 mc 个合法下标
+        return list(range(mc))
     st, sc, o, mk, n_opts = build_state_obs(obs, deck)
     with torch.no_grad():
         t_st = torch.from_numpy(st).unsqueeze(0)

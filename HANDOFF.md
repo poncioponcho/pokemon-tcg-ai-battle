@@ -9,11 +9,88 @@
 
 # 🏁 08-15 执行覆盖（优先于下方 08-14 全节）
 
+- **08-17 20:12 收官记账推迟：决赛期仍在漂移，#135 保持预留，观测哨不关停。**
+  8/17 晚例行采样（checklist "07:59 之后"§2 每日口径）：双 exact-v22 在截止后**继续获得新
+  episode 且分数全天波动**——slot2 `55547740` 820.3→834.0→834.7→834.5、成熟件
+  `55539446` 833.7→844.6→829.7。今日 11:37 lb_watch 据 03:35Z 的 QUIET_4H（双件停排
+  4.69/5.69h、连续 4 样本极差 0）报的 "SETTLED/CLOSEOUT" 已被 15:35 新 episode **证伪**
+  ——4h 静默只是 lull，匹配池未关，"截止后约两周 episodes 才定榜"的机制核查成立。按
+  checklist §5（8/17 晚、8/18 晨均不得称最终分），最终成绩 ledger（#135）与观测哨
+  disable（f6bd5dac）推迟到约两周决赛阶段结束（~8/31）且榜单明确停止变化后。
+  20:07 样本：团队 **rank 752/6892 @834.5**（12:05Z 快照）；slot2 59 场 32-27
+  （WR 0.5424、对手均分 815.46、校正 μ*854.81）、成熟件 57 场 31-26（WR 0.5439、
+  对手均分 831.21、校正 μ*864.63），双件同 SHA 一致（WR 差 0.15pp，远小于 σ≈6.5pp）。
+  ⚠️ 旧任务提示词里的 config A v2(55451759)/v1(55431232)、~647、1.4× 均系 8/13 前旧口径
+  （config A 两件 8/13 已出 latest-2 不再更新）；最终以双 v22 实际结算为准，若现值结算
+  跃迁约 833.7/467.9≈1.78×——但现值非最终分，不记账。详见 ledger #191。
+
+- **08-16 20:52 封盘监视已启动，提交面保持冻结。** 新v22 ref `55547740` 已在4小时
+  内从600爬到816.5，33局17-16；成熟ref `55539446` 为837.1，42局24-18。20:52
+  smoke确认两件均COMPLETE、latest-2构成正确、零错误。只读监视器
+  `scripts/final_predeadline_watch.py` 已以PID 95869/session 25575运行，固定在22:30、
+  00:30、02:30、05:30采集状态/latest-2/逐局数据到
+  `experiments/runs/final_predeadline_watch/`，结束后自动退出。脚本没有提交端点；任何
+  波动只记录，只有确认ERROR/runtime失效才人工评估最后一发。见ledger #190/C-023。
+
+- **08-16 16:25 最终槽位已切为双 exact-v22：`{55547740新件, 55539446成熟件}`，
+  两件均 COMPLETE。** 16:00 新数据把分叉拉开：成熟v22 38局22-16（新增约7-2）、
+  对手均分826.96、校正`mu*=891.83`；Roman 37局19-18（新增2-6）、对手均分757.07、
+  校正`mu*=768.24`且对Grim累计4-8。用户明确批准用第二个v22独立实例替换Roman槽。
+  仅上传冻结archive SHA=`599e19ae…b4c8bfcf`一发，返回ref `55547740`，validation
+  COMPLETE、初始600.0；回读latest-2为`{55547740:600.0,55539446:841.5}`，成熟件
+  地板完整保留。**禁止第二次成功提交**；余下一发只允许ERROR/失效时同SHA恢复。
+  本条覆盖下方10:40的KEEP Roman裁决。见
+  `reports/20260816_exact_v22_slot2_duplicate_submission.md`、ledger #189。
+
+- **08-16 10:40 最终联合裁决：KEEP `{public Alakazam 55539395, exact-v22
+  55539446}`，不执行 M Sato 回退、不再提交。** 同一 02:34Z 全榜快照中团队
+  802.8/rank924，约 top-10% 线 839.3（差36.5）；Roman/Jazivxt件29局17-12、对手均分
+  754.88、校正 `mu*=822.00`，v22为29局15-14、对手均分812.22、校正
+  `mu*=829.58`，两者无法区分但具牌组互补；M Sato仅21局9-12、校正
+  `mu*=677.43`，已排除回退。29场Roman回放显示vs Alakazam 4-1、Lucario 4-0、
+  Grim 3-6，零runtime故障。源码审计确认策略主体实际为公开
+  `jazivxt/codex-sol-eclipse-alakazam`，Roman仅公开复包/历史表现来源，我方只补
+  `import sys`；官方规则§3.6(b-c)对本比赛公开notebook赋予OSI商业可用的deemed
+  license，故可作为开源组件保留，但writeup必须双重署名且不得宣称策略或LB950原创。
+  本条已被上方16:25双v22裁决覆盖；其合规与署名结论仍有效。详见
+  `reports/20260816_final_slot_compliance_and_live_readout.md` 与
+  `reports/20260816_public_code_attribution_ledger.md`。
+
+- **08-16 08:31 当前收官槽位=`{Roman公开Alakazam彩票 55539395,
+  exact-v22 55539446}`，两件均 COMPLETE。** Roman件来自208票公开 notebook
+  `romanrozen/strong-start-baseline-agent-v10-lb-950`，是完整 Alakazam Courage v22
+  源码而非回放模仿；只补了搜索异常回退路径缺失的 `import sys`。归档两次确定性打包
+  SHA=`14dfb766…a53fc`，60卡/双入口/exact-archive均通过且零fault。它被Grim硬克：
+  历史原件对exact-v22 n=128为16–112，本轮修复件n=32为3–28–1；但直接对当前M Sato
+  v5小样本17–15，且公开件具有直接`LB950+`上限记录，故按用户“上限优先彩票”授权提交。
+  随后原字节精确重交v22归档SHA=`599e19ae…b4c8bfcf`恢复托底。两件初始均600，短期榜分
+  下落不作为裁决；该回退分支已被上方10:40同快照联合裁决关闭，今日余2发只保留为
+  ERROR/失效应急恢复额度，07:30后不再改槽。
+
+- **高分Grim调研已 completed-negative。** 157票公开Grim notebook只是exact-v22同牌表、
+  同核心加旧wrapper（旧live约628）；近期Raihan refs `55494171/55510944`并非同牌表，
+  真正同牌表专家为历史refs `55177269/55202823`。135场去重专家回放产生的残差模仿
+  两轮均是n=32尖峰、n=128回落；最佳v14镜像累计约196–188（51.04%），对35场胡地
+  replay安全回退2856次调用0 override，但同批Lucario/Crustle分别70–58/71–57，明显
+  低于v22对照86–42/89–39。所有Grim-X因此KILL，未为了提交而降低闸。
+
+- **22:59 用户已把收官策略切换为“exact-v22 托底 + 高上限彩票”，覆盖本节下方
+  “8/16 只重交 v22”旧句。** M Sato 胡地 ref `55198468` 的 455 场正确口径为
+  258–197、对手均分1032.84、隐含实力约1091.95；对 live Grim 65–65/130。
+  胡地不是磨牌主胜法：258胜中253场靠奖品/清空Active，仅5场靠对手deck-out。
+  冻结 v5 margin1 相对公开父策略对 exact-v22 从19.53%提升至独立确认32.81%，
+  但仍未证明强于v22；定位仅为第二槽彩票。工程/H2H累计544局零fault，确定性归档
+  SHA=`83372cfe…993a9`，解包归档对v22 13–19/32且零fault。用户已明确授权完成闭环后
+  上传 v5，并授权后续若长毛巨魔调研形成有潜力且过最小工程闸的彩票则果断提交获取
+  live反馈；最终锁定必须恢复 `{exact-v22, 最强彩票}`。详见
+  `reports/20260815_msato_alakazam_lottery_final.md` 与
+  `reports/20260816_lottery_branch_runbook.md`。
+
 - **Final Evaluation 网页端已核实：自动取 latest-2、无需手动勾选，截止后继续约两周
-  episodes 才定榜。** 因此8/15今晚不再交；8/16约08:00 CST额度刷新后只精确重交一次
-  v22，目的仅是留足ERROR重试窗口。COMPLETE后无论短期分数高低都禁止第二发。
+  episodes 才定榜。** “8/16只重交一次v22”的旧动作已被用户后续“高上限彩票”授权
+  覆盖；机制事实不变。当前实际序列与唯一剩余回退链以本节第一条和C-022为准。
   详见 `reports/20260815_决赛机制核查_kimi.md` 与
-  `reports/20260816_收官runbook.md`。
+  `reports/20260816_lottery_branch_runbook.md`。
 - **路线 A 已于 18:48 在正式训练闸 `TRAINING_KILL`，C-014=`completed-negative`**。
   完整多步 PPO 赛前 NO-GO；唯一可装入窗口的是每局最多一次随机干预、exact-v22
   永久回退的 contextual-bandit pilot 已完成 36,432 局健康采集：四腿各9,108、零 fault、
@@ -165,7 +242,7 @@ episodes 都来自独立 submission/matchmaking 池，不能把 859.1、700.3 �
 ## 现役盘面（last-2 提交槽位）
 | 件 | sha | Kaggle ref | 内容 |
 |---|---|---|---|
-| **retreat_pivot 探针（08-13 06:54 交）** | `411d9dff` | 55468450 | config A + 防守性 prize-denial pivot 单 flag ON（live 探针，**非闸过候选**，ledger #136；判读窗口 ~8/14-8/16，WR>0.62 才认） |
+| **retreat_pivot 探针（08-13 06:54 交）** | `411d9dff` | 55468450 | config A + 防守性 prize-denial pivot 单 flag ON（live 探针，**非闸过候选**，ledger #136）。**判读完（08-15 20:07，ledger id183）：48 局=47 public+1 validation，public 26-21 / live WR 0.5532，Δ vs config A 0.476 = +7.7pp < 15pp → flat/小动，retroactive NO-GO 归档（统计功效不足、非证伪，n=47 σ≈7.3pp）；config A v2 仍为落袋锚** |
 | **config A v2（锚）** | `459cf97` | 55451759 | 原 config A 重交件；瞬读 606.3 不记账 |
 | ~~config A v1~~（已出 last-2） | `459cf97` | 55431232 | 08-13 06:54 被探针顶出；瞬读 650.3 不记账 |
 
@@ -186,10 +263,10 @@ episodes 都来自独立 submission/matchmaking 池，不能把 859.1、700.3 �
 ## 观测设施（自动化安全网，不信任记忆）
 | 设施 | id | 行为 |
 |---|---|---|
-| 观测哨 | `automation_f6bd5dac-a888-4c9c-8354-e7e49ae26b45` | condition every=2h，谓词 `assets/conditions/should_fire.py`（调 `experiments/lb_watch.py`，~5s 静默）；四触发器 QUIET_4H / PLATEAU(3样本跨4h极差<3) / EP_100 / CRASH(连续2次跌>30)，命中才开会话推送。历史 `experiments/runs/lb_score_history.jsonl` |
+| 观测哨 | `automation_f6bd5dac-a888-4c9c-8354-e7e49ae26b45` | condition every=2h，谓词 `assets/conditions/should_fire.py`（调 `experiments/lb_watch.py`，~5s 静默）；四触发器 QUIET_4H / PLATEAU(3样本跨4h极差<3) / EP_100 / CRASH(连续2次跌>30)，命中才开会话推送。历史 `experiments/runs/lb_score_history.jsonl`。**决赛期（~2 周）保持 enabled 持续采样，待 #135 落账后才 disable**；教训 08-17：QUIET_4H 的 4h 静默可能只是 lull（11:37 误报 SETTLED、15:35 被新局证伪），触发判词须人工复核后再行动 |
 | 周报 | `automation_530a9aba` | 周三 09:20，读 ledger + lb_score_history.jsonl（禁 CLI）；8/19 收官期出终值版后自 disable |
 | ~~结算日报~~ | `automation_c9a973a7` | **已 superseded 并 disable（08-12 16:33）**：内容并入 `reports/2026-08-12_收口判读.md`，避免双发 |
-| 探针判读提醒 | `automation_dd5afa22` | once 8/15 20:00（A 轨会师点；**A 轨 08-13 KILLED@N1/K0，2×2 落格无产物**，议程=探针判读+dying_674 翻牌）：**判读口径=`reports/2026-08-15_会师判读包.md`（唯一执行件，cheatsheet 降为 A 轨存档）**——判读 retreat_pivot 探针（55468450）live WR（Δ≥15pp→留 / <15pp→retroactive NO-GO）+ dying_674 翻牌决策（三条件：探针 flat + 额度余≥1 + 用户点头），局数 <35 自动接力 8/16 晚；完成后自 disable |
+| ~~探针判读提醒~~ | `automation_dd5afa22` | **已触发完成并自 disable（08-15 20:07）**：once 8/15 20:00 按时拉起；探针 48 局达标直接判读（未接力）——public 26-21 / WR 0.5532，Δ+7.7pp<15pp → retroactive NO-GO 归档；dying_674 未翻牌（用户未点头，铁律不动）；结果落 ledger id183 |
 
 ## 关键新教训（08-10~08-12，血泪新增）
 1. **deck.csv cwd 静默漂移**（#127）：baseline 系模块 `DECK_PATH='deck.csv'` 相对 cwd，从项目根加载会静默捡到根 v24.8 牌组而非 baseline 自家牌组。一切"模块自带牌组"断言不可信——诊断/闸必须显式传 `dsh._baseline_deck()` 并 `assert == submission_baseline/deck.csv`。
@@ -211,9 +288,9 @@ episodes 都来自独立 submission/matchmaking 池，不能把 859.1、700.3 �
 | 结算日报判读 | 已并入 `reports/2026-08-12_收口判读.md`（独立日报已 disable） | ✅ 完 |
 | 真人级闸判读 | `experiments/runs/realpilot_gate.json` | ✅ 完：8/9 优势加权 0.840，唯一劣势=已知 Cornerstone 悬崖（非新靶） |
 | pilot 层调查 | `experiments/pilot_investigation/`（README 含结论与产物索引） | ✅ 完（08-12 晚收线）：两行为差实证、两候选闸 NO-GO、「闸灵敏度天花板」定谳 |
-| **探针判读（live WR 重测）** | #132 管线：`list_submission_episodes(55468450)` + replay + `pilot_investigation/top_pilot_analyze.py --source ours` | 待 **~8/14-8/16**（探针攒 ~50-72 局后）：WR>0.62 留并归因，flat/小动 retroactive NO-GO（ledger #136 判读口径） |
+| **探针判读（live WR 重测）** | #132 管线：`list_submission_episodes(55468450)` + replay + `pilot_investigation/top_pilot_analyze.py --source probe` | ✅ 完（08-15 20:07）：48 局=47 public+1 validation，public 26-21 / WR 0.5532，Δ vs config A 0.476 = **+7.7pp < 15pp → flat/小动，retroactive NO-GO 归档**（统计功效不足、非证伪，σ≈7.3pp@n=47）；config A v2(55451759) 仍为落袋锚；replay 47/47 双路一致；ledger id183 |
 | settle 监控 | 观测哨推送即看；勿主动拉瞬读分 | 被动等 |
-| 8/17 收官记账 | 照单跑 `reports/2026-08-17_收官checklist.md`（窗口 8/17 晚 / 8/18 晨，头号禁忌=截止瞬间不读分）；ledger #135 已预留给收官条 | 待 8/17 |
+| 收官记账（决赛期） | 照单跑 `reports/2026-08-17_收官checklist.md`（头号禁忌=截止瞬间不读分）；ledger #135 已预留给收官条（勿占用） | ⏸ 推迟（08-17 晚判，ledger #191）：决赛期 episodes 仍在跑、分数全天漂移，待约两周阶段结束（~8/31）榜单停变后落账；每日样本由观测哨自动落 `lb_score_history.jsonl` |
 
 ---
 

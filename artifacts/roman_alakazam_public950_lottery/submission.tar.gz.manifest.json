@@ -1,0 +1,81 @@
+{
+  "artifact": "/Users/seyonmacbook/Desktop/Pokemon_TCG_AI_Battle_Challenge/artifacts/roman_alakazam_public950_lottery/submission.tar.gz",
+  "archive_sha256": "14dfb7666fc14c0fe16e5b9d5e843b0edcd4dd1187f06d22c5114d04e94a53fc",
+  "archive_bytes": 1987389,
+  "main_sha256": "c1b2ee3fa88d465db37233829dc671ec218ad946e24648548c47a3008a3cfe9c",
+  "deck_sha256": "8eccc69c3bf7d499f38c6116c33c5fac837050bf0ec71a5a1883f0f20f41ddbc",
+  "entrypoint": "codex_sol_eclipse_alakazam_v22",
+  "member_count": 13,
+  "members": [
+    "cg/__init__.py",
+    "cg/api.py",
+    "cg/cg.dll",
+    "cg/game.py",
+    "cg/libcg-arm64.so",
+    "cg/libcg.dylib",
+    "cg/libcg.so",
+    "cg/sim.py",
+    "cg/utils.py",
+    "deck.csv",
+    "group.txt",
+    "main.py",
+    "source_manifest.json"
+  ],
+  "includes_cg": true,
+  "validation": {
+    "candidate_dir": "/Users/seyonmacbook/Desktop/Pokemon_TCG_AI_Battle_Challenge/candidates/roman_alakazam_courage_v22_public950",
+    "main_sha256": "c1b2ee3fa88d465db37233829dc671ec218ad946e24648548c47a3008a3cfe9c",
+    "deck_sha256": "8eccc69c3bf7d499f38c6116c33c5fac837050bf0ec71a5a1883f0f20f41ddbc",
+    "entrypoint": "codex_sol_eclipse_alakazam_v22",
+    "module_entrypoint": "agent",
+    "callable_tail": [
+      "_rocket_energy_hammer_scores",
+      "_standalone_policy_agent",
+      "_standalone_competition_deck",
+      "competition_entrypoint",
+      "codex_sol_eclipse_alakazam_agent",
+      "_courage_base_agent",
+      "_courage_teleportation_guard",
+      "codex_sol_eclipse_alakazam_v22"
+    ],
+    "deck_count": 60,
+    "startup_probes": [
+      60,
+      60
+    ],
+    "module_startup_probes": [
+      60,
+      60
+    ],
+    "files": [
+      {
+        "path": "deck.csv",
+        "sha256": "8eccc69c3bf7d499f38c6116c33c5fac837050bf0ec71a5a1883f0f20f41ddbc",
+        "bytes": 261
+      },
+      {
+        "path": "group.txt",
+        "sha256": "579e4cacc84fa0d73287d319f8fb26ffbe502c3554a456bdec3d7bff2d99fa3e",
+        "bytes": 21
+      },
+      {
+        "path": "main.py",
+        "sha256": "c1b2ee3fa88d465db37233829dc671ec218ad946e24648548c47a3008a3cfe9c",
+        "bytes": 55653
+      },
+      {
+        "path": "source_manifest.json",
+        "sha256": "03ae2c1dc2e25f736cdb2f734d87cd16bdeccc16155a1fcb8098c35c81bc1032",
+        "bytes": 993
+      }
+    ],
+    "card_legality": {
+      "checked": true,
+      "card_rows": 2022,
+      "unknown": [],
+      "copy_limit": "PASS"
+    },
+    "status": "PASS"
+  },
+  "status": "PACKED"
+}

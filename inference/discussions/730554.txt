@@ -1,0 +1,164 @@
+The Pokémon Company - PTCG AI Battle Challenge Simulation | Kaggle
+=====
+menu
+Skip to
+content
+Create
+explore
+
+Home
+
+emoji_events
+
+Competitions
+
+leaderboard
+
+Benchmarks
+
+smart_toy
+
+Game Arena
+
+code
+
+Data Hub
+
+expand_more
+format_list_bulleted
+
+More
+
+expand_more
+note_alt
+
+Your Work
+
+expand_less
+
+Viewed
+
+expand_less
+
+The Pokémon Company - PTCG AI Battle Challenge Simulation
+
+First or second — which do agents pick?
+
+Are top agents mostly heuristic, or are people successfully using RL/BC?
+
+What is your highest score for an active rule-based agent
+
+How do strong agents decide whether to search before drawing?
+
+Edited
+
+expand_less
+
+notebooke2441e9455
+
+PTCG Strategy MRI | 2,022 Cards to 60 Decis 66517c
+
+pokemon-tcg-strategy-mega-lucario
+
+PTCG Strategy MRI | 2,022 Cards to 60 Decisions
+
+titanic最后一舞
+
+auto_awesome_motion
+
+View Active Events
+
+search
+​
+THE POKÉMON COMPANY - PTCGABC TEAM · FEATURED SIMULATION COMPETITION · 6 DAYS TO GO
+Submit Agent
+more_horiz
+The Pokémon Company - PTCG AI Battle Challenge Simulation
+
+Build an AI Training Agent to play the Pokémon Trading Card Game
+
+Overview
+Data
+Code
+Models
+Discussion
+Leaderboard
+Rules
+Team
+Submissions
+A.S.TENSHU · 4186TH IN THIS COMPETITION · POSTED 12 DAYS AGO
+arrow_drop_up
+7
+more_vert
+22 Curated Deck Archetypes for PTCG AI Battle - A Deck Intelligence Dataset
+
+The same policy can gain or lose a surprising amount of ladder strength when the deck changes. Yet many participants still test against only one or two public baselines. I curated this dataset to make a diverse, machine-ready deck population available to everyone in the competition.
+
+What is included
+22 exact, validated 60-card lists (EX_01-EX_22)
+strategic labels for tempo, prize profile, setup complexity, and pilot complexity
+damage engines, resource engines, key decisions, strengths, and risks
+card-usage statistics and a complete 22 x 22 similarity matrix
+one-line Card ID deck exports ready for the competition format
+a reproducible analysis Notebook with four reusable figures
+Three practical uses
+1. Train on a population, not one favorite deck
+
+Sample across aggressive, midrange, control, toolbox, and combo lists. A simple curriculum is to start with low-complexity tempo decks, then add spread damage, disruption, copied-attack toolboxes, and multi-engine lists.
+
+2. Build a genuinely diverse evaluation panel
+
+The similarity matrix measures quantity-aware card overlap. Pick low-similarity lists when you want broad coverage, and high-similarity pairs when you want a controlled test of how small deck changes affect the same policy.
+
+3. Diagnose deck-policy interaction
+
+Hold your policy fixed and rotate all 22 decks. Break results down by prize profile and complexity. This often reveals failures hidden by a single aggregate score: bench management, prize mapping, energy allocation, evolution timing, or long-horizon damage placement.
+
+A few structural observations
+Similar-looking prize plans can rely on very different resource engines.
+Single-Prize decks are useful stress tests for attack continuity and six-KO planning.
+Spread-damage and toolbox lists expose much larger decision spaces than direct tempo decks.
+Shared staples do not imply identical play: quantity-aware similarity helps separate common Trainer shells from the archetype's real engine.
+Limits
+
+V1 is a deck-intelligence dataset, not a tier list. It contains no simulated matchup win rates and makes no claim that one deck is intrinsically strongest. EX_10 is structurally valid but marked medium source confidence because it was resolved from a named-list transcription; the other 21 lists come from canonical Card ID CSVs.
+
+Links
+Dataset: https://www.kaggle.com/datasets/kirvk013/ptcg-ai-battle-22-curated-deck-archetypes
+Reproducible Notebook: https://www.kaggle.com/code/kirvk013/ptcg-22-decks-one-meta
+Planned V2
+
+If this is useful, V2 will add a controlled matchup benchmark: fixed policies, repeated seeds, seat-swapped games, uncertainty intervals, and enough metadata to separate deck effects from policy effects.
+
+I would especially value feedback on missing archetypes, useful grouping labels, and which controlled matchup pairs would be most informative for V2.
+
+Benchmark
+Data Visualization
+Exploratory Data Analysis
+add_reaction
+React
+comment
+0 Comments
+Hotness
+undo
+redo
+format_size
+format_bold
+format_italic
+format_strikethrough
+insert_link
+format_quote
+code
+format_list_numbered
+format_list_bulleted
+table_chart
+insert_photo
+smart_display
+insert_emoticon
+help
+ 
+
+This comment will be made public once posted.
+
+attach_file
+Post Comment

@@ -1,0 +1,57 @@
+{
+ "ts": 1786533554.672022,
+ "n_per_leg": 2000,
+ "wr": {
+  "pristine": {
+   "Alakazam": 0.8295,
+   "other": 0.997,
+   "Grimmsnarl": 0.9495,
+   "Archaludon": 0.948,
+   "Lucario": 0.979,
+   "Crustle": 0.7915,
+   "Dragapult": 0.9865,
+   "Cornerstone": 0.5215,
+   "Gardevoir": 0.964
+  },
+  "OFF": {
+   "Alakazam": 0.831,
+   "other": 0.9955,
+   "Grimmsnarl": 0.952,
+   "Archaludon": 0.946,
+   "Lucario": 0.98,
+   "Crustle": 0.82,
+   "Dragapult": 0.9825,
+   "Cornerstone": 0.5125,
+   "Gardevoir": 0.964
+  },
+  "ON": {
+   "Alakazam": 0.821,
+   "other": 0.9965,
+   "Grimmsnarl": 0.9565,
+   "Archaludon": 0.9515,
+   "Lucario": 0.9775,
+   "Crustle": 0.793,
+   "Dragapult": 0.979,
+   "Cornerstone": 0.5125,
+   "Gardevoir": 0.951
+  }
+ },
+ "weighted": {
+  "pristine": 0.9210479041916168,
+  "OFF": 0.9230783433133732,
+  "ON": 0.9201886227544911
+ },
+ "invalid": {
+  "pristine": 0,
+  "OFF": 0,
+  "ON": 0
+ },
+ "checks": {
+  "parity": false,
+  "regression": true,
+  "on_delta_pp": -0.09,
+  "invalid_on": 0
+ },
+ "verdict": "NO-GO: 闸腿未过, 见 checks",
+ "elapsed_s": 1345.2
+}

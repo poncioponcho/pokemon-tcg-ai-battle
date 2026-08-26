@@ -1,0 +1,49 @@
+{
+  "ts": "2026-08-08T04:39:09+00:00",
+  "experiment": "final_v3_g05",
+  "npz": "model_student.npz",
+  "engine": "official sample_submission/cg libcg.dylib (arm64)",
+  "games_total": 20000,
+  "wins": 12423,
+  "losses": 7541,
+  "draws": 36,
+  "invalid_actions": 0,
+  "win_rate": 0.6211,
+  "ci95_lo": 0.6144,
+  "avg_turns": 86.5,
+  "elapsed_s": 259.5,
+  "per_opponent": [
+    {
+      "opponent": "v23_2_rules",
+      "w": 2524,
+      "l": 2453,
+      "d": 23,
+      "invalid": 0,
+      "wr": 0.5048
+    },
+    {
+      "opponent": "v22_5_rules",
+      "w": 4529,
+      "l": 463,
+      "d": 8,
+      "invalid": 0,
+      "wr": 0.9058
+    },
+    {
+      "opponent": "first",
+      "w": 1618,
+      "l": 3381,
+      "d": 1,
+      "invalid": 0,
+      "wr": 0.3236
+    },
+    {
+      "opponent": "random",
+      "w": 3752,
+      "l": 1244,
+      "d": 4,
+      "invalid": 0,
+      "wr": 0.7504
+    }
+  ]
+}

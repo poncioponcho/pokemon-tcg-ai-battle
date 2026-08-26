@@ -1,0 +1,25 @@
+{
+  "ts": "2026-08-08T09:46:04+00:00",
+  "experiment": "sel_ep5",
+  "npz": "student_ep5.npz",
+  "engine": "official sample_submission/cg libcg.dylib (arm64)",
+  "games_total": 2000,
+  "wins": 1002,
+  "losses": 980,
+  "draws": 18,
+  "invalid_actions": 0,
+  "win_rate": 0.501,
+  "ci95_lo": 0.4791,
+  "avg_turns": 92.7,
+  "elapsed_s": 56.4,
+  "per_opponent": [
+    {
+      "opponent": "v23_2_rules",
+      "w": 1002,
+      "l": 980,
+      "d": 18,
+      "invalid": 0,
+      "wr": 0.501
+    }
+  ]
+}

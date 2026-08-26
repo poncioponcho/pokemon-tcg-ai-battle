@@ -1,0 +1,60 @@
+{
+  "artifact": "/Users/seyonmacbook/Desktop/Pokemon_TCG_AI_Battle_Challenge/artifacts/alakazam_codex_v22/submission.tar.gz",
+  "archive_sha256": "d328c82c5e4ceb2c7f14d103e82dac0e51df6564c67cb27f3f04f5c050f3886f",
+  "archive_bytes": 1986729,
+  "main_sha256": "f31eba2e819ee2b3d46765b4195ea7dab8f32d0b5d09cafd39b3823661f6b5aa",
+  "deck_sha256": "8eccc69c3bf7d499f38c6116c33c5fac837050bf0ec71a5a1883f0f20f41ddbc",
+  "entrypoint": "agent",
+  "member_count": 12,
+  "members": [
+    "cg/__init__.py",
+    "cg/api.py",
+    "cg/cg.dll",
+    "cg/game.py",
+    "cg/libcg-arm64.so",
+    "cg/libcg.dylib",
+    "cg/libcg.so",
+    "cg/sim.py",
+    "cg/utils.py",
+    "deck.csv",
+    "group.txt",
+    "main.py"
+  ],
+  "includes_cg": true,
+  "validation": {
+    "candidate_dir": "/Users/seyonmacbook/Desktop/Pokemon_TCG_AI_Battle_Challenge/candidates/alakazam_codex_v22",
+    "main_sha256": "f31eba2e819ee2b3d46765b4195ea7dab8f32d0b5d09cafd39b3823661f6b5aa",
+    "deck_sha256": "8eccc69c3bf7d499f38c6116c33c5fac837050bf0ec71a5a1883f0f20f41ddbc",
+    "entrypoint": "agent",
+    "deck_count": 60,
+    "startup_probes": [
+      60,
+      60
+    ],
+    "files": [
+      {
+        "path": "deck.csv",
+        "sha256": "8eccc69c3bf7d499f38c6116c33c5fac837050bf0ec71a5a1883f0f20f41ddbc",
+        "bytes": 261
+      },
+      {
+        "path": "group.txt",
+        "sha256": "579e4cacc84fa0d73287d319f8fb26ffbe502c3554a456bdec3d7bff2d99fa3e",
+        "bytes": 21
+      },
+      {
+        "path": "main.py",
+        "sha256": "f31eba2e819ee2b3d46765b4195ea7dab8f32d0b5d09cafd39b3823661f6b5aa",
+        "bytes": 55648
+      }
+    ],
+    "card_legality": {
+      "checked": true,
+      "card_rows": 2022,
+      "unknown": [],
+      "copy_limit": "PASS"
+    },
+    "status": "PASS"
+  },
+  "status": "PACKED"
+}

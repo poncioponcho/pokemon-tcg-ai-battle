@@ -84,6 +84,7 @@ v21→v22 Mega Wall Push 卡组重构:
 5. 制胜公式: 345イワパレス做墙免ex伤害 → 756メガガルーラex满能推队(200+dice)
 """
 
+import sys
 from collections import Counter, defaultdict
 
 # ==================================================================

@@ -38,6 +38,7 @@ import sys
 import tarfile
 import tempfile
 import time
+import urllib.parse
 import urllib.request
 from collections import Counter
 from contextlib import contextmanager
@@ -57,6 +58,19 @@ def sha256(path: pathlib.Path) -> str:
         for block in iter(lambda: f.read(1 << 20), b""):
             h.update(block)
     return h.hexdigest()
+
+
+def validated_https_url(value: str) -> str:
+    """Accept only credential-free HTTPS URLs returned by the Kaggle API."""
+    parsed = urllib.parse.urlsplit(value)
+    if (
+        parsed.scheme.lower() != "https"
+        or not parsed.hostname
+        or parsed.username is not None
+        or parsed.password is not None
+    ):
+        raise SystemExit("Kaggle upload endpoint is not a valid HTTPS URL")
+    return value
 
 
 def files_for(candidate: pathlib.Path) -> list[pathlib.Path]:
@@ -192,12 +206,12 @@ def probe_startup(fn, startup_obs: dict[str, Any], expected_deck: list[int],
         raise SystemExit(f"{label} startup deck contains invalid values: {exc}") from exc
     if not matches:
         raise SystemExit(f"{label} startup deck differs from deck.csv")
-    starts = []
+    starts: list[int] = []
     for _ in range(max(1, count)):
         got = fn(startup_obs)
-        starts.append(len(got) if isinstance(got, list) else None)
-    if any(x != 60 for x in starts):
-        raise SystemExit(f"{label} startup probe failed: {starts}")
+        if not isinstance(got, list) or len(got) != 60:
+            raise SystemExit(f"{label} startup probe failed: {got!r}")
+        starts.append(len(got))
     return starts
 
 
@@ -214,8 +228,10 @@ def validate(args: argparse.Namespace) -> dict[str, Any]:
         # The released SDK's Observation dataclass requires ``logs`` even for
         # the initial deck request.  Public agents vary in how much of that
         # empty envelope they inspect, so use the faithful envelope here.
-        startup_obs = {"select": None, "logs": [], "current": None,
-                       "search_begin_input": None}
+        startup_obs: dict[str, Any] = {
+            "select": None, "logs": [], "current": None,
+            "search_begin_input": None,
+        }
         with candidate_runtime(clean, engine_root):
             module_starts = probe_startup(
                 module_fn, startup_obs, deck, args.startup_probes, "module agent"
@@ -338,10 +354,12 @@ def submit(args: argparse.Namespace) -> int:
     req.file_name = "submission.tar.gz"
     upload = api.start_submission_upload(req)
     blob_token = upload.token
-    put = urllib.request.Request(upload.create_url, data=archive.read_bytes(), method="PUT")
+    upload_url = validated_https_url(upload.create_url)
+    put = urllib.request.Request(  # noqa: S310 - URL validated above
+        upload_url, data=archive.read_bytes(), method="PUT")
     put.add_header("Content-Type", "application/gzip")
     put.add_header("Content-Length", str(archive.stat().st_size))
-    with urllib.request.urlopen(put, timeout=180) as response:
+    with urllib.request.urlopen(put, timeout=180) as response:  # noqa: S310
         if response.status < 200 or response.status >= 300:
             raise SystemExit(f"upload failed HTTP {response.status}")
     create = ApiCreateSubmissionRequest()

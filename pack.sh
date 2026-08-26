@@ -20,7 +20,7 @@ for f in main.py deck.csv; do
 done
 
 # ---- 2. 校验 deck.csv 恰好 60 张卡 ----
-n=$(python3 -c "print(sum(1 for l in open('deck.csv') if l.strip()))")
+n=$(/opt/homebrew/bin/python3 -c "print(sum(1 for l in open('deck.csv') if l.strip()))")
 if [[ "$n" != "60" ]]; then
   echo "[错误] deck.csv 必须为 60 行，当前 $n 行"
   exit 1
@@ -32,10 +32,23 @@ rm -f submission.tar.gz
 # tar 从当前目录打包，保证 main.py / deck.csv 在压缩包顶层
 # [v24] 若存在 model_student.npz（蒸馏 student 模型）则随包提交；
 #       main.py 的 NN Advisor 会在同目录找到它；缺失时自动降级纯规则。
+# [2026-08-09 修复] npz 改为显式 opt-in：纯规则版若随包带 npz，会被 arena
+#       门禁判为 hybrid 而 REJECTED（已有前科）。默认排除，需 --with-npz 才打包。
+WITH_NPZ=0
+for arg in "$@"; do
+  case "$arg" in
+    --with-npz) WITH_NPZ=1 ;;
+    *) echo "[错误] 未知参数: $arg（用法: bash pack.sh [--with-npz]）"; exit 1 ;;
+  esac
+done
 EXTRA_FILES=()
 if [[ -f model_student.npz ]]; then
-  EXTRA_FILES=(model_student.npz)
-  echo "[信息] 检测到 model_student.npz，随包提交 NN student 模型"
+  if [[ "$WITH_NPZ" == "1" ]]; then
+    EXTRA_FILES=(model_student.npz)
+    echo "[信息] 已指定 --with-npz：随包提交 NN student 模型（hybrid 提交）"
+  else
+    echo "[警告] 检测到 model_student.npz，但未指定 --with-npz：本包为纯规则版，npz 不随包"
+  fi
 fi
 COPYFILE_DISABLE=1 tar -czf submission.tar.gz main.py deck.csv ${EXTRA_FILES[@]+"${EXTRA_FILES[@]}"}
 
@@ -44,7 +57,7 @@ COPYFILE_DISABLE=1 tar -czf submission.tar.gz main.py deck.csv ${EXTRA_FILES[@]+
 # 现改为: (1) DECK==内联牌组 (2) 卡 ID 均在卡池 (3) 非能量卡同卡<=4 (4) 长度60
 TMPD=$(mktemp -d)
 tar -xzf submission.tar.gz -C "$TMPD"
-if ! (cd "$TMPD" && python3 -c "
+if ! (cd "$TMPD" && /opt/homebrew/bin/python3 -c "
 from collections import Counter
 import main
 deck = [int(l.strip()) for l in open('deck.csv') if l.strip()]
@@ -63,7 +76,17 @@ over = [(cid, n) for cid, n in cnt.items()
         if not main._CARD_DB.get(cid, {}).get('is_energy') and n > 4]
 if over:
     raise SystemExit(f'非能量卡超 4 张限制: {over}')
-print('[OK] DECK == deck.csv == _INLINE_DECK, 全部卡 ID 在卡池, 非能量卡<=4 (60 张)')
+# [M2 08-10] ACE SPEC 唯一性校验: 全集 29 张, 来源官方 EN Card Data.csv
+# Rule 列 == ACE SPEC (inference/comp_data/pokemon-tcg-ai-battle.zip)
+# ⚠️ 本块嵌在 bash 双引号字符串内, 禁止出现任何双引号(含注释) —— 否则
+#    脚本被截断、校验静默失效 (08-10 实演过一次)
+ACE_SPEC = {10, 12, 13, 1080, 1082, 1085, 1088, 1089, 1092, 1093, 1095, 1096,
+            1100, 1104, 1107, 1109, 1110, 1111, 1125, 1126, 1128, 1155, 1158,
+            1159, 1165, 1167, 1169, 1247, 1249}
+ace_in = sorted(c for c in set(main.DECK) if c in ACE_SPEC)
+if len(ace_in) > 1:
+    raise SystemExit(f'ACE SPEC 超 1 张限制: {ace_in}')
+print('[OK] DECK == deck.csv == _INLINE_DECK, 全部卡 ID 在卡池, 非能量卡<=4, ACE SPEC<=1 (60 张)')
 "); then
   echo "[错误] 牌组一致性/合法性校验失败"
   rm -rf "$TMPD"

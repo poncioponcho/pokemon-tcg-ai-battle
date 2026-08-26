@@ -1,0 +1,220 @@
+The Pokémon Company - PTCG AI Battle Challenge Simulation | Kaggle
+=====
+menu
+Skip to
+content
+Create
+explore
+
+Home
+
+emoji_events
+
+Competitions
+
+leaderboard
+
+Benchmarks
+
+smart_toy
+
+Game Arena
+
+code
+
+Data Hub
+
+expand_more
+format_list_bulleted
+
+More
+
+expand_more
+note_alt
+
+Your Work
+
+expand_less
+
+Viewed
+
+expand_less
+
+The Pokémon Company - PTCG AI Battle Challenge Simulation
+
+How do strong agents decide whether to search before drawing?
+
+my plan on how to do RL training ... is it my hallucinations?
+
+First or second — which do agents pick?
+
+Differences Between the Official Pokémon TCG Rules and the Simulator Behavior
+
+Edited
+
+expand_less
+
+notebooke2441e9455
+
+PTCG Strategy MRI | 2,022 Cards to 60 Decis 66517c
+
+pokemon-tcg-strategy-mega-lucario
+
+PTCG Strategy MRI | 2,022 Cards to 60 Decisions
+
+titanic最后一舞
+
+auto_awesome_motion
+
+View Active Events
+
+search
+​
+THE POKÉMON COMPANY - PTCGABC TEAM · FEATURED SIMULATION COMPETITION · 6 DAYS TO GO
+Submit Agent
+more_horiz
+The Pokémon Company - PTCG AI Battle Challenge Simulation
+
+Build an AI Training Agent to play the Pokémon Trading Card Game
+
+Overview
+Data
+Code
+Models
+Discussion
+Leaderboard
+Rules
+Team
+Submissions
+CHESTER YUAN · 1141ST IN THIS COMPETITION · POSTED 20 DAYS AGO
+arrow_drop_up
+0
+more_vert
+What is your highest score for an active rule-based agent
+
+Just curious, because RL/BC seems too expensive for me to implement.
+
+add_reaction
+React
+comment
+6 Comments
+Hotness
+undo
+redo
+format_size
+format_bold
+format_italic
+format_strikethrough
+insert_link
+format_quote
+code
+format_list_numbered
+format_list_bulleted
+table_chart
+insert_photo
+smart_display
+insert_emoticon
+help
+ 
+
+This comment will be made public once posted.
+
+attach_file
+Post Comment
+...
+
+Posted 19 days ago
+
+· 89th in this Competition
+
+arrow_drop_up
+2
+more_vert
+
+Got to rank 2 once usually around top 10
+
+reply
+Reply
+add_reaction
+React
+Chester Yuan
+TOPIC AUTHOR
+
+Posted 19 days ago
+
+· 1141st in this Competition
+
+arrow_drop_up
+0
+more_vert
+
+Bravo!!!!!
+
+reply
+Reply
+add_reaction
+React
+Tien N.
+
+Posted 5 days ago
+
+· 362nd in this Competition
+
+arrow_drop_up
+0
+more_vert
+
+I got to top 10 several times with pure heuristics
+
+reply
+Reply
+add_reaction
+React
+wangyuou
+
+Posted 16 days ago
+
+· 139th in this Competition
+
+arrow_drop_up
+0
+more_vert
+
+We could rank within the top 10 at the start of the tournament. Nowadays, the Gold Tier is dominated by model-based agents; a pure rule-based implementation would likely fall beyond 200th place.
+
+reply
+Reply
+add_reaction
+React
+...
+
+Posted 15 days ago
+
+· 89th in this Competition
+
+arrow_drop_up
+0
+more_vert
+
+Yeah its harder for my bot to get to the top now, but it could still reach around top 20 with rule based
+
+reply
+Reply
+add_reaction
+React
+sam_the_rice_cake
+
+Posted 18 days ago
+
+· 202nd in this Competition
+
+arrow_drop_up
+0
+more_vert
+
+around 880+-20
+
+reply
+Reply
+add_reaction
+React

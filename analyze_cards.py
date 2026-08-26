@@ -119,8 +119,8 @@ def analyze_high_damage_attacks(cards):
             damage = int(c['Damage']) if c['Damage'] and c['Damage'] != 'n/a' else 0
             if damage >= 100:
                 high_dmg.append((damage, c))
-        except:
-            pass
+        except (ValueError, TypeError, KeyError):
+            pass  # [fix 08-09] 原为裸 except; 仅跳过损坏数据行, 不再吞 KeyboardInterrupt 等
     
     high_dmg.sort(key=lambda x: x[0], reverse=True)
     

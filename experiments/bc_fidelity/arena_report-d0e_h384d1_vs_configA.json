@@ -1,0 +1,25 @@
+{
+  "ts": "2026-08-13T12:08:34+00:00",
+  "experiment": "d0e_h384d1_vs_configA",
+  "npz": "model_student.npz",
+  "engine": "official sample_submission/cg libcg.dylib (arm64)",
+  "games_total": 2000,
+  "wins": 106,
+  "losses": 1894,
+  "draws": 0,
+  "invalid_actions": 0,
+  "win_rate": 0.053,
+  "ci95_lo": 0.044,
+  "avg_turns": 79.5,
+  "elapsed_s": 40.1,
+  "per_opponent": [
+    {
+      "opponent": "configA_pristine_79653e2c63b1",
+      "w": 106,
+      "l": 1894,
+      "d": 0,
+      "invalid": 0,
+      "wr": 0.053
+    }
+  ]
+}

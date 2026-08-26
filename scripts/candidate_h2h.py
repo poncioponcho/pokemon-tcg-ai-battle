@@ -137,8 +137,8 @@ class CandidateAgent:
                 "__name__": f"__candidate_h2h_{time.time_ns()}__",
                 "__builtins__": __builtins__,
             }
-            source = self.main.read_text(encoding="utf-8")
-            exec(compile(source, "main.py", "exec"), namespace)
+            source_text = self.main.read_text(encoding="utf-8")
+            exec(compile(source_text, "main.py", "exec"), namespace)
         callables = [
             (key, value) for key, value in namespace.items()
             if not key.startswith("__") and callable(value)
@@ -179,8 +179,10 @@ class CandidateAgent:
             return self.fn(obs)
 
     def deck(self) -> list[int]:
-        obs = {"select": None, "logs": [], "current": None,
-               "search_begin_input": None}
+        obs: dict[str, Any] = {
+            "select": None, "logs": [], "current": None,
+            "search_begin_input": None,
+        }
         deck = self(obs)
         if not isinstance(deck, list) or len(deck) != 60:
             raise SystemExit(f"startup deck invalid for {self.main}: {deck!r}")

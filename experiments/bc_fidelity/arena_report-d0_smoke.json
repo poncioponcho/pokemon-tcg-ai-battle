@@ -1,0 +1,33 @@
+{
+  "ts": "2026-08-13T11:30:59+00:00",
+  "experiment": "d0_smoke",
+  "npz": "model_student.npz",
+  "engine": "official sample_submission/cg libcg.dylib (arm64)",
+  "games_total": 200,
+  "wins": 139,
+  "losses": 61,
+  "draws": 0,
+  "invalid_actions": 0,
+  "win_rate": 0.695,
+  "ci95_lo": 0.628,
+  "avg_turns": 47.2,
+  "elapsed_s": 4.6,
+  "per_opponent": [
+    {
+      "opponent": "random",
+      "w": 93,
+      "l": 7,
+      "d": 0,
+      "invalid": 0,
+      "wr": 0.93
+    },
+    {
+      "opponent": "first",
+      "w": 46,
+      "l": 54,
+      "d": 0,
+      "invalid": 0,
+      "wr": 0.46
+    }
+  ]
+}

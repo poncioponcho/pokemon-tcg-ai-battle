@@ -1,0 +1,31 @@
+Below is the prioritized audit. As before, main.py is excluded (frozen during param_tune), and one minor item carried from batch 2 is included for completeness.
+
+Batch 3 audit — findings
+ID	Severity	File:line	Issue
+B3-1	MEDIUM	scripts/closed_loop_train.py:111	Single-instance pid lock is dead on macOS → two concurrent loops can push kernels / double-submit
+B3-2	MEDIUM*	inference/dataset/train_v2.py:92-94	meta.npy is written with 9 columns; load_arrays only maps 7 → the captured-team signal (cols 7-8) is silently dropped on the training side
+B3-3	LOW (uncertain)	inference/dataset/extract.py:175	ID2IDX.get(v, 0) — if an option's cardId arrives as a string, lookup returns 0 (unknown slot) and the card is silently aliased/dropped
+B3-4	LOW	inference/dataset/replay_archive.py:121	merge_into_archive derives episode id via path.name.split("-")[1], but the existing-archive path uses _episode_id() (line 31) — inconsistent extraction can miss dedup on non-standard filenames
+B3-5	LOW	scripts/push_t4.py:37-39	sys.argv[sys.argv.index('--shape') + 1] raises IndexError if --shape is the last argument
+B3-6	LOW (carry-over)	sdk/cg/game.py:37	Battle.battle_ptr == None — == None not fixed here (batch 1 only touched cabt.py); PEP8/consistency only, functionally harmless
+* B3-2 may be intentional (the captured-team upweighting may have been descoped after the "canary top1 decoupled from winrate" RCA — see train_v2.py:360-361). Flagged for confirmation, not assumed broken.
+
+Detail
+B3-1 — broken single-instance lock (deployment-platform bug).
+acquire_lock() checks os.path.isdir(f'/proc/{pid}') (line 111). macOS has no /proc filesystem, so this is always False → a second instance never sees the first and overwrites the lock, then proceeds. Since this script is the designated sole submitter (/opt/homebrew/bin/python3 scripts/closed_loop_train.py), two concurrent runs could push two distill kernels or trigger a duplicate submit. Suggest a macOS-safe liveness check (e.g. psutil.pid_exists(pid) or a heartbeat file with mtime).
+
+B3-2 — meta column schema drift (read/write mismatch).
+extract.py:392 writes Mt = np.zeros((total_n, 9)) with columns: episode_index, perspective, reward, turn, ctx, n_opts, rank_at_capture, captured_team_index, is_capture_team. train_v2.py:92-94 maps only 7 keys (ep, persp, reward, turn, ctx, nopts, rank_at_capture), so cols 7-8 are never loaded anywhere (AWR weighting only uses meta['reward']). If the captured-team flag was meant to upweight real leaderboard episodes, that signal is currently dead. Confirm intent before fixing.
+
+B3-3 — cardId type sensitivity (needs replay-data check to confirm).
+In build_decision, option cardId is indexed as ID2IDX.get(v, 0) where ID2IDX keys are int. If the engine returns cardId as a string (it does for some fields elsewhere in the replay JSON), the lookup misses and writes feature slot 0. I can't confirm the runtime type without a sample replay's option[].cardId; worth a one-line print(type(v)) probe or a try/except/int(v) guard.
+
+B3-4 / B3-5 / B3-6 — as tabled; low impact, mostly hardening.
+
+Confirmed NOT a bug (cross-file check)
+I specifically verified the earlier suspicion that reward_calc.py (expects wins/games_total) and closed_loop_train.dual_gate (expects win_rate/per_opponent[].wr) consume incompatible arena schemas. They are compatible: arena_runner.py:276-289 writes both field sets, and arena_runner.py:20 documents this explicitly. So no fix needed there.
+
+Recommendation
+Highest-value fix is B3-1 (real defect on the actual mac deployment). B3-2 is worth a decision (intentional or not). B3-3-B3-6 are low-risk hardening. Per the established pattern, please verify each by line and apply fixes in Craft mode; I'll keep main.py untouched until param_tune unfreezes (doc-drift #4 deferred).
+
+Note: I'm in Ask (read-only) mode, so I have not modified any files — the above are audit findings for you to apply. Also, the memory-write tool isn't available in this session, so I couldn't append the batch-3 ledger entry to .workbuddy/memory/; you may want to record these findings there for continuity.

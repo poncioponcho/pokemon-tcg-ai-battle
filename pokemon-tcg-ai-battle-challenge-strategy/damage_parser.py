@@ -2,6 +2,14 @@
 """
 PTCG伤害解析模块
 处理CSV中特殊伤害格式：负数(伤害减少)、×(多段)、+(追加伤害)、-(自伤)
+
+[已知覆盖缺口 known-limitation, 2026-08-09 hy3 审计确认]
+- parse_damage 的正则 ^(\\d+)([×+\\-]?)$ 不匹配复合格式 (如 "10+30"),
+  此类会落入 type="unknown" (base=0);
+- calculate_actual_damage 的 bonus/self_damage/reduction 分支仅返回 base,
+  条件加成需调用方另行解析 (注释中已注明 "Agent 需额外解析")。
+本模块仅供离线统计分析, 线上 agent (main.py) 不使用 —— 对局伤害估算走
+_CARD_DB/_estimate_attack_damage。修复需引入规则语义, 暂记待办不改行为。
 """
 import re
 

@@ -167,6 +167,12 @@ def main():
         if len(deck) != 60:                # 兜底保护
             print(f"[警告] 生成 {len(deck)} 张（应为 60），改用内置验证牌组。")
             deck = FALLBACK_DECK
+        else:
+            # [fix 08-09] build_deck 洗牌取卡且不区分基础/进化宝可梦
+            # (CardPool.csv 无阶段信息): 洗出的牌组可能基础宝可梦不足无法开局,
+            # len!=60 兜底抓不到该情况, 显式提醒人工复核
+            print("[提醒] 本生成器不区分基础/进化宝可梦：请人工确认牌组含足够"
+                  "基础宝可梦再投入使用（hy3 审计 B4-2）。")
 
     write_deck(deck, args.out)
     cnt = Counter(deck)

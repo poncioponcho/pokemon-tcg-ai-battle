@@ -1,0 +1,36 @@
+Continuing the audit into the areas not yet covered: `inference/`, `experiments/` (non-copy scripts), `kaggle_*.py`, `submit.py`, `test_agent.py`, and the strategy `damage_parser.py`. Let me scan for the same bug patterns there.
+No bare `except:` remains in the un-audited dirs. Let me read the highest-value un-audited files for logic bugs: the Kaggle verify script, the submit harness, and the strategy damage parser.
+I have enough evidence for a solid second batch. Let me do one final targeted scan of the two test harnesses (`test_agent.py`, `replay_regression_test.py`) and the reward calculator for concrete defects.
+延续审计，深入之前未覆盖的区域：`inference/`、`experiments/`(非 main.py 脚本)、`kaggle_*.py`、`submit.py`、`test_agent.py`、策略 `damage_parser.py`。读回确认如下（Ask 模式只读，未运行）。
+
+## 第二批发现（均位于冻结的 main.py 之外，可安全修）
+
+**中危**
+
+1. **`inference/ptcg_replay_harvester.py:870-889` — manifest 解析容错缺失 + 时间戳字符串比较**
+   - `load_manifest` 的 `try/except` 只包住 `json.loads`（871-874 行），**循环体 875-888 在外面**。若某条 manifest 记录 JSON 合法但缺 `best_submission_id`/`team_id`/`episode_id` 等键 → `KeyError` **未被捕获**，`load_manifest` 整函数崩溃，一条坏记录拖垮整批回放解析。
+   - 887 行 `str(candidate["captured_at"]) < str(previous["captured_at"])` 用**字符串比较时间戳**。若 `captured_at` 混用 epoch 整数与 ISO 字符串（或 `None`→`"None"`），字典序会判错"最新"：epoch 字符串以 `"1"` 开头永远排在 ISO `"2026..."`(`"2"` 开头) 之前，与真实日期无关。
+
+2. **`experiments/arena_runner.py:101` — `random.sample` 在 `maxCount > 选项数` 时崩**
+   `builtin_agent('random')` 执行 `random.sample(list(range(len(sel['option']))), n)`（`n = sel['maxCount']`）。当 `maxCount > 选项数`，抛 `ValueError: Sample larger than population`。实际被 `play()` 的 try/except（74 行）接住→记该对手 fault（判负），**不会整体崩溃**，但会让 "random 必须 ≥99% 胜率" 的 sanity 门禁出现静默误判。生产 agent 有 `_sanitize` 兜底，测试 harness 的 builtin random 没有。
+
+**低危（stale / 不一致 / 覆盖缺口）**
+
+3. **`kaggle_verify_v10.py` — 验证的是远古 v10 牌组，与当前 v24.5 脱节**
+   脚本校验的牌组为 `331/111/554/223/741/742/743`（胡地链时代），与当前 Lucario 牌组（678 等）完全无关；结尾还建议"安全提交 v10"。维护者跑它会验证**错误牌组**并产生虚假安全感。另 44 行 `os.walk` 用 `"card"/"cardpool"` 子串匹配 `/kaggle/input/` 下任意文件，可能误抓无关文件。（非提交物，但属误导性陈旧工具）
+
+4. **`experiments/arena_runner.py:47` 与 `deck_search.py:39` — `deck.csv` 解析不一致**
+   两处用 `split('\n')[:60]` / `splitlines()` **未过滤空行**，而 `param_tune.py:47` 用了 `if l.strip()`。若 `deck.csv` 带尾随空行或 CRLF，`int('')` 会崩。三处脚本对同文件处理方式不统一。
+
+5. **`pokemon-tcg-ai-battle-challenge-strategy/damage_parser.py` — 分析工具覆盖缺口**
+   51 行正则 `^(\d+)([×+\-]?)$` 不匹配复合格式（如 `"10+30"`）→ 落入 `"unknown"`(base=0)；`calculate_actual_damage` 的 `bonus`/`self_damage`/`reduction` 分支只返回 base（注释自承"Agent 需额外解析"），等于空操作。注意：该模块**不被线上 agent 使用**（伤害估算走 `_CARD_DB`/`_estimate_attack_damage`），故仅影响离线统计，不影响对局。
+
+6. **`experiments/deck_search.py:235` — `best is None` 潜在崩溃**
+   若 `top` 为空（如所有 screen 异常且 ckpt 为空），`best` 保持 `None`，235 行 `wr, lo, a, b = best` 抛 `TypeError`。仅当 `legal_swaps` 返回空这种极异常牌组才触发。
+
+## 顺带确认（与第一批交叉验证）
+- **`submit.py:100-117` 已有 fail-closed 新鲜度门禁**：提交前比对 `tar` 内 `main.py` 的 sha256 与根目录 `main.py`，不一致直接拒绝。这正好印证了 kimi 对第一批 #2（submission 陈旧）严重性打折的判断——手动 zip 陈旧 `submission/` 会被该门禁拦下，不会静默提交旧 agent。
+- `test_agent.py` 断言健康（含 `_calculate_ko_damage` 弱点归一化、`_INLINE_DECK` 一致性、`_PENDING_SWITCH_TO_WALL` 意图消费等），与第一批"阴性结论"一致。
+
+## 建议
+这 6 项全在冻结的 `main.py` 之外，**可直接在 Craft 模式修**（最值得修的是 #1 的 `random.sample` 加 `min(n, len(options))` 守卫、#2 的 manifest 容错 + 时间戳按类型比较）。需要我动手修，还是继续往 `inference/dataset/`、`scripts/`、`kaggle_gpu_train.py` 深处扫第三批？

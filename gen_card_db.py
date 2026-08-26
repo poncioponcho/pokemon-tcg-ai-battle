@@ -45,6 +45,10 @@ def _parse_dmg(dmg_str: str) -> int:
 
 
 def build_card_db() -> dict:
+    if not os.path.exists(_CSV):
+        # [fix 08-09] 原为裸 open: CSV 缺失时报错不知所云, --inline 会跟着崩
+        raise SystemExit(f"[错误] 数据源 CSV 不存在: {_CSV}\n"
+                         "请确认 pokemon-tcg-ai-battle-challenge-strategy/ 数据目录在当前项目内。")
     with open(_CSV, encoding="utf-8") as f:
         rows = list(csv.DictReader(f))
 
@@ -108,6 +112,9 @@ def build_card_db() -> dict:
         ef = v[4]
         if ef >= 0:
             evo_children.setdefault(ef, []).append(cid)
+    # TODO(known-issue, 2026-08-09 hy3 审计确认): 多分支进化 (如イーブイ) 只保留
+    # children[0], 其余分支丢失, 影响 evolve-bonus 打分精度; 消费方 main.py 按
+    # 单 cid 使用 evolves_to, 改列表需同步改消费方, 暂记待办不改动行为。
     for parent, children in evo_children.items():
         if parent in db:
             db[parent] = (db[parent][0], db[parent][1], db[parent][2],

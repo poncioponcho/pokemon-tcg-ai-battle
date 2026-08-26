@@ -59,6 +59,15 @@ def main():
 
     student = PolicyStudent(ST_DIM, SC_DIM, O_DIM, K, div=train_bc.DIV.clone())
     state = torch.load(args.student, map_location='cpu')
+    # [2026-08-08 shape 推断] 从权重形状推断 hidden/out，避免硬编码默认 384 导致
+    # 加载 768 权重时 size mismatch（student_hidden 可调时 export 必须自适应）。
+    if 'enc.0.weight' in state:
+        hidden = int(state['enc.0.weight'].shape[0])
+        out = int(state['enc.4.weight'].shape[0]) if 'enc.4.weight' in state else 192
+        student = PolicyStudent(ST_DIM, SC_DIM, O_DIM, K,
+                                hidden=hidden, out=out,
+                                div=train_bc.DIV.clone())
+        print(f'[shape-infer] student hidden={hidden} out={out}', flush=True)
     student.load_state_dict(state)
     student.eval()
 

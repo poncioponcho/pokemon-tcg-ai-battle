@@ -1,0 +1,25 @@
+{
+  "ts": "2026-08-08T09:55:45+00:00",
+  "experiment": "sel_ep6_first",
+  "npz": "student_ep6.npz",
+  "engine": "official sample_submission/cg libcg.dylib (arm64)",
+  "games_total": 2000,
+  "wins": 660,
+  "losses": 1339,
+  "draws": 1,
+  "invalid_actions": 0,
+  "win_rate": 0.33,
+  "ci95_lo": 0.3097,
+  "avg_turns": 67.6,
+  "elapsed_s": 34.9,
+  "per_opponent": [
+    {
+      "opponent": "first",
+      "w": 660,
+      "l": 1339,
+      "d": 1,
+      "invalid": 0,
+      "wr": 0.33
+    }
+  ]
+}

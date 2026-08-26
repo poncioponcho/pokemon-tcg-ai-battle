@@ -78,7 +78,7 @@ def build_deck(cards):
     # 搜索 HP >= 60 的基础宝可梦
     other_basics = [c for c in cards 
                     if 'Basic Pokémon' in c.get('Stage (Pokémon)/Type (Energy and Trainer)', '')
-                    and int(c['HP']) >= 60
+                    and (int(c['HP']) if c['HP'] else 0) >= 60  # [fix 08-09] 空 HP 防护, 对齐 72/85 行写法
                     and c['Card ID'] not in [str(x) for x in deck]]
     
     if other_basics:

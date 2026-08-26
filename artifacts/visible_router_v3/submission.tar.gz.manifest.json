@@ -1,0 +1,69 @@
+{
+  "artifact": "/Users/seyonmacbook/Desktop/Pokemon_TCG_AI_Battle_Challenge/artifacts/visible_router_v3/submission.tar.gz",
+  "archive_sha256": "860f26a614899ae52f1c89cb7b0a15737c209feb2321702ec4866a1f4f3b2590",
+  "archive_bytes": 1984447,
+  "main_sha256": "91f91c0d41381e33523ce47d4f771ecf2ed815dca9bf2b4f51a64a08e791e526",
+  "deck_sha256": "6415396d35c0f4b3d69ee6c231337968cc9f2d5d0767de801346d6f412c18e62",
+  "entrypoint": "competition_entrypoint",
+  "member_count": 11,
+  "members": [
+    "cg/__init__.py",
+    "cg/api.py",
+    "cg/cg.dll",
+    "cg/game.py",
+    "cg/libcg-arm64.so",
+    "cg/libcg.dylib",
+    "cg/libcg.so",
+    "cg/sim.py",
+    "cg/utils.py",
+    "deck.csv",
+    "main.py"
+  ],
+  "includes_cg": true,
+  "validation": {
+    "candidate_dir": "/private/tmp/ptcg-candidates-20260814/visible_router_v3",
+    "main_sha256": "91f91c0d41381e33523ce47d4f771ecf2ed815dca9bf2b4f51a64a08e791e526",
+    "deck_sha256": "6415396d35c0f4b3d69ee6c231337968cc9f2d5d0767de801346d6f412c18e62",
+    "entrypoint": "competition_entrypoint",
+    "module_entrypoint": "agent",
+    "callable_tail": [
+      "play_score",
+      "attach_score",
+      "switch_score",
+      "attack_score",
+      "select_card_score",
+      "_agent",
+      "agent",
+      "competition_entrypoint"
+    ],
+    "deck_count": 60,
+    "startup_probes": [
+      60,
+      60
+    ],
+    "module_startup_probes": [
+      60,
+      60
+    ],
+    "files": [
+      {
+        "path": "deck.csv",
+        "sha256": "6415396d35c0f4b3d69ee6c231337968cc9f2d5d0767de801346d6f412c18e62",
+        "bytes": 267
+      },
+      {
+        "path": "main.py",
+        "sha256": "91f91c0d41381e33523ce47d4f771ecf2ed815dca9bf2b4f51a64a08e791e526",
+        "bytes": 55527
+      }
+    ],
+    "card_legality": {
+      "checked": true,
+      "card_rows": 2022,
+      "unknown": [],
+      "copy_limit": "PASS"
+    },
+    "status": "PASS"
+  },
+  "status": "PACKED"
+}

@@ -1,0 +1,322 @@
+The Pokémon Company - PTCG AI Battle Challenge Simulation | Kaggle
+=====
+menu
+Skip to
+content
+Create
+explore
+
+Home
+
+emoji_events
+
+Competitions
+
+leaderboard
+
+Benchmarks
+
+smart_toy
+
+Game Arena
+
+code
+
+Data Hub
+
+expand_more
+format_list_bulleted
+
+More
+
+expand_more
+note_alt
+
+Your Work
+
+expand_less
+
+Viewed
+
+expand_less
+
+The Pokémon Company - PTCG AI Battle Challenge Simulation
+
+What is your highest score for an active rule-based agent
+
+How do strong agents decide whether to search before drawing?
+
+my plan on how to do RL training ... is it my hallucinations?
+
+First or second — which do agents pick?
+
+Edited
+
+expand_less
+
+notebooke2441e9455
+
+PTCG Strategy MRI | 2,022 Cards to 60 Decis 66517c
+
+pokemon-tcg-strategy-mega-lucario
+
+PTCG Strategy MRI | 2,022 Cards to 60 Decisions
+
+titanic最后一舞
+
+auto_awesome_motion
+
+View Active Events
+
+search
+​
+THE POKÉMON COMPANY - PTCGABC TEAM · FEATURED SIMULATION COMPETITION · 6 DAYS TO GO
+Submit Agent
+more_horiz
+The Pokémon Company - PTCG AI Battle Challenge Simulation
+
+Build an AI Training Agent to play the Pokémon Trading Card Game
+
+Overview
+Data
+Code
+Models
+Discussion
+Leaderboard
+Rules
+Team
+Submissions
+SAM_THE_RICE_CAKE · 202ND IN THIS COMPETITION · POSTED 16 DAYS AGO
+arrow_drop_up
+4
+more_vert
+Are top agents mostly heuristic, or are people successfully using RL/BC?
+
+Hi everyone,
+
+I’m curious about what kinds of agents people are currently using in this competition.
+
+My current agent is mainly rule-based/heuristic, with some matchup-specific routing and planning. Its leaderboard rating is usually around the 850-900 range, although the score can fluctuate quite a bit.
+
+I have experimented with behavior cloning and rollout-based plan selection, but so far their offline improvements have not transferred reliably to the live leaderboard. I’m wondering whether higher-rated agents—especially those around 1000–1100—are mainly based on:
+
+Hand-written heuristics
+
+Search or simulation
+
+Behavior cloning / imitation learning
+
+Reinforcement learning or self-play
+
+A hybrid of these approaches
+
+If you are comfortable sharing, I would also be interested in:
+
+Your approximate rating range
+
+Whether your method performs consistently online
+
+Whether BC or RL actually improved over a strong heuristic baseline
+
+How much search you can realistically run within the time limit
+
+Whether matchup-specific routing has been useful
+
+There is no need to reveal code, deck lists, or private strategy details. Broad approach categories and approximate rating bands would already be very helpful.
+
+Thanks! I’d love to understand what approaches are working for others and whether strong heuristics are still competitive with learned policies.
+
+add_reaction
+React
+comment
+9 Comments
+Hotness
+undo
+redo
+format_size
+format_bold
+format_italic
+format_strikethrough
+insert_link
+format_quote
+code
+format_list_numbered
+format_list_bulleted
+table_chart
+insert_photo
+smart_display
+insert_emoticon
+help
+ 
+
+This comment will be made public once posted.
+
+attach_file
+Post Comment
+wangyuou
+
+Posted 16 days ago
+
+· 139th in this Competition
+
+arrow_drop_up
+1
+more_vert
+
+A hybrid method combining expert behavioral cloning (BC) and rule guards.Current score is around 1000 points.
+
+reply
+Reply
+add_reaction
+React
+sam_the_rice_cake
+TOPIC AUTHOR
+
+Posted 16 days ago
+
+· 202nd in this Competition
+
+arrow_drop_up
+0
+more_vert
+
+Wow, That's impressive
+
+reply
+Reply
+add_reaction
+React
+
+This comment has been deleted.
+
+SpeedSci
+
+Posted 13 days ago
+
+· 2033rd in this Competition
+
+arrow_drop_up
+0
+more_vert
+
+Can I join your work? I need a strong behavioral cloning (BC) to bootstrap my RL.
+
+reply
+Reply
+add_reaction
+React
+Sho Okudo
+
+Posted 16 days ago
+
+arrow_drop_up
+2
+more_vert
+
+please combine tree search and BC(policy and value) and then try PUCT method. if you increase tree search number and depth, accuracy is getting better. selfplay is also good, because your model can learn how to play different two decks at a time
+
+reply
+Reply
+add_reaction
+React
+Shiv Satyam
+
+Posted 16 days ago
+
+· 294th in this Competition
+
+arrow_drop_up
+0
+more_vert
+
+please combine tree search and BC(policy and value) and then try PUCT method
+
+Yeah. I thought of it yesterday. I was trying to train V(s) over millions of replays to later use it with MCTS. However, I realized that it wasn't learning anything. Mainly because the rewards are too sparse and differentiating a state from another gets extremely difficult.
+
+reply
+Reply
+add_reaction
+React
+Sho Okudo
+
+Posted 16 days ago
+
+arrow_drop_up
+0
+more_vert
+
+how did you encode observation? if you encode obs in very detail, model start finding out common features and difference from others, and then they can play well. and reward should be given to all steps winner chosed or stayed, not only in the end of state.
+
+reply
+Reply
+add_reaction
+React
+3 more replies
+arrow_drop_down
+Son Pham
+
+Posted 15 days ago
+
+· 4928th in this Competition
+
+arrow_drop_up
+0
+more_vert
+
+How do you do tree search with imperfect information like this game? Do it to the extent possible?
+
+reply
+Reply
+add_reaction
+React
+Sho Okudo
+
+Posted 15 days ago
+
+arrow_drop_up
+0
+more_vert
+
+your have to predlct opponent deck, then generate plausible opponent deck, hand, bech candidates, after that, put them into search engine repeatedly and collect their average result for measuring mean, finally model can determine which action is better than others.
+
+reply
+Reply
+add_reaction
+React
+zfrank7777
+
+Posted 13 days ago
+
+· 111th in this Competition
+
+arrow_drop_up
+0
+more_vert
+
+There are time-spending logs in the leaderboard data. Here is the top 20 on July 27th, with my claude code guessing the algo by average action time:
+
+0.05s: pure rule base
+0.4s: shallow search
+0.8s: deeper search or small budget MCTS
+3s+: heavy MCTS/AlphaZero-style
+
+reply
+Reply
+add_reaction
+React
+Shiv Satyam
+
+Posted 16 days ago
+
+· 294th in this Competition
+
+arrow_drop_up
+0
+more_vert
+
+I have never played this game before, so crafting a heuristic would be horrendous. I am trying to exploit BC/IL but its not cake. I would need to create a decent state representation.
+
+reply
+Reply
+add_reaction
+React

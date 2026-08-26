@@ -25,7 +25,10 @@ except ImportError:  # Direct script execution.
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 RAW = str(PROJECT_ROOT / 'inference/leaderboard_replay/raw')
 ID_SCAN = str(PROJECT_ROOT / 'inference/leaderboard_replay/id_scan_results.json')
-MANIFEST = str(PROJECT_ROOT / 'inference/dataset/manifest.csv')
+# [主线B 08-09] 支持 env 覆盖清单路径: 自对弈数据用独立 manifest (spawn worker 继承 env 安全)
+MANIFEST = os.environ.get(
+    'PTCG_EXTRACT_MANIFEST',
+    str(PROJECT_ROOT / 'inference/dataset/manifest.csv'))
 CATALOG = str(PROJECT_ROOT / 'inference/leaderboard_replay/episode_catalog.jsonl')
 ARCHIVE_CANDIDATES = (
     PROJECT_ROOT / 'inference/leaderboard_replay/archive-firstarchive/raw_replays.jsonl.zst',
@@ -172,6 +175,12 @@ def build_decision(
                      'count', 'number', 'serial', 'energyIndex', 'toolIndex', 'cardId'):
             v = op.get(name)
             if name == 'cardId':
+                # [fix 08-09] ID2IDX 键为 int; 若引擎返回字符串 cardId,
+                # 直接 .get 会 miss 落 0 槽静默丢卡, 先强制 int 兜底
+                try:
+                    v = int(v)
+                except (TypeError, ValueError):
+                    v = None
                 o[k, base] = min(ID2IDX.get(v, 0), 255) if v is not None else 0
             elif isinstance(v, (int, float)) and 0 <= v <= 255:
                 o[k, base] = int(v)

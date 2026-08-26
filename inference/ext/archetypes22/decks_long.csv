@@ -1,0 +1,528 @@
+deck_id,deck_name,archetype,card_id,card_name,card_class,card_type,expansion,collection_no,is_ace_spec,is_basic_pokemon,quantity
+EX_01,Mega Kangaskhan / Lillie's Clefairy,Mega Kangaskhan Clefairy midrange,2,Basic {R} Energy,Energy,BASIC_ENERGY,SVE,2,False,False,1
+EX_01,Mega Kangaskhan / Lillie's Clefairy,Mega Kangaskhan Clefairy midrange,3,Basic {W} Energy,Energy,BASIC_ENERGY,SVE,3,False,False,2
+EX_01,Mega Kangaskhan / Lillie's Clefairy,Mega Kangaskhan Clefairy midrange,5,Basic {P} Energy,Energy,BASIC_ENERGY,SVE,5,False,False,4
+EX_01,Mega Kangaskhan / Lillie's Clefairy,Mega Kangaskhan Clefairy midrange,6,Basic {F} Energy,Energy,BASIC_ENERGY,SVE,6,False,False,2
+EX_01,Mega Kangaskhan / Lillie's Clefairy,Mega Kangaskhan Clefairy midrange,20,Rock Fighting Energy,Energy,SPECIAL_ENERGY,POR,88,False,False,1
+EX_01,Mega Kangaskhan / Lillie's Clefairy,Mega Kangaskhan Clefairy midrange,108,Wellspring Mask Ogerpon ex,Pokemon,POKEMON,TWM,64,False,True,2
+EX_01,Mega Kangaskhan / Lillie's Clefairy,Mega Kangaskhan Clefairy midrange,140,Fezandipiti ex,Pokemon,POKEMON,SFA,38,False,True,2
+EX_01,Mega Kangaskhan / Lillie's Clefairy,Mega Kangaskhan Clefairy midrange,184,Latias ex,Pokemon,POKEMON,SSP,76,False,True,3
+EX_01,Mega Kangaskhan / Lillie's Clefairy,Mega Kangaskhan Clefairy midrange,209,Chien-Pao,Pokemon,POKEMON,SSP,56,False,True,1
+EX_01,Mega Kangaskhan / Lillie's Clefairy,Mega Kangaskhan Clefairy midrange,272,Lillie’s Clefairy ex,Pokemon,POKEMON,JTG,56,False,True,4
+EX_01,Mega Kangaskhan / Lillie's Clefairy,Mega Kangaskhan Clefairy midrange,756,Mega Kangaskhan ex,Pokemon,POKEMON,MEG,104,False,True,4
+EX_01,Mega Kangaskhan / Lillie's Clefairy,Mega Kangaskhan Clefairy midrange,791,Moltres,Pokemon,POKEMON,PFL,14,False,True,1
+EX_01,Mega Kangaskhan / Lillie's Clefairy,Mega Kangaskhan Clefairy midrange,979,Koraidon ex,Pokemon,POKEMON,ASC,121,False,True,1
+EX_01,Mega Kangaskhan / Lillie's Clefairy,Mega Kangaskhan Clefairy midrange,1071,Meowth ex,Pokemon,POKEMON,POR,62,False,True,4
+EX_01,Mega Kangaskhan / Lillie's Clefairy,Mega Kangaskhan Clefairy midrange,1088,Prime Catcher,Trainer,ITEM,TEF,157,True,False,1
+EX_01,Mega Kangaskhan / Lillie's Clefairy,Mega Kangaskhan Clefairy midrange,1102,Dusk Ball,Trainer,ITEM,SSP,175,False,False,4
+EX_01,Mega Kangaskhan / Lillie's Clefairy,Mega Kangaskhan Clefairy midrange,1121,Ultra Ball,Trainer,ITEM,SVI,196,False,False,4
+EX_01,Mega Kangaskhan / Lillie's Clefairy,Mega Kangaskhan Clefairy midrange,1146,Wondrous Patch,Trainer,ITEM,PFL,94,False,False,3
+EX_01,Mega Kangaskhan / Lillie's Clefairy,Mega Kangaskhan Clefairy midrange,1172,Lillie’s Pearl,Trainer,TOOL,JTG,151,False,False,2
+EX_01,Mega Kangaskhan / Lillie's Clefairy,Mega Kangaskhan Clefairy midrange,1182,Boss’s Orders,Trainer,SUPPORTER,PAL,172,False,False,3
+EX_01,Mega Kangaskhan / Lillie's Clefairy,Mega Kangaskhan Clefairy midrange,1188,Ciphermaniac’s Codebreaking,Trainer,SUPPORTER,TEF,145,False,False,2
+EX_01,Mega Kangaskhan / Lillie's Clefairy,Mega Kangaskhan Clefairy midrange,1198,Crispin,Trainer,SUPPORTER,SCR,133,False,False,4
+EX_01,Mega Kangaskhan / Lillie's Clefairy,Mega Kangaskhan Clefairy midrange,1205,Cyrano,Trainer,SUPPORTER,SSP,170,False,False,1
+EX_01,Mega Kangaskhan / Lillie's Clefairy,Mega Kangaskhan Clefairy midrange,1250,Area Zero Underdepths,Trainer,STADIUM,SCR,131,False,False,4
+EX_02,Dragapult ex / Dusknoir,Dragapult Dusknoir damage spread,2,Basic {R} Energy,Energy,BASIC_ENERGY,SVE,2,False,False,3
+EX_02,Dragapult ex / Dusknoir,Dragapult Dusknoir damage spread,5,Basic {P} Energy,Energy,BASIC_ENERGY,SVE,5,False,False,4
+EX_02,Dragapult ex / Dusknoir,Dragapult Dusknoir damage spread,7,Basic {D} Energy,Energy,BASIC_ENERGY,SVE,7,False,False,2
+EX_02,Dragapult ex / Dusknoir,Dragapult Dusknoir damage spread,112,Munkidori,Pokemon,POKEMON,TWM,95,False,True,1
+EX_02,Dragapult ex / Dusknoir,Dragapult Dusknoir damage spread,119,Dreepy,Pokemon,POKEMON,TWM,128,False,True,4
+EX_02,Dragapult ex / Dusknoir,Dragapult Dusknoir damage spread,120,Drakloak,Pokemon,POKEMON,TWM,129,False,False,4
+EX_02,Dragapult ex / Dusknoir,Dragapult Dusknoir damage spread,121,Dragapult ex,Pokemon,POKEMON,TWM,130,False,False,2
+EX_02,Dragapult ex / Dusknoir,Dragapult Dusknoir damage spread,131,Duskull,Pokemon,POKEMON,SFA,18,False,True,2
+EX_02,Dragapult ex / Dusknoir,Dragapult Dusknoir damage spread,132,Dusclops,Pokemon,POKEMON,SFA,19,False,False,2
+EX_02,Dragapult ex / Dusknoir,Dragapult Dusknoir damage spread,133,Dusknoir,Pokemon,POKEMON,SFA,20,False,False,1
+EX_02,Dragapult ex / Dusknoir,Dragapult Dusknoir damage spread,140,Fezandipiti ex,Pokemon,POKEMON,SFA,38,False,True,1
+EX_02,Dragapult ex / Dusknoir,Dragapult Dusknoir damage spread,235,Budew,Pokemon,POKEMON,PRE,4,False,True,1
+EX_02,Dragapult ex / Dusknoir,Dragapult Dusknoir damage spread,1071,Meowth ex,Pokemon,POKEMON,POR,62,False,True,1
+EX_02,Dragapult ex / Dusknoir,Dragapult Dusknoir damage spread,1080,Unfair Stamp,Trainer,ITEM,TWM,165,True,False,1
+EX_02,Dragapult ex / Dusknoir,Dragapult Dusknoir damage spread,1086,Buddy-Buddy Poffin,Trainer,ITEM,TEF,144,False,False,4
+EX_02,Dragapult ex / Dusknoir,Dragapult Dusknoir damage spread,1097,Night Stretcher,Trainer,ITEM,SFA,61,False,False,2
+EX_02,Dragapult ex / Dusknoir,Dragapult Dusknoir damage spread,1120,Crushing Hammer,Trainer,ITEM,SVI,168,False,False,4
+EX_02,Dragapult ex / Dusknoir,Dragapult Dusknoir damage spread,1121,Ultra Ball,Trainer,ITEM,SVI,196,False,False,4
+EX_02,Dragapult ex / Dusknoir,Dragapult Dusknoir damage spread,1152,Poké Pad,Trainer,ITEM,POR,81,False,False,4
+EX_02,Dragapult ex / Dusknoir,Dragapult Dusknoir damage spread,1161,Handheld Fan,Trainer,TOOL,TWM,150,False,False,1
+EX_02,Dragapult ex / Dusknoir,Dragapult Dusknoir damage spread,1182,Boss’s Orders,Trainer,SUPPORTER,PAL,172,False,False,2
+EX_02,Dragapult ex / Dusknoir,Dragapult Dusknoir damage spread,1198,Crispin,Trainer,SUPPORTER,SCR,133,False,False,3
+EX_02,Dragapult ex / Dusknoir,Dragapult Dusknoir damage spread,1227,Lillie's Determination,Trainer,SUPPORTER,MEG,119,False,False,4
+EX_02,Dragapult ex / Dusknoir,Dragapult Dusknoir damage spread,1231,Dawn,Trainer,SUPPORTER,PFL,87,False,False,1
+EX_02,Dragapult ex / Dusknoir,Dragapult Dusknoir damage spread,1246,Jamming Tower,Trainer,STADIUM,TWM,153,False,False,1
+EX_02,Dragapult ex / Dusknoir,Dragapult Dusknoir damage spread,1256,Team Rocket's Watchtower,Trainer,STADIUM,DRI,180,False,False,1
+EX_03,Team Rocket's Mewtwo ex / Mimikyu,Team Rocket Mewtwo control,1,Basic {G} Energy,Energy,BASIC_ENERGY,SVE,1,False,False,8
+EX_03,Team Rocket's Mewtwo ex / Mimikyu,Team Rocket Mewtwo control,5,Basic {P} Energy,Energy,BASIC_ENERGY,SVE,5,False,False,1
+EX_03,Team Rocket's Mewtwo ex / Mimikyu,Team Rocket Mewtwo control,15,Team Rocket's Energy,Energy,SPECIAL_ENERGY,DRI,182,False,False,4
+EX_03,Team Rocket's Mewtwo ex / Mimikyu,Team Rocket Mewtwo control,272,Lillie’s Clefairy ex,Pokemon,POKEMON,JTG,56,False,True,1
+EX_03,Team Rocket's Mewtwo ex / Mimikyu,Team Rocket Mewtwo control,400,Team Rocket's Tarountula,Pokemon,POKEMON,DRI,19,False,True,4
+EX_03,Team Rocket's Mewtwo ex / Mimikyu,Team Rocket Mewtwo control,401,Team Rocket's Spidops,Pokemon,POKEMON,DRI,20,False,False,4
+EX_03,Team Rocket's Mewtwo ex / Mimikyu,Team Rocket Mewtwo control,414,Team Rocket's Articuno,Pokemon,POKEMON,DRI,51,False,True,2
+EX_03,Team Rocket's Mewtwo ex / Mimikyu,Team Rocket Mewtwo control,431,Team Rocket's Mewtwo ex,Pokemon,POKEMON,DRI,81,False,True,2
+EX_03,Team Rocket's Mewtwo ex / Mimikyu,Team Rocket Mewtwo control,434,Team Rocket's Mimikyu,Pokemon,POKEMON,DRI,87,False,True,2
+EX_03,Team Rocket's Mewtwo ex / Mimikyu,Team Rocket Mewtwo control,1094,Bug Catching Set,Trainer,ITEM,TWM,143,False,False,2
+EX_03,Team Rocket's Mewtwo ex / Mimikyu,Team Rocket Mewtwo control,1097,Night Stretcher,Trainer,ITEM,SFA,61,False,False,3
+EX_03,Team Rocket's Mewtwo ex / Mimikyu,Team Rocket Mewtwo control,1116,Energy Switch,Trainer,ITEM,SVI,173,False,False,1
+EX_03,Team Rocket's Mewtwo ex / Mimikyu,Team Rocket Mewtwo control,1121,Ultra Ball,Trainer,ITEM,SVI,196,False,False,4
+EX_03,Team Rocket's Mewtwo ex / Mimikyu,Team Rocket Mewtwo control,1134,Team Rocket's Transceiver,Trainer,ITEM,DRI,178,False,False,4
+EX_03,Team Rocket's Mewtwo ex / Mimikyu,Team Rocket Mewtwo control,1156,Lucky Helmet,Trainer,TOOL,TWM,158,False,False,2
+EX_03,Team Rocket's Mewtwo ex / Mimikyu,Team Rocket Mewtwo control,1158,Maximum Belt,Trainer,TOOL,TEF,154,True,False,1
+EX_03,Team Rocket's Mewtwo ex / Mimikyu,Team Rocket Mewtwo control,1216,Team Rocket's Ariana,Trainer,SUPPORTER,DRI,171,False,False,4
+EX_03,Team Rocket's Mewtwo ex / Mimikyu,Team Rocket Mewtwo control,1218,Team Rocket's Giovanni,Trainer,SUPPORTER,DRI,174,False,False,3
+EX_03,Team Rocket's Mewtwo ex / Mimikyu,Team Rocket Mewtwo control,1219,Team Rocket's Petrel,Trainer,SUPPORTER,DRI,176,False,False,1
+EX_03,Team Rocket's Mewtwo ex / Mimikyu,Team Rocket Mewtwo control,1220,Team Rocket's Proton,Trainer,SUPPORTER,DRI,177,False,False,2
+EX_03,Team Rocket's Mewtwo ex / Mimikyu,Team Rocket Mewtwo control,1227,Lillie's Determination,Trainer,SUPPORTER,MEG,119,False,False,4
+EX_03,Team Rocket's Mewtwo ex / Mimikyu,Team Rocket Mewtwo control,1257,Team Rocket's Factory,Trainer,STADIUM,DRI,173,False,False,1
+EX_04,Slowking / Topdeck Toolbox,Slowking topdeck toolbox,5,Basic {P} Energy,Energy,BASIC_ENERGY,SVE,5,False,False,4
+EX_04,Slowking / Topdeck Toolbox,Slowking topdeck toolbox,9,Boomerang Energy,Energy,SPECIAL_ENERGY,TWM,166,False,False,3
+EX_04,Slowking / Topdeck Toolbox,Slowking topdeck toolbox,20,Rock Fighting Energy,Energy,SPECIAL_ENERGY,POR,88,False,False,4
+EX_04,Slowking / Topdeck Toolbox,Slowking topdeck toolbox,140,Fezandipiti ex,Pokemon,POKEMON,SFA,38,False,True,1
+EX_04,Slowking / Topdeck Toolbox,Slowking topdeck toolbox,144,Kyurem,Pokemon,POKEMON,SFA,47,False,True,2
+EX_04,Slowking / Topdeck Toolbox,Slowking topdeck toolbox,162,Slowpoke,Pokemon,POKEMON,SCR,57,False,True,4
+EX_04,Slowking / Topdeck Toolbox,Slowking topdeck toolbox,163,Slowking,Pokemon,POKEMON,SCR,58,False,False,3
+EX_04,Slowking / Topdeck Toolbox,Slowking topdeck toolbox,184,Latias ex,Pokemon,POKEMON,SSP,76,False,True,2
+EX_04,Slowking / Topdeck Toolbox,Slowking topdeck toolbox,272,Lillie’s Clefairy ex,Pokemon,POKEMON,JTG,56,False,True,1
+EX_04,Slowking / Topdeck Toolbox,Slowking topdeck toolbox,276,Metagross,Pokemon,POKEMON,JTG,63,False,False,2
+EX_04,Slowking / Topdeck Toolbox,Slowking topdeck toolbox,377,Zeraora,Pokemon,POKEMON,DRI,78,False,True,1
+EX_04,Slowking / Topdeck Toolbox,Slowking topdeck toolbox,756,Mega Kangaskhan ex,Pokemon,POKEMON,MEG,104,False,True,3
+EX_04,Slowking / Topdeck Toolbox,Slowking topdeck toolbox,1071,Meowth ex,Pokemon,POKEMON,POR,62,False,True,1
+EX_04,Slowking / Topdeck Toolbox,Slowking topdeck toolbox,1092,Secret Box,Trainer,ITEM,TWM,163,True,False,1
+EX_04,Slowking / Topdeck Toolbox,Slowking topdeck toolbox,1097,Night Stretcher,Trainer,ITEM,SFA,61,False,False,2
+EX_04,Slowking / Topdeck Toolbox,Slowking topdeck toolbox,1121,Ultra Ball,Trainer,ITEM,SVI,196,False,False,4
+EX_04,Slowking / Topdeck Toolbox,Slowking topdeck toolbox,1123,Switch,Trainer,ITEM,SVI,194,False,False,1
+EX_04,Slowking / Topdeck Toolbox,Slowking topdeck toolbox,1146,Wondrous Patch,Trainer,ITEM,PFL,94,False,False,3
+EX_04,Slowking / Topdeck Toolbox,Slowking topdeck toolbox,1152,Poké Pad,Trainer,ITEM,POR,81,False,False,4
+EX_04,Slowking / Topdeck Toolbox,Slowking topdeck toolbox,1156,Lucky Helmet,Trainer,TOOL,TWM,158,False,False,1
+EX_04,Slowking / Topdeck Toolbox,Slowking topdeck toolbox,1175,Brave Bangle,Trainer,TOOL,WHT,80,False,False,1
+EX_04,Slowking / Topdeck Toolbox,Slowking topdeck toolbox,1188,Ciphermaniac’s Codebreaking,Trainer,SUPPORTER,TEF,145,False,False,4
+EX_04,Slowking / Topdeck Toolbox,Slowking topdeck toolbox,1227,Lillie's Determination,Trainer,SUPPORTER,MEG,119,False,False,4
+EX_04,Slowking / Topdeck Toolbox,Slowking topdeck toolbox,1248,Academy at Night,Trainer,STADIUM,SFA,54,False,False,4
+EX_05,Grass Box / Ogerpon / Hydrapple,Grass energy toolbox,1,Basic {G} Energy,Energy,BASIC_ENERGY,SVE,1,False,False,15
+EX_05,Grass Box / Ogerpon / Hydrapple,Grass energy toolbox,92,Applin,Pokemon,POKEMON,TWM,17,False,True,2
+EX_05,Grass Box / Ogerpon / Hydrapple,Grass energy toolbox,93,Dipplin,Pokemon,POKEMON,TWM,18,False,False,2
+EX_05,Grass Box / Ogerpon / Hydrapple,Grass energy toolbox,96,Teal Mask Ogerpon ex,Pokemon,POKEMON,TWM,25,False,True,4
+EX_05,Grass Box / Ogerpon / Hydrapple,Grass energy toolbox,140,Fezandipiti ex,Pokemon,POKEMON,SFA,38,False,True,1
+EX_05,Grass Box / Ogerpon / Hydrapple,Grass energy toolbox,150,Hydrapple ex,Pokemon,POKEMON,SCR,14,False,False,2
+EX_05,Grass Box / Ogerpon / Hydrapple,Grass energy toolbox,172,Hoothoot,Pokemon,POKEMON,SCR,114,False,True,1
+EX_05,Grass Box / Ogerpon / Hydrapple,Grass energy toolbox,173,Noctowl,Pokemon,POKEMON,SCR,115,False,False,1
+EX_05,Grass Box / Ogerpon / Hydrapple,Grass energy toolbox,655,Celebi,Pokemon,POKEMON,MEG,12,False,True,1
+EX_05,Grass Box / Ogerpon / Hydrapple,Grass energy toolbox,708,Chikorita,Pokemon,POKEMON,MEG,8,False,True,1
+EX_05,Grass Box / Ogerpon / Hydrapple,Grass energy toolbox,709,Bayleef,Pokemon,POKEMON,MEG,9,False,False,1
+EX_05,Grass Box / Ogerpon / Hydrapple,Grass energy toolbox,710,Meganium,Pokemon,POKEMON,MEG,10,False,False,2
+EX_05,Grass Box / Ogerpon / Hydrapple,Grass energy toolbox,917,Chikorita,Pokemon,POKEMON,ASC,8,False,True,1
+EX_05,Grass Box / Ogerpon / Hydrapple,Grass energy toolbox,918,Bayleef,Pokemon,POKEMON,ASC,9,False,False,1
+EX_05,Grass Box / Ogerpon / Hydrapple,Grass energy toolbox,920,Tapu Bulu,Pokemon,POKEMON,SFA,6,False,True,1
+EX_05,Grass Box / Ogerpon / Hydrapple,Grass energy toolbox,1071,Meowth ex,Pokemon,POKEMON,POR,62,False,True,1
+EX_05,Grass Box / Ogerpon / Hydrapple,Grass energy toolbox,1080,Unfair Stamp,Trainer,ITEM,TWM,165,True,False,1
+EX_05,Grass Box / Ogerpon / Hydrapple,Grass energy toolbox,1094,Bug Catching Set,Trainer,ITEM,TWM,143,False,False,4
+EX_05,Grass Box / Ogerpon / Hydrapple,Grass energy toolbox,1097,Night Stretcher,Trainer,ITEM,SFA,61,False,False,1
+EX_05,Grass Box / Ogerpon / Hydrapple,Grass energy toolbox,1121,Ultra Ball,Trainer,ITEM,SVI,196,False,False,2
+EX_05,Grass Box / Ogerpon / Hydrapple,Grass energy toolbox,1152,Poké Pad,Trainer,ITEM,POR,81,False,False,2
+EX_05,Grass Box / Ogerpon / Hydrapple,Grass energy toolbox,1182,Boss’s Orders,Trainer,SUPPORTER,PAL,172,False,False,2
+EX_05,Grass Box / Ogerpon / Hydrapple,Grass energy toolbox,1184,Lana’s Aid,Trainer,SUPPORTER,TWM,155,False,False,1
+EX_05,Grass Box / Ogerpon / Hydrapple,Grass energy toolbox,1201,Briar,Trainer,SUPPORTER,SCR,132,False,False,1
+EX_05,Grass Box / Ogerpon / Hydrapple,Grass energy toolbox,1227,Lillie's Determination,Trainer,SUPPORTER,MEG,119,False,False,4
+EX_05,Grass Box / Ogerpon / Hydrapple,Grass energy toolbox,1231,Dawn,Trainer,SUPPORTER,PFL,87,False,False,2
+EX_05,Grass Box / Ogerpon / Hydrapple,Grass energy toolbox,1261,Forest of Vitality,Trainer,STADIUM,MEG,117,False,False,3
+EX_06,Mega Kangaskhan / Crustle / Petrel,Mega Kangaskhan disruption,6,Basic {F} Energy,Energy,BASIC_ENERGY,SVE,6,False,False,2
+EX_06,Mega Kangaskhan / Crustle / Petrel,Mega Kangaskhan disruption,11,Mist Energy,Energy,SPECIAL_ENERGY,TEF,161,False,False,4
+EX_06,Mega Kangaskhan / Crustle / Petrel,Mega Kangaskhan disruption,14,Spiky Energy,Energy,SPECIAL_ENERGY,JTG,159,False,False,4
+EX_06,Mega Kangaskhan / Crustle / Petrel,Mega Kangaskhan disruption,18,Grow Grass Energy,Energy,SPECIAL_ENERGY,POR,86,False,False,4
+EX_06,Mega Kangaskhan / Crustle / Petrel,Mega Kangaskhan disruption,117,Cornerstone Mask Ogerpon ex,Pokemon,POKEMON,TWM,112,False,True,1
+EX_06,Mega Kangaskhan / Crustle / Petrel,Mega Kangaskhan disruption,344,Dwebble,Pokemon,POKEMON,DRI,11,False,True,3
+EX_06,Mega Kangaskhan / Crustle / Petrel,Mega Kangaskhan disruption,345,Crustle,Pokemon,POKEMON,DRI,12,False,False,3
+EX_06,Mega Kangaskhan / Crustle / Petrel,Mega Kangaskhan disruption,756,Mega Kangaskhan ex,Pokemon,POKEMON,MEG,104,False,True,4
+EX_06,Mega Kangaskhan / Crustle / Petrel,Mega Kangaskhan disruption,858,Psyduck,Pokemon,POKEMON,ASC,39,False,True,1
+EX_06,Mega Kangaskhan / Crustle / Petrel,Mega Kangaskhan disruption,1086,Buddy-Buddy Poffin,Trainer,ITEM,TEF,144,False,False,2
+EX_06,Mega Kangaskhan / Crustle / Petrel,Mega Kangaskhan disruption,1120,Crushing Hammer,Trainer,ITEM,SVI,168,False,False,4
+EX_06,Mega Kangaskhan / Crustle / Petrel,Mega Kangaskhan disruption,1121,Ultra Ball,Trainer,ITEM,SVI,196,False,False,1
+EX_06,Mega Kangaskhan / Crustle / Petrel,Mega Kangaskhan disruption,1122,Pokégear 3.0,Trainer,ITEM,SVI,186,False,False,3
+EX_06,Mega Kangaskhan / Crustle / Petrel,Mega Kangaskhan disruption,1123,Switch,Trainer,ITEM,SVI,194,False,False,1
+EX_06,Mega Kangaskhan / Crustle / Petrel,Mega Kangaskhan disruption,1147,Jumbo Ice Cream,Trainer,ITEM,PFL,91,False,False,4
+EX_06,Mega Kangaskhan / Crustle / Petrel,Mega Kangaskhan disruption,1159,Hero’s Cape,Trainer,TOOL,TEF,152,True,False,1
+EX_06,Mega Kangaskhan / Crustle / Petrel,Mega Kangaskhan disruption,1182,Boss’s Orders,Trainer,SUPPORTER,PAL,172,False,False,4
+EX_06,Mega Kangaskhan / Crustle / Petrel,Mega Kangaskhan disruption,1186,Eri,Trainer,SUPPORTER,TEF,146,False,False,1
+EX_06,Mega Kangaskhan / Crustle / Petrel,Mega Kangaskhan disruption,1190,Bianca’s Devotion,Trainer,SUPPORTER,TEF,142,False,False,1
+EX_06,Mega Kangaskhan / Crustle / Petrel,Mega Kangaskhan disruption,1197,Xerosic’s Machinations,Trainer,SUPPORTER,SFA,64,False,False,1
+EX_06,Mega Kangaskhan / Crustle / Petrel,Mega Kangaskhan disruption,1219,Team Rocket's Petrel,Trainer,SUPPORTER,DRI,176,False,False,4
+EX_06,Mega Kangaskhan / Crustle / Petrel,Mega Kangaskhan disruption,1225,Hilda,Trainer,SUPPORTER,WHT,84,False,False,2
+EX_06,Mega Kangaskhan / Crustle / Petrel,Mega Kangaskhan disruption,1227,Lillie's Determination,Trainer,SUPPORTER,MEG,119,False,False,4
+EX_06,Mega Kangaskhan / Crustle / Petrel,Mega Kangaskhan disruption,1257,Team Rocket's Factory,Trainer,STADIUM,DRI,173,False,False,1
+EX_07,Alakazam / Dudunsparce / Nighttime Mine,Alakazam Nighttime Mine control,5,Basic {P} Energy,Energy,BASIC_ENERGY,SVE,5,False,False,1
+EX_07,Alakazam / Dudunsparce / Nighttime Mine,Alakazam Nighttime Mine control,13,Enriching Energy,Energy,SPECIAL_ENERGY,SSP,191,True,False,1
+EX_07,Alakazam / Dudunsparce / Nighttime Mine,Alakazam Nighttime Mine control,20,Rock Fighting Energy,Energy,SPECIAL_ENERGY,POR,88,False,False,4
+EX_07,Alakazam / Dudunsparce / Nighttime Mine,Alakazam Nighttime Mine control,66,Dudunsparce,Pokemon,POKEMON,TEF,129,False,False,3
+EX_07,Alakazam / Dudunsparce / Nighttime Mine,Alakazam Nighttime Mine control,140,Fezandipiti ex,Pokemon,POKEMON,SFA,38,False,True,1
+EX_07,Alakazam / Dudunsparce / Nighttime Mine,Alakazam Nighttime Mine control,142,Genesect,Pokemon,POKEMON,SFA,40,False,True,1
+EX_07,Alakazam / Dudunsparce / Nighttime Mine,Alakazam Nighttime Mine control,222,Dedenne,Pokemon,POKEMON,SSP,87,False,True,1
+EX_07,Alakazam / Dudunsparce / Nighttime Mine,Alakazam Nighttime Mine control,305,Dunsparce,Pokemon,POKEMON,JTG,120,False,True,3
+EX_07,Alakazam / Dudunsparce / Nighttime Mine,Alakazam Nighttime Mine control,521,Elgyem,Pokemon,POKEMON,BLK,40,False,True,1
+EX_07,Alakazam / Dudunsparce / Nighttime Mine,Alakazam Nighttime Mine control,741,Abra,Pokemon,POKEMON,MEG,54,False,True,4
+EX_07,Alakazam / Dudunsparce / Nighttime Mine,Alakazam Nighttime Mine control,742,Kadabra,Pokemon,POKEMON,MEG,55,False,False,4
+EX_07,Alakazam / Dudunsparce / Nighttime Mine,Alakazam Nighttime Mine control,743,Alakazam,Pokemon,POKEMON,MEG,56,False,False,3
+EX_07,Alakazam / Dudunsparce / Nighttime Mine,Alakazam Nighttime Mine control,858,Psyduck,Pokemon,POKEMON,ASC,39,False,True,1
+EX_07,Alakazam / Dudunsparce / Nighttime Mine,Alakazam Nighttime Mine control,1079,Rare Candy,Trainer,ITEM,SVI,191,False,False,3
+EX_07,Alakazam / Dudunsparce / Nighttime Mine,Alakazam Nighttime Mine control,1081,Enhanced Hammer,Trainer,ITEM,TWM,148,False,False,2
+EX_07,Alakazam / Dudunsparce / Nighttime Mine,Alakazam Nighttime Mine control,1086,Buddy-Buddy Poffin,Trainer,ITEM,TEF,144,False,False,4
+EX_07,Alakazam / Dudunsparce / Nighttime Mine,Alakazam Nighttime Mine control,1097,Night Stretcher,Trainer,ITEM,SFA,61,False,False,1
+EX_07,Alakazam / Dudunsparce / Nighttime Mine,Alakazam Nighttime Mine control,1129,Sacred Ash,Trainer,ITEM,DRI,168,False,False,1
+EX_07,Alakazam / Dudunsparce / Nighttime Mine,Alakazam Nighttime Mine control,1152,Poké Pad,Trainer,ITEM,POR,81,False,False,4
+EX_07,Alakazam / Dudunsparce / Nighttime Mine,Alakazam Nighttime Mine control,1156,Lucky Helmet,Trainer,TOOL,TWM,158,False,False,1
+EX_07,Alakazam / Dudunsparce / Nighttime Mine,Alakazam Nighttime Mine control,1161,Handheld Fan,Trainer,TOOL,TWM,150,False,False,2
+EX_07,Alakazam / Dudunsparce / Nighttime Mine,Alakazam Nighttime Mine control,1182,Boss’s Orders,Trainer,SUPPORTER,PAL,172,False,False,2
+EX_07,Alakazam / Dudunsparce / Nighttime Mine,Alakazam Nighttime Mine control,1184,Lana’s Aid,Trainer,SUPPORTER,TWM,155,False,False,1
+EX_07,Alakazam / Dudunsparce / Nighttime Mine,Alakazam Nighttime Mine control,1225,Hilda,Trainer,SUPPORTER,WHT,84,False,False,3
+EX_07,Alakazam / Dudunsparce / Nighttime Mine,Alakazam Nighttime Mine control,1231,Dawn,Trainer,SUPPORTER,PFL,87,False,False,4
+EX_07,Alakazam / Dudunsparce / Nighttime Mine,Alakazam Nighttime Mine control,1266,Nighttime Mine,Trainer,STADIUM,ASC,197,False,False,4
+EX_08,Hop's Trevenant / Postwick,Hop Trevenant tempo,11,Mist Energy,Energy,SPECIAL_ENERGY,TEF,161,False,False,4
+EX_08,Hop's Trevenant / Postwick,Hop Trevenant tempo,20,Rock Fighting Energy,Energy,SPECIAL_ENERGY,POR,88,False,False,4
+EX_08,Hop's Trevenant / Postwick,Hop Trevenant tempo,272,Lillie’s Clefairy ex,Pokemon,POKEMON,JTG,56,False,True,1
+EX_08,Hop's Trevenant / Postwick,Hop Trevenant tempo,304,Hop’s Snorlax,Pokemon,POKEMON,JTG,117,False,True,2
+EX_08,Hop's Trevenant / Postwick,Hop Trevenant tempo,309,Hop’s Wooloo,Pokemon,POKEMON,JTG,135,False,True,1
+EX_08,Hop's Trevenant / Postwick,Hop Trevenant tempo,310,Hop’s Dubwool,Pokemon,POKEMON,JTG,136,False,False,1
+EX_08,Hop's Trevenant / Postwick,Hop Trevenant tempo,311,Hop’s Cramorant,Pokemon,POKEMON,JTG,138,False,True,1
+EX_08,Hop's Trevenant / Postwick,Hop Trevenant tempo,343,Shaymin,Pokemon,POKEMON,DRI,10,False,True,1
+EX_08,Hop's Trevenant / Postwick,Hop Trevenant tempo,878,Hop's Phantump,Pokemon,POKEMON,ASC,95,False,True,4
+EX_08,Hop's Trevenant / Postwick,Hop Trevenant tempo,879,Hop's Trevenant,Pokemon,POKEMON,ASC,96,False,False,3
+EX_08,Hop's Trevenant / Postwick,Hop Trevenant tempo,1092,Secret Box,Trainer,ITEM,TWM,163,True,False,1
+EX_08,Hop's Trevenant / Postwick,Hop Trevenant tempo,1097,Night Stretcher,Trainer,ITEM,SFA,61,False,False,3
+EX_08,Hop's Trevenant / Postwick,Hop Trevenant tempo,1115,Hop’s Bag,Trainer,ITEM,JTG,147,False,False,2
+EX_08,Hop's Trevenant / Postwick,Hop Trevenant tempo,1121,Ultra Ball,Trainer,ITEM,SVI,196,False,False,1
+EX_08,Hop's Trevenant / Postwick,Hop Trevenant tempo,1122,Pokégear 3.0,Trainer,ITEM,SVI,186,False,False,3
+EX_08,Hop's Trevenant / Postwick,Hop Trevenant tempo,1123,Switch,Trainer,ITEM,SVI,194,False,False,1
+EX_08,Hop's Trevenant / Postwick,Hop Trevenant tempo,1152,Poké Pad,Trainer,ITEM,POR,81,False,False,4
+EX_08,Hop's Trevenant / Postwick,Hop Trevenant tempo,1171,Hop’s Choice Band,Trainer,TOOL,JTG,148,False,False,4
+EX_08,Hop's Trevenant / Postwick,Hop Trevenant tempo,1174,Air Balloon,Trainer,TOOL,BLK,79,False,False,1
+EX_08,Hop's Trevenant / Postwick,Hop Trevenant tempo,1182,Boss’s Orders,Trainer,SUPPORTER,PAL,172,False,False,3
+EX_08,Hop's Trevenant / Postwick,Hop Trevenant tempo,1193,Hassel,Trainer,SUPPORTER,TWM,151,False,False,2
+EX_08,Hop's Trevenant / Postwick,Hop Trevenant tempo,1209,Ruffian,Trainer,SUPPORTER,JTG,157,False,False,1
+EX_08,Hop's Trevenant / Postwick,Hop Trevenant tempo,1219,Team Rocket's Petrel,Trainer,SUPPORTER,DRI,176,False,False,4
+EX_08,Hop's Trevenant / Postwick,Hop Trevenant tempo,1227,Lillie's Determination,Trainer,SUPPORTER,MEG,119,False,False,4
+EX_08,Hop's Trevenant / Postwick,Hop Trevenant tempo,1255,Postwick,Trainer,STADIUM,JTG,154,False,False,4
+EX_09,Mega Lopunny / Dudunsparce / Battle Cage,Mega Lopunny Battle Cage tempo,2,Basic {R} Energy,Energy,BASIC_ENERGY,SVE,2,False,False,3
+EX_09,Mega Lopunny / Dudunsparce / Battle Cage,Mega Lopunny Battle Cage tempo,11,Mist Energy,Energy,SPECIAL_ENERGY,TEF,161,False,False,4
+EX_09,Mega Lopunny / Dudunsparce / Battle Cage,Mega Lopunny Battle Cage tempo,13,Enriching Energy,Energy,SPECIAL_ENERGY,SSP,191,True,False,1
+EX_09,Mega Lopunny / Dudunsparce / Battle Cage,Mega Lopunny Battle Cage tempo,65,Dunsparce,Pokemon,POKEMON,TEF,128,False,True,2
+EX_09,Mega Lopunny / Dudunsparce / Battle Cage,Mega Lopunny Battle Cage tempo,66,Dudunsparce,Pokemon,POKEMON,TEF,129,False,False,3
+EX_09,Mega Lopunny / Dudunsparce / Battle Cage,Mega Lopunny Battle Cage tempo,109,Abra,Pokemon,POKEMON,TWM,80,False,True,1
+EX_09,Mega Lopunny / Dudunsparce / Battle Cage,Mega Lopunny Battle Cage tempo,174,Fan Rotom,Pokemon,POKEMON,SCR,118,False,True,1
+EX_09,Mega Lopunny / Dudunsparce / Battle Cage,Mega Lopunny Battle Cage tempo,305,Dunsparce,Pokemon,POKEMON,JTG,120,False,True,2
+EX_09,Mega Lopunny / Dudunsparce / Battle Cage,Mega Lopunny Battle Cage tempo,758,Buneary,Pokemon,POKEMON,MEG,107,False,True,1
+EX_09,Mega Lopunny / Dudunsparce / Battle Cage,Mega Lopunny Battle Cage tempo,791,Moltres,Pokemon,POKEMON,PFL,14,False,True,1
+EX_09,Mega Lopunny / Dudunsparce / Battle Cage,Mega Lopunny Battle Cage tempo,848,Buneary,Pokemon,POKEMON,PFL,83,False,True,2
+EX_09,Mega Lopunny / Dudunsparce / Battle Cage,Mega Lopunny Battle Cage tempo,849,Mega Lopunny ex,Pokemon,POKEMON,PFL,84,False,False,3
+EX_09,Mega Lopunny / Dudunsparce / Battle Cage,Mega Lopunny Battle Cage tempo,1086,Buddy-Buddy Poffin,Trainer,ITEM,TEF,144,False,False,3
+EX_09,Mega Lopunny / Dudunsparce / Battle Cage,Mega Lopunny Battle Cage tempo,1121,Ultra Ball,Trainer,ITEM,SVI,196,False,False,4
+EX_09,Mega Lopunny / Dudunsparce / Battle Cage,Mega Lopunny Battle Cage tempo,1122,Pokégear 3.0,Trainer,ITEM,SVI,186,False,False,4
+EX_09,Mega Lopunny / Dudunsparce / Battle Cage,Mega Lopunny Battle Cage tempo,1152,Poké Pad,Trainer,ITEM,POR,81,False,False,4
+EX_09,Mega Lopunny / Dudunsparce / Battle Cage,Mega Lopunny Battle Cage tempo,1174,Air Balloon,Trainer,TOOL,BLK,79,False,False,3
+EX_09,Mega Lopunny / Dudunsparce / Battle Cage,Mega Lopunny Battle Cage tempo,1182,Boss’s Orders,Trainer,SUPPORTER,PAL,172,False,False,4
+EX_09,Mega Lopunny / Dudunsparce / Battle Cage,Mega Lopunny Battle Cage tempo,1225,Hilda,Trainer,SUPPORTER,WHT,84,False,False,4
+EX_09,Mega Lopunny / Dudunsparce / Battle Cage,Mega Lopunny Battle Cage tempo,1227,Lillie's Determination,Trainer,SUPPORTER,MEG,119,False,False,3
+EX_09,Mega Lopunny / Dudunsparce / Battle Cage,Mega Lopunny Battle Cage tempo,1229,Wally's Compassion,Trainer,SUPPORTER,MEG,132,False,False,4
+EX_09,Mega Lopunny / Dudunsparce / Battle Cage,Mega Lopunny Battle Cage tempo,1264,Battle Cage,Trainer,STADIUM,PFL,85,False,False,3
+EX_10,Mega Lucario / Fighting Box,Mega Lucario Fighting toolbox,6,Basic {F} Energy,Energy,BASIC_ENERGY,SVE,6,False,False,12
+EX_10,Mega Lucario / Fighting Box,Mega Lucario Fighting toolbox,142,Genesect,Pokemon,POKEMON,SFA,40,False,True,1
+EX_10,Mega Lucario / Fighting Box,Mega Lucario Fighting toolbox,673,Makuhita,Pokemon,POKEMON,MEG,72,False,True,2
+EX_10,Mega Lucario / Fighting Box,Mega Lucario Fighting toolbox,674,Hariyama,Pokemon,POKEMON,MEG,73,False,False,2
+EX_10,Mega Lucario / Fighting Box,Mega Lucario Fighting toolbox,675,Lunatone,Pokemon,POKEMON,MEG,74,False,True,2
+EX_10,Mega Lucario / Fighting Box,Mega Lucario Fighting toolbox,676,Solrock,Pokemon,POKEMON,MEG,75,False,True,3
+EX_10,Mega Lucario / Fighting Box,Mega Lucario Fighting toolbox,677,Riolu,Pokemon,POKEMON,MEG,76,False,True,3
+EX_10,Mega Lucario / Fighting Box,Mega Lucario Fighting toolbox,678,Mega Lucario ex,Pokemon,POKEMON,MEG,77,False,False,3
+EX_10,Mega Lucario / Fighting Box,Mega Lucario Fighting toolbox,1071,Meowth ex,Pokemon,POKEMON,POR,62,False,True,1
+EX_10,Mega Lucario / Fighting Box,Mega Lucario Fighting toolbox,1121,Ultra Ball,Trainer,ITEM,SVI,196,False,False,4
+EX_10,Mega Lucario / Fighting Box,Mega Lucario Fighting toolbox,1123,Switch,Trainer,ITEM,SVI,194,False,False,2
+EX_10,Mega Lucario / Fighting Box,Mega Lucario Fighting toolbox,1141,Premium Power Pro,Trainer,ITEM,MEG,124,False,False,4
+EX_10,Mega Lucario / Fighting Box,Mega Lucario Fighting toolbox,1142,Fighting Gong,Trainer,ITEM,MEG,116,False,False,4
+EX_10,Mega Lucario / Fighting Box,Mega Lucario Fighting toolbox,1152,Poké Pad,Trainer,ITEM,POR,81,False,False,4
+EX_10,Mega Lucario / Fighting Box,Mega Lucario Fighting toolbox,1158,Maximum Belt,Trainer,TOOL,TEF,154,True,False,1
+EX_10,Mega Lucario / Fighting Box,Mega Lucario Fighting toolbox,1174,Air Balloon,Trainer,TOOL,BLK,79,False,False,2
+EX_10,Mega Lucario / Fighting Box,Mega Lucario Fighting toolbox,1182,Boss’s Orders,Trainer,SUPPORTER,PAL,172,False,False,2
+EX_10,Mega Lucario / Fighting Box,Mega Lucario Fighting toolbox,1199,Lacey,Trainer,SUPPORTER,SCR,139,False,False,1
+EX_10,Mega Lucario / Fighting Box,Mega Lucario Fighting toolbox,1213,Judge,Trainer,SUPPORTER,SVI,176,False,False,2
+EX_10,Mega Lucario / Fighting Box,Mega Lucario Fighting toolbox,1227,Lillie's Determination,Trainer,SUPPORTER,MEG,119,False,False,4
+EX_10,Mega Lucario / Fighting Box,Mega Lucario Fighting toolbox,1252,Gravity Mountain,Trainer,STADIUM,SSP,177,False,False,1
+EX_11,Team Rocket's Honchkrow / Porygon,Team Rocket Honchkrow control,15,Team Rocket's Energy,Energy,SPECIAL_ENERGY,DRI,182,False,False,4
+EX_11,Team Rocket's Honchkrow / Porygon,Team Rocket Honchkrow control,17,Ignition Energy,Energy,SPECIAL_ENERGY,WHT,86,False,False,4
+EX_11,Team Rocket's Honchkrow / Porygon,Team Rocket Honchkrow control,414,Team Rocket's Articuno,Pokemon,POKEMON,DRI,51,False,True,2
+EX_11,Team Rocket's Honchkrow / Porygon,Team Rocket Honchkrow control,463,Team Rocket's Murkrow,Pokemon,POKEMON,DRI,127,False,True,4
+EX_11,Team Rocket's Honchkrow / Porygon,Team Rocket Honchkrow control,473,Team Rocket's Porygon,Pokemon,POKEMON,DRI,153,False,True,2
+EX_11,Team Rocket's Honchkrow / Porygon,Team Rocket Honchkrow control,474,Team Rocket's Porygon2,Pokemon,POKEMON,DRI,154,False,False,1
+EX_11,Team Rocket's Honchkrow / Porygon,Team Rocket Honchkrow control,891,Team Rocket's Honchkrow,Pokemon,POKEMON,ASC,127,False,False,3
+EX_11,Team Rocket's Honchkrow / Porygon,Team Rocket Honchkrow control,1077,Roto-Stick,Trainer,ITEM,PRE,127,False,False,4
+EX_11,Team Rocket's Honchkrow / Porygon,Team Rocket Honchkrow control,1097,Night Stretcher,Trainer,ITEM,SFA,61,False,False,3
+EX_11,Team Rocket's Honchkrow / Porygon,Team Rocket Honchkrow control,1109,Miracle Headset,Trainer,ITEM,SSP,183,True,False,1
+EX_11,Team Rocket's Honchkrow / Porygon,Team Rocket Honchkrow control,1121,Ultra Ball,Trainer,ITEM,SVI,196,False,False,1
+EX_11,Team Rocket's Honchkrow / Porygon,Team Rocket Honchkrow control,1134,Team Rocket's Transceiver,Trainer,ITEM,DRI,178,False,False,4
+EX_11,Team Rocket's Honchkrow / Porygon,Team Rocket Honchkrow control,1152,Poké Pad,Trainer,ITEM,POR,81,False,False,4
+EX_11,Team Rocket's Honchkrow / Porygon,Team Rocket Honchkrow control,1216,Team Rocket's Ariana,Trainer,SUPPORTER,DRI,171,False,False,4
+EX_11,Team Rocket's Honchkrow / Porygon,Team Rocket Honchkrow control,1217,Team Rocket's Archer,Trainer,SUPPORTER,DRI,170,False,False,4
+EX_11,Team Rocket's Honchkrow / Porygon,Team Rocket Honchkrow control,1218,Team Rocket's Giovanni,Trainer,SUPPORTER,DRI,174,False,False,4
+EX_11,Team Rocket's Honchkrow / Porygon,Team Rocket Honchkrow control,1219,Team Rocket's Petrel,Trainer,SUPPORTER,DRI,176,False,False,4
+EX_11,Team Rocket's Honchkrow / Porygon,Team Rocket Honchkrow control,1220,Team Rocket's Proton,Trainer,SUPPORTER,DRI,177,False,False,4
+EX_11,Team Rocket's Honchkrow / Porygon,Team Rocket Honchkrow control,1257,Team Rocket's Factory,Trainer,STADIUM,DRI,173,False,False,3
+EX_12,Festival Lead / Dipplin / Thwackey,Festival Lead single-Prize swarm,1,Basic {G} Energy,Energy,BASIC_ENERGY,SVE,1,False,False,5
+EX_12,Festival Lead / Dipplin / Thwackey,Festival Lead single-Prize swarm,73,Rellor,Pokemon,POKEMON,TEF,23,False,True,1
+EX_12,Festival Lead / Dipplin / Thwackey,Festival Lead single-Prize swarm,74,Rabsca,Pokemon,POKEMON,TEF,24,False,False,1
+EX_12,Festival Lead / Dipplin / Thwackey,Festival Lead single-Prize swarm,89,Grookey,Pokemon,POKEMON,TWM,14,False,True,4
+EX_12,Festival Lead / Dipplin / Thwackey,Festival Lead single-Prize swarm,90,Thwackey,Pokemon,POKEMON,TWM,15,False,False,4
+EX_12,Festival Lead / Dipplin / Thwackey,Festival Lead single-Prize swarm,93,Dipplin,Pokemon,POKEMON,TWM,18,False,False,3
+EX_12,Festival Lead / Dipplin / Thwackey,Festival Lead single-Prize swarm,100,Goldeen,Pokemon,POKEMON,TWM,44,False,True,2
+EX_12,Festival Lead / Dipplin / Thwackey,Festival Lead single-Prize swarm,149,Applin,Pokemon,POKEMON,SCR,12,False,True,4
+EX_12,Festival Lead / Dipplin / Thwackey,Festival Lead single-Prize swarm,235,Budew,Pokemon,POKEMON,PRE,4,False,True,1
+EX_12,Festival Lead / Dipplin / Thwackey,Festival Lead single-Prize swarm,240,Seaking,Pokemon,POKEMON,PRE,21,False,False,1
+EX_12,Festival Lead / Dipplin / Thwackey,Festival Lead single-Prize swarm,1086,Buddy-Buddy Poffin,Trainer,ITEM,TEF,144,False,False,4
+EX_12,Festival Lead / Dipplin / Thwackey,Festival Lead single-Prize swarm,1094,Bug Catching Set,Trainer,ITEM,TWM,143,False,False,4
+EX_12,Festival Lead / Dipplin / Thwackey,Festival Lead single-Prize swarm,1097,Night Stretcher,Trainer,ITEM,SFA,61,False,False,2
+EX_12,Festival Lead / Dipplin / Thwackey,Festival Lead single-Prize swarm,1123,Switch,Trainer,ITEM,SVI,194,False,False,1
+EX_12,Festival Lead / Dipplin / Thwackey,Festival Lead single-Prize swarm,1129,Sacred Ash,Trainer,ITEM,DRI,168,False,False,1
+EX_12,Festival Lead / Dipplin / Thwackey,Festival Lead single-Prize swarm,1152,Poké Pad,Trainer,ITEM,POR,81,False,False,4
+EX_12,Festival Lead / Dipplin / Thwackey,Festival Lead single-Prize swarm,1158,Maximum Belt,Trainer,TOOL,TEF,154,True,False,1
+EX_12,Festival Lead / Dipplin / Thwackey,Festival Lead single-Prize swarm,1174,Air Balloon,Trainer,TOOL,BLK,79,False,False,1
+EX_12,Festival Lead / Dipplin / Thwackey,Festival Lead single-Prize swarm,1175,Brave Bangle,Trainer,TOOL,WHT,80,False,False,1
+EX_12,Festival Lead / Dipplin / Thwackey,Festival Lead single-Prize swarm,1182,Boss’s Orders,Trainer,SUPPORTER,PAL,172,False,False,3
+EX_12,Festival Lead / Dipplin / Thwackey,Festival Lead single-Prize swarm,1184,Lana’s Aid,Trainer,SUPPORTER,TWM,155,False,False,1
+EX_12,Festival Lead / Dipplin / Thwackey,Festival Lead single-Prize swarm,1191,Kieran,Trainer,SUPPORTER,TWM,154,False,False,1
+EX_12,Festival Lead / Dipplin / Thwackey,Festival Lead single-Prize swarm,1211,Black Belt’s Training,Trainer,SUPPORTER,PRE,96,False,False,1
+EX_12,Festival Lead / Dipplin / Thwackey,Festival Lead single-Prize swarm,1227,Lillie's Determination,Trainer,SUPPORTER,MEG,119,False,False,4
+EX_12,Festival Lead / Dipplin / Thwackey,Festival Lead single-Prize swarm,1231,Dawn,Trainer,SUPPORTER,PFL,87,False,False,1
+EX_12,Festival Lead / Dipplin / Thwackey,Festival Lead single-Prize swarm,1245,Festival Grounds,Trainer,STADIUM,TWM,149,False,False,4
+EX_13,Raging Bolt / Ogerpon / Area Zero,Raging Bolt Ogerpon turbo,1,Basic {G} Energy,Energy,BASIC_ENERGY,SVE,1,False,False,8
+EX_13,Raging Bolt / Ogerpon / Area Zero,Raging Bolt Ogerpon turbo,3,Basic {W} Energy,Energy,BASIC_ENERGY,SVE,3,False,False,1
+EX_13,Raging Bolt / Ogerpon / Area Zero,Raging Bolt Ogerpon turbo,4,Basic {L} Energy,Energy,BASIC_ENERGY,SVE,4,False,False,2
+EX_13,Raging Bolt / Ogerpon / Area Zero,Raging Bolt Ogerpon turbo,5,Basic {P} Energy,Energy,BASIC_ENERGY,SVE,5,False,False,2
+EX_13,Raging Bolt / Ogerpon / Area Zero,Raging Bolt Ogerpon turbo,6,Basic {F} Energy,Energy,BASIC_ENERGY,SVE,6,False,False,2
+EX_13,Raging Bolt / Ogerpon / Area Zero,Raging Bolt Ogerpon turbo,56,Flutter Mane,Pokemon,POKEMON,TEF,78,False,True,1
+EX_13,Raging Bolt / Ogerpon / Area Zero,Raging Bolt Ogerpon turbo,63,Raging Bolt ex,Pokemon,POKEMON,TEF,123,False,True,2
+EX_13,Raging Bolt / Ogerpon / Area Zero,Raging Bolt Ogerpon turbo,96,Teal Mask Ogerpon ex,Pokemon,POKEMON,TWM,25,False,True,3
+EX_13,Raging Bolt / Ogerpon / Area Zero,Raging Bolt Ogerpon turbo,108,Wellspring Mask Ogerpon ex,Pokemon,POKEMON,TWM,64,False,True,1
+EX_13,Raging Bolt / Ogerpon / Area Zero,Raging Bolt Ogerpon turbo,140,Fezandipiti ex,Pokemon,POKEMON,SFA,38,False,True,1
+EX_13,Raging Bolt / Ogerpon / Area Zero,Raging Bolt Ogerpon turbo,184,Latias ex,Pokemon,POKEMON,SSP,76,False,True,2
+EX_13,Raging Bolt / Ogerpon / Area Zero,Raging Bolt Ogerpon turbo,209,Chien-Pao,Pokemon,POKEMON,SSP,56,False,True,1
+EX_13,Raging Bolt / Ogerpon / Area Zero,Raging Bolt Ogerpon turbo,272,Lillie’s Clefairy ex,Pokemon,POKEMON,JTG,56,False,True,1
+EX_13,Raging Bolt / Ogerpon / Area Zero,Raging Bolt Ogerpon turbo,756,Mega Kangaskhan ex,Pokemon,POKEMON,MEG,104,False,True,3
+EX_13,Raging Bolt / Ogerpon / Area Zero,Raging Bolt Ogerpon turbo,978,Passimian,Pokemon,POKEMON,SSP,111,False,True,1
+EX_13,Raging Bolt / Ogerpon / Area Zero,Raging Bolt Ogerpon turbo,1071,Meowth ex,Pokemon,POKEMON,POR,62,False,True,3
+EX_13,Raging Bolt / Ogerpon / Area Zero,Raging Bolt Ogerpon turbo,1080,Unfair Stamp,Trainer,ITEM,TWM,165,True,False,1
+EX_13,Raging Bolt / Ogerpon / Area Zero,Raging Bolt Ogerpon turbo,1097,Night Stretcher,Trainer,ITEM,SFA,61,False,False,2
+EX_13,Raging Bolt / Ogerpon / Area Zero,Raging Bolt Ogerpon turbo,1098,Glass Trumpet,Trainer,ITEM,SCR,135,False,False,2
+EX_13,Raging Bolt / Ogerpon / Area Zero,Raging Bolt Ogerpon turbo,1116,Energy Switch,Trainer,ITEM,SVI,173,False,False,4
+EX_13,Raging Bolt / Ogerpon / Area Zero,Raging Bolt Ogerpon turbo,1121,Ultra Ball,Trainer,ITEM,SVI,196,False,False,4
+EX_13,Raging Bolt / Ogerpon / Area Zero,Raging Bolt Ogerpon turbo,1182,Boss’s Orders,Trainer,SUPPORTER,PAL,172,False,False,2
+EX_13,Raging Bolt / Ogerpon / Area Zero,Raging Bolt Ogerpon turbo,1188,Ciphermaniac’s Codebreaking,Trainer,SUPPORTER,TEF,145,False,False,1
+EX_13,Raging Bolt / Ogerpon / Area Zero,Raging Bolt Ogerpon turbo,1198,Crispin,Trainer,SUPPORTER,SCR,133,False,False,4
+EX_13,Raging Bolt / Ogerpon / Area Zero,Raging Bolt Ogerpon turbo,1205,Cyrano,Trainer,SUPPORTER,SSP,170,False,False,2
+EX_13,Raging Bolt / Ogerpon / Area Zero,Raging Bolt Ogerpon turbo,1227,Lillie's Determination,Trainer,SUPPORTER,MEG,119,False,False,1
+EX_13,Raging Bolt / Ogerpon / Area Zero,Raging Bolt Ogerpon turbo,1250,Area Zero Underdepths,Trainer,STADIUM,SCR,131,False,False,3
+EX_14,Cynthia's Garchomp / Roserade,Cynthia Garchomp midrange,6,Basic {F} Energy,Energy,BASIC_ENERGY,SVE,6,False,False,5
+EX_14,Cynthia's Garchomp / Roserade,Cynthia Garchomp midrange,19,Telepath Psychic Energy,Energy,SPECIAL_ENERGY,POR,87,False,False,4
+EX_14,Cynthia's Garchomp / Roserade,Cynthia Garchomp midrange,341,Cynthia's Roselia,Pokemon,POKEMON,DRI,7,False,True,4
+EX_14,Cynthia's Garchomp / Roserade,Cynthia Garchomp midrange,342,Cynthia's Roserade,Pokemon,POKEMON,DRI,8,False,False,3
+EX_14,Cynthia's Garchomp / Roserade,Cynthia Garchomp midrange,379,Cynthia's Gible,Pokemon,POKEMON,DRI,102,False,True,4
+EX_14,Cynthia's Garchomp / Roserade,Cynthia Garchomp midrange,380,Cynthia's Gabite,Pokemon,POKEMON,DRI,103,False,False,4
+EX_14,Cynthia's Garchomp / Roserade,Cynthia Garchomp midrange,381,Cynthia's Garchomp ex,Pokemon,POKEMON,DRI,104,False,False,3
+EX_14,Cynthia's Garchomp / Roserade,Cynthia Garchomp midrange,387,Cynthia's Spiritomb,Pokemon,POKEMON,DRI,129,False,True,1
+EX_14,Cynthia's Garchomp / Roserade,Cynthia Garchomp midrange,1080,Unfair Stamp,Trainer,ITEM,TWM,165,True,False,1
+EX_14,Cynthia's Garchomp / Roserade,Cynthia Garchomp midrange,1086,Buddy-Buddy Poffin,Trainer,ITEM,TEF,144,False,False,4
+EX_14,Cynthia's Garchomp / Roserade,Cynthia Garchomp midrange,1122,Pokégear 3.0,Trainer,ITEM,SVI,186,False,False,2
+EX_14,Cynthia's Garchomp / Roserade,Cynthia Garchomp midrange,1123,Switch,Trainer,ITEM,SVI,194,False,False,1
+EX_14,Cynthia's Garchomp / Roserade,Cynthia Garchomp midrange,1141,Premium Power Pro,Trainer,ITEM,MEG,124,False,False,2
+EX_14,Cynthia's Garchomp / Roserade,Cynthia Garchomp midrange,1142,Fighting Gong,Trainer,ITEM,MEG,116,False,False,3
+EX_14,Cynthia's Garchomp / Roserade,Cynthia Garchomp midrange,1152,Poké Pad,Trainer,ITEM,POR,81,False,False,4
+EX_14,Cynthia's Garchomp / Roserade,Cynthia Garchomp midrange,1173,Cynthia's Power Weight,Trainer,TOOL,DRI,162,False,False,4
+EX_14,Cynthia's Garchomp / Roserade,Cynthia Garchomp midrange,1182,Boss’s Orders,Trainer,SUPPORTER,PAL,172,False,False,4
+EX_14,Cynthia's Garchomp / Roserade,Cynthia Garchomp midrange,1206,Larry’s Skill,Trainer,SUPPORTER,PRE,115,False,False,2
+EX_14,Cynthia's Garchomp / Roserade,Cynthia Garchomp midrange,1219,Team Rocket's Petrel,Trainer,SUPPORTER,DRI,176,False,False,1
+EX_14,Cynthia's Garchomp / Roserade,Cynthia Garchomp midrange,1227,Lillie's Determination,Trainer,SUPPORTER,MEG,119,False,False,4
+EX_15,Okidogi / Barbaracle / Battle Cage,Okidogi Battle Cage bruiser,6,Basic {F} Energy,Energy,BASIC_ENERGY,SVE,6,False,False,9
+EX_15,Okidogi / Barbaracle / Battle Cage,Okidogi Battle Cage bruiser,12,Legacy Energy,Energy,SPECIAL_ENERGY,TWM,167,True,False,1
+EX_15,Okidogi / Barbaracle / Battle Cage,Okidogi Battle Cage bruiser,16,Prism Energy,Energy,SPECIAL_ENERGY,BLK,86,False,False,4
+EX_15,Okidogi / Barbaracle / Battle Cage,Okidogi Battle Cage bruiser,112,Munkidori,Pokemon,POKEMON,TWM,95,False,True,1
+EX_15,Okidogi / Barbaracle / Battle Cage,Okidogi Battle Cage bruiser,116,Okidogi,Pokemon,POKEMON,TWM,111,False,True,3
+EX_15,Okidogi / Barbaracle / Battle Cage,Okidogi Battle Cage bruiser,117,Cornerstone Mask Ogerpon ex,Pokemon,POKEMON,TWM,112,False,True,1
+EX_15,Okidogi / Barbaracle / Battle Cage,Okidogi Battle Cage bruiser,135,Bloodmoon Ursaluna,Pokemon,POKEMON,SFA,25,False,True,1
+EX_15,Okidogi / Barbaracle / Battle Cage,Okidogi Battle Cage bruiser,675,Lunatone,Pokemon,POKEMON,MEG,74,False,True,2
+EX_15,Okidogi / Barbaracle / Battle Cage,Okidogi Battle Cage bruiser,676,Solrock,Pokemon,POKEMON,MEG,75,False,True,3
+EX_15,Okidogi / Barbaracle / Battle Cage,Okidogi Battle Cage bruiser,791,Moltres,Pokemon,POKEMON,PFL,14,False,True,1
+EX_15,Okidogi / Barbaracle / Battle Cage,Okidogi Battle Cage bruiser,1051,Binacle,Pokemon,POKEMON,POR,42,False,True,2
+EX_15,Okidogi / Barbaracle / Battle Cage,Okidogi Battle Cage bruiser,1052,Barbaracle,Pokemon,POKEMON,POR,43,False,False,2
+EX_15,Okidogi / Barbaracle / Battle Cage,Okidogi Battle Cage bruiser,1097,Night Stretcher,Trainer,ITEM,SFA,61,False,False,2
+EX_15,Okidogi / Barbaracle / Battle Cage,Okidogi Battle Cage bruiser,1118,Energy Retrieval,Trainer,ITEM,SVI,171,False,False,1
+EX_15,Okidogi / Barbaracle / Battle Cage,Okidogi Battle Cage bruiser,1122,Pokégear 3.0,Trainer,ITEM,SVI,186,False,False,2
+EX_15,Okidogi / Barbaracle / Battle Cage,Okidogi Battle Cage bruiser,1142,Fighting Gong,Trainer,ITEM,MEG,116,False,False,4
+EX_15,Okidogi / Barbaracle / Battle Cage,Okidogi Battle Cage bruiser,1152,Poké Pad,Trainer,ITEM,POR,81,False,False,4
+EX_15,Okidogi / Barbaracle / Battle Cage,Okidogi Battle Cage bruiser,1174,Air Balloon,Trainer,TOOL,BLK,79,False,False,2
+EX_15,Okidogi / Barbaracle / Battle Cage,Okidogi Battle Cage bruiser,1182,Boss’s Orders,Trainer,SUPPORTER,PAL,172,False,False,3
+EX_15,Okidogi / Barbaracle / Battle Cage,Okidogi Battle Cage bruiser,1187,Morty’s Conviction,Trainer,SUPPORTER,TEF,155,False,False,2
+EX_15,Okidogi / Barbaracle / Battle Cage,Okidogi Battle Cage bruiser,1188,Ciphermaniac’s Codebreaking,Trainer,SUPPORTER,TEF,145,False,False,1
+EX_15,Okidogi / Barbaracle / Battle Cage,Okidogi Battle Cage bruiser,1227,Lillie's Determination,Trainer,SUPPORTER,MEG,119,False,False,4
+EX_15,Okidogi / Barbaracle / Battle Cage,Okidogi Battle Cage bruiser,1238,Tarragon,Trainer,SUPPORTER,POR,85,False,False,2
+EX_15,Okidogi / Barbaracle / Battle Cage,Okidogi Battle Cage bruiser,1264,Battle Cage,Trainer,STADIUM,PFL,85,False,False,3
+EX_16,Mega Starmie / Mega Froslass / Munkidori,Mega Starmie Froslass damage-counter combo,3,Basic {W} Energy,Energy,BASIC_ENERGY,SVE,3,False,False,3
+EX_16,Mega Starmie / Mega Froslass / Munkidori,Mega Starmie Froslass damage-counter combo,5,Basic {P} Energy,Energy,BASIC_ENERGY,SVE,5,False,False,1
+EX_16,Mega Starmie / Mega Froslass / Munkidori,Mega Starmie Froslass damage-counter combo,7,Basic {D} Energy,Energy,BASIC_ENERGY,SVE,7,False,False,3
+EX_16,Mega Starmie / Mega Froslass / Munkidori,Mega Starmie Froslass damage-counter combo,12,Legacy Energy,Energy,SPECIAL_ENERGY,TWM,167,True,False,1
+EX_16,Mega Starmie / Mega Froslass / Munkidori,Mega Starmie Froslass damage-counter combo,17,Ignition Energy,Energy,SPECIAL_ENERGY,WHT,86,False,False,2
+EX_16,Mega Starmie / Mega Froslass / Munkidori,Mega Starmie Froslass damage-counter combo,65,Dunsparce,Pokemon,POKEMON,TEF,128,False,True,1
+EX_16,Mega Starmie / Mega Froslass / Munkidori,Mega Starmie Froslass damage-counter combo,66,Dudunsparce,Pokemon,POKEMON,TEF,129,False,False,2
+EX_16,Mega Starmie / Mega Froslass / Munkidori,Mega Starmie Froslass damage-counter combo,104,Froslass,Pokemon,POKEMON,TWM,53,False,False,2
+EX_16,Mega Starmie / Mega Froslass / Munkidori,Mega Starmie Froslass damage-counter combo,112,Munkidori,Pokemon,POKEMON,TWM,95,False,True,3
+EX_16,Mega Starmie / Mega Froslass / Munkidori,Mega Starmie Froslass damage-counter combo,235,Budew,Pokemon,POKEMON,PRE,4,False,True,1
+EX_16,Mega Starmie / Mega Froslass / Munkidori,Mega Starmie Froslass damage-counter combo,305,Dunsparce,Pokemon,POKEMON,JTG,120,False,True,1
+EX_16,Mega Starmie / Mega Froslass / Munkidori,Mega Starmie Froslass damage-counter combo,306,Dudunsparce ex,Pokemon,POKEMON,JTG,121,False,False,1
+EX_16,Mega Starmie / Mega Froslass / Munkidori,Mega Starmie Froslass damage-counter combo,860,Snorunt,Pokemon,POKEMON,ASC,46,False,True,3
+EX_16,Mega Starmie / Mega Froslass / Munkidori,Mega Starmie Froslass damage-counter combo,861,Mega Froslass ex,Pokemon,POKEMON,ASC,47,False,False,2
+EX_16,Mega Starmie / Mega Froslass / Munkidori,Mega Starmie Froslass damage-counter combo,1030,Staryu,Pokemon,POKEMON,POR,20,False,True,2
+EX_16,Mega Starmie / Mega Froslass / Munkidori,Mega Starmie Froslass damage-counter combo,1031,Mega Starmie ex,Pokemon,POKEMON,POR,21,False,False,2
+EX_16,Mega Starmie / Mega Froslass / Munkidori,Mega Starmie Froslass damage-counter combo,1071,Meowth ex,Pokemon,POKEMON,POR,62,False,True,1
+EX_16,Mega Starmie / Mega Froslass / Munkidori,Mega Starmie Froslass damage-counter combo,1086,Buddy-Buddy Poffin,Trainer,ITEM,TEF,144,False,False,4
+EX_16,Mega Starmie / Mega Froslass / Munkidori,Mega Starmie Froslass damage-counter combo,1097,Night Stretcher,Trainer,ITEM,SFA,61,False,False,1
+EX_16,Mega Starmie / Mega Froslass / Munkidori,Mega Starmie Froslass damage-counter combo,1121,Ultra Ball,Trainer,ITEM,SVI,196,False,False,3
+EX_16,Mega Starmie / Mega Froslass / Munkidori,Mega Starmie Froslass damage-counter combo,1152,Poké Pad,Trainer,ITEM,POR,81,False,False,4
+EX_16,Mega Starmie / Mega Froslass / Munkidori,Mega Starmie Froslass damage-counter combo,1182,Boss’s Orders,Trainer,SUPPORTER,PAL,172,False,False,2
+EX_16,Mega Starmie / Mega Froslass / Munkidori,Mega Starmie Froslass damage-counter combo,1198,Crispin,Trainer,SUPPORTER,SCR,133,False,False,2
+EX_16,Mega Starmie / Mega Froslass / Munkidori,Mega Starmie Froslass damage-counter combo,1213,Judge,Trainer,SUPPORTER,SVI,176,False,False,2
+EX_16,Mega Starmie / Mega Froslass / Munkidori,Mega Starmie Froslass damage-counter combo,1225,Hilda,Trainer,SUPPORTER,WHT,84,False,False,4
+EX_16,Mega Starmie / Mega Froslass / Munkidori,Mega Starmie Froslass damage-counter combo,1227,Lillie's Determination,Trainer,SUPPORTER,MEG,119,False,False,4
+EX_16,Mega Starmie / Mega Froslass / Munkidori,Mega Starmie Froslass damage-counter combo,1229,Wally's Compassion,Trainer,SUPPORTER,MEG,132,False,False,1
+EX_16,Mega Starmie / Mega Froslass / Munkidori,Mega Starmie Froslass damage-counter combo,1260,Risky Ruins,Trainer,STADIUM,MEG,127,False,False,2
+EX_17,Marnie's Grimmsnarl / Froslass,Marnie Grimmsnarl damage spread,7,Basic {D} Energy,Energy,BASIC_ENERGY,SVE,7,False,False,9
+EX_17,Marnie's Grimmsnarl / Froslass,Marnie Grimmsnarl damage spread,104,Froslass,Pokemon,POKEMON,TWM,53,False,False,3
+EX_17,Marnie's Grimmsnarl / Froslass,Marnie Grimmsnarl damage spread,112,Munkidori,Pokemon,POKEMON,TWM,95,False,True,4
+EX_17,Marnie's Grimmsnarl / Froslass,Marnie Grimmsnarl damage spread,235,Budew,Pokemon,POKEMON,PRE,4,False,True,1
+EX_17,Marnie's Grimmsnarl / Froslass,Marnie Grimmsnarl damage spread,646,Marnie's Impidimp,Pokemon,POKEMON,DRI,134,False,True,4
+EX_17,Marnie's Grimmsnarl / Froslass,Marnie Grimmsnarl damage spread,647,Marnie's Morgrem,Pokemon,POKEMON,DRI,135,False,False,2
+EX_17,Marnie's Grimmsnarl / Froslass,Marnie Grimmsnarl damage spread,648,Marnie's Grimmsnarl ex,Pokemon,POKEMON,DRI,136,False,False,3
+EX_17,Marnie's Grimmsnarl / Froslass,Marnie Grimmsnarl damage spread,689,Yveltal,Pokemon,POKEMON,MEG,88,False,True,1
+EX_17,Marnie's Grimmsnarl / Froslass,Marnie Grimmsnarl damage spread,860,Snorunt,Pokemon,POKEMON,ASC,46,False,True,3
+EX_17,Marnie's Grimmsnarl / Froslass,Marnie Grimmsnarl damage spread,1079,Rare Candy,Trainer,ITEM,SVI,191,False,False,2
+EX_17,Marnie's Grimmsnarl / Froslass,Marnie Grimmsnarl damage spread,1086,Buddy-Buddy Poffin,Trainer,ITEM,TEF,144,False,False,3
+EX_17,Marnie's Grimmsnarl / Froslass,Marnie Grimmsnarl damage spread,1092,Secret Box,Trainer,ITEM,TWM,163,True,False,1
+EX_17,Marnie's Grimmsnarl / Froslass,Marnie Grimmsnarl damage spread,1097,Night Stretcher,Trainer,ITEM,SFA,61,False,False,3
+EX_17,Marnie's Grimmsnarl / Froslass,Marnie Grimmsnarl damage spread,1152,Poké Pad,Trainer,ITEM,POR,81,False,False,4
+EX_17,Marnie's Grimmsnarl / Froslass,Marnie Grimmsnarl damage spread,1174,Air Balloon,Trainer,TOOL,BLK,79,False,False,1
+EX_17,Marnie's Grimmsnarl / Froslass,Marnie Grimmsnarl damage spread,1182,Boss’s Orders,Trainer,SUPPORTER,PAL,172,False,False,2
+EX_17,Marnie's Grimmsnarl / Froslass,Marnie Grimmsnarl damage spread,1213,Judge,Trainer,SUPPORTER,SVI,176,False,False,2
+EX_17,Marnie's Grimmsnarl / Froslass,Marnie Grimmsnarl damage spread,1219,Team Rocket's Petrel,Trainer,SUPPORTER,DRI,176,False,False,4
+EX_17,Marnie's Grimmsnarl / Froslass,Marnie Grimmsnarl damage spread,1227,Lillie's Determination,Trainer,SUPPORTER,MEG,119,False,False,4
+EX_17,Marnie's Grimmsnarl / Froslass,Marnie Grimmsnarl damage spread,1259,Spikemuth Gym,Trainer,STADIUM,DRI,169,False,False,4
+EX_18,N's Zoroark / Darmanitan / Zekrom,N Zoroark attack toolbox,7,Basic {D} Energy,Energy,BASIC_ENERGY,SVE,7,False,False,8
+EX_18,N's Zoroark / Darmanitan / Zekrom,N Zoroark attack toolbox,112,Munkidori,Pokemon,POKEMON,TWM,95,False,True,2
+EX_18,N's Zoroark / Darmanitan / Zekrom,N Zoroark attack toolbox,140,Fezandipiti ex,Pokemon,POKEMON,SFA,38,False,True,1
+EX_18,N's Zoroark / Darmanitan / Zekrom,N Zoroark attack toolbox,141,Pecharunt ex,Pokemon,POKEMON,SFA,39,False,True,1
+EX_18,N's Zoroark / Darmanitan / Zekrom,N Zoroark attack toolbox,257,N’s Darumaka,Pokemon,POKEMON,JTG,26,False,True,2
+EX_18,N's Zoroark / Darmanitan / Zekrom,N Zoroark attack toolbox,258,N’s Darmanitan,Pokemon,POKEMON,JTG,27,False,False,1
+EX_18,N's Zoroark / Darmanitan / Zekrom,N Zoroark attack toolbox,292,N’s Zorua,Pokemon,POKEMON,JTG,97,False,True,4
+EX_18,N's Zoroark / Darmanitan / Zekrom,N Zoroark attack toolbox,293,N’s Zoroark ex,Pokemon,POKEMON,JTG,98,False,False,4
+EX_18,N's Zoroark / Darmanitan / Zekrom,N Zoroark attack toolbox,689,Yveltal,Pokemon,POKEMON,MEG,88,False,True,1
+EX_18,N's Zoroark / Darmanitan / Zekrom,N Zoroark attack toolbox,848,Buneary,Pokemon,POKEMON,PFL,83,False,True,1
+EX_18,N's Zoroark / Darmanitan / Zekrom,N Zoroark attack toolbox,849,Mega Lopunny ex,Pokemon,POKEMON,PFL,84,False,False,1
+EX_18,N's Zoroark / Darmanitan / Zekrom,N Zoroark attack toolbox,906,N's Zekrom,Pokemon,POKEMON,ASC,155,False,True,2
+EX_18,N's Zoroark / Darmanitan / Zekrom,N Zoroark attack toolbox,1071,Meowth ex,Pokemon,POKEMON,POR,62,False,True,1
+EX_18,N's Zoroark / Darmanitan / Zekrom,N Zoroark attack toolbox,1086,Buddy-Buddy Poffin,Trainer,ITEM,TEF,144,False,False,4
+EX_18,N's Zoroark / Darmanitan / Zekrom,N Zoroark attack toolbox,1093,Scoop Up Cyclone,Trainer,ITEM,TWM,162,True,False,1
+EX_18,N's Zoroark / Darmanitan / Zekrom,N Zoroark attack toolbox,1097,Night Stretcher,Trainer,ITEM,SFA,61,False,False,2
+EX_18,N's Zoroark / Darmanitan / Zekrom,N Zoroark attack toolbox,1113,N’s PP Up,Trainer,ITEM,JTG,153,False,False,3
+EX_18,N's Zoroark / Darmanitan / Zekrom,N Zoroark attack toolbox,1121,Ultra Ball,Trainer,ITEM,SVI,196,False,False,4
+EX_18,N's Zoroark / Darmanitan / Zekrom,N Zoroark attack toolbox,1152,Poké Pad,Trainer,ITEM,POR,81,False,False,1
+EX_18,N's Zoroark / Darmanitan / Zekrom,N Zoroark attack toolbox,1162,Binding Mochi,Trainer,TOOL,SFA,55,False,False,1
+EX_18,N's Zoroark / Darmanitan / Zekrom,N Zoroark attack toolbox,1182,Boss’s Orders,Trainer,SUPPORTER,PAL,172,False,False,4
+EX_18,N's Zoroark / Darmanitan / Zekrom,N Zoroark attack toolbox,1188,Ciphermaniac’s Codebreaking,Trainer,SUPPORTER,TEF,145,False,False,1
+EX_18,N's Zoroark / Darmanitan / Zekrom,N Zoroark attack toolbox,1197,Xerosic’s Machinations,Trainer,SUPPORTER,SFA,64,False,False,1
+EX_18,N's Zoroark / Darmanitan / Zekrom,N Zoroark attack toolbox,1205,Cyrano,Trainer,SUPPORTER,SSP,170,False,False,2
+EX_18,N's Zoroark / Darmanitan / Zekrom,N Zoroark attack toolbox,1211,Black Belt’s Training,Trainer,SUPPORTER,PRE,96,False,False,1
+EX_18,N's Zoroark / Darmanitan / Zekrom,N Zoroark attack toolbox,1227,Lillie's Determination,Trainer,SUPPORTER,MEG,119,False,False,4
+EX_18,N's Zoroark / Darmanitan / Zekrom,N Zoroark attack toolbox,1253,N’s Castle,Trainer,STADIUM,JTG,152,False,False,2
+EX_19,N's Zoroark / Reshiram / Tatsugiri,N Zoroark Reshiram toolbox,7,Basic {D} Energy,Energy,BASIC_ENERGY,SVE,7,False,False,9
+EX_19,N's Zoroark / Reshiram / Tatsugiri,N Zoroark Reshiram toolbox,112,Munkidori,Pokemon,POKEMON,TWM,95,False,True,1
+EX_19,N's Zoroark / Reshiram / Tatsugiri,N Zoroark Reshiram toolbox,122,Tatsugiri,Pokemon,POKEMON,TWM,131,False,True,1
+EX_19,N's Zoroark / Reshiram / Tatsugiri,N Zoroark Reshiram toolbox,140,Fezandipiti ex,Pokemon,POKEMON,SFA,38,False,True,1
+EX_19,N's Zoroark / Reshiram / Tatsugiri,N Zoroark Reshiram toolbox,141,Pecharunt ex,Pokemon,POKEMON,SFA,39,False,True,1
+EX_19,N's Zoroark / Reshiram / Tatsugiri,N Zoroark Reshiram toolbox,235,Budew,Pokemon,POKEMON,PRE,4,False,True,1
+EX_19,N's Zoroark / Reshiram / Tatsugiri,N Zoroark Reshiram toolbox,257,N’s Darumaka,Pokemon,POKEMON,JTG,26,False,True,1
+EX_19,N's Zoroark / Reshiram / Tatsugiri,N Zoroark Reshiram toolbox,258,N’s Darmanitan,Pokemon,POKEMON,JTG,27,False,False,1
+EX_19,N's Zoroark / Reshiram / Tatsugiri,N Zoroark Reshiram toolbox,292,N’s Zorua,Pokemon,POKEMON,JTG,97,False,True,4
+EX_19,N's Zoroark / Reshiram / Tatsugiri,N Zoroark Reshiram toolbox,293,N’s Zoroark ex,Pokemon,POKEMON,JTG,98,False,False,4
+EX_19,N's Zoroark / Reshiram / Tatsugiri,N Zoroark Reshiram toolbox,689,Yveltal,Pokemon,POKEMON,MEG,88,False,True,1
+EX_19,N's Zoroark / Reshiram / Tatsugiri,N Zoroark Reshiram toolbox,906,N's Zekrom,Pokemon,POKEMON,ASC,155,False,True,2
+EX_19,N's Zoroark / Reshiram / Tatsugiri,N Zoroark Reshiram toolbox,1080,Unfair Stamp,Trainer,ITEM,TWM,165,True,False,1
+EX_19,N's Zoroark / Reshiram / Tatsugiri,N Zoroark Reshiram toolbox,1086,Buddy-Buddy Poffin,Trainer,ITEM,TEF,144,False,False,4
+EX_19,N's Zoroark / Reshiram / Tatsugiri,N Zoroark Reshiram toolbox,1097,Night Stretcher,Trainer,ITEM,SFA,61,False,False,2
+EX_19,N's Zoroark / Reshiram / Tatsugiri,N Zoroark Reshiram toolbox,1113,N’s PP Up,Trainer,ITEM,JTG,153,False,False,4
+EX_19,N's Zoroark / Reshiram / Tatsugiri,N Zoroark Reshiram toolbox,1121,Ultra Ball,Trainer,ITEM,SVI,196,False,False,3
+EX_19,N's Zoroark / Reshiram / Tatsugiri,N Zoroark Reshiram toolbox,1152,Poké Pad,Trainer,ITEM,POR,81,False,False,3
+EX_19,N's Zoroark / Reshiram / Tatsugiri,N Zoroark Reshiram toolbox,1162,Binding Mochi,Trainer,TOOL,SFA,55,False,False,2
+EX_19,N's Zoroark / Reshiram / Tatsugiri,N Zoroark Reshiram toolbox,1182,Boss’s Orders,Trainer,SUPPORTER,PAL,172,False,False,3
+EX_19,N's Zoroark / Reshiram / Tatsugiri,N Zoroark Reshiram toolbox,1205,Cyrano,Trainer,SUPPORTER,SSP,170,False,False,3
+EX_19,N's Zoroark / Reshiram / Tatsugiri,N Zoroark Reshiram toolbox,1211,Black Belt’s Training,Trainer,SUPPORTER,PRE,96,False,False,1
+EX_19,N's Zoroark / Reshiram / Tatsugiri,N Zoroark Reshiram toolbox,1227,Lillie's Determination,Trainer,SUPPORTER,MEG,119,False,False,4
+EX_19,N's Zoroark / Reshiram / Tatsugiri,N Zoroark Reshiram toolbox,1253,N’s Castle,Trainer,STADIUM,JTG,152,False,False,2
+EX_19,N's Zoroark / Reshiram / Tatsugiri,N Zoroark Reshiram toolbox,1256,Team Rocket's Watchtower,Trainer,STADIUM,DRI,180,False,False,1
+EX_20,Ethan's Typhlosion / Drakloak,Ethan Typhlosion single-Prize tempo,2,Basic {R} Energy,Energy,BASIC_ENERGY,SVE,2,False,False,5
+EX_20,Ethan's Typhlosion / Drakloak,Ethan Typhlosion single-Prize tempo,119,Dreepy,Pokemon,POKEMON,TWM,128,False,True,3
+EX_20,Ethan's Typhlosion / Drakloak,Ethan Typhlosion single-Prize tempo,120,Drakloak,Pokemon,POKEMON,TWM,129,False,False,3
+EX_20,Ethan's Typhlosion / Drakloak,Ethan Typhlosion single-Prize tempo,140,Fezandipiti ex,Pokemon,POKEMON,SFA,38,False,True,1
+EX_20,Ethan's Typhlosion / Drakloak,Ethan Typhlosion single-Prize tempo,202,Victini,Pokemon,POKEMON,SSP,21,False,True,2
+EX_20,Ethan's Typhlosion / Drakloak,Ethan Typhlosion single-Prize tempo,343,Shaymin,Pokemon,POKEMON,DRI,10,False,True,1
+EX_20,Ethan's Typhlosion / Drakloak,Ethan Typhlosion single-Prize tempo,352,Ethan's Cyndaquil,Pokemon,POKEMON,DRI,32,False,True,4
+EX_20,Ethan's Typhlosion / Drakloak,Ethan Typhlosion single-Prize tempo,353,Ethan's Quilava,Pokemon,POKEMON,DRI,33,False,False,4
+EX_20,Ethan's Typhlosion / Drakloak,Ethan Typhlosion single-Prize tempo,354,Ethan's Typhlosion,Pokemon,POKEMON,DRI,34,False,False,3
+EX_20,Ethan's Typhlosion / Drakloak,Ethan Typhlosion single-Prize tempo,1079,Rare Candy,Trainer,ITEM,SVI,191,False,False,2
+EX_20,Ethan's Typhlosion / Drakloak,Ethan Typhlosion single-Prize tempo,1086,Buddy-Buddy Poffin,Trainer,ITEM,TEF,144,False,False,3
+EX_20,Ethan's Typhlosion / Drakloak,Ethan Typhlosion single-Prize tempo,1092,Secret Box,Trainer,ITEM,TWM,163,True,False,1
+EX_20,Ethan's Typhlosion / Drakloak,Ethan Typhlosion single-Prize tempo,1097,Night Stretcher,Trainer,ITEM,SFA,61,False,False,3
+EX_20,Ethan's Typhlosion / Drakloak,Ethan Typhlosion single-Prize tempo,1114,Redeemable Ticket,Trainer,ITEM,JTG,156,False,False,1
+EX_20,Ethan's Typhlosion / Drakloak,Ethan Typhlosion single-Prize tempo,1121,Ultra Ball,Trainer,ITEM,SVI,196,False,False,4
+EX_20,Ethan's Typhlosion / Drakloak,Ethan Typhlosion single-Prize tempo,1129,Sacred Ash,Trainer,ITEM,DRI,168,False,False,1
+EX_20,Ethan's Typhlosion / Drakloak,Ethan Typhlosion single-Prize tempo,1152,Poké Pad,Trainer,ITEM,POR,81,False,False,4
+EX_20,Ethan's Typhlosion / Drakloak,Ethan Typhlosion single-Prize tempo,1175,Brave Bangle,Trainer,TOOL,WHT,80,False,False,2
+EX_20,Ethan's Typhlosion / Drakloak,Ethan Typhlosion single-Prize tempo,1182,Boss’s Orders,Trainer,SUPPORTER,PAL,172,False,False,2
+EX_20,Ethan's Typhlosion / Drakloak,Ethan Typhlosion single-Prize tempo,1191,Kieran,Trainer,SUPPORTER,TWM,154,False,False,1
+EX_20,Ethan's Typhlosion / Drakloak,Ethan Typhlosion single-Prize tempo,1215,Ethan's Adventure,Trainer,SUPPORTER,DRI,165,False,False,4
+EX_20,Ethan's Typhlosion / Drakloak,Ethan Typhlosion single-Prize tempo,1223,Harlequin,Trainer,SUPPORTER,WHT,83,False,False,1
+EX_20,Ethan's Typhlosion / Drakloak,Ethan Typhlosion single-Prize tempo,1227,Lillie's Determination,Trainer,SUPPORTER,MEG,119,False,False,3
+EX_20,Ethan's Typhlosion / Drakloak,Ethan Typhlosion single-Prize tempo,1264,Battle Cage,Trainer,STADIUM,PFL,85,False,False,2
+EX_21,Archaludon / Mega Mawile / Relicanth,Archaludon Mawile midrange,7,Basic {D} Energy,Energy,BASIC_ENERGY,SVE,7,False,False,2
+EX_21,Archaludon / Mega Mawile / Relicanth,Archaludon Mawile midrange,8,Basic {M} Energy,Energy,BASIC_ENERGY,SVE,8,False,False,9
+EX_21,Archaludon / Mega Mawile / Relicanth,Archaludon Mawile midrange,57,Relicanth,Pokemon,POKEMON,TEF,84,False,True,1
+EX_21,Archaludon / Mega Mawile / Relicanth,Archaludon Mawile midrange,112,Munkidori,Pokemon,POKEMON,TWM,95,False,True,2
+EX_21,Archaludon / Mega Mawile / Relicanth,Archaludon Mawile midrange,140,Fezandipiti ex,Pokemon,POKEMON,SFA,38,False,True,1
+EX_21,Archaludon / Mega Mawile / Relicanth,Archaludon Mawile midrange,142,Genesect,Pokemon,POKEMON,SFA,40,False,True,1
+EX_21,Archaludon / Mega Mawile / Relicanth,Archaludon Mawile midrange,169,Duraludon,Pokemon,POKEMON,SCR,106,False,True,4
+EX_21,Archaludon / Mega Mawile / Relicanth,Archaludon Mawile midrange,190,Archaludon ex,Pokemon,POKEMON,SSP,130,False,False,3
+EX_21,Archaludon / Mega Mawile / Relicanth,Archaludon Mawile midrange,695,Mega Mawile ex,Pokemon,POKEMON,MEG,94,False,True,1
+EX_21,Archaludon / Mega Mawile / Relicanth,Archaludon Mawile midrange,1071,Meowth ex,Pokemon,POKEMON,POR,62,False,True,1
+EX_21,Archaludon / Mega Mawile / Relicanth,Archaludon Mawile midrange,1097,Night Stretcher,Trainer,ITEM,SFA,61,False,False,4
+EX_21,Archaludon / Mega Mawile / Relicanth,Archaludon Mawile midrange,1119,Energy Search,Trainer,ITEM,SVI,172,False,False,3
+EX_21,Archaludon / Mega Mawile / Relicanth,Archaludon Mawile midrange,1121,Ultra Ball,Trainer,ITEM,SVI,196,False,False,4
+EX_21,Archaludon / Mega Mawile / Relicanth,Archaludon Mawile midrange,1122,Pokégear 3.0,Trainer,ITEM,SVI,186,False,False,2
+EX_21,Archaludon / Mega Mawile / Relicanth,Archaludon Mawile midrange,1152,Poké Pad,Trainer,ITEM,POR,81,False,False,4
+EX_21,Archaludon / Mega Mawile / Relicanth,Archaludon Mawile midrange,1159,Hero’s Cape,Trainer,TOOL,TEF,152,True,False,1
+EX_21,Archaludon / Mega Mawile / Relicanth,Archaludon Mawile midrange,1174,Air Balloon,Trainer,TOOL,BLK,79,False,False,2
+EX_21,Archaludon / Mega Mawile / Relicanth,Archaludon Mawile midrange,1182,Boss’s Orders,Trainer,SUPPORTER,PAL,172,False,False,4
+EX_21,Archaludon / Mega Mawile / Relicanth,Archaludon Mawile midrange,1192,Carmine,Trainer,SUPPORTER,TWM,145,False,False,3
+EX_21,Archaludon / Mega Mawile / Relicanth,Archaludon Mawile midrange,1197,Xerosic’s Machinations,Trainer,SUPPORTER,SFA,64,False,False,1
+EX_21,Archaludon / Mega Mawile / Relicanth,Archaludon Mawile midrange,1211,Black Belt’s Training,Trainer,SUPPORTER,PRE,96,False,False,1
+EX_21,Archaludon / Mega Mawile / Relicanth,Archaludon Mawile midrange,1219,Team Rocket's Petrel,Trainer,SUPPORTER,DRI,176,False,False,1
+EX_21,Archaludon / Mega Mawile / Relicanth,Archaludon Mawile midrange,1227,Lillie's Determination,Trainer,SUPPORTER,MEG,119,False,False,4
+EX_21,Archaludon / Mega Mawile / Relicanth,Archaludon Mawile midrange,1256,Team Rocket's Watchtower,Trainer,STADIUM,DRI,180,False,False,1
+EX_22,Mega Diancie / Dusknoir / Lillie's Clefairy,Mega Diancie Dusknoir combo,5,Basic {P} Energy,Energy,BASIC_ENERGY,SVE,5,False,False,8
+EX_22,Mega Diancie / Dusknoir / Lillie's Clefairy,Mega Diancie Dusknoir combo,20,Rock Fighting Energy,Energy,SPECIAL_ENERGY,POR,88,False,False,4
+EX_22,Mega Diancie / Dusknoir / Lillie's Clefairy,Mega Diancie Dusknoir combo,56,Flutter Mane,Pokemon,POKEMON,TEF,78,False,True,1
+EX_22,Mega Diancie / Dusknoir / Lillie's Clefairy,Mega Diancie Dusknoir combo,131,Duskull,Pokemon,POKEMON,SFA,18,False,True,3
+EX_22,Mega Diancie / Dusknoir / Lillie's Clefairy,Mega Diancie Dusknoir combo,132,Dusclops,Pokemon,POKEMON,SFA,19,False,False,2
+EX_22,Mega Diancie / Dusknoir / Lillie's Clefairy,Mega Diancie Dusknoir combo,133,Dusknoir,Pokemon,POKEMON,SFA,20,False,False,2
+EX_22,Mega Diancie / Dusknoir / Lillie's Clefairy,Mega Diancie Dusknoir combo,184,Latias ex,Pokemon,POKEMON,SSP,76,False,True,2
+EX_22,Mega Diancie / Dusknoir / Lillie's Clefairy,Mega Diancie Dusknoir combo,272,Lillie’s Clefairy ex,Pokemon,POKEMON,JTG,56,False,True,2
+EX_22,Mega Diancie / Dusknoir / Lillie's Clefairy,Mega Diancie Dusknoir combo,766,Mega Diancie ex,Pokemon,POKEMON,PFL,41,False,True,3
+EX_22,Mega Diancie / Dusknoir / Lillie's Clefairy,Mega Diancie Dusknoir combo,1071,Meowth ex,Pokemon,POKEMON,POR,62,False,True,1
+EX_22,Mega Diancie / Dusknoir / Lillie's Clefairy,Mega Diancie Dusknoir combo,1079,Rare Candy,Trainer,ITEM,SVI,191,False,False,2
+EX_22,Mega Diancie / Dusknoir / Lillie's Clefairy,Mega Diancie Dusknoir combo,1092,Secret Box,Trainer,ITEM,TWM,163,True,False,1
+EX_22,Mega Diancie / Dusknoir / Lillie's Clefairy,Mega Diancie Dusknoir combo,1097,Night Stretcher,Trainer,ITEM,SFA,61,False,False,2
+EX_22,Mega Diancie / Dusknoir / Lillie's Clefairy,Mega Diancie Dusknoir combo,1121,Ultra Ball,Trainer,ITEM,SVI,196,False,False,4
+EX_22,Mega Diancie / Dusknoir / Lillie's Clefairy,Mega Diancie Dusknoir combo,1146,Wondrous Patch,Trainer,ITEM,PFL,94,False,False,4
+EX_22,Mega Diancie / Dusknoir / Lillie's Clefairy,Mega Diancie Dusknoir combo,1152,Poké Pad,Trainer,ITEM,POR,81,False,False,2
+EX_22,Mega Diancie / Dusknoir / Lillie's Clefairy,Mega Diancie Dusknoir combo,1163,Powerglass,Trainer,TOOL,SFA,63,False,False,2
+EX_22,Mega Diancie / Dusknoir / Lillie's Clefairy,Mega Diancie Dusknoir combo,1172,Lillie’s Pearl,Trainer,TOOL,JTG,151,False,False,1
+EX_22,Mega Diancie / Dusknoir / Lillie's Clefairy,Mega Diancie Dusknoir combo,1182,Boss’s Orders,Trainer,SUPPORTER,PAL,172,False,False,3
+EX_22,Mega Diancie / Dusknoir / Lillie's Clefairy,Mega Diancie Dusknoir combo,1213,Judge,Trainer,SUPPORTER,SVI,176,False,False,3
+EX_22,Mega Diancie / Dusknoir / Lillie's Clefairy,Mega Diancie Dusknoir combo,1227,Lillie's Determination,Trainer,SUPPORTER,MEG,119,False,False,4
+EX_22,Mega Diancie / Dusknoir / Lillie's Clefairy,Mega Diancie Dusknoir combo,1263,Mystery Garden,Trainer,STADIUM,MEG,122,False,False,4

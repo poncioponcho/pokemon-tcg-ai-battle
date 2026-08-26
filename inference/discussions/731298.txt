@@ -1,0 +1,311 @@
+The Pokémon Company - PTCG AI Battle Challenge Simulation | Kaggle
+=====
+menu
+Skip to
+content
+Create
+explore
+
+Home
+
+emoji_events
+
+Competitions
+
+leaderboard
+
+Benchmarks
+
+smart_toy
+
+Game Arena
+
+code
+
+Data Hub
+
+expand_more
+format_list_bulleted
+
+More
+
+expand_more
+note_alt
+
+Your Work
+
+expand_less
+
+Viewed
+
+expand_less
+
+The Pokémon Company - PTCG AI Battle Challenge Simulation
+
+22 Curated Deck Archetypes for PTCG AI Battle - A Deck Intelligence Dataset
+
+First or second — which do agents pick?
+
+Are top agents mostly heuristic, or are people successfully using RL/BC?
+
+What is your highest score for an active rule-based agent
+
+Edited
+
+expand_less
+
+notebooke2441e9455
+
+PTCG Strategy MRI | 2,022 Cards to 60 Decis 66517c
+
+pokemon-tcg-strategy-mega-lucario
+
+PTCG Strategy MRI | 2,022 Cards to 60 Decisions
+
+titanic最后一舞
+
+auto_awesome_motion
+
+View Active Events
+
+search
+​
+THE POKÉMON COMPANY - PTCGABC TEAM · FEATURED SIMULATION COMPETITION · 6 DAYS TO GO
+Submit Agent
+more_horiz
+The Pokémon Company - PTCG AI Battle Challenge Simulation
+
+Build an AI Training Agent to play the Pokémon Trading Card Game
+
+Overview
+Data
+Code
+Models
+Discussion
+Leaderboard
+Rules
+Team
+Submissions
+HENGCK23 · 205TH IN THIS COMPETITION · POSTED 11 DAYS AGO
+arrow_drop_up
+12
+more_vert
+my plan on how to do RL training ... is it my hallucinations?
+
+my background:
+
+experience in CV, LLM, etc. Some experience in RL.
+But has not modeled a decision system before. Don't know anything about PTCG before.
+
+Below are my "imaginations". Still implementing and not sure if is helpful in RL training. I only confirmed chatgpt can implement rule-based agent with a specific strategy "quite well". Interpret with care and open to discussion.
+
+One thing bothering me now is +ve teacher. eg my agent is beaten by an opponent agent. If I can get a human card player, he can come up with, say 100 solutions which i can coded into rule based agent. how to learn from these and avoid confusion in RL?
+
+reference: RL learning from rule-based agent: https://www.kaggle.com/competitions/pokemon-tcg-ai-battle/discussion/717697
+
+add_reaction
+React
+comment
+12 Comments
+Hotness
+undo
+redo
+format_size
+format_bold
+format_italic
+format_strikethrough
+insert_link
+format_quote
+code
+format_list_numbered
+format_list_bulleted
+table_chart
+insert_photo
+smart_display
+insert_emoticon
+help
+ 
+
+This comment will be made public once posted.
+
+attach_file
+Post Comment
+hengck23
+TOPIC AUTHOR
+
+Posted 6 days ago
+
+· 205th in this Competition
+
+arrow_drop_up
+1
+more_vert
+
+analysing top player
+
+reply
+Reply
+add_reaction
+React
+emoji_people
+Ankith Savio
+
+Posted 4 days ago
+
+· 5944th in this Competition
+
+arrow_drop_up
+0
+more_vert
+
+Nice graph! How can I read this?
+
+reply
+Reply
+add_reaction
+React
+Forrest_xlz
+
+Posted 7 days ago
+
+· 53rd in this Competition
+
+arrow_drop_up
+1
+more_vert
+
+Good Job hengck23！
+
+reply
+Reply
+add_reaction
+React
+yuanzhe zhou
+
+Posted 9 days ago
+
+· 207th in this Competition
+
+arrow_drop_up
+1
+more_vert
+
+Is it possible to participate with single 4090（3-years-old）?
+
+reply
+Reply
+add_reaction
+React
+emoji_people
+Ankith Savio
+
+Posted 9 days ago
+
+· 5944th in this Competition
+
+arrow_drop_up
+1
+more_vert
+
+Im using a 16gb GPU
+
+reply
+Reply
+add_reaction
+React
+3 more replies
+arrow_drop_down
+hengck23
+TOPIC AUTHOR
+
+Posted 11 days ago
+
+· 205th in this Competition
+
+arrow_drop_up
+3
+more_vert
+
+reply
+Reply
+add_reaction
+React
+Patrick Chan
+
+Posted 10 days ago
+
+· 837th in this Competition
+
+arrow_drop_up
+0
+more_vert
+
+The Frog is back :) Thanks for sharing… Wonder how much of above made into your progress recently..
+
+reply
+Reply
+add_reaction
+React
+hengck23
+TOPIC AUTHOR
+
+Posted 10 days ago
+
+· 205th in this Competition
+
+arrow_drop_up
+2
+more_vert
+
+none. These are new ideas under exploration. Not contributing to score yet
+
+reply
+Reply
+add_reaction
+React
+Shiv Satyam
+
+Posted a day ago
+
+· 293rd in this Competition
+
+arrow_drop_up
+0
+more_vert
+
+seems like they did contribute to your score. #151 is great.
+
+reply
+Reply
+add_reaction
+React
+theredbluepill
+
+Posted 10 days ago
+
+· 481st in this Competition
+
+arrow_drop_up
+1
+more_vert
+
+This is much more interesting than bored Markov decisions😅
+
+reply
+Reply
+add_reaction
+React
+Linda. Ar
+
+Posted 4 days ago
+
+arrow_drop_up
+0
+more_vert
+
+This is cool 😎
+
+reply
+Reply
+add_reaction
+React

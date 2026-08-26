@@ -1,0 +1,178 @@
+The Pokémon Company - PTCG AI Battle Challenge Simulation | Kaggle
+=====
+menu
+Skip to
+content
+Create
+explore
+
+Home
+
+emoji_events
+
+Competitions
+
+leaderboard
+
+Benchmarks
+
+smart_toy
+
+Game Arena
+
+code
+
+Data Hub
+
+expand_more
+format_list_bulleted
+
+More
+
+expand_more
+note_alt
+
+Your Work
+
+expand_less
+
+Viewed
+
+expand_less
+
+The Pokémon Company - PTCG AI Battle Challenge Simulation
+
+Are top agents mostly heuristic, or are people successfully using RL/BC?
+
+What is your highest score for an active rule-based agent
+
+How do strong agents decide whether to search before drawing?
+
+my plan on how to do RL training ... is it my hallucinations?
+
+Edited
+
+expand_less
+
+notebooke2441e9455
+
+PTCG Strategy MRI | 2,022 Cards to 60 Decis 66517c
+
+pokemon-tcg-strategy-mega-lucario
+
+PTCG Strategy MRI | 2,022 Cards to 60 Decisions
+
+titanic最后一舞
+
+auto_awesome_motion
+
+View Active Events
+
+search
+​
+THE POKÉMON COMPANY - PTCGABC TEAM · FEATURED SIMULATION COMPETITION · 6 DAYS TO GO
+Submit Agent
+more_horiz
+The Pokémon Company - PTCG AI Battle Challenge Simulation
+
+Build an AI Training Agent to play the Pokémon Trading Card Game
+
+Overview
+Data
+Code
+Models
+Discussion
+Leaderboard
+Rules
+Team
+Submissions
+E-TOPPO · 99TH IN THIS COMPETITION · POSTED A MONTH AGO
+arrow_drop_up
+22
+more_vert
+First or second — which do agents pick?
+
+I went through the 5,333 most recent games (2026-07-06 daily top episode dataset) and, for each game, pulled out which side held the first/second choice, what they chose, and who won. Sharing the numbers.
+
+1. What the choosing side picks
+
+The player who holds the choice picks first by a wide margin:
+
+Choice	Games	Share
+Take first	4,879	91.5%
+Take second	454	8.5%
+2. Win rate by turn order
+
+And that preference looks correct — first wins more often:
+
+Turn order	Wins	Win rate
+First	2,939	55.2%
+Second	2,382	44.8%
+
+Going first is worth roughly +10 points.
+
+3. Can you actually get the order you want?
+
+The choice belongs to the coin-toss winner. Assuming a fair 50/50 toss and that the opponent behaves like the population above (takes first ~91.5% of the time), the probability of actually ending up with the order you want is:
+
+Order you want	Probability you get it
+Second	~96%
+First	~54%
+Want second → you almost always get it. If you win the toss you just pick it; and if you lose the toss, the opponent takes first (91.5%), which leaves you going second anyway.
+Want first → basically luck. If you lose the toss, the opponent takes first and you get pushed to second.
+4. Discussion — does this matter competitively?
+
+This creates an asymmetry worth thinking about:
+
+The advantageous order (first) is the one you can't reliably secure — it comes down to the coin toss (~54%).
+The disadvantageous order (second) is the one you can almost always secure (~96%), precisely because everyone fights over first.
+
+Two implications:
+
+You can't engineer your way into the first-turn advantage. No matter how much you value first, ~46% of the time you lose the toss and get put on second. A deck that "only works going first" is exposed to that variance every game.
+"Second" is the controllable state. If a deck/strategy could actually fight well on the second turn, you could steer into your intended position ~96% of the time, converting coin-toss variance into consistency. In the current data second is clearly a disadvantage, so this is still a hypothesis, not a solution — but second is one of the few positions you can reliably aim for, so a build that's strong going second might be worth investing in.
+
+Note: win rates are pooled across all archetypes and agents.
+
+I'd be curious whether others see the same split, and whether anyone has tried a build designed around going second.
+
+add_reaction
+React
+comment
+1 Comment
+1 appreciation comment
+Hotness
+undo
+redo
+format_size
+format_bold
+format_italic
+format_strikethrough
+insert_link
+format_quote
+code
+format_list_numbered
+format_list_bulleted
+table_chart
+insert_photo
+smart_display
+insert_emoticon
+help
+ 
+
+This comment will be made public once posted.
+
+attach_file
+Post Comment
+Appreciation (1)
+junlee789
+
+Posted a month ago
+
+· 552nd in this Competition
+
+arrow_drop_up
+0
+more_vert
+
+Thanks for great insight! ありがとうございます！

@@ -13,6 +13,7 @@ import hashlib
 import json
 import os
 import tempfile
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterator
@@ -57,6 +58,107 @@ def _write_record(writer: Any, path: Path) -> int:
     writer.write(encoded)
     writer.write(b"}\n")
     return len(raw)
+
+
+def _write_record_fields(writer: Any, episode_id: str, file: str, raw_json: str) -> int:
+    """Write an archive record from explicit fields (used by merge)."""
+    prefix = (
+        b'{"episode_id":'
+        + json.dumps(episode_id, ensure_ascii=False).encode("utf-8")
+        + b',"file":'
+        + json.dumps(file, ensure_ascii=False).encode("utf-8")
+        + b',"raw_json":'
+    )
+    encoded = json.dumps(raw_json, ensure_ascii=False).encode("utf-8")
+    writer.write(prefix)
+    writer.write(encoded)
+    writer.write(b"}\n")
+    return len(raw_json)
+
+
+def merge_into_archive(
+    archive: str | Path,
+    source_dir: str | Path,
+    level: int = 5,
+    pattern: str = "episode-*-replay.json",
+) -> dict[str, Any]:
+    """Incrementally merge raw files into an existing archive (dedup by episode_id).
+
+    Existing archive records are streamed and preserved verbatim; episodes from
+    ``source_dir`` that are not already present are appended.  The file is
+    replaced atomically, so a crash never corrupts the canonical archive.
+    """
+    archive = Path(archive)
+    source_dir = Path(source_dir)
+    archive.parent.mkdir(parents=True, exist_ok=True)
+
+    fd, temp_name = tempfile.mkstemp(
+        prefix=f".{archive.name}.", suffix=".partial", dir=archive.parent
+    )
+    os.close(fd)
+    temp_path = Path(temp_name)
+
+    seen: dict[str, str] = {}
+    total_bytes = 0
+    n_existing = 0
+    n_added = 0
+    n_skipped = 0
+    t0 = time.time()
+    try:
+        compressor = zstd.ZstdCompressor(level=level, threads=-1)
+        with temp_path.open("wb") as target:
+            with compressor.stream_writer(target) as writer:
+                if archive.exists():
+                    for row in iter_records(archive):
+                        ep = str(row["episode_id"])
+                        if ep in seen:
+                            continue
+                        seen[ep] = str(row.get("file", ""))
+                        total_bytes += _write_record_fields(
+                            writer, ep, seen[ep], str(row.get("raw_json", "")))
+                        n_existing += 1
+                for path in sorted(source_dir.glob(pattern)):
+                    # [fix 08-09] 统一走 _episode_id(): 原为裸 split("-")[1],
+                    # 非标准文件名(无连字符)会 IndexError, 且与已有归档的 id
+                    # 提取口径不一致会导致 dedup 漏判
+                    ep = _episode_id(path)
+                    if ep in seen:
+                        n_skipped += 1
+                        continue
+                    try:
+                        raw = path.read_text(encoding="utf-8")
+                        json.loads(raw)
+                    except Exception as exc:
+                        print(f"  [SKIP] {path.name}: {exc}")
+                        continue
+                    seen[ep] = path.name
+                    total_bytes += _write_record_fields(writer, ep, path.name, raw)
+                    n_added += 1
+        os.replace(temp_path, archive)
+    finally:
+        temp_path.unlink(missing_ok=True)
+
+    manifest = {
+        "schema": SCHEMA,
+        "created_at": _utc_now(),
+        "operation": "merge",
+        "archive": str(archive),
+        "source_dir": str(source_dir),
+        "records": len(seen),
+        "existing_records": n_existing,
+        "added_records": n_added,
+        "skipped_duplicates": n_skipped,
+        "raw_json_bytes": total_bytes,
+        "compressed_bytes": archive.stat().st_size,
+        "compression_ratio": round(total_bytes / archive.stat().st_size, 3),
+        "archive_sha256": _archive_sha256(archive),
+        "seconds": round(time.time() - t0, 1),
+    }
+    manifest_path = archive.with_suffix(archive.suffix + ".manifest.json")
+    manifest_path.write_text(
+        json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
+    return manifest
 
 
 def pack(
@@ -331,6 +433,13 @@ def main() -> None:
     finalize_parser.add_argument("--pattern", default="episode-*-replay.json")
     finalize_parser.add_argument("--report", default=None)
 
+    merge_parser = sub.add_parser(
+        "merge", help="incrementally merge raw files into an existing archive (dedup by episode_id)")
+    merge_parser.add_argument("--archive", required=True)
+    merge_parser.add_argument("--raw-dir", required=True)
+    merge_parser.add_argument("--level", type=int, default=5)
+    merge_parser.add_argument("--pattern", default="episode-*-replay.json")
+
     args = parser.parse_args()
     if args.command == "pack":
         print(json.dumps(
@@ -353,6 +462,12 @@ def main() -> None:
                 pattern=args.pattern,
                 report_path=args.report,
             ),
+            ensure_ascii=False,
+            indent=2,
+        ))
+    elif args.command == "merge":
+        print(json.dumps(
+            merge_into_archive(args.archive, args.raw_dir, level=args.level, pattern=args.pattern),
             ensure_ascii=False,
             indent=2,
         ))

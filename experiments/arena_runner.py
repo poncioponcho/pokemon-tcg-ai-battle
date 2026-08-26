@@ -85,6 +85,8 @@ def play(agent_fns, decks, max_steps=3000):
 def load_module(path: Path):
     """独立加载一个 agent 模块（各自全局状态隔离）。"""
     spec = importlib.util.spec_from_file_location(f'ag_{path.stem}_{id(path)}', path)
+    if spec is None or spec.loader is None:
+        raise ImportError(f'无法创建 agent 模块加载器: {path}')
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
     return mod
@@ -137,18 +139,18 @@ def load_opponent(name: str):
         expected = None
     if expected:
         try:
-            from experiments.arena_pool_registry import sha256 as _sha256
+            from experiments.arena_pool_registry import sha256 as registry_sha256
         except ImportError:
             # 直接以脚本运行 (python3 experiments/arena_runner.py) 时 experiments 包不可用
             import hashlib as _hashlib
 
-            def _sha256(path):
+            def registry_sha256(path: Path) -> str:
                 h = _hashlib.sha256()
                 with open(path, 'rb') as _f:
                     for _chunk in iter(lambda: _f.read(1 << 20), b''):
                         h.update(_chunk)
                 return h.hexdigest()[:16]
-        actual = _sha256(p)
+        actual = registry_sha256(p)
         if actual != expected:
             raise SystemExit(
                 f'FROZEN-POOL VIOLATION: 对手 {name} sha256 与 registry 不一致'

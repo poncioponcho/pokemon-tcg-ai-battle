@@ -44,16 +44,22 @@ OUT_DIR = WORK / 'output'
 
 # 训练超参（30h/周预算内：单配置全流程 T4 约 40-70 分钟）
 TRAIN_ARGS = [
-    '--stage', os.environ.get('KAGGLE_STAGE', 'all'),
+    '--stage', os.environ.get('KAGGLE_STAGE', 'teacher'),
     '--device', 'auto',
     '--bs', '16384',
-    '--epochs-bc', '8',
-    '--epochs-awr', '5',
+    '--epochs-bc', '16',
+    '--epochs-awr', '10',
     '--epochs-distill', '8',
     '--early-stop-patience', '3',
     '--lr', '1e-3',
     '--seed', '42',
+    '--student-hidden', '384',
+    '--prefetch-workers', os.environ.get('KAGGLE_PREFETCH_WORKERS', '2'),
+    '--prefetch-depth', os.environ.get('KAGGLE_PREFETCH_DEPTH', '4'),
+    '--prefetch-block', os.environ.get('KAGGLE_PREFETCH_BLOCK', '8'),
 ]
+if os.environ.get('KAGGLE_PROFILE') == '1':
+    TRAIN_ARGS.append('--profile')
 
 
 def log(msg):
@@ -92,10 +98,36 @@ def find_in_input(*patterns):
     return None
 
 
+def _validated_tar_members(archive, dest):
+    """Return regular-file/directory members confined below ``dest``.
+
+    Kaggle inputs are normally trusted private datasets, but treating an
+    uploaded tarball as trusted lets a corrupted/replaced dataset overwrite
+    arbitrary files through ``../`` paths or links.  Resolve every target
+    before extraction and reject links/special files entirely; neither is
+    needed by the tensor/code bundles used here.
+    """
+    root = dest.resolve()
+    members = archive.getmembers()
+    for member in members:
+        if not (member.isfile() or member.isdir()):
+            raise ValueError(
+                f'unsafe tar member type for {member.name!r}: '
+                f'{member.type!r}')
+        target = (root / member.name).resolve()
+        if target != root and root not in target.parents:
+            raise ValueError(f'tar member escapes destination: {member.name!r}')
+        # Drop setuid/setgid/sticky bits while preserving normal rwx bits.
+        member.mode &= 0o777
+    return members
+
+
 def untar(archive, dest):
     dest.mkdir(parents=True, exist_ok=True)
     with tarfile.open(archive) as tf:
-        tf.extractall(dest)
+        members = _validated_tar_members(tf, dest)
+        tf.extractall(  # noqa: S202 - members validated above
+            dest, members=members, filter='data')
     log(f'extracted {archive.name} -> {dest}')
 
 
@@ -125,7 +157,9 @@ def _load_tensors():
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     NEEDED = ('states_u8.npy', 'scalars.npy', 'opts_u8.npy', 'labels.npy',
               'masks.npy', 'meta.npy', 'episode_ids.npy')
-    OPTIONAL = ('meta.json',)
+    # [主线B 08-09] sample_indices.npy = quality_subset 胜方过滤索引 (可选;
+    # 旧数据集无此文件时自动退回全量训练, 行为与旧版一致)
+    OPTIONAL = ('meta.json', 'sample_indices.npy')
     if all((DATA_DIR / n).exists() for n in NEEDED):
         return True
     # 1) Kaggle 自动解包：/kaggle/input/ptcg-tensors/*.npy 平铺
@@ -251,22 +285,27 @@ def _ensure_torch_compatible():
         if 'no kernel image' not in msg:
             log('非兼容性问题（' + msg[:80] + '），按原样继续（可能后续报错）')
             return False
-    log('检测到 torch 二进制不含 P100 (sm_60) kernel，降级安装 cu118...')
+    log('检测到 torch 二进制不含 P100 (sm_60) kernel，降级安装 cu118 (pin 版)...')
+    # [2026-08-08 probe 实锤] cu118 索引上"最新" torch 已砍掉 sm_60 SASS，
+    # 装上照样 no kernel image（连续两次 rc=1 的根因）。必须 pin 到 2.5.1
+    # （arch_list 含 sm_60，probe 验证 P100 matmul OK）。
     r = subprocess.run(
         [sys.executable, '-m', 'pip', 'install', '--quiet',
          '--index-url', 'https://download.pytorch.org/whl/cu118',
-         'torch', 'torchvision'],
+         'torch==2.5.1', 'torchvision==0.20.1'],
         capture_output=True, text=True)
     log('pip install rc=' + str(r.returncode))
     if r.returncode != 0:
-        log('torch cu118 安装失败: ' + (r.stderr or r.stdout)[-300:])
+        log('torch cu118 安装失败: ' + (r.stderr or r.stdout)[-2000:])
         return False
     # 子进程验证 cu118 torch 兼容 P100（不能用 reload，旧 torch 已在内存中
     # 与新装 cu118 冲突，Triton 命名空间重复注册会崩）
-    log('子进程验证 cu118 torch 兼容性...')
+    log('子进程验证 cu118 (pin) torch 兼容性...')
     import subprocess as _sp
     check_code = (
         "import torch;"
+        "print('VERSION', torch.__version__);"
+        "print('ARCH', torch.cuda.get_arch_list());"
         "torch.zeros(8, device='cuda') + 1;"
         "torch.cuda.synchronize();"
         "print('C118_OK', torch.__version__)"
@@ -274,13 +313,13 @@ def _ensure_torch_compatible():
     r = _sp.run([sys.executable, '-c', check_code],
                 capture_output=True, text=True, timeout=180)
     if r.returncode == 0 and 'C118_OK' in r.stdout:
-        log('torch cu118 安装成功且兼容 P100: ' + r.stdout.strip())
+        log('torch cu118 (pin) 安装成功且兼容 P100: ' + r.stdout.strip())
         # 关键：主进程内存里的旧 torch 必须丢弃，execv 重开进程以全新加载 cu118
         log('重启进程以加载 cu118 torch...')
-        # [bugfix] 旧逻辑把当前脚本源码写到 /kaggle/src/script.py（该路径在
-        # notebook-cell 粘贴 / 上传 %run 场景都不存在）→ execv 后 FileNotFoundError。
-        # 现改为：把当前源码落到 /kaggle/src/ 下的临时文件再 execv；若取不到源码
-        # （如纯 notebook cell 无 __file__），回退用原始命令行参数重跑。
+        # [bugfix2 2026-08-08] 重启源码落到 /kaggle/src/ 会 OSError EROFS
+        # （该目录只读，实测 Errno 30）。改写到可写的 /kaggle/working/。
+        # [bugfix1] 旧逻辑写 /kaggle/src/script.py（notebook-cell 场景不存在）
+        # → execv 后 FileNotFoundError。读来源优先 __file__，兜底 /kaggle/src/script.py。
         restart_src = None
         if '__file__' in globals():
             try:
@@ -293,14 +332,26 @@ def _ensure_torch_compatible():
             except Exception:
                 restart_src = None
         if restart_src:
-            restart_path = '/kaggle/src/ptcg_restart.py'
+            restart_path = '/kaggle/working/ptcg_restart.py'
             Path(restart_path).write_text(restart_src, encoding='utf-8')
             os.execv(sys.executable, [sys.executable, restart_path])
         log('重启源码不可用，尝试按原命令行重跑')
         os.execv(sys.executable, [sys.executable] + sys.argv)
-    log('torch cu118 验证失败: rc=%s stderr=%s' % (r.returncode, (r.stderr or '')[-200:]))
-    log('GPU 降级失败 → 兜底强制 CPU 训练（慢但能出结果）')
-    return True  # 返回 True 表示"继续但用 CPU"
+    log('torch cu118 (pin) 验证失败: rc=%s' % r.returncode)
+    log('--- verify stdout ---')
+    log((r.stdout or '')[-2000:])
+    log('--- verify stderr ---')
+    log((r.stderr or '')[-2000:])
+    # [2026-08-08 fail-fast] CPU 兜底改为显式失败：两周里 CPU 兜底结果零采用，
+    # 且 enable_gpu session 下 CPU 慢跑照烧 GPU 配额。留 KAGGLE_ALLOW_CPU_FALLBACK=1
+    # 显式逃生口（仅调试/降级场景）。
+    if os.environ.get('KAGGLE_ALLOW_CPU_FALLBACK') == '1':
+        log('KAGGLE_ALLOW_CPU_FALLBACK=1 → 强制 CPU 训练（慢但能出结果）')
+        return True
+    raise SystemExit(
+        'GPU 兼容性降级失败（cu118 pin torch 验证未过）。'
+        '已 fail-fast 停止，避免 CPU 慢跑烧配额。'
+        '排查：看上方 verify stdout/stderr；或设 KAGGLE_ALLOW_CPU_FALLBACK=1 强制 CPU。')
 
 
 def main():
@@ -339,11 +390,36 @@ def main():
         '--split-manifest', str(CODE_DIR / 'splits' / 'episode_splits.jsonl'),
         '--canary-manifest', str(CODE_DIR / 'splits' / 'rolling_canary.json'),
     ] + train_args
+    # [主线B 08-09] 数据集带胜方过滤索引时启用 winner-only BC/distill
+    if (DATA_DIR / 'sample_indices.npy').exists():
+        train_cmd += ['--sample-index', str(DATA_DIR / 'sample_indices.npy')]
+        log('sample-index: winner-only filter enabled (BC/distill 限胜方视角)')
     run(train_cmd, CODE_DIR)
 
-    run([py, 'export_student.py',
-         '--student', str(CKPT_DIR / 'student_best.pt'),
-         '--out', str(OUT_DIR / 'model_student.npz')], CODE_DIR)
+    # [2026-08-08 修复] export_student 仅当 student_best.pt 存在时执行。
+    # 原逻辑无条件跑 export_student --student student_best.pt，而 --stage teacher
+    # 只产出 teacher_best.pt → torch.load FileNotFoundError → kernel 整轮 ERROR
+    # （teacher 产物已在 /kaggle/working 里，但 ERROR 状态诱发误判/误触发）。
+    # distill 阶段 train_v2 会写 student_best.pt，届时正常导出 npz。
+    if (CKPT_DIR / 'student_best.pt').exists():
+        # [2026-08-08 修复] export_student.py self-check 硬编码读 DATASET_DIR/data
+        # （即 CODE_DIR/data，= /kaggle/working/ptcg_code/data）。kernel 上张量实际
+        # 解压在 /kaggle/working/data/，ptcg_code/data 不存在 → self-check
+        # FileNotFoundError → npz 出不来。软链 CODE_DIR/data → DATA_DIR 兜底。
+        link = CODE_DIR / 'data'
+        try:
+            if link.exists() and not link.is_symlink():
+                log(f'[diag] {link} 已存在（非软链），跳过')
+            elif not link.exists():
+                link.symlink_to(DATA_DIR)
+                log(f'export self-check 数据路径软链: {link} -> {DATA_DIR}')
+        except Exception as e:
+            log(f'export 数据软链失败（{e}），self-check 可能 FileNotFoundError')
+        run([py, 'export_student.py',
+             '--student', str(CKPT_DIR / 'student_best.pt'),
+             '--out', str(OUT_DIR / 'model_student.npz')], CODE_DIR)
+    else:
+        log('student_best.pt 不存在（本阶段为 teacher），跳过 npz 导出')
 
     # 训练报告归档到 output（notebook 结束后可下载/作为下次 input）
     for name in ('train_v2_report.json', 'model_student.npz',
@@ -354,6 +430,19 @@ def main():
 
     log('DONE. 下载 output/model_student.npz 回本地，放入仓库根目录后 bash pack.sh 即可带模型提交。')
     log('若 session 中断：新 notebook 挂载本次 output 作为 input，重跑本脚本自动续训。')
+
+    # [2026-08-08 修复] 收尾清理 DATA_DIR 的 npy：张量是从 input dataset 复制到
+    # working 的副本，不删会整体打进 kernel output（v3 输出 ~10GB，下载近乎不可用）。
+    # 只删 .npy，保留 meta.json / train_v2_report.json；export 与 self-check 已完成，
+    # input 数据集本身只读不受影响。
+    try:
+        removed = 0
+        for f in DATA_DIR.glob('*.npy'):
+            f.unlink()
+            removed += 1
+        log(f'cleanup: 已删除 working/data 下 {removed} 个 npy（防输出膨胀）')
+    except Exception as e:
+        log(f'cleanup data 失败（{e}），不影响训练产物')
 
 
 if __name__ == '__main__':

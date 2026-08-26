@@ -1,0 +1,23 @@
+deck_id,deck_name,validation_status,card_count,unique_card_count,error_count,errors,source_kind,source_confidence
+EX_01,Mega Kangaskhan / Lillie's Clefairy,validated,60,24,0,,canonical_csv,high
+EX_02,Dragapult ex / Dusknoir,validated,60,26,0,,canonical_csv,high
+EX_03,Team Rocket's Mewtwo ex / Mimikyu,validated,60,22,0,,canonical_csv,high
+EX_04,Slowking / Topdeck Toolbox,validated,60,24,0,,canonical_csv,high
+EX_05,Grass Box / Ogerpon / Hydrapple,validated,60,27,0,,canonical_csv,high
+EX_06,Mega Kangaskhan / Crustle / Petrel,validated,60,24,0,,canonical_csv,high
+EX_07,Alakazam / Dudunsparce / Nighttime Mine,validated,60,26,0,,canonical_csv,high
+EX_08,Hop's Trevenant / Postwick,validated,60,25,0,,canonical_csv,high
+EX_09,Mega Lopunny / Dudunsparce / Battle Cage,validated,60,22,0,,canonical_csv,high
+EX_10,Mega Lucario / Fighting Box,validated,60,21,0,,named_list_transcription,medium
+EX_11,Team Rocket's Honchkrow / Porygon,validated,60,19,0,,canonical_csv,high
+EX_12,Festival Lead / Dipplin / Thwackey,validated,60,26,0,,canonical_csv,high
+EX_13,Raging Bolt / Ogerpon / Area Zero,validated,60,27,0,,canonical_csv,high
+EX_14,Cynthia's Garchomp / Roserade,validated,60,20,0,,canonical_csv,high
+EX_15,Okidogi / Barbaracle / Battle Cage,validated,60,24,0,,canonical_csv,high
+EX_16,Mega Starmie / Mega Froslass / Munkidori,validated,60,28,0,,canonical_csv,high
+EX_17,Marnie's Grimmsnarl / Froslass,validated,60,20,0,,canonical_csv,high
+EX_18,N's Zoroark / Darmanitan / Zekrom,validated,60,27,0,,canonical_csv,high
+EX_19,N's Zoroark / Reshiram / Tatsugiri,validated,60,25,0,,canonical_csv,high
+EX_20,Ethan's Typhlosion / Drakloak,validated,60,24,0,,canonical_csv,high
+EX_21,Archaludon / Mega Mawile / Relicanth,validated,60,24,0,,canonical_csv,high
+EX_22,Mega Diancie / Dusknoir / Lillie's Clefairy,validated,60,22,0,,canonical_csv,high

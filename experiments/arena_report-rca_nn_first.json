@@ -1,0 +1,25 @@
+{
+  "ts": "2026-08-08T09:17:31+00:00",
+  "experiment": "rca_nn_first",
+  "npz": "model_student.npz",
+  "engine": "official sample_submission/cg libcg.dylib (arm64)",
+  "games_total": 500,
+  "wins": 136,
+  "losses": 360,
+  "draws": 4,
+  "invalid_actions": 0,
+  "win_rate": 0.272,
+  "ci95_lo": 0.2348,
+  "avg_turns": 95.5,
+  "elapsed_s": 9.2,
+  "per_opponent": [
+    {
+      "opponent": "v23_2_rules",
+      "w": 136,
+      "l": 360,
+      "d": 4,
+      "invalid": 0,
+      "wr": 0.272
+    }
+  ]
+}

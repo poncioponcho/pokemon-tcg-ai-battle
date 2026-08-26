@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
 """
+⚠️ [孤儿管线 ORPHANED — 2026-08-09 hy3 审计 B4-1] ⚠️
+依赖的 state_parser / option_scorer / decision_gate 模块在全仓库及 git 历史
+中不存在, import 本文件必 ModuleNotFoundError。现役 NN 提交线走 build_pure.py。
+
 handlers.py — 11 个 SelectType 专用 Handler
 
 每个 handler 接收 (state, options, max_count, context)，返回选中的 index 列表。

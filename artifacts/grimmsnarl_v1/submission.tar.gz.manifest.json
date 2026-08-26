@@ -1,0 +1,1160 @@
+{
+  "artifact": "/Users/seyonmacbook/Desktop/Pokemon_TCG_AI_Battle_Challenge/artifacts/grimmsnarl_v1/submission.tar.gz",
+  "archive_sha256": "9500e49decde41643a7b87de263863cce4dfca693ff5ad66ab5a8d65555505ba",
+  "archive_bytes": 636908,
+  "main_sha256": "c61e540bcb45aa2e8184ae912e7e17efaa900dba3df4536468da41899b09dcd8",
+  "deck_sha256": "92b92bac9f9163ecff933b3dc39294d2cc154c8684f3c8497877661419ebc59d",
+  "entrypoint": "agent",
+  "member_count": 188,
+  "members": [
+    "EN_Card_Data.csv",
+    "README.md",
+    "advisor_guard.py",
+    "coalition_expert.py",
+    "coalition_weights.json",
+    "deck.csv",
+    "development_guard.py",
+    "experts/__init__.py",
+    "experts/mirror/__init__.py",
+    "experts/mirror/main.py",
+    "experts/mirror/manual_policy.py",
+    "experts/tempo/__init__.py",
+    "experts/tempo/domain.py",
+    "experts/tempo/effect_planner.py",
+    "experts/tempo/effect_resolver.py",
+    "experts/tempo/handwritten_policy.py",
+    "experts/tempo/hierarchical_policy.py",
+    "experts/tempo/index_resolver.py",
+    "experts/tempo/main.py",
+    "experts/tempo/objective_effect_resolver.py",
+    "experts/tempo/planner.py",
+    "experts/tempo/process_queue.py",
+    "experts/tempo/selection_engine.py",
+    "experts/tempo/state_model.py",
+    "experts/tempo/strategic_mode.py",
+    "experts/tempo/targeting.py",
+    "experts/tempo/turn_plan.py",
+    "experts/tempo/validated_rule_profile.py",
+    "final_schema.json",
+    "human_controller.py",
+    "human_memory.py",
+    "main.py",
+    "matchup_router.py",
+    "models/feature_schema.pkl.gz",
+    "models/policy_ensemble.bin.gz",
+    "policies/__init__.py",
+    "policies/handwritten_v26/__init__.py",
+    "policies/handwritten_v26/main.py",
+    "policies/handwritten_v26/manual_policy.py",
+    "policies/rule_v24/__init__.py",
+    "policies/rule_v24/main.py",
+    "policies/rule_v24/manual_policy.py",
+    "policies/v22/__init__.py",
+    "policies/v22/boss_damaged_basic_stall_guard.py",
+    "policies/v22/boss_unenergized_kadabra_stall_guard.py",
+    "policies/v22/continuity_scheduler.py",
+    "policies/v22/damaged_munkidori_early_promotion_guard.py",
+    "policies/v22/dead_poffin_guard.py",
+    "policies/v22/deadline_ledger.py",
+    "policies/v22/domain_cards.py",
+    "policies/v22/energized_impidimp_preservation_guard.py",
+    "policies/v22/energized_mixed_basic_promotion_guard.py",
+    "policies/v22/energized_morgrem_preservation_guard.py",
+    "policies/v22/energized_munkidori_promotion_guard.py",
+    "policies/v22/handwritten_policy_core.py",
+    "policies/v22/hierarchical_policy.py",
+    "policies/v22/identity_ledger.py",
+    "policies/v22/index_resolver.py",
+    "policies/v22/lexicographic_scheduler.py",
+    "policies/v22/low_hp_mega_munkidori_promotion_guard.py",
+    "policies/v22/main.py",
+    "policies/v22/manual_guards.py",
+    "policies/v22/manual_observation.py",
+    "policies/v22/munkidori_lethal_guard.py",
+    "policies/v22/preability_active_impidimp_attachment_guard.py",
+    "policies/v22/preability_morgrem_attachment_guard.py",
+    "policies/v22/preattack_froslass_attachment_guard.py",
+    "policies/v22/prestamp_attachment_guard.py",
+    "policies/v22/processing_queue.py",
+    "policies/v22/protocol_resolver.py",
+    "policies/v22/punkup_backup_guard.py",
+    "policies/v22/rare_candy_impidimp_promotion_guard.py",
+    "policies/v22/reservation_ledger.py",
+    "policies/v22/resource_ledger.py",
+    "policies/v22/retreat_impidimp_preserve_grimmsnarl_guard.py",
+    "policies/v22/retreat_morgrem_stall_guard.py",
+    "policies/v22/sacrificial_froslass_mega_promotion_guard.py",
+    "policies/v22/search_planner.py",
+    "policies/v22/selection_planner.py",
+    "policies/v22/shadow_bullet_double_ko_guard.py",
+    "policies/v22/shadow_bullet_immediate_mega_ko_guard.py",
+    "policies/v22/strategic_memory.py",
+    "policies/v22/target_evaluator.py",
+    "policies/v22/turn_dag.py",
+    "policies/v22/turn_objective.py",
+    "policies/v22/turn_phase.py",
+    "policies/v22/validated_fallback_policy.py",
+    "policies/v22/zoroark_guard.py",
+    "policies/v22/zoroark_pokepad_guard.py",
+    "policies/v26_reexport/__init__.py",
+    "policies/v26_reexport/domain.py",
+    "policies/v26_reexport/effect_planner.py",
+    "policies/v26_reexport/effect_resolver.py",
+    "policies/v26_reexport/handwritten_policy.py",
+    "policies/v26_reexport/hierarchical_policy.py",
+    "policies/v26_reexport/index_resolver.py",
+    "policies/v26_reexport/main.py",
+    "policies/v26_reexport/objective_effect_resolver.py",
+    "policies/v26_reexport/planner.py",
+    "policies/v26_reexport/process_queue.py",
+    "policies/v26_reexport/selection_engine.py",
+    "policies/v26_reexport/state_model.py",
+    "policies/v26_reexport/strategic_mode.py",
+    "policies/v26_reexport/targeting.py",
+    "policies/v26_reexport/turn_plan.py",
+    "policies/v26_reexport/validated_rule_profile.py",
+    "policies/v28/__init__.py",
+    "policies/v28/boss_damaged_basic_stall_guard.py",
+    "policies/v28/boss_unenergized_kadabra_stall_guard.py",
+    "policies/v28/continuity_scheduler.py",
+    "policies/v28/damaged_munkidori_early_promotion_guard.py",
+    "policies/v28/dead_poffin_guard.py",
+    "policies/v28/deadline_ledger.py",
+    "policies/v28/deck.csv",
+    "policies/v28/domain_cards.py",
+    "policies/v28/energized_impidimp_preservation_guard.py",
+    "policies/v28/energized_mixed_basic_promotion_guard.py",
+    "policies/v28/energized_morgrem_preservation_guard.py",
+    "policies/v28/energized_munkidori_promotion_guard.py",
+    "policies/v28/handwritten_policy_core.py",
+    "policies/v28/hierarchical_policy.py",
+    "policies/v28/identity_ledger.py",
+    "policies/v28/index_resolver.py",
+    "policies/v28/lexicographic_scheduler.py",
+    "policies/v28/low_hp_mega_munkidori_promotion_guard.py",
+    "policies/v28/main.py",
+    "policies/v28/manual_guards.py",
+    "policies/v28/manual_observation.py",
+    "policies/v28/munkidori_lethal_guard.py",
+    "policies/v28/preability_active_impidimp_attachment_guard.py",
+    "policies/v28/preability_morgrem_attachment_guard.py",
+    "policies/v28/preattack_froslass_attachment_guard.py",
+    "policies/v28/prestamp_attachment_guard.py",
+    "policies/v28/processing_queue.py",
+    "policies/v28/protocol_resolver.py",
+    "policies/v28/punkup_backup_guard.py",
+    "policies/v28/rare_candy_impidimp_promotion_guard.py",
+    "policies/v28/reservation_ledger.py",
+    "policies/v28/resource_ledger.py",
+    "policies/v28/retreat_impidimp_preserve_grimmsnarl_guard.py",
+    "policies/v28/retreat_morgrem_stall_guard.py",
+    "policies/v28/sacrificial_froslass_mega_promotion_guard.py",
+    "policies/v28/search_planner.py",
+    "policies/v28/selection_planner.py",
+    "policies/v28/semantic_resolver.py",
+    "policies/v28/shadow_bullet_double_ko_guard.py",
+    "policies/v28/shadow_bullet_immediate_mega_ko_guard.py",
+    "policies/v28/strategic_memory.py",
+    "policies/v28/target_evaluator.py",
+    "policies/v28/turn_dag.py",
+    "policies/v28/turn_objective.py",
+    "policies/v28/turn_phase.py",
+    "policies/v28/v22_policy.py",
+    "policies/v28/v26_manual_policy.py",
+    "policies/v28/validated_fallback_policy.py",
+    "policies/v28/zoroark_guard.py",
+    "policies/v28/zoroark_pokepad_guard.py",
+    "policies/v32/__init__.py",
+    "policies/v32/count_protocol.py",
+    "policies/v32/damage_protocol.py",
+    "policies/v32/decision_protocol.py",
+    "policies/v32/deck.csv",
+    "policies/v32/domain.py",
+    "policies/v32/effect_planner.py",
+    "policies/v32/effect_resolver.py",
+    "policies/v32/handwritten_policy.py",
+    "policies/v32/hierarchical_policy.py",
+    "policies/v32/index_resolver.py",
+    "policies/v32/main.py",
+    "policies/v32/objective_effect_resolver.py",
+    "policies/v32/planner.py",
+    "policies/v32/poffin_protocol.py",
+    "policies/v32/process_queue.py",
+    "policies/v32/refinement_protocol.py",
+    "policies/v32/selection_engine.py",
+    "policies/v32/selection_protocol.py",
+    "policies/v32/state_model.py",
+    "policies/v32/strategic_mode.py",
+    "policies/v32/target_protocol.py",
+    "policies/v32/targeting.py",
+    "policies/v32/turn_plan.py",
+    "policies/v32/validated_rule_profile.py",
+    "policy_features.py",
+    "public_asset_manifest.json",
+    "residual_guard.py",
+    "robustness_guard.py",
+    "strategic_policy.py",
+    "tactical_guard.py"
+  ],
+  "validation": {
+    "candidate_dir": "/Users/seyonmacbook/Desktop/Pokemon_TCG_AI_Battle_Challenge/candidates/grimmsnarl_v1",
+    "main_sha256": "c61e540bcb45aa2e8184ae912e7e17efaa900dba3df4536468da41899b09dcd8",
+    "deck_sha256": "92b92bac9f9163ecff933b3dc39294d2cc154c8684f3c8497877661419ebc59d",
+    "entrypoint": "agent",
+    "deck_count": 60,
+    "startup_probes": [
+      60,
+      60
+    ],
+    "files": [
+      {
+        "path": "EN_Card_Data.csv",
+        "sha256": "a0ea63cf7adcb65d35436ce0eb390de6e2e35654a7c67c065a45f4abaa00f373",
+        "bytes": 359151
+      },
+      {
+        "path": "README.md",
+        "sha256": "5d8c95ab993e07fbd959f8d8b2daeb415c39c27e1099fee8c4b5036cdffd1cb4",
+        "bytes": 74
+      },
+      {
+        "path": "advisor_guard.py",
+        "sha256": "9ddc2de6642940bef20a21c27a974f11f18b85df16df0184042950e4ac7ea83f",
+        "bytes": 3656
+      },
+      {
+        "path": "coalition_expert.py",
+        "sha256": "c8b13cd1812a028d72282f0cd60be324ef8bbbac2d849086511ac69d61c4fbcd",
+        "bytes": 3478
+      },
+      {
+        "path": "coalition_weights.json",
+        "sha256": "33a460b25d7ed38bcb353eea2e178e6ef4cf540ecaca8e5c6b4bc670a6de74c6",
+        "bytes": 12710
+      },
+      {
+        "path": "deck.csv",
+        "sha256": "92b92bac9f9163ecff933b3dc39294d2cc154c8684f3c8497877661419ebc59d",
+        "bytes": 252
+      },
+      {
+        "path": "development_guard.py",
+        "sha256": "4c81a0513e1d824e1bcb1fc3d57561592b870b8d28212253694de0429d5f0b2c",
+        "bytes": 5741
+      },
+      {
+        "path": "experts/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "experts/mirror/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "experts/mirror/main.py",
+        "sha256": "dd9141222b69a65f35689f38668ee0b6de806ca0b9f89aee6e23ee0fddd4bfcd",
+        "bytes": 179
+      },
+      {
+        "path": "experts/mirror/manual_policy.py",
+        "sha256": "babc00bdabe4cfc459a73c57af54aa2edb4db36edce9463cf7eb675e3fa11263",
+        "bytes": 72047
+      },
+      {
+        "path": "experts/tempo/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "experts/tempo/domain.py",
+        "sha256": "1148100729193ac52889fea3f2b16284fafb355bc541d975561bea8a08fb4a2c",
+        "bytes": 961
+      },
+      {
+        "path": "experts/tempo/effect_planner.py",
+        "sha256": "b3ece6d2cad66a7842e061e27ae8be7645fcf39e8e94601431a549db6d9ac1a1",
+        "bytes": 4708
+      },
+      {
+        "path": "experts/tempo/effect_resolver.py",
+        "sha256": "401d253dab974eacab92e87bb11aeabf1ca32873ce1959e3b7620227695a7f10",
+        "bytes": 838
+      },
+      {
+        "path": "experts/tempo/handwritten_policy.py",
+        "sha256": "51d4f75a78ff064e9c74359f80b898eab40de29b522b2766eb468621f5f3fa5a",
+        "bytes": 35
+      },
+      {
+        "path": "experts/tempo/hierarchical_policy.py",
+        "sha256": "0b352b2c0b8f3066f4757b67793751c9976ba2b24486173b8a0b79a5cf44ea4f",
+        "bytes": 8576
+      },
+      {
+        "path": "experts/tempo/index_resolver.py",
+        "sha256": "7bd015406bf3ae55806542e22ac3b807d8a04d4c483bd54a8d579f5881bb06e3",
+        "bytes": 1826
+      },
+      {
+        "path": "experts/tempo/main.py",
+        "sha256": "06898de107ab951c372e0186b783a9ec220ec16793534ee900e2e59703777320",
+        "bytes": 779
+      },
+      {
+        "path": "experts/tempo/objective_effect_resolver.py",
+        "sha256": "4918d7e161e75e009af199eb3571f1cda89d779a7a1dea7e2af96930f010ae00",
+        "bytes": 2918
+      },
+      {
+        "path": "experts/tempo/planner.py",
+        "sha256": "f6a06331ae986c373cd04cab1489429bc7c610547726cf3c1a73cdb47fc654a9",
+        "bytes": 14644
+      },
+      {
+        "path": "experts/tempo/process_queue.py",
+        "sha256": "84b243fb7d2553c64162bd96aa535e0dc4999156be7609af6f0bf28cbf948cd2",
+        "bytes": 3899
+      },
+      {
+        "path": "experts/tempo/selection_engine.py",
+        "sha256": "0d5e0091f596d20b96feeec461e8349fd988fd2019634de628a876da7a53b1c4",
+        "bytes": 6221
+      },
+      {
+        "path": "experts/tempo/state_model.py",
+        "sha256": "2a549ea18cc3ca39817d7dff45747eb70a33f304bd87c9c39990b5e02fd931d0",
+        "bytes": 4544
+      },
+      {
+        "path": "experts/tempo/strategic_mode.py",
+        "sha256": "20ff415207f2d51c6d3b3533ad464f440d2b98eee6e587593299081b40d4c771",
+        "bytes": 5011
+      },
+      {
+        "path": "experts/tempo/targeting.py",
+        "sha256": "19149f22feb4e167ab751c2a137bbc4e9437a9b83574cb2d03a0c31abcaf9230",
+        "bytes": 4731
+      },
+      {
+        "path": "experts/tempo/turn_plan.py",
+        "sha256": "3f087fc4c326ea0e4c017a2665e1073c3addb10cf7b6d48a7b5b989b220cec44",
+        "bytes": 19587
+      },
+      {
+        "path": "experts/tempo/validated_rule_profile.py",
+        "sha256": "aa7d161f4913f0af751cc09886ce7170d98c67cfbfe5936423798a46354ea954",
+        "bytes": 83243
+      },
+      {
+        "path": "final_schema.json",
+        "sha256": "af2041ba47c9f38c1e4bc0cb8aecb0dfa89e6b3d2da56b738beac1e838821cfb",
+        "bytes": 2712
+      },
+      {
+        "path": "human_controller.py",
+        "sha256": "52cf2261c2d216b30fd8d7bb9e3fd3c075324951bd727c057b919f8903b30704",
+        "bytes": 20254
+      },
+      {
+        "path": "human_memory.py",
+        "sha256": "e526491f4c901ffca027d9b06dccebc2279bc1ab70e0fbc103f3dc64f686fdbc",
+        "bytes": 7191
+      },
+      {
+        "path": "main.py",
+        "sha256": "c61e540bcb45aa2e8184ae912e7e17efaa900dba3df4536468da41899b09dcd8",
+        "bytes": 10381
+      },
+      {
+        "path": "matchup_router.py",
+        "sha256": "741f32da7c8cad29f82354d7727c886129068003f86fc45c111e2e547356e563",
+        "bytes": 3495
+      },
+      {
+        "path": "models/feature_schema.pkl.gz",
+        "sha256": "0d269ca6ca79afe3e3a49e2a7ee7ce6eb026e86349d2d775df412abee65cb5fd",
+        "bytes": 4114
+      },
+      {
+        "path": "models/policy_ensemble.bin.gz",
+        "sha256": "ed188dd3c2f97af44ff6d48dcf764694702b8da8a522b75d1739e3077262037b",
+        "bytes": 180522
+      },
+      {
+        "path": "policies/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "policies/handwritten_v26/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "policies/handwritten_v26/main.py",
+        "sha256": "29e4a54c5f8fb2631b116bf61e0d8ed90b82f1606baf6fa364d245f57f0eaf05",
+        "bytes": 185
+      },
+      {
+        "path": "policies/handwritten_v26/manual_policy.py",
+        "sha256": "48bf20549890af3550a62840b6af47715a26d574e477538b130632334932e195",
+        "bytes": 122824
+      },
+      {
+        "path": "policies/rule_v24/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "policies/rule_v24/main.py",
+        "sha256": "57fe1c72fbd59bc3ea7e121972d75e38d1c31b165557d29e028b5e1d27eea1a4",
+        "bytes": 211
+      },
+      {
+        "path": "policies/rule_v24/manual_policy.py",
+        "sha256": "548038b0e97f900dd4b2d71fc13ef6ea4b94b31010c97a582073c373bdec9548",
+        "bytes": 72050
+      },
+      {
+        "path": "policies/v22/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "policies/v22/boss_damaged_basic_stall_guard.py",
+        "sha256": "3f851f1dd3ddbcb422b1235394ac39544aa57dd78e0dbb7d9d09e30f81f4bba4",
+        "bytes": 3705
+      },
+      {
+        "path": "policies/v22/boss_unenergized_kadabra_stall_guard.py",
+        "sha256": "c674c3900282f761cd967e29a9795f5744b15dbd8cd665e313492810129cbf4e",
+        "bytes": 1699
+      },
+      {
+        "path": "policies/v22/continuity_scheduler.py",
+        "sha256": "d42f0e576a648b76256f7302a364beee3261d6703766265bcc6a7928674326e3",
+        "bytes": 5836
+      },
+      {
+        "path": "policies/v22/damaged_munkidori_early_promotion_guard.py",
+        "sha256": "e8ddae1f3ed6bdedd11445350c0d0efd51e9f0f5075fb9f592c21f72281371cc",
+        "bytes": 2828
+      },
+      {
+        "path": "policies/v22/dead_poffin_guard.py",
+        "sha256": "f87a595ea35b814265b75aa7eee3f9144bee4643ff0358643f46f705169ef041",
+        "bytes": 5636
+      },
+      {
+        "path": "policies/v22/deadline_ledger.py",
+        "sha256": "0089b4ca522ac7b0a49f53f4a156dbe22a8e338ffbe756cf3627715df455a907",
+        "bytes": 2829
+      },
+      {
+        "path": "policies/v22/domain_cards.py",
+        "sha256": "4ee3ffcab1e878aef314f8a946703f9de622e93b6f19f19384a85678ac29c669",
+        "bytes": 2867
+      },
+      {
+        "path": "policies/v22/energized_impidimp_preservation_guard.py",
+        "sha256": "63588e121fa391b21388cfc750002ab5507c76dc8345902178889333f897a4f6",
+        "bytes": 1662
+      },
+      {
+        "path": "policies/v22/energized_mixed_basic_promotion_guard.py",
+        "sha256": "92b8c50223ea3898e930852c7ceee4e664ccae4a2b490c1db99fa156e66b9833",
+        "bytes": 1763
+      },
+      {
+        "path": "policies/v22/energized_morgrem_preservation_guard.py",
+        "sha256": "c17273f3e1b949a1d9ae3ef65e33f108dbb4307ed05a8bfaf4287b9bb30e2f31",
+        "bytes": 3268
+      },
+      {
+        "path": "policies/v22/energized_munkidori_promotion_guard.py",
+        "sha256": "74cc265479f93e5a50eaf22bc7b678d2ed91839f895440965085b8edb1296504",
+        "bytes": 2897
+      },
+      {
+        "path": "policies/v22/handwritten_policy_core.py",
+        "sha256": "5400bd7a6a9ce965674891a6f9eddd23a8a31f232b0b183b74c325b491c87b47",
+        "bytes": 98
+      },
+      {
+        "path": "policies/v22/hierarchical_policy.py",
+        "sha256": "ca42551f166ead00f7491d802e79a7cf6d2019e3c46293741ca546c6c9241afb",
+        "bytes": 4934
+      },
+      {
+        "path": "policies/v22/identity_ledger.py",
+        "sha256": "d2dca8f56dea49dd01fd324a0a74fdb5bdc7a4d5e6e4d6f20ab9104073121552",
+        "bytes": 1749
+      },
+      {
+        "path": "policies/v22/index_resolver.py",
+        "sha256": "06d3bcae7e878d23efac0575522fcf96e7f8cb66e6a6e12b7b4f9d610c8ff653",
+        "bytes": 681
+      },
+      {
+        "path": "policies/v22/lexicographic_scheduler.py",
+        "sha256": "1de2c856f0326fdd59f8a3e4245b7e96e3fd61aee42c10c72bfa847877f4d706",
+        "bytes": 5201
+      },
+      {
+        "path": "policies/v22/low_hp_mega_munkidori_promotion_guard.py",
+        "sha256": "7c587acca6ec92d3049d239a73268e858d128f2f9c4e8a438dec5296351c0aae",
+        "bytes": 2843
+      },
+      {
+        "path": "policies/v22/main.py",
+        "sha256": "421db0355d43ba57dbce6350d918af336ffdb56bc35af92a75bcb943c3b41712",
+        "bytes": 8713
+      },
+      {
+        "path": "policies/v22/manual_guards.py",
+        "sha256": "6f209c996195c13190f5cbff5716a60b7c6075dea8d85f20e8b61567fbd8fa32",
+        "bytes": 2646
+      },
+      {
+        "path": "policies/v22/manual_observation.py",
+        "sha256": "c141ae63e7d51c584d432ebaf1f89fd8e446e5470e05dc7b3b4916bda27b8834",
+        "bytes": 3596
+      },
+      {
+        "path": "policies/v22/munkidori_lethal_guard.py",
+        "sha256": "815a334b862e422e6b611a888adea3cfe31d114e81faca3283923937c2d3ed02",
+        "bytes": 2323
+      },
+      {
+        "path": "policies/v22/preability_active_impidimp_attachment_guard.py",
+        "sha256": "28e63f11391862f3c4469c14dc9688353c19b66658600c5ad46f3d8fc7928d95",
+        "bytes": 3323
+      },
+      {
+        "path": "policies/v22/preability_morgrem_attachment_guard.py",
+        "sha256": "8a1c0a46ffd6e144e1c3f2a970340e7b2fcd00c2580bb5e1b8a0752e3b9fa829",
+        "bytes": 3849
+      },
+      {
+        "path": "policies/v22/preattack_froslass_attachment_guard.py",
+        "sha256": "eb7bcb56c91c4abda9078e39170638ce1f8496a11dd5427be00864c0e1105dd1",
+        "bytes": 2749
+      },
+      {
+        "path": "policies/v22/prestamp_attachment_guard.py",
+        "sha256": "9d0047b522857f873ec193f607455b99695f05b23b9de7f72821001244926700",
+        "bytes": 3773
+      },
+      {
+        "path": "policies/v22/processing_queue.py",
+        "sha256": "6ed3f57d705aa0729c2088efb58d43075974b42e1e2bd67f06dc4020a3d3efea",
+        "bytes": 9117
+      },
+      {
+        "path": "policies/v22/protocol_resolver.py",
+        "sha256": "0ea7d665a1a940aee1e0ccfd562d399a27075bbb1299f7fe8e981507097f9267",
+        "bytes": 3168
+      },
+      {
+        "path": "policies/v22/punkup_backup_guard.py",
+        "sha256": "3ed52643d1ae4672cb83821e0bfb8f5d4e32d335c746caa9e0a8e372a5ff1c77",
+        "bytes": 3699
+      },
+      {
+        "path": "policies/v22/rare_candy_impidimp_promotion_guard.py",
+        "sha256": "99f04bc87d264f6b978dc43e9f94f4e4b36c498cb7150309a8fce3046162886c",
+        "bytes": 3439
+      },
+      {
+        "path": "policies/v22/reservation_ledger.py",
+        "sha256": "9cfaa357d85c02d08c4e55862ed3c61add44535a08d975d9005a4444a3d0b480",
+        "bytes": 2419
+      },
+      {
+        "path": "policies/v22/resource_ledger.py",
+        "sha256": "244fbe21544b401a543c28318f7feff7fbdf85d08c77e971005dd4d9d52de80c",
+        "bytes": 9937
+      },
+      {
+        "path": "policies/v22/retreat_impidimp_preserve_grimmsnarl_guard.py",
+        "sha256": "2e4e89cde5e58b5e9332697379d7803b29448592866e406011a3a76871742b8f",
+        "bytes": 3703
+      },
+      {
+        "path": "policies/v22/retreat_morgrem_stall_guard.py",
+        "sha256": "ddbb59ff3243a49bec4e967313610b421b329fb43b2b785fd7b8208ec82436eb",
+        "bytes": 3021
+      },
+      {
+        "path": "policies/v22/sacrificial_froslass_mega_promotion_guard.py",
+        "sha256": "1253d8413ad67c599ec470d5cebe5744268915fd6c618c690556fd5396a5648c",
+        "bytes": 3135
+      },
+      {
+        "path": "policies/v22/search_planner.py",
+        "sha256": "d82527e1ad1ba06000a678b774f6fd7dddf8dfb007c7e4f625cf65eaaa6107ba",
+        "bytes": 10116
+      },
+      {
+        "path": "policies/v22/selection_planner.py",
+        "sha256": "286ba2e00d424cfbb565e4f114ffc31946d6c0026d23375222b231236b2c28c2",
+        "bytes": 14090
+      },
+      {
+        "path": "policies/v22/shadow_bullet_double_ko_guard.py",
+        "sha256": "67736c655629708c659fddbdce1d96750314297e77d120dcefc3d485ba07c1f7",
+        "bytes": 2975
+      },
+      {
+        "path": "policies/v22/shadow_bullet_immediate_mega_ko_guard.py",
+        "sha256": "412c23ed9a61f2f97f0c1b0dd7188d54cdffc86fbac708a9f6bdbe82b6897312",
+        "bytes": 2611
+      },
+      {
+        "path": "policies/v22/strategic_memory.py",
+        "sha256": "35114a5f089da01d95b1ef4cb15ed7dc9a501fdb0ef3aafe48c7bb6f1fdf6d7b",
+        "bytes": 8462
+      },
+      {
+        "path": "policies/v22/target_evaluator.py",
+        "sha256": "61f84abd74dfb27721882fdeaa595891aacf297a1f0c2f1f2762c5091b1c70e9",
+        "bytes": 12975
+      },
+      {
+        "path": "policies/v22/turn_dag.py",
+        "sha256": "7bd3833a70d4017c3fec34c8caeaf298f9d0a45b60404b4f2ef20021dad7a9d6",
+        "bytes": 7865
+      },
+      {
+        "path": "policies/v22/turn_objective.py",
+        "sha256": "4a9bec1feb788aa175cec8f7e7557b696207e28c5f75df8c0cac59eb47eb345a",
+        "bytes": 6932
+      },
+      {
+        "path": "policies/v22/turn_phase.py",
+        "sha256": "523666b700e2ba63d6c80289cb82ab571daa1dafcd87e79524e4a3190710ac7b",
+        "bytes": 2108
+      },
+      {
+        "path": "policies/v22/validated_fallback_policy.py",
+        "sha256": "b29f291a0bb73209f5aba4e39a9d5e06ca2e8e8cd5776568e5e97a420504d510",
+        "bytes": 131149
+      },
+      {
+        "path": "policies/v22/zoroark_guard.py",
+        "sha256": "bbdf80bae1a7d228fc81613364a32371eb070258effa9ec2c5e5672aa72b92f7",
+        "bytes": 1550
+      },
+      {
+        "path": "policies/v22/zoroark_pokepad_guard.py",
+        "sha256": "113d1fb3686de5ed9d78be498f8ec5b3c8aba8ea048ddded29a3849afdf87ccd",
+        "bytes": 1412
+      },
+      {
+        "path": "policies/v26_reexport/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "policies/v26_reexport/domain.py",
+        "sha256": "ab4d3110b6dc611d19af7a9302e7b03bc8fd961bf6e6d4f866b5a9a97bb2817a",
+        "bytes": 1019
+      },
+      {
+        "path": "policies/v26_reexport/effect_planner.py",
+        "sha256": "b3ece6d2cad66a7842e061e27ae8be7645fcf39e8e94601431a549db6d9ac1a1",
+        "bytes": 4708
+      },
+      {
+        "path": "policies/v26_reexport/effect_resolver.py",
+        "sha256": "401d253dab974eacab92e87bb11aeabf1ca32873ce1959e3b7620227695a7f10",
+        "bytes": 838
+      },
+      {
+        "path": "policies/v26_reexport/handwritten_policy.py",
+        "sha256": "51d4f75a78ff064e9c74359f80b898eab40de29b522b2766eb468621f5f3fa5a",
+        "bytes": 35
+      },
+      {
+        "path": "policies/v26_reexport/hierarchical_policy.py",
+        "sha256": "0b352b2c0b8f3066f4757b67793751c9976ba2b24486173b8a0b79a5cf44ea4f",
+        "bytes": 8576
+      },
+      {
+        "path": "policies/v26_reexport/index_resolver.py",
+        "sha256": "7bd015406bf3ae55806542e22ac3b807d8a04d4c483bd54a8d579f5881bb06e3",
+        "bytes": 1826
+      },
+      {
+        "path": "policies/v26_reexport/main.py",
+        "sha256": "06898de107ab951c372e0186b783a9ec220ec16793534ee900e2e59703777320",
+        "bytes": 779
+      },
+      {
+        "path": "policies/v26_reexport/objective_effect_resolver.py",
+        "sha256": "4918d7e161e75e009af199eb3571f1cda89d779a7a1dea7e2af96930f010ae00",
+        "bytes": 2918
+      },
+      {
+        "path": "policies/v26_reexport/planner.py",
+        "sha256": "f6a06331ae986c373cd04cab1489429bc7c610547726cf3c1a73cdb47fc654a9",
+        "bytes": 14644
+      },
+      {
+        "path": "policies/v26_reexport/process_queue.py",
+        "sha256": "84b243fb7d2553c64162bd96aa535e0dc4999156be7609af6f0bf28cbf948cd2",
+        "bytes": 3899
+      },
+      {
+        "path": "policies/v26_reexport/selection_engine.py",
+        "sha256": "0d5e0091f596d20b96feeec461e8349fd988fd2019634de628a876da7a53b1c4",
+        "bytes": 6221
+      },
+      {
+        "path": "policies/v26_reexport/state_model.py",
+        "sha256": "2a549ea18cc3ca39817d7dff45747eb70a33f304bd87c9c39990b5e02fd931d0",
+        "bytes": 4544
+      },
+      {
+        "path": "policies/v26_reexport/strategic_mode.py",
+        "sha256": "20ff415207f2d51c6d3b3533ad464f440d2b98eee6e587593299081b40d4c771",
+        "bytes": 5011
+      },
+      {
+        "path": "policies/v26_reexport/targeting.py",
+        "sha256": "19149f22feb4e167ab751c2a137bbc4e9437a9b83574cb2d03a0c31abcaf9230",
+        "bytes": 4731
+      },
+      {
+        "path": "policies/v26_reexport/turn_plan.py",
+        "sha256": "3f087fc4c326ea0e4c017a2665e1073c3addb10cf7b6d48a7b5b989b220cec44",
+        "bytes": 19587
+      },
+      {
+        "path": "policies/v26_reexport/validated_rule_profile.py",
+        "sha256": "14d558cbbc4e457bc99c607ddcbacd1807b692555bc8fcbc76d062e3926c55da",
+        "bytes": 83273
+      },
+      {
+        "path": "policies/v28/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "policies/v28/boss_damaged_basic_stall_guard.py",
+        "sha256": "3f851f1dd3ddbcb422b1235394ac39544aa57dd78e0dbb7d9d09e30f81f4bba4",
+        "bytes": 3705
+      },
+      {
+        "path": "policies/v28/boss_unenergized_kadabra_stall_guard.py",
+        "sha256": "c674c3900282f761cd967e29a9795f5744b15dbd8cd665e313492810129cbf4e",
+        "bytes": 1699
+      },
+      {
+        "path": "policies/v28/continuity_scheduler.py",
+        "sha256": "d42f0e576a648b76256f7302a364beee3261d6703766265bcc6a7928674326e3",
+        "bytes": 5836
+      },
+      {
+        "path": "policies/v28/damaged_munkidori_early_promotion_guard.py",
+        "sha256": "e8ddae1f3ed6bdedd11445350c0d0efd51e9f0f5075fb9f592c21f72281371cc",
+        "bytes": 2828
+      },
+      {
+        "path": "policies/v28/dead_poffin_guard.py",
+        "sha256": "f87a595ea35b814265b75aa7eee3f9144bee4643ff0358643f46f705169ef041",
+        "bytes": 5636
+      },
+      {
+        "path": "policies/v28/deadline_ledger.py",
+        "sha256": "0089b4ca522ac7b0a49f53f4a156dbe22a8e338ffbe756cf3627715df455a907",
+        "bytes": 2829
+      },
+      {
+        "path": "policies/v28/deck.csv",
+        "sha256": "92b92bac9f9163ecff933b3dc39294d2cc154c8684f3c8497877661419ebc59d",
+        "bytes": 252
+      },
+      {
+        "path": "policies/v28/domain_cards.py",
+        "sha256": "4ee3ffcab1e878aef314f8a946703f9de622e93b6f19f19384a85678ac29c669",
+        "bytes": 2867
+      },
+      {
+        "path": "policies/v28/energized_impidimp_preservation_guard.py",
+        "sha256": "63588e121fa391b21388cfc750002ab5507c76dc8345902178889333f897a4f6",
+        "bytes": 1662
+      },
+      {
+        "path": "policies/v28/energized_mixed_basic_promotion_guard.py",
+        "sha256": "92b8c50223ea3898e930852c7ceee4e664ccae4a2b490c1db99fa156e66b9833",
+        "bytes": 1763
+      },
+      {
+        "path": "policies/v28/energized_morgrem_preservation_guard.py",
+        "sha256": "c17273f3e1b949a1d9ae3ef65e33f108dbb4307ed05a8bfaf4287b9bb30e2f31",
+        "bytes": 3268
+      },
+      {
+        "path": "policies/v28/energized_munkidori_promotion_guard.py",
+        "sha256": "74cc265479f93e5a50eaf22bc7b678d2ed91839f895440965085b8edb1296504",
+        "bytes": 2897
+      },
+      {
+        "path": "policies/v28/handwritten_policy_core.py",
+        "sha256": "5400bd7a6a9ce965674891a6f9eddd23a8a31f232b0b183b74c325b491c87b47",
+        "bytes": 98
+      },
+      {
+        "path": "policies/v28/hierarchical_policy.py",
+        "sha256": "ca42551f166ead00f7491d802e79a7cf6d2019e3c46293741ca546c6c9241afb",
+        "bytes": 4934
+      },
+      {
+        "path": "policies/v28/identity_ledger.py",
+        "sha256": "d2dca8f56dea49dd01fd324a0a74fdb5bdc7a4d5e6e4d6f20ab9104073121552",
+        "bytes": 1749
+      },
+      {
+        "path": "policies/v28/index_resolver.py",
+        "sha256": "06d3bcae7e878d23efac0575522fcf96e7f8cb66e6a6e12b7b4f9d610c8ff653",
+        "bytes": 681
+      },
+      {
+        "path": "policies/v28/lexicographic_scheduler.py",
+        "sha256": "1de2c856f0326fdd59f8a3e4245b7e96e3fd61aee42c10c72bfa847877f4d706",
+        "bytes": 5201
+      },
+      {
+        "path": "policies/v28/low_hp_mega_munkidori_promotion_guard.py",
+        "sha256": "7c587acca6ec92d3049d239a73268e858d128f2f9c4e8a438dec5296351c0aae",
+        "bytes": 2843
+      },
+      {
+        "path": "policies/v28/main.py",
+        "sha256": "51713a0142d301ee992d85fa65fc040d2a3a9ea942051d117ab9c4c7a688a10e",
+        "bytes": 3275
+      },
+      {
+        "path": "policies/v28/manual_guards.py",
+        "sha256": "6f209c996195c13190f5cbff5716a60b7c6075dea8d85f20e8b61567fbd8fa32",
+        "bytes": 2646
+      },
+      {
+        "path": "policies/v28/manual_observation.py",
+        "sha256": "c141ae63e7d51c584d432ebaf1f89fd8e446e5470e05dc7b3b4916bda27b8834",
+        "bytes": 3596
+      },
+      {
+        "path": "policies/v28/munkidori_lethal_guard.py",
+        "sha256": "815a334b862e422e6b611a888adea3cfe31d114e81faca3283923937c2d3ed02",
+        "bytes": 2323
+      },
+      {
+        "path": "policies/v28/preability_active_impidimp_attachment_guard.py",
+        "sha256": "28e63f11391862f3c4469c14dc9688353c19b66658600c5ad46f3d8fc7928d95",
+        "bytes": 3323
+      },
+      {
+        "path": "policies/v28/preability_morgrem_attachment_guard.py",
+        "sha256": "8a1c0a46ffd6e144e1c3f2a970340e7b2fcd00c2580bb5e1b8a0752e3b9fa829",
+        "bytes": 3849
+      },
+      {
+        "path": "policies/v28/preattack_froslass_attachment_guard.py",
+        "sha256": "eb7bcb56c91c4abda9078e39170638ce1f8496a11dd5427be00864c0e1105dd1",
+        "bytes": 2749
+      },
+      {
+        "path": "policies/v28/prestamp_attachment_guard.py",
+        "sha256": "9d0047b522857f873ec193f607455b99695f05b23b9de7f72821001244926700",
+        "bytes": 3773
+      },
+      {
+        "path": "policies/v28/processing_queue.py",
+        "sha256": "6ed3f57d705aa0729c2088efb58d43075974b42e1e2bd67f06dc4020a3d3efea",
+        "bytes": 9117
+      },
+      {
+        "path": "policies/v28/protocol_resolver.py",
+        "sha256": "0ea7d665a1a940aee1e0ccfd562d399a27075bbb1299f7fe8e981507097f9267",
+        "bytes": 3168
+      },
+      {
+        "path": "policies/v28/punkup_backup_guard.py",
+        "sha256": "3ed52643d1ae4672cb83821e0bfb8f5d4e32d335c746caa9e0a8e372a5ff1c77",
+        "bytes": 3699
+      },
+      {
+        "path": "policies/v28/rare_candy_impidimp_promotion_guard.py",
+        "sha256": "99f04bc87d264f6b978dc43e9f94f4e4b36c498cb7150309a8fce3046162886c",
+        "bytes": 3439
+      },
+      {
+        "path": "policies/v28/reservation_ledger.py",
+        "sha256": "9cfaa357d85c02d08c4e55862ed3c61add44535a08d975d9005a4444a3d0b480",
+        "bytes": 2419
+      },
+      {
+        "path": "policies/v28/resource_ledger.py",
+        "sha256": "244fbe21544b401a543c28318f7feff7fbdf85d08c77e971005dd4d9d52de80c",
+        "bytes": 9937
+      },
+      {
+        "path": "policies/v28/retreat_impidimp_preserve_grimmsnarl_guard.py",
+        "sha256": "2e4e89cde5e58b5e9332697379d7803b29448592866e406011a3a76871742b8f",
+        "bytes": 3703
+      },
+      {
+        "path": "policies/v28/retreat_morgrem_stall_guard.py",
+        "sha256": "ddbb59ff3243a49bec4e967313610b421b329fb43b2b785fd7b8208ec82436eb",
+        "bytes": 3021
+      },
+      {
+        "path": "policies/v28/sacrificial_froslass_mega_promotion_guard.py",
+        "sha256": "1253d8413ad67c599ec470d5cebe5744268915fd6c618c690556fd5396a5648c",
+        "bytes": 3135
+      },
+      {
+        "path": "policies/v28/search_planner.py",
+        "sha256": "d82527e1ad1ba06000a678b774f6fd7dddf8dfb007c7e4f625cf65eaaa6107ba",
+        "bytes": 10116
+      },
+      {
+        "path": "policies/v28/selection_planner.py",
+        "sha256": "286ba2e00d424cfbb565e4f114ffc31946d6c0026d23375222b231236b2c28c2",
+        "bytes": 14090
+      },
+      {
+        "path": "policies/v28/semantic_resolver.py",
+        "sha256": "0934dfe0b7dc9cd1d4b42283fdfeb94c0210d40a154997f6db661246978a08e1",
+        "bytes": 4223
+      },
+      {
+        "path": "policies/v28/shadow_bullet_double_ko_guard.py",
+        "sha256": "67736c655629708c659fddbdce1d96750314297e77d120dcefc3d485ba07c1f7",
+        "bytes": 2975
+      },
+      {
+        "path": "policies/v28/shadow_bullet_immediate_mega_ko_guard.py",
+        "sha256": "412c23ed9a61f2f97f0c1b0dd7188d54cdffc86fbac708a9f6bdbe82b6897312",
+        "bytes": 2611
+      },
+      {
+        "path": "policies/v28/strategic_memory.py",
+        "sha256": "35114a5f089da01d95b1ef4cb15ed7dc9a501fdb0ef3aafe48c7bb6f1fdf6d7b",
+        "bytes": 8462
+      },
+      {
+        "path": "policies/v28/target_evaluator.py",
+        "sha256": "61f84abd74dfb27721882fdeaa595891aacf297a1f0c2f1f2762c5091b1c70e9",
+        "bytes": 12975
+      },
+      {
+        "path": "policies/v28/turn_dag.py",
+        "sha256": "7bd3833a70d4017c3fec34c8caeaf298f9d0a45b60404b4f2ef20021dad7a9d6",
+        "bytes": 7865
+      },
+      {
+        "path": "policies/v28/turn_objective.py",
+        "sha256": "4a9bec1feb788aa175cec8f7e7557b696207e28c5f75df8c0cac59eb47eb345a",
+        "bytes": 6932
+      },
+      {
+        "path": "policies/v28/turn_phase.py",
+        "sha256": "523666b700e2ba63d6c80289cb82ab571daa1dafcd87e79524e4a3190710ac7b",
+        "bytes": 2108
+      },
+      {
+        "path": "policies/v28/v22_policy.py",
+        "sha256": "a7a8fc91163a3c61647646032da3ee07618e14f668feaad7ecb3fd27df6a83c9",
+        "bytes": 8813
+      },
+      {
+        "path": "policies/v28/v26_manual_policy.py",
+        "sha256": "48bf20549890af3550a62840b6af47715a26d574e477538b130632334932e195",
+        "bytes": 122824
+      },
+      {
+        "path": "policies/v28/validated_fallback_policy.py",
+        "sha256": "b29f291a0bb73209f5aba4e39a9d5e06ca2e8e8cd5776568e5e97a420504d510",
+        "bytes": 131149
+      },
+      {
+        "path": "policies/v28/zoroark_guard.py",
+        "sha256": "bbdf80bae1a7d228fc81613364a32371eb070258effa9ec2c5e5672aa72b92f7",
+        "bytes": 1550
+      },
+      {
+        "path": "policies/v28/zoroark_pokepad_guard.py",
+        "sha256": "113d1fb3686de5ed9d78be498f8ec5b3c8aba8ea048ddded29a3849afdf87ccd",
+        "bytes": 1412
+      },
+      {
+        "path": "policies/v32/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      {
+        "path": "policies/v32/count_protocol.py",
+        "sha256": "b1c9d813fd001829601c15354c7f3b87d1eff7adf4aff3ddc98c73ace49b0a9a",
+        "bytes": 2483
+      },
+      {
+        "path": "policies/v32/damage_protocol.py",
+        "sha256": "7c304af132faa38536d1bd666c865605219bd822b65faa43a46f4cf2849e8029",
+        "bytes": 7206
+      },
+      {
+        "path": "policies/v32/decision_protocol.py",
+        "sha256": "27160e2da4ef3204ef99d7398ef02e685a435e226710cdac8497187fb9c39f45",
+        "bytes": 10576
+      },
+      {
+        "path": "policies/v32/deck.csv",
+        "sha256": "92b92bac9f9163ecff933b3dc39294d2cc154c8684f3c8497877661419ebc59d",
+        "bytes": 252
+      },
+      {
+        "path": "policies/v32/domain.py",
+        "sha256": "2d6747bfb0e1aaadd44ad12a98e4e35fbdb1452c1df125b1ab75523e0c58e103",
+        "bytes": 999
+      },
+      {
+        "path": "policies/v32/effect_planner.py",
+        "sha256": "b3ece6d2cad66a7842e061e27ae8be7645fcf39e8e94601431a549db6d9ac1a1",
+        "bytes": 4708
+      },
+      {
+        "path": "policies/v32/effect_resolver.py",
+        "sha256": "401d253dab974eacab92e87bb11aeabf1ca32873ce1959e3b7620227695a7f10",
+        "bytes": 838
+      },
+      {
+        "path": "policies/v32/handwritten_policy.py",
+        "sha256": "51d4f75a78ff064e9c74359f80b898eab40de29b522b2766eb468621f5f3fa5a",
+        "bytes": 35
+      },
+      {
+        "path": "policies/v32/hierarchical_policy.py",
+        "sha256": "1cdc9e8f2108d0419c0b0ccb10b02c3e91f4b635904b58dfd0c9dfd79e8fbc86",
+        "bytes": 9674
+      },
+      {
+        "path": "policies/v32/index_resolver.py",
+        "sha256": "7bd015406bf3ae55806542e22ac3b807d8a04d4c483bd54a8d579f5881bb06e3",
+        "bytes": 1826
+      },
+      {
+        "path": "policies/v32/main.py",
+        "sha256": "0b1ad915e40bf887c537af5d44fcf8a1101d778f2dc9ba8e9c73ae22d6b09fe9",
+        "bytes": 879
+      },
+      {
+        "path": "policies/v32/objective_effect_resolver.py",
+        "sha256": "4918d7e161e75e009af199eb3571f1cda89d779a7a1dea7e2af96930f010ae00",
+        "bytes": 2918
+      },
+      {
+        "path": "policies/v32/planner.py",
+        "sha256": "f6a06331ae986c373cd04cab1489429bc7c610547726cf3c1a73cdb47fc654a9",
+        "bytes": 14644
+      },
+      {
+        "path": "policies/v32/poffin_protocol.py",
+        "sha256": "add748096df95532590a0e4e7d5d118a22237e871df2bf44f43cca02138afa8f",
+        "bytes": 1186
+      },
+      {
+        "path": "policies/v32/process_queue.py",
+        "sha256": "84b243fb7d2553c64162bd96aa535e0dc4999156be7609af6f0bf28cbf948cd2",
+        "bytes": 3899
+      },
+      {
+        "path": "policies/v32/refinement_protocol.py",
+        "sha256": "c093d650d7c57b6c0747d57ce40a176e00bcfc987f3706552b9593385880b783",
+        "bytes": 3290
+      },
+      {
+        "path": "policies/v32/selection_engine.py",
+        "sha256": "933bcc9ce63a793bbcba6ccbae91f7b0bf510f14c6d21321bb44191dbd81a19f",
+        "bytes": 6550
+      },
+      {
+        "path": "policies/v32/selection_protocol.py",
+        "sha256": "d1349afb7fc73c07b14a07bda94e734ce8e9aa63f4c7548d4ebdaedec87e597a",
+        "bytes": 9178
+      },
+      {
+        "path": "policies/v32/state_model.py",
+        "sha256": "2a549ea18cc3ca39817d7dff45747eb70a33f304bd87c9c39990b5e02fd931d0",
+        "bytes": 4544
+      },
+      {
+        "path": "policies/v32/strategic_mode.py",
+        "sha256": "20ff415207f2d51c6d3b3533ad464f440d2b98eee6e587593299081b40d4c771",
+        "bytes": 5011
+      },
+      {
+        "path": "policies/v32/target_protocol.py",
+        "sha256": "a7107846677383074a5dff4bfa3a914b9904562bc20343ba20019b702d2e7189",
+        "bytes": 4682
+      },
+      {
+        "path": "policies/v32/targeting.py",
+        "sha256": "df0da8d2d42b03653618983c0fe7f7e3fb57fbc2a367773971ee4b7ead53c256",
+        "bytes": 5312
+      },
+      {
+        "path": "policies/v32/turn_plan.py",
+        "sha256": "3f087fc4c326ea0e4c017a2665e1073c3addb10cf7b6d48a7b5b989b220cec44",
+        "bytes": 19587
+      },
+      {
+        "path": "policies/v32/validated_rule_profile.py",
+        "sha256": "ebc889e39a85006e3c451c565d4d2dd1fd5a87d159ce3d243c31e3c140d541b4",
+        "bytes": 84143
+      },
+      {
+        "path": "policy_features.py",
+        "sha256": "333a2e9134fba24db4ae6ea0ebd6749833fb2dafb38b34ab6a5c53a15e01a204",
+        "bytes": 11891
+      },
+      {
+        "path": "public_asset_manifest.json",
+        "sha256": "2e12894f5c4ed5ab0eeb2dbb21a537fc0532037d668f5c2c2485a643dd478359",
+        "bytes": 200
+      },
+      {
+        "path": "residual_guard.py",
+        "sha256": "9bad2530e238b1c8c4bdcf758e8e7255730782b06c0fe85e3baabbedb1b44cad",
+        "bytes": 14866
+      },
+      {
+        "path": "robustness_guard.py",
+        "sha256": "64454b6568d95735514479f1d0cb26980f5ef9d3770383d736499a29d99a1fbe",
+        "bytes": 1505
+      },
+      {
+        "path": "strategic_policy.py",
+        "sha256": "e62a878f7c2290d6a5266a0a611f4e2c982f78e0d4be0b3437d0eaad9c70d737",
+        "bytes": 26251
+      },
+      {
+        "path": "tactical_guard.py",
+        "sha256": "cfdd5e63ebe6ba9f3cdd19fadfa16e12956613e4a4fffc5d75a9a8469962229a",
+        "bytes": 4226
+      }
+    ],
+    "card_legality": {
+      "checked": true,
+      "card_rows": 2022,
+      "unknown": [],
+      "copy_limit": "PASS"
+    },
+    "status": "PASS"
+  },
+  "status": "PACKED"
+}

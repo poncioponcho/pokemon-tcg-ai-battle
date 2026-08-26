@@ -1,10 +1,77 @@
 # -*- coding: utf-8 -*-
 """
-PTCG Battle Agent v23.2 — Mega Lucario ex 能量循环墙推 (メガルカリオex体系)
+PTCG Battle Agent v24.8 — Mega Lucario ex 能量循环墙推 (メガルカリオex体系)
+
+v24.8 (2026-08-10) — 1235エネルギー加速 (サポート) 移植 (引擎实证, 卡池补齐):
+  [v24.8] 1235 (サポート, 非グッズ — 引擎实证: 打出后 supporterPlayed=True,
+    同回合 1227 不可再打): 「牌库顶6张选≤1能量, 贴给1只宝可梦」(ATTACH_TO
+    ctx22 预过滤能量 → ATTACH_FROM ctx21 选目标, min=1)。×4 合法。
+    三点式移植 (同 v24.7 模式): trainer_priority 1235:93 (1227:95 之下,
+    高于 1152:92, 加速直接对治 F2 能量饥荒) + _TRAINER_EACCEL 常量
+    + P6 强打白名单。另修 ATTACH_FROM 目标: 独立分支, 能量贴核心链
+    (678>677>674>power), 此前走 power+基础分会贴给随机基础宝可梦。
+  [v24.8] 1158 排除 (不移植): ACE SPEC (×4 牌组被引擎拒收, ×1 合法),
+    效果流 20 局探针未观测到 (现役 agent 不碰未识别卡), 不盲移植;
+    ACE 槽已被 1159ヒーローマント 占据。ledger 已记。
+  [v24.8] 注记: 55390992 (v24.7+1145, v3 FINAL 牌组) Kaggle 结算 485.4,
+    队史新最佳 (原 429.4)。现役牌组不含 1235 → 本移植对现役行为零变化。
+
+v24.7 (2026-08-09) — 1145メガシグナル 移植 (deck_search run3 FINAL 前置):
+  [v24.7] 1145メガシグナル (グッズ): 「从牌库选 1 张 Mega 进化宝可梦入手」。
+    牌组唯一 Mega = 678メガルカリオex, 检索结果恒为 678, 无目标歧义。
+    三点式移植 (同 v24.6 シアノ 模式): trainer_priority 1145:89 (1121:90 之下)
+    + _TRAINER_MEGASIGNAL 常量 + P6 强打列表。
+
+v24.6 (2026-08-09) — 1205シアノ 卡数据补全 + FINAL 牌组部署:
+  [v24.6] 1205シアノ (サポート, SV8 102/106): 「从牌库选至多 3 张 Pokémon ex 入手」。
+    牌组唯一 ex = 678メガルカリオex, 检索结果全为 678; 通用 tohand 评分
+    (evolved=150) 可正确全选。三点式移植 (参考 arena_pool/v22_5_rules):
+    trainer_priority 1205:91 (1152:92 与 1121:90 之间) + _TRAINER_SIANO 常量
+    + P6 强打列表。
+  [v24.6] FINAL 牌组部署 (deck_search 08-09 round3): -673マクノシタ×1 +1205シアノ×1,
+    唯一差异。独立终验 seed0=9000 n=8000: mirror wr=0.6593 ci_lo=0.6488 (vs v3
+    增量约 +2.7pp), vs_first wr=0.3504 ci_lo=0.34。宝可梦14/训练家29/能量17。
+
+v24.5 (2026-08-08) — 轻量对手建模 (_GAME_STATE):
+  [v24.5] 观测依据 (引擎实测): 对方 hand 隐藏 (handCount 可见), discard/场上
+    卡 id 全可见 → 按可见区快照幂等重算 opp_seen_cards, 无事件去重问题。
+  [v24.5] 应用: a) ボスの指令耗尽 (om_boss_max) → bench 填能前瞻豁免 (大胆留场);
+    b) ジャッジ耗尽 → リーリエ waste 线放宽 (om_judge_relax, 默认 0 中性);
+    c) 原型分类 _classify_opp_archetype: WALL (见345 → 674进化加分提前破墙) /
+       EX_RUSH (mega_ex≥2 → DESPERATE 提前) / UNKNOWN;
+    d) 我方牌库追踪 (om_deck_track_enabled): 能量/检索剩余充足 → 差1能填能不判浪费。
+  [v24.5] opponent_model_enabled=False 精确回退 v24.4。
+
+v24.4 (2026-08-08) — 解析式 1-ply 最坏情况前瞻 + 防死循环:
+  [v24.4] _opp_best_response: 对方下回合最大威胁纯解析估计 (就绪打手 max_dmg×
+    弱点, bench 就绪×la_bench_threat_factor, 差1能×la_almost_ready_factor)。
+  [v24.4] 填能前瞻 (P8/P12/P15): 贴完仍不就绪且将被一击KO 的目标跳过;
+    撤退估值 (P16): active 将被一击KO 且携带能量资产 → 撤退保全
+    (ttw_retreat_save_credit 重新接通 + la_energy_asset_weight×能量)。
+  [v24.4] 防死循环 _OSC: 记录最近 6 次 Main 决策 (active_cid, action_class),
+    A→B→A 振荡时禁止重复上上次动作类 (改 End 破环); _maybe_reset_game_state
+    在 agent() 入口覆盖所有重置路径。lookahead_enabled=False 精确回退 R3。
+
+v24.2/v24.3 (2026-08-08) — TTW 仲裁层 + 三层架构显式化:
+  [v24.3] 战略层 _assess_game_state: MILL/DESPERATE/GRIND/RACE 对局模式评估,
+    等价语义替换 sprint_mode/mill_mode 判定位置; mode_multipliers 默认全 1.0
+    (行为中性), 供战略层调制参数组。战术层=原 18 级优先级链 (候选生成顺序),
+    执行层=_sanitize 硬性规则不变。
+  [v24.2] turns-to-win 纯解析估值 (_estimate_ttw_my/opp) + P8/P9 冲突区仲裁层
+    (_arbitrate_ttw): 攻击 chip 信用 vs 贴能 ready 信用 vs 撤退生存检查,
+    并列回退 legacy 顺序; ttw_arbitration_enabled=False 精确回退 v24.0 行为。
+
+v24.0 (2026-08-08) — 行为恒等参数化重构:
+  [v24.0] 新增模块级 _PARAMS: 集中规则决策的全部"可调"常数 (阈值/分值/优先级表),
+    默认值严格等于 v23.2 当前值, 不改变任何默认行为与控制流。
+  [v24.0] 新增 _apply_params(d): 运行时参数覆盖入口 (浅层键覆盖 + 嵌套 dict
+    按键合并; 未知键/非法类型静默忽略), 供调权器自动搜索使用。
 
 v23.1 (2026-08-04) — P1 策略调优 (基于评估报告):
   [v23.1-fix1] 节能KO: P1多个能KO的攻击选伤害最低 (678用Aura Jab 130收残血,
-    省能量给Mega Brave 270连续收割, 分散伤害输出区间, 改变只打270的单一节奏)
+    分散伤害输出区间, 改变只打270的单一节奏)
+    [2026-08-10 更正] 当时"省能量给Mega Brave 270连续收割"的表述有误:
+    本引擎攻击不耗能量, 且 Mega Brave 次回合禁用 (:1561), 实际节奏为 270/130 交替。
   [v23.1-fix2] 能量改道: active是低攻辅助且bench有678时, 跳过贴active直接给678
     蓄能 (减少"贴辅助-干等"空转回合, 提升678成型速度)
   [v23.1-fix3] BUG修复集成: BUG-1 345墙换人选674 / BUG-2 active空误攻 / BUG-3 None崩溃
@@ -81,33 +148,43 @@ v21→v22 Mega Wall Push 卡组重构:
 2. 动作铁律：长度==maxCount、下标合法、无重复
 3. 双兼容：select.type / option.type 无论数字或字符串均正确路由
 4. 动态决策：能 KO 就攻击，否则优先进化→训练家→充能→攻击
-5. 制胜公式: 345イワパレス做墙免ex伤害 → 756メガガルーラex满能推队(200+dice)
+5. 制胜公式 [v24 现役]: 678メガルカリオex 能量循环核心输出 + 674ハリテヤマ破墙 /
+   676ソルロック无视效果副攻 (v23 前的 345墙+756メガガルーラex 推队体系已弃用)
 """
 
+import sys
 from collections import Counter, defaultdict
 
 # ==================================================================
-# 0. 内联牌组（60 张 — Mega Wall Push v2: 多核墙推跨期微调）
+# 0. 内联牌组（60 张 — 必须与工作区 deck.csv 精确一致）
 # ==================================================================
-# 基于 5期(0701-0731)全量扫描 + 0731 胜率差分析微调:
+# [v2 历史] 基于 5期(0701-0731)全量扫描 + 0731 胜率差分析微调:
 #   [v2] 1121ハイパーボール 3→4 (0731胜率差+13%, 唯一显著正向)
 #   [v2] +1205シアノ×1 (ex检索, +9%胜率差组)
 #   [v2] +6闘基本エネルギー×2 (多系能量体系, +9%胜率差组)
 #   [v2] -1120クラッシュハンマー (硬币随机, 无正向证据)
 #   [v2] 特殊能量 11/14 3→2, 20 2→1 (07-31特殊能量弱化至82%)
-# 宝可梦 (15): 675ルナトーン×2, 676ソルロック×2, 677リオル×3, 678メガルカリオex×3,
-#             673マクノシタ×2, 674ハリテヤマ×2, 235含羞苞×1
-# 训练家 (28): 1227リーリエ×4 1142ファイティングゴング×3 1152ポケパッド×3
-#             1121ハイパーボール×3 1229ウォリー×2 1213ジャッジ×2 1182ボス×2
-#             1141プレミアムパワープロ×2 1123いれかえ×2 1102ダークボール×2
-#             1097ナイトストレッチャー×2 1159ヒーローマント×1(ACE)
+#   [v3 deck_search 08-09] -235含羞苞+678メガルカリオex / -676ソルロック+677リオル
+#     (贪心置换爬山 round1/2 接受; 独立终验 seed0=9000 n=8000: vs 原牌组 mirror wr=0.6322 ci_lo=0.6216)
+#   [v4 FINAL 已部署 08-09] round3 -673マクノシタ×1 +1205シアノ×1 (1205 卡数据 v24.6 已补)
+#     (final 牌组同法终验已 PASS: mirror wr=0.6593 ci_lo=0.6488, 增量约 +2.7pp)
+#   [v4 FINAL 已部署 08-10] deck_search_v4 -674ハリテヤマ +1152ポケパッド (×3→×4)
+#     (55390992 基线 485.4; 3种子闸 9000/9001/9002 n=8000: mirror 0.8084/0.7943/0.8084
+#      vs_first 0.5258/0.5234/0.5235, 双指标全超标杆上限, 分类 STRONG; round1 筛选
+#      top5 中 4 个为 -674, 搜索面判定 674 为负资产, 方向自洽)
+# 宝可梦 (8):  677リオル×4, 678メガルカリオex×4
+# 训练家 (35): 1227リーリエ×4 1142ファイティングゴング×4 1152ポケパッド×4
+#             1121ハイパーボール×3 1102ダークボール×4 1145メガシグナル×2
+#             1213ジャッジ×2 1182ボス×2 1141プレミアムパワープロ×2
+#             1123いれかえ×2 1097ナイトストレッチャー×2 1205シアノ×2
+#             1159ヒーローマント×1(ACE) 1229ウォリー×1
 # 能量   (17): 闘基本エネルギー×13 + ロック闘エネルギー×4
 _INLINE_DECK = (
-    [675] * 2 + [676] * 2 + [677] * 3 + [678] * 3 + [673] * 2 + [674] * 2 +
-    [1227] * 4 + [1142] * 3 + [1152] * 3 + [1121] * 3 + [1229] * 2 +
-    [1213] * 2 + [1182] * 2 + [1141] * 2 + [1123] * 2 + [1102] * 2 +
-    [1097] * 2 + [1159] * 1 + [235] * 1 +
-    [6] * 13 + [20] * 4
+    673, 673, 674, 674, 675, 675, 676, 676, 676, 677, 677, 677,
+    678, 678, 678, 678, 1102, 1102, 1102, 1102, 1123, 1123, 1141,
+    1141, 1141, 1141, 1142, 1142, 1142, 1142, 1152, 1152, 6, 1159,
+    1182, 1182, 1192, 1192, 1192, 1192, 1227, 1227, 1227, 1227, 6,
+    6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 1182, 677, 1252,
 )
 
 
@@ -139,6 +216,7 @@ def _load_deck():
 
 
 DECK = _load_deck()
+_DECK_COUNTER = Counter(DECK)  # [v24.5] 牌库追踪基准 (60 卡固定构成)
 
 
 # ==================================================================
@@ -1316,23 +1394,172 @@ def _norm_type_name(value):
         return _TYPE_NAME_MAP[v]
     return _TYPE_NAME_MAP.get(v.upper(), "")
 
-# === 训练家卡优先级（值越高越优先打出）===
-_TRAINER_PRIORITY = {
-    1142: 100,  # ファイティングゴング: 斗系宝可梦/能量检索 [v23核心检索]
-    1227: 95,   # リーリエの決心: 手札刷新
-    1152: 92,   # ポケパッド: 无规则盒宝可梦检索 [v23: 检索Lunatone/Solrock/Hariyama]
-    1121: 90,   # ハイパーボール: ポケモン検索
-    1229: 88,   # ウォリーの思いやり: Mega进化治疗 [v23: 治疗678]
-    1213: 85,   # ジャッジ: 双方手牌洗回抽4 [v23: 干扰+磨牌库]
-    1182: 80,   # ボスの指令: 相手ベンチ引きずり
-    1141: 78,   # プレミアムパワープロ: 斗系伤害+30 [v23增伤]
-    1123: 75,   # ポケモンいれかえ: 交代
-    1102: 72,   # ダークボール: 看底7张检索 [v23补充检索]
-    1097: 65,   # ナイトストレッチャー: トラッシュ回収
-    1159: 35,   # ヒーローマント: HP+100 (ACE SPEC) [v23: 678 340→440]
-    1252: 25,   # グラビティマウンテン: スタジアム (Stage2撤退-2)
+# ==================================================================
+# [v24.0] 可调参数集中表 — 规则决策的全部"可调"常数 (行为恒等重构)
+# 默认值严格等于 v23.2 当前值; 运行时由 _apply_params() 覆盖 (调权器入口)。
+# 纯结构常数 (卡 ID / 协议映射 / _GEN_CARD_DATA 卡库) 不在此列。
+# ==================================================================
+_PARAMS = {
+    # ---- 阈值类: _handle_main 决策链 ----
+    'prize_sprint_threshold': 0,      # [B2] 奖赏冲刺线: 剩余奖赏卡<=此值进入冲刺模式 (P5) [tune 08-09: 2→0, confirm wr=0.5347]
+    'hariyama_self_ko_hp': 70,        # [BUG-7] 674ワイルドプレス自伤70: HP<=此值不攻击/撤退换人
+    'opp_ex_hp_guess': 200,           # [v22.6-fix2] 卡库未覆盖时按 HP>=此值猜测对方为 ex
+    'mill_cant_break_ratio': 0.5,     # [v23-fix3] 打不动判定: 最佳攻击 < 对方HP*此系数
+    'mill_shield_min_hp': 150,        # [v23-fix3] 耗牌盾判定: 678/674 maxHP>=此值才算可抗
+    'mill_deck_max': 15,              # [v23-fix3] 耗牌触发: 对方牌库比我方少且<=此值
+    'lillie_waste_hand': 6,           # [v22.4-fix] リーリエ: 手牌>=此值打出无收益 (浪费supporter)
+    'judge_min_hand': 5,              # [v23] ジャッジ: 手牌>=此值时打出 (干扰对手+磨牌库)
+    'reroute_bench_energy_max': 2,    # [P1调优] 能量改道: bench 678 能量<此值才改道贴bench
+    'reroute_aux_dmg_max': 60,        # [P1调优] 能量改道: 辅助active最佳攻击<此值视为低效
+    'switch_ready_bench_energy': 1,   # [BUG-5] P7.8 切换斩杀: bench 678 能量>=此值撤退换上场 [tune 08-09: 2→1, confirm wr=0.5337]
+    'p9_attack_dmg_min': 75,          # P9 攻击伤害线: 最佳攻击>=此值才攻击 (不浪费回合) [tune 08-09: 60→75, confirm wr=0.5289]
+    'retreat_hp_ratio': 0.3,          # P16 撤退: active HP比例<此值且bench有打手 → 撤退
+    # ---- [v24.3] 战略层: 模式乘数 (默认全 1.0 = 行为中性) ----
+    'mode_multipliers': {'RACE': 1.0, 'MILL': 1.0, 'GRIND': 1.0, 'DESPERATE': 1.0},
+    # ---- [v24.2] TTW 估值 + 仲裁层 ----
+    'ttw_arbitration_enabled': True,  # 仲裁层总开关; False 时精确回退 v24.0 行为 (消融对照)
+    'ttw_no_attacker_ttw': 8,         # 场上无可攻击者时的 TTW 大值兜底
+    'ttw_ready_weight': 1.0,          # 贴能给未就绪打手: ready_turns-1 的 TTW 改善信用
+    'ttw_chip_credit': 3.0,           # 非KO攻击: 按 dmg/opp_hp 给部分信用 (乘此系数)
+    # [v24.2 迭代3] chip 覆写门槛: 仅当 chip >= 此值 (重创目标, 默认 dmg>=2/3 对方HP)
+    # 才允许攻击截胡贴能; 轻度 chip 覆写实测 -EV (拖延 Mega Brave 成型)
+    'ttw_chip_min': 2.0,              # chip >= 2.0 才允许攻击覆写贴能
+    # [v24.2 迭代2] 仲裁区生存撤退 churn 害处实测过大 (连锁撤退), 迭代3 收窄;
+    # [v24.4 R1-R2] 接通 1.5 用于 P16 撤退估值实测负收益 (first/random 回归),
+    # R3 调回保守中性 0.0 = 撤退估值关闭 (机制保留, 供调权器探索)
+    'ttw_retreat_save_credit': 0.0,   # 撤退避免 active 被KO (保奖赏卡) 的信用
+    'ttw_retreat_penalty': 1.0,       # 非生存需要的撤退: TTW+1 节奏损失惩罚
+    'ttw_survival_check': 1.0,        # 生存检查系数 (对方估算最大伤害>=我方HP 时乘 save_credit)
+    'ttw_clock_weight': 0.1,          # TTW 时钟调制: 落后(my_ttw>opp_ttw)时 chip 加权
+    # ---- [v24.4] 1-ply 最坏情况前瞻 + 防死循环 ----
+    'lookahead_enabled': True,        # 前瞻总开关; False 精确回退 v24.2-R3 行为 (消融)
+    # [v24.4 收窄] bench 威胁默认不计: 生成卡无 needed_energy → 默认 0 → 全部误判
+    # 就绪, ×1.0 保守全计导致 vs random -4% (过度跳过填能); 0.0 = 只算对方 active
+    'la_bench_threat_factor': 0.0,    # 对方 bench 就绪打手威胁折减 (0.0=只算 active)
+    'la_almost_ready_factor': 0.5,    # 对方 active 差 1 能就绪的威胁折算
+    'la_attach_foresight_enabled': True,  # 填能前瞻: 贴完仍不就绪且将被一击KO → 跳过该目标
+    'la_energy_asset_weight': 0.5,    # P16 撤退估值: 每携带 1 能量的保全加分
+    'la_retreat_save_min': 2.0,       # P16 撤退估值触发线 (save_credit + asset_weight*能量)
+    'osc_break_enabled': True,        # 防死循环: 检测 A→B→A 振荡并禁止重复上上次动作类
+    # ---- [v24.5] 轻量对手建模 (观测依据: 对方 discard/场上卡 id 可见, hand 隐藏) ----
+    'opponent_model_enabled': True,   # 对手建模总开关; False 精确回退 v24.4 (消融)
+    'om_boss_max': 2,                 # ボスの指令(1182) 卡组常规携带数: 弃牌计数>=此值视为耗尽
+    'om_judge_max': 2,                # ジャッジ(1213) 常规携带数
+    'om_judge_relax': 0,              # 对方ジャッジ耗尽时リーリエ waste 线放宽量
+                                      # (默认 0 中性: waste 线 6 是零收益硬线, 与干扰安全正交;
+                                      #  仅供调权探索 hand>6 边缘场景)
+    'om_archetype_enabled': True,     # 对手原型分类 (WALL/EX_RUSH/UNKNOWN)
+    'om_wall_prep_bonus': 60,         # WALL 原型: 674 进化优先级加分 (提前准备破墙)
+    'om_ex_rush_min': 2,              # EX_RUSH 判据: 对方场上+弃牌 mega_ex 数>=此值
+    # [v24.5 R2] 牌库追踪豁免实测负收益 (差1能豁免使 110HP 辅助 active 在对方
+    # 就绪打手面前被白贴能, vs 镜像 0.472 回归) → 默认关闭, 机制保留供调权
+    'om_deck_track_enabled': False,   # 我方牌库追踪 (能量/检索剩余概率)
+    'om_energy_surplus_min': 4,       # 能量+ゴング剩余>=此值时, 差1能填能目标不视为浪费
+    # ---- 阈值类: 训练家时机 (_find_best_trainer_play) ----
+    'boss_target_low_hp': 60,         # ボスの指令时机: 对方bench HP<此值视为可击杀目标
+    'gong_early_turn_max': 3,         # ゴング时机: turn<=此值视为早期
+    'gong_bench_min': 2,              # ゴング时机: bench<此值需铺场
+    'lillie_low_hand': 3,             # リーリエ时机: 手牌<=此值视为手牌少
+    'pokepad_bench_max': 3,           # ポケパッド时机: bench<此值需铺场
+    # ---- 权重/分值类: 训练家卡优先级 (值越高越优先打出) ----
+    'trainer_priority': {
+        1142: 100,  # ファイティングゴング: 斗系宝可梦/能量检索 [v23核心检索]
+        1227: 95,   # リーリエの決心: 手札刷新
+        1235: 93,   # エネルギー加速 (サポート): 牌库顶6张选≤1能量贴宝可梦 [v24.8 引擎实证]
+        1152: 92,   # ポケパッド: 无规则盒宝可梦检索 [v23: 检索Lunatone/Solrock/Hariyama]
+        1205: 91,   # シアノ: ポケモンex検索×3 [v24.6: ex检索核心678]
+        1121: 90,   # ハイパーボール: ポケモン検索
+        1145: 89,   # メガシグナル: Mega进化检索 [v24.7 run3 FINAL]
+        1229: 88,   # ウォリーの思いやり: Mega进化治疗 [v23: 治疗678]
+        1213: 85,   # ジャッジ: 双方手牌洗回抽4 [v23: 干扰+磨牌库]
+        1182: 80,   # ボスの指令: 相手ベンチ引きずり
+        1141: 78,   # プレミアムパワープロ: 斗系伤害+30 [v23增伤]
+        1123: 75,   # ポケモンいれかえ: 交代
+        1102: 72,   # ダークボール: 看底7张检索 [v23补充检索]
+        1097: 65,   # ナイトストレッチャー: トラッシュ回収
+        1159: 35,   # ヒーローマント: HP+100 (ACE SPEC) [v23: 678 340→440]
+        1252: 25,   # グラビティマウンテン: スタジアム (Stage2撤退-2)
+    },
+    # ---- 权重/分值类: 训练家时机加成 (_find_best_trainer_play) ----
+    'gong_timing_bonus': 50,          # ゴング: 早期检索斗系铺场
+    'lillie_timing_bonus': 40,        # リーリエ: 手牌少时刷新
+    'pokepad_timing_bonus': 45,       # ポケパッド: 铺场
+    'judge_timing_bonus': 35,         # ジャッジ: 手牌多时打, 压缩对手手牌
+    'boss_timing_bonus': 35,          # ボスの指令: 有击杀目标
+    'wally_timing_bonus': 30,         # ウォリー: 治疗Mega进化
+    # ---- 权重/分值类: 出牌/进化/贴能打分 ----
+    'play_trainer_base': 200,         # _score_play_card: 训练家基础分 (+trainer_priority)
+    'play_energy_score': -1,          # _score_play_card: 能量卡分值 (最低, 不主动打出)
+    'play_evolve_bonus': 50,          # _score_play_card: 可进化奖励
+    'play_can_attack_bonus': 1000,    # _score_play_card: 可攻击奖励
+    'bench_attach_can_attack_bonus': 500,  # bench贴能打分: 可攻击奖励 [tune 08-09: 1000→500, confirm wr=0.5111]
+    'bench_attach_mega_energy_full': 2,     # [BUG-6] bench 678 能量>=此值视为满能不再贴
+    'bench_attach_breaker_energy_full': 3,  # [BUG-6] bench 674 能量>=此值视为满能不再贴
+    'evolve_active_bonus': 50,        # _find_best_evolve: active位进化加分
+    # [B3] 进化目标优先级 [v23] 678メガルカリオex > 674ハリテヤマ
+    'evolve_priority': {678: 200, 674: 150},
+    # ---- 权重/分值类: _handle_card 选卡 ----
+    'boss_unknown_hp': 999,           # ボスの指令目标: 未知HP排序哨兵 (排最后)
+    'setup_basic_bonus': 500,         # 起手选位: 基础宝可梦加分
+    'setup_evolve_bonus': 50,         # 起手选位: 进化链卡加分 (鼓励铺链)
+    'switch_core_bonus': 2000,        # [BUG-1] 换人上场: 核心打手678加分 (对面非345墙)
+    'switch_breaker_bonus': 1500,     # [BUG-1] 换人上场: 破墙打手674加分
+    'switch_wall_bonus': 1100,        # [BUG-1] 换人上场: 对345墙时674加分
+    'switch_wall_fallback': 900,      # [BUG-1] 换人上场: 对345墙时非ex打手兜底加分
+    'tohand_trainer_base': 200,       # ToHand: 训练家基础分 (+trainer_priority)
+    # ---- [F1] 1084.5 移植 (08-11 九腿闸+安全包验证后翻默认: Crustle +9.9pp 真实, 全腿零伤害) ----
+    'f1_gust_target_score': True,     # ボスの指令选靶: prize框架 target_score 代替最低HP
+    'f1_wall_retarget': True,         # 345墙+ex打手: gust(1182)转火非墙目标 代替撤退换打手
+    'tohand_evolved_score': 150,      # ToHand: 进化卡分值
+    'tohand_basic_score': 100,        # ToHand: 基础宝可梦分值
+    'tohand_energy_score': 30,        # ToHand: 能量卡分值
+    'discard_trainer_score': 10,      # Discard: 训练家 (最优先保留)
+    'discard_evolved_score': 100,     # Discard: 进化卡 (优先弃)
+    'discard_energy_score': 60,       # Discard: 能量卡 (次优先弃)
+    'discard_basic_score': 30,        # Discard: 基础宝可梦
+    'todeck_trainer_score': 100,      # ToDeck: 训练家 (最优先放回牌堆)
+    'todeck_energy_score': 80,        # ToDeck: 能量卡
+    'todeck_evolved_score': 30,       # ToDeck: 进化卡
+    'todeck_basic_score': 50,         # ToDeck: 基础宝可梦
 }
+
+# [v24.0] 兼容别名: 嵌套 dict 为引用, _apply_params 原地按键合并后保持同步
+_TRAINER_PRIORITY = _PARAMS['trainer_priority']
 _TRAINER_IDS = set(_TRAINER_PRIORITY.keys())
+
+
+def _param_type_ok(default, val):
+    """[v24.0] 参数类型守卫: bool 仅接受 bool; 数值仅接受 int/float (排除 bool)。"""
+    if isinstance(default, bool):
+        return isinstance(val, bool)
+    if isinstance(default, (int, float)):
+        return isinstance(val, (int, float)) and not isinstance(val, bool)
+    return isinstance(val, type(default))
+
+
+def _apply_params(d):
+    """[v24.0] 运行时参数覆盖 (调权器入口)。
+
+    - 浅层键覆盖: 标量键按默认值类型校验后替换
+    - 嵌套 dict 键 (trainer_priority/evolve_priority): 仅对已存在的键原地合并,
+      _TRAINER_PRIORITY 等别名与 _TRAINER_IDS 键集保持一致
+    - 未知键 / 非法类型: 静默忽略, 不抛错
+    不依赖任何外部文件/环境变量。
+    """
+    if not isinstance(d, dict):
+        return
+    for key, val in d.items():
+        if key not in _PARAMS:
+            continue
+        cur = _PARAMS[key]
+        if isinstance(cur, dict):
+            if not isinstance(val, dict):
+                continue
+            for k2, v2 in val.items():
+                if k2 in cur and _param_type_ok(cur[k2], v2):
+                    cur[k2] = v2
+        elif _param_type_ok(cur, val):
+            _PARAMS[key] = val
 
 # === 全局 attackId → 招式伤害（从官方 replay 反查确认）===
 # 数据源: 0712+0731 两期 2553+733 场 mega/墙对局流式扫描
@@ -1447,11 +1674,8 @@ _SC_ATTACH_TO = "AttachTo"
 _SC_EVOLVES_TO = "EvolvesTo"
 _SC_EVOLVES_FROM = "EvolvesFrom"
 
-# [B3] 进化优先级排序（值越高越优先）
-_EVOLVE_PRIORITY = {678: 200, 674: 150}  # [v23] 678メガルカリオex > 674ハリテヤマ
-
-# [B2] 奖赏卡冲刺阈值：剩余奖赏卡 <= 此值时进入冲刺模式
-_PRIZE_SPRINT_THRESHOLD = 2
+# [B3] 进化优先级排序（值越高越优先）— [v24.0] 移入 _PARAMS, 此处保留引用别名
+_EVOLVE_PRIORITY = _PARAMS['evolve_priority']
 
 # [v19.3] 关键训练家卡 ID（用于时机判断）
 _TRAINER_GONG = 1142     # ファイティングゴング: 斗系检索 [v23]
@@ -1460,6 +1684,9 @@ _TRAINER_POKEPAD = 1152    # ポケパッド: 无规则盒检索 [v23]
 _TRAINER_BOSS = 1182       # ボスの指令: 相手引きずり
 _TRAINER_JUDGE = 1213      # ジャッジ: 双方手牌洗回抽4 [v23]
 _TRAINER_WALLY = 1229      # ウォリーの思いやり: Mega治疗 [v23]
+_TRAINER_SIANO = 1205      # シアノ: ポケモンex検索×3 [v24.6]
+_TRAINER_MEGASIGNAL = 1145  # メガシグナル: Mega进化检索 [v24.7]
+_TRAINER_EACCEL = 1235   # エネルギー加速 (サポート): 顶6选1能量贴宝可梦 [v24.8]
 _BUDEW = 235               # 含羞苞: 痒痒花粉零能量 Item 封锁
 
 # [v22.4] 撤退换墙意图标志: P16/P4.5 决定撤退换345墙时置位,
@@ -1660,6 +1887,67 @@ def _get_pokemon_card_id(pokemon):
         if isinstance(val, int) and val >= 0:
             return val
     return -1
+
+
+# ---------- [F1] 1084.5 移植: prize 框架 (门控 _P['f1_*'], 默认关) ----------
+def _poke_stage(cid):
+    """0=基础 1=一进 2=二进 (按 _CARD_DB evolves_from 链推导, 缺失按 0)"""
+    d = _CARD_DB.get(cid, {})
+    ef = d.get("evolves_from", -1)
+    if not isinstance(ef, int) or ef < 0 or ef not in _CARD_DB:
+        return 0
+    return 2 if isinstance(_CARD_DB[ef].get("evolves_from"), int) \
+        and _CARD_DB[ef]["evolves_from"] >= 0 else 1
+
+
+def _prize_count(cid):
+    """KO 该卡可拿奖品数: mega_ex=3 / ex=2 / 普通=1 (卡库 rule 字段)"""
+    r = _CARD_DB.get(cid, {}).get("rule")
+    return 3 if r == "mega_ex" else (2 if r == "ex" else 1)
+
+
+def _target_score(pk):
+    """[F1] 1084.5 target_score 移植: prize×1000 + 能量×150 + 道具×100
+    + stage(250/130) + 低价值辅助-200 + 养成胚子/核心特判 + hp。
+    用于ボスの指令选靶与墙转火的目标估值 (越大越值得抓/杀)。"""
+    if not isinstance(pk, dict):
+        return 0
+    cid = _get_pokemon_card_id(pk)
+    sc = _prize_count(cid) * 1000
+    sc += _get_pokemon_energy_count(pk) * 150
+    tools = pk.get("tools")
+    sc += len(tools) * 100 if isinstance(tools, list) else 0
+    st = _poke_stage(cid)
+    sc += 250 if st == 2 else (130 if st == 1 else 0)
+    if cid in (144, 322, 323, 337):      # 低价值辅助宝可梦 (1084.5 原值)
+        sc -= 200
+    if cid == 677:                       # リオル: 养成中的核心胚子, 趁小杀
+        sc += 800
+    elif cid == 678:                     # メガルカリオex 本体
+        sc += 100
+    if cid == 112 and _get_pokemon_energy_count(pk) >= 1:  # モルペコ系特判
+        sc += 300
+    sc += _get_pokemon_hp(pk)
+    return sc
+
+
+def _resolve_opp_pokemon_from_option(opt, obs_current, my_idx):
+    """boss 选靶 context 的 option → 对方 bench 宝可梦 dict (失败 None)"""
+    if not isinstance(opt, dict):
+        return None
+    players = (obs_current or {}).get("players") or []
+    if len(players) < 2:
+        return None
+    opp = players[1 - my_idx]
+    idx = opt.get("inPlayIndex", opt.get("index", -1))
+    if not isinstance(idx, int) or idx < 0:
+        return None
+    bench = (opp or {}).get("bench") or []
+    return bench[idx] if idx < len(bench) else None
+
+
+# [F1] 闸观测计数 (不重置; 仅统计, 不影响决策)
+_F1_STATS = {"wall_retarget": 0, "gust_ts": 0}
 
 
 def _get_pokemon_weakness(pokemon):
@@ -1871,16 +2159,17 @@ def _score_play_card(cid):
       - 能量卡: -1 (最低优先级，不主动打出)
       - 宝可梦: power + 进化奖励(50) + 可攻击奖励(1000)
     """
+    _P = _PARAMS
     if cid in _TRAINER_IDS:
-        return 200 + _TRAINER_PRIORITY.get(cid, 0)
+        return _P['play_trainer_base'] + _TRAINER_PRIORITY.get(cid, 0)
     if _is_energy_card(cid):
-        return -1
+        return _P['play_energy_score']
     data = _CARD_DB.get(cid, {})
     power = data.get("power", 0)
     can_attack = data.get("can_attack", False)
     evolves_to = data.get("evolves_to", None)
-    evolve_bonus = 50 if evolves_to else 0
-    return power + evolve_bonus + (1000 if can_attack else 0)
+    evolve_bonus = _P['play_evolve_bonus'] if evolves_to else 0
+    return power + evolve_bonus + (_P['play_can_attack_bonus'] if can_attack else 0)
 
 
 def _find_best_play(play_idx_list, hand, options):
@@ -1913,16 +2202,18 @@ def _find_best_bench_attach(attach_bench_opts, bench, options):
                 bp_cid = _get_pokemon_card_id(bp)
                 bp_power = _CARD_DB.get(bp_cid, {}).get("power", 0)
                 bp_can_attack = _CARD_DB.get(bp_cid, {}).get("can_attack", False)
-                score = bp_power + (1000 if bp_can_attack else 0)
+                score = bp_power + (_PARAMS['bench_attach_can_attack_bonus'] if bp_can_attack else 0)
                 if score > best_score:
                     best_score = score
                     best_opt_idx = opt_idx
     return best_opt_idx
 
 
-def _find_best_bench_attach_mega(attach_bench_opts, bench, options):
+def _find_best_bench_attach_mega(attach_bench_opts, bench, options, wasteful_fn=None):
     """[v23] 从 bench ATTACH 选项中找最优目标
     优先级: 678メガルカリオex (斩杀核心, 2能量) > 674ハリテヤマ (210破墙, 3能量) > 高power宝可梦
+    [v24.4] wasteful_fn(bp): 填能前瞻过滤 (贴完仍不就绪且将被一击KO → 跳过);
+    全部候选被过滤时返回 -1 (调用方 fall through)。wasteful_fn=None 时行为不变。
     """
     best_score = -1
     best_opt_idx = attach_bench_opts[0] if attach_bench_opts else 0
@@ -1936,22 +2227,32 @@ def _find_best_bench_attach_mega(attach_bench_opts, bench, options):
                 bp_energy = _get_pokemon_energy_count(bp)
                 # [BUG-6 fix] 678 已满能(2) / 674 已满能(3) 不再优先贴能,
                 # 能量转向其他需要充电的宝可梦, 避免溢出
-                if bp_cid == 678 and bp_energy >= 2:
+                if bp_cid == 678 and bp_energy >= _PARAMS['bench_attach_mega_energy_full']:
                     continue
-                if bp_cid == 674 and bp_energy >= 3:
+                if bp_cid == 674 and bp_energy >= _PARAMS['bench_attach_breaker_energy_full']:
+                    continue
+                # [v24.4] 填能前瞻: 浪费目标跳过 (贴完仍不就绪且将被一击KO)
+                if wasteful_fn is not None and wasteful_fn(bp):
                     continue
                 # 678 最高优先 (斩杀核心, 2能量即可Mega Brave 270)
                 if bp_cid == 678:
+                    return opt_idx
+                # [v24.7 F2a] 677リオル 同列最高优先 — 它是 mega 线的bench形态,
+                # 蓄到2能后进化出的678直接带2能上场 (vs_first诊断: 旧逻辑677打分530
+                # 输给674/675/676, mega上场时平均仅0.9能, 成型慢2.4回合)
+                if bp_cid == 677 and bp_energy < _PARAMS['bench_attach_mega_energy_full']:
                     return opt_idx
                 # 674 次优先 (210伤害破墙打手)
                 if bp_cid == 674:
                     return opt_idx
                 bp_power = _CARD_DB.get(bp_cid, {}).get("power", 0)
                 bp_can_attack = _CARD_DB.get(bp_cid, {}).get("can_attack", False)
-                score = bp_power + (1000 if bp_can_attack else 0)
+                score = bp_power + (_PARAMS['bench_attach_can_attack_bonus'] if bp_can_attack else 0)
                 if score > best_score:
                     best_score = score
                     best_opt_idx = opt_idx
+    if wasteful_fn is not None and best_score < 0:
+        return -1  # [v24.4] 全部候选被前瞻过滤
     return best_opt_idx
 
 
@@ -1971,10 +2272,14 @@ def _find_best_evolve(evolve_idx_list, options, obs_current, my_idx):
 
         # 进化目标优先级
         evolve_score = _EVOLVE_PRIORITY.get(cid, 0)
+        # [v24.5] WALL 原型 (对方 bench/弃牌见到 345): 提前准备 674 破墙打手
+        if (cid == 674 and _PARAMS['om_archetype_enabled']
+                and _GAME_STATE.get('archetype') == 'WALL'):
+            evolve_score += _PARAMS['om_wall_prep_bonus']
 
         # active 位进化加分（inPlayArea=4 为 active）
         in_play_area = opt.get("inPlayArea", -1) if isinstance(opt, dict) else -1
-        active_bonus = 50 if in_play_area == 4 else 0
+        active_bonus = _PARAMS['evolve_active_bonus'] if in_play_area == 4 else 0
 
         score = evolve_score + active_bonus
         if score > best_score:
@@ -1997,6 +2302,7 @@ def _find_best_trainer_play(play_trainer_idx, hand, options, obs_current, my_idx
     if not play_trainer_idx:
         return -1
 
+    _P = _PARAMS
     turn = 0
     if isinstance(obs_current, dict):
         turn = obs_current.get("turn", 0)
@@ -2017,7 +2323,7 @@ def _find_best_trainer_play(play_trainer_idx, hand, options, obs_current, my_idx
     # 检查对方 bench 是否有低 HP 宝可梦（影响 ボスの指令 优先级）
     opp_bench = _get_opp_bench(obs_current, my_idx)
     opp_has_low_hp = any(
-        _get_pokemon_hp(bp) < 60 for bp in opp_bench if isinstance(bp, dict)
+        _get_pokemon_hp(bp) < _P['boss_target_low_hp'] for bp in opp_bench if isinstance(bp, dict)
     )
 
     best_score = -1
@@ -2033,22 +2339,23 @@ def _find_best_trainer_play(play_trainer_idx, hand, options, obs_current, my_idx
 
             # 时机加成
             timing_bonus = 0
-            if cid == _TRAINER_GONG and (turn <= 3 or bench_count < 2):
-                timing_bonus = 50  # 早期检索斗系铺场
-            elif cid == _TRAINER_LILLIE and hand_size <= 3:
-                timing_bonus = 40  # 手牌少时刷新
-            elif cid == _TRAINER_POKEPAD and bench_count < 3:
-                timing_bonus = 45  # 铺场
-            elif cid == _TRAINER_JUDGE and hand_size >= 5:
-                timing_bonus = 35  # 手牌多时打, 压缩对手手牌
+            if cid == _TRAINER_GONG and (turn <= _P['gong_early_turn_max'] or bench_count < _P['gong_bench_min']):
+                timing_bonus = _P['gong_timing_bonus']  # 早期检索斗系铺场
+            elif cid == _TRAINER_LILLIE and hand_size <= _P['lillie_low_hand']:
+                timing_bonus = _P['lillie_timing_bonus']  # 手牌少时刷新
+            elif cid == _TRAINER_POKEPAD and bench_count < _P['pokepad_bench_max']:
+                timing_bonus = _P['pokepad_timing_bonus']  # 铺场
+            elif cid == _TRAINER_JUDGE and hand_size >= _P['judge_min_hand']:
+                timing_bonus = _P['judge_timing_bonus']  # 手牌多时打, 压缩对手手牌
             elif cid == _TRAINER_BOSS and opp_has_low_hp:
-                timing_bonus = 35  # 有击杀目标
+                timing_bonus = _P['boss_timing_bonus']  # 有击杀目标
             elif cid == _TRAINER_WALLY and has_evolve_option:
-                timing_bonus = 30  # 治疗Mega进化
+                timing_bonus = _P['wally_timing_bonus']  # 治疗Mega进化
 
             # [v22.4-fix] リーリエの決心: 手札が6枚になるように引く
             # 手牌 >= 6 时打出完全无收益(浪费 supporter), 直接排除
-            if cid == _TRAINER_LILLIE and hand_size >= 6:
+            # [v24.5] 对方ジャッジ耗尽时 waste 线按 om_judge_relax 放宽 (默认 0)
+            if cid == _TRAINER_LILLIE and hand_size >= _lillie_waste_line():
                 continue
 
             total_score = base_score + timing_bonus
@@ -2057,6 +2364,452 @@ def _find_best_trainer_play(play_trainer_idx, hand, options, obs_current, my_idx
                 best_opt_idx = opt_idx
 
     return best_opt_idx
+
+
+# ==================================================================
+# 4.5 [v24.3] 战略层: 对局模式评估 + [v24.2] TTW 估值 / 仲裁层
+# ==================================================================
+
+_MODE_RACE = 'RACE'
+_MODE_MILL = 'MILL'
+_MODE_GRIND = 'GRIND'
+_MODE_DESPERATE = 'DESPERATE'
+
+
+def _get_opp_prize_count(obs_current, my_idx):
+    """[v24.2] 对方剩余奖赏卡数 (与 _get_my_prize_count 对称)"""
+    try:
+        players = obs_current.get('players', [])
+        opp_idx = 1 - my_idx
+        if players and 0 <= opp_idx < len(players):
+            prize = players[opp_idx].get('prize', [])
+            if isinstance(prize, list):
+                return len(prize)
+    except Exception:
+        pass
+    return 6
+
+
+def _side_field(obs_current, my_idx, side):
+    """[v24.2] 一方场上 (active+bench) 的宝可梦 dict 列表。side: 'my'|'opp'"""
+    if side == 'my':
+        act = _get_my_active(obs_current, my_idx)
+        bench = _get_my_bench(obs_current, my_idx)
+    else:
+        act = _get_opp_active(obs_current, my_idx)
+        bench = _get_opp_bench(obs_current, my_idx)
+    field = [act] if isinstance(act, dict) else []
+    field += [b for b in bench if isinstance(b, dict)]
+    return field
+
+
+def _scan_prize_per_ko(field_mons):
+    """[v24.2] 扫描一方场上最高奖赏价值: 有 mega_ex→3, 有 ex→2, 否则→1
+
+    ex 识别用 _CARD_DB rule, 卡库未覆盖时回退 hp>=opp_ex_hp_guess 启发式
+    (与 _handle_main 的 opp_is_ex 口径一致)。
+    """
+    _P = _PARAMS
+    ppk = 1
+    for p in field_mons:
+        cid = _get_pokemon_card_id(p)
+        db = _CARD_DB.get(cid, {}) if cid >= 0 else {}
+        rule = db.get('rule')
+        if rule == 'mega_ex':
+            return 3
+        if rule == 'ex' or (not db and _get_pokemon_hp(p) >= _P['opp_ex_hp_guess']):
+            ppk = max(ppk, 2)
+    return ppk
+
+
+def _is_ready_attacker(p):
+    """[v24.3] 就绪打手: 可攻击且已贴能量 >= needed_energy (0 能招式恒就绪)"""
+    if not isinstance(p, dict):
+        return False
+    cid = _get_pokemon_card_id(p)
+    data = _CARD_DB.get(cid, {}) if cid >= 0 else {}
+    if not data.get('can_attack', False):
+        return False
+    return _get_pokemon_energy_count(p) >= data.get('needed_energy', 0)
+
+
+def _estimate_ttw_side(field_mons, prize_count, prize_per_ko):
+    """[v24.2] 单方 turns-to-win 纯解析估计 (只读观测, 禁止引擎调用)
+
+    ttw = min_over_attackers( ready_turns(p) + ceil(prize_count / prize_per_ko) )
+    ready_turns = max(0, needed_energy - 已贴能量) (1 回合贴 1 能);
+    can_attack=False 跳过; 场上无可攻击者 → ttw_no_attacker_ttw。
+    """
+    _P = _PARAMS
+    need_kos = -(-max(prize_count, 0) // max(prize_per_ko, 1))
+    best = None
+    for p in field_mons:
+        cid = _get_pokemon_card_id(p)
+        data = _CARD_DB.get(cid, {}) if cid >= 0 else {}
+        if not data.get('can_attack', False):
+            continue
+        ready = max(0, data.get('needed_energy', 0) - _get_pokemon_energy_count(p))
+        ttw = ready + need_kos
+        if best is None or ttw < best:
+            best = ttw
+    return best if best is not None else _P['ttw_no_attacker_ttw']
+
+
+def _estimate_ttw_my(obs_current, my_idx):
+    """[v24.2] 我方 TTW: prize_per_ko 扫描对方场上 (对方 mega_ex=3/ex=2/其他=1)"""
+    ppk = _scan_prize_per_ko(_side_field(obs_current, my_idx, 'opp'))
+    return _estimate_ttw_side(_side_field(obs_current, my_idx, 'my'),
+                              _get_my_prize_count(obs_current, my_idx), ppk)
+
+
+def _estimate_ttw_opp(obs_current, my_idx):
+    """[v24.2] 对方 TTW: prize_per_ko 扫描我方场上 (我方 678 mega_ex=3 等)"""
+    ppk = _scan_prize_per_ko(_side_field(obs_current, my_idx, 'my'))
+    return _estimate_ttw_side(_side_field(obs_current, my_idx, 'opp'),
+                              _get_opp_prize_count(obs_current, my_idx), ppk)
+
+
+def _assess_game_state(obs_current, my_idx, my_prize, opp_prize,
+                       cant_break, have_shield, deck_advantage,
+                       my_deck, opp_deck, my_hp, opp_hp):
+    """[v24.3] 战略层: 对局模式评估 → dict(mode, sprint, multiplier, my_ttw, opp_ttw)
+
+    模式 (等价语义替换原 sprint_mode/mill_mode 判定位置):
+      MILL:      打不动 + 有盾 + 对方牌库比我方少且<=mill_deck_max (原 mill_mode)
+      DESPERATE: 奖赏落后 (my_prize > opp_prize) 且场上无就绪打手
+      GRIND:     打不动但牌库/血量占优 (消耗)
+      RACE:      其余 (默认)
+    sprint 等价原 sprint_mode; multiplier 取自 _PARAMS['mode_multipliers']
+    (默认全 1.0 = 行为中性), 供战略层按模式调制仲裁参数组。
+    [迭代2] TTW 时钟计算移至 _arbitrate_ttw 仅在真冲突时调用 (热路径优化)。
+    """
+    _P = _PARAMS
+    sprint = my_prize <= _P['prize_sprint_threshold']
+    if cant_break and have_shield and deck_advantage:
+        mode = _MODE_MILL
+    else:
+        has_ready = any(_is_ready_attacker(p)
+                        for p in _side_field(obs_current, my_idx, 'my'))
+        _prize_behind = my_prize > opp_prize
+        # [v24.5] EX_RUSH 原型 (对方KO节奏快): 奖赏持平也算落后, DESPERATE 提前触发
+        if (not _prize_behind and _P['om_archetype_enabled']
+                and _GAME_STATE.get('archetype') == 'EX_RUSH'
+                and my_prize == opp_prize):
+            _prize_behind = True
+        if _prize_behind and not has_ready:
+            mode = _MODE_DESPERATE
+        elif cant_break and (my_deck >= opp_deck or my_hp >= opp_hp):
+            mode = _MODE_GRIND
+        else:
+            mode = _MODE_RACE
+    mults = _P['mode_multipliers']
+    mult = mults.get(mode, 1.0) if isinstance(mults, dict) else 1.0
+    if not isinstance(mult, (int, float)):
+        mult = 1.0
+    return {'mode': mode, 'sprint': sprint, 'multiplier': mult}
+
+
+def _arbitrate_ttw(strat, obs_current, my_idx, my_active, opp_active, my_hp,
+                   my_energy, my_needed_energy, my_can_attack,
+                   attack_idx, best_attack_idx, best_attack_dmg, opp_hp,
+                   attach_active_idx, retreat_idx, bench,
+                   no_attack_wall, dying_674):
+    """[v24.2] TTW 仲裁层 (P8/P9 冲突区): 攻击 vs 贴active (vs 撤退, 默认关闭)
+
+    [迭代2] 收窄: 仅在 攻击与贴active 同时可行 (真冲突) 时才裁决, 单候选
+    直接交回 legacy 链 — 仲裁开关关闭时与 v24.0 严格同行为。
+    对每个候选估算执行后的 ΔTTW (简化映射, value 越高越优):
+      攻击(非KO; KO 已被 P1 硬规则拦截): chip = ttw_chip_credit * dmg/opp_hp
+      贴active(未就绪打手): ready_turns-1 → ttw_ready_weight
+      撤退: -ttw_retreat_penalty; 若 active 会被对方估算最大伤害 KO
+            → ttw_retreat_save_credit * ttw_survival_check (默认 0.0 不参与)
+    时钟调制: my_ttw > opp_ttw (落后) 时 chip 乘 (1 + ttw_clock_weight*clock)。
+    并列回退 legacy 优先级顺序 (P8 贴active > P9 攻击)。
+    返回 option index; 无冲突/value<=0 → None (legacy 链继续)。
+    """
+    _P = _PARAMS
+    # 攻击候选 (KO 已在 P1 拦截, 到此处必为非 KO chip)
+    atk_ok = (attack_idx and best_attack_idx >= 0 and best_attack_dmg > 0
+              and not no_attack_wall and not dying_674 and opp_hp > 0)
+    # 贴 active 候选 (与 legacy P8 同条件)
+    att_ok = (attach_active_idx and my_can_attack
+              and my_energy < my_needed_energy)
+    if not (atk_ok and att_ok):
+        return None  # 无真冲突 → legacy 链 (行为与 v24.0 一致)
+    mult = strat.get('multiplier', 1.0)
+    # TTW 时钟仅在真冲突时计算 (热路径优化)
+    clock = _estimate_ttw_my(obs_current, my_idx) - _estimate_ttw_opp(obs_current, my_idx)
+    clock_mult = 1.0 + _P['ttw_clock_weight'] * clock
+    clock_mult = min(max(clock_mult, 0.5), 2.0)
+    chip = mult * _P['ttw_chip_credit'] * (best_attack_dmg / opp_hp) * clock_mult
+    cands = [(_P['ttw_ready_weight'], 0, attach_active_idx[0])]
+    if chip >= _P['ttw_chip_min']:  # [迭代3] 仅重创级 chip 参与竞争, 否则维持 legacy 贴能
+        cands.append((chip, 1, best_attack_idx))
+    # 撤退候选 (生存检查: 对方 active 卡库最大伤害×弱点 vs 我方 HP; 默认 save=0 不参与)
+    if (retreat_idx and bench and my_active and _P['ttw_retreat_save_credit'] > 0
+            and _P['lookahead_enabled']):
+        opp_cid = _get_pokemon_card_id(opp_active) if opp_active else -1
+        opp_power = _CARD_DB.get(opp_cid, {}).get('power', 0) if opp_cid >= 0 else 0
+        opp_max = (_calculate_ko_damage(opp_power, opp_cid, my_active)
+                   if opp_power > 0 else 0)
+        if my_hp > 0 and opp_max >= my_hp:
+            cands.append((_P['ttw_retreat_save_credit'] * _P['ttw_survival_check'],
+                          2, retreat_idx[0]))
+        else:
+            cands.append((-_P['ttw_retreat_penalty'], 2, retreat_idx[0]))
+    cands.sort(key=lambda c: (-c[0], c[1]))  # value 降序, 并列按 legacy 顺序
+    val, rank, idx = cands[0]
+    if val <= 0:
+        return None
+    return idx
+
+
+# ==================================================================
+# 4.6 [v24.4] 1-ply 最坏情况前瞻 + 防死循环 (_GAME_STATE 第一块拼图)
+# ==================================================================
+
+def _opp_best_response(obs_current, my_idx, defender=None):
+    """[v24.4] 对方下回合最大威胁估计 (纯解析, 禁止引擎调用)
+
+    扫描对方 active + bench:
+      - 就绪 (已贴能量 >= needed_energy): 威胁 = max_dmg × defender 弱点(×2)
+      - bench 就绪打手计入 (对方可换位/ボス抓人), 乘 la_bench_threat_factor
+      - active 未就绪但只差 1 能: 乘 la_almost_ready_factor
+    defender 默认我方 active (传 bench 宝可梦可评估抓人风险)。
+    返回 dict(max_dmg, can_ko_active, threat_source_cid)。
+    """
+    _P = _PARAMS
+    if defender is None:
+        defender = _get_my_active(obs_current, my_idx)
+    def_hp = _get_pokemon_hp(defender)
+    max_dmg = 0.0
+    src = -1
+
+    opp_act = _get_opp_active(obs_current, my_idx)
+    if isinstance(opp_act, dict):
+        cid = _get_pokemon_card_id(opp_act)
+        data = _CARD_DB.get(cid, {}) if cid >= 0 else {}
+        power = data.get('power', 0)
+        if power > 0 and isinstance(defender, dict):
+            need = data.get('needed_energy', 0)
+            have = _get_pokemon_energy_count(opp_act)
+            if have >= need:
+                factor = 1.0
+            elif have + 1 >= need:
+                factor = _P['la_almost_ready_factor']
+            else:
+                factor = 0.0
+            if factor > 0:
+                dmg = _calculate_ko_damage(power, cid, defender) * factor
+                if dmg > max_dmg:
+                    max_dmg, src = dmg, cid
+
+    for bp in _get_opp_bench(obs_current, my_idx):
+        cid = _get_pokemon_card_id(bp)
+        data = _CARD_DB.get(cid, {}) if cid >= 0 else {}
+        power = data.get('power', 0)
+        if power <= 0 or not isinstance(defender, dict):
+            continue
+        if _get_pokemon_energy_count(bp) >= data.get('needed_energy', 0):
+            dmg = (_calculate_ko_damage(power, cid, defender)
+                   * _P['la_bench_threat_factor'])
+            if dmg > max_dmg:
+                max_dmg, src = dmg, cid
+
+    return {'max_dmg': max_dmg,
+            'can_ko_active': def_hp > 0 and max_dmg >= def_hp,
+            'threat_source_cid': src}
+
+
+def _la_attach_wasteful(target, threat_max_dmg, one_more_ok=False):
+    """[v24.4] 填能前瞻: 贴完这 1 能仍无法就绪攻击 且 会被对方估算一击 KO
+    → 贴能给该目标 = 浪费能量资产。豁免: 贴完即可就绪的不算浪费。
+    [v24.5] one_more_ok (牌库追踪: 能量/检索剩余充足): 贴完仍差 1 能也不视为浪费。"""
+    if not isinstance(target, dict):
+        return False
+    cid = _get_pokemon_card_id(target)
+    data = _CARD_DB.get(cid, {}) if cid >= 0 else {}
+    need = data.get('needed_energy', 0)
+    have = _get_pokemon_energy_count(target)
+    if have + 1 >= need:
+        return False  # 贴完即可就绪 → 豁免
+    if one_more_ok and have + 2 >= need:
+        return False  # [v24.5] 差1能但补给充足 → 豁免
+    hp = _get_pokemon_hp(target)
+    return hp > 0 and threat_max_dmg >= hp
+
+
+# ---- 防死循环 (oscillation breaker) ----
+# [v22.6-fix4 教训] 状态生命周期: 任何重置必须覆盖所有入口 —
+# _maybe_reset_game_state 在 agent() 入口无条件调用。
+_OSC = {'hist': []}  # 最近 6 次 Main 决策 [(active_cid, action_class), ...]
+_OSC_CLASS_MAP = {
+    'Attack': 'attack', 'Attach': 'attach', 'Retreat': 'retreat',
+    'Play': 'play', 'Evolve': 'evolve', 'Ability': 'ability',
+    'End': 'end', 'Discard': 'discard',
+}
+
+
+# ---- [v24.5] 轻量对手建模 (_GAME_STATE) ----
+# 观测可见性 (引擎实测): 对方 hand=null 隐藏 (handCount 可见); discard/active/
+# bench 的卡 id 全部可见; logs 为增量事件流 (len 非单调, 含 cardId+serial)。
+# 因此建模数据源选 弃牌堆+场上 的当前快照重算 —— 幂等, 同一 obs 重复送达
+# 结果相同, 无需事件去重。
+_GAME_STATE = {
+    'opp_seen_cards': Counter(),   # 对方可见区 (弃牌+场上含附属) 卡 ID 计数
+    'opp_supporter_used': 0,       # 衍生: 对方已用训练家卡数 (按我方已知 trainer ID 近似)
+    'boss_used': 0,                # ボスの指令(1182) 已用数
+    'judge_used': 0,               # ジャッジ(1213) 已用数
+    'archetype': 'UNKNOWN',        # WALL / EX_RUSH / UNKNOWN
+}
+
+
+def _reset_game_state():
+    _GAME_STATE['opp_seen_cards'] = Counter()
+    _GAME_STATE['opp_supporter_used'] = 0
+    _GAME_STATE['boss_used'] = 0
+    _GAME_STATE['judge_used'] = 0
+    _GAME_STATE['archetype'] = 'UNKNOWN'
+
+
+def _classify_opp_archetype(opp_seen_cards, opp_field):
+    """[v24.5] 对手原型分类:
+    见到 345 (场上/弃牌) → WALL 系; 场上 mega_ex >= om_ex_rush_min → EX_RUSH;
+    否则 UNKNOWN (现状行为)。"""
+    if opp_seen_cards.get(345, 0) > 0:
+        return 'WALL'
+    mega_ex = 0
+    for pm in opp_field:
+        cid = _get_pokemon_card_id(pm)
+        if cid >= 0 and _CARD_DB.get(cid, {}).get('rule') == 'mega_ex':
+            mega_ex += 1
+    if mega_ex >= _PARAMS['om_ex_rush_min']:
+        return 'EX_RUSH'
+    return 'UNKNOWN'
+
+
+def _count_visible_cards(card_lists):
+    """[v24.5] 统计卡列表中的 id (兼容 dict{id} / int 两种元素)。"""
+    seen = Counter()
+    for lst in card_lists:
+        if not isinstance(lst, list):
+            continue
+        for c in lst:
+            if isinstance(c, dict):
+                cid = c.get('id', -1)
+            elif isinstance(c, int):
+                cid = c
+            else:
+                continue
+            if isinstance(cid, int) and cid >= 0:
+                seen[cid] += 1
+    return seen
+
+
+def _update_game_state(obs_current, my_idx):
+    """[v24.5] 从可见区重建对手模型 (幂等)。任何异常静默跳过 (建模是辅助)。"""
+    try:
+        players = obs_current.get('players', [])
+        opp_idx = 1 - my_idx
+        if not players or not (0 <= opp_idx < len(players)):
+            return
+        opp = players[opp_idx]
+        if not isinstance(opp, dict):
+            return
+        act = opp.get('active') or []
+        bench = opp.get('bench') or []
+        field = [pm for pm in (list(act) + list(bench)) if isinstance(pm, dict)]
+        lists = [opp.get('discard') or [], field]
+        for pm in field:  # 场上宝可梦的附属能量/工具也计入 (energies 为 id 列表)
+            lists.append(pm.get('energies') or pm.get('energyCards') or [])
+        seen = _count_visible_cards(lists)
+        st = _GAME_STATE
+        st['opp_seen_cards'] = seen
+        st['boss_used'] = seen.get(1182, 0)
+        st['judge_used'] = seen.get(1213, 0)
+        st['opp_supporter_used'] = sum(
+            v for k, v in seen.items() if k in _TRAINER_IDS)
+        if _PARAMS['om_archetype_enabled']:
+            st['archetype'] = _classify_opp_archetype(seen, field)
+        else:
+            st['archetype'] = 'UNKNOWN'
+    except Exception:
+        pass
+
+
+def _my_remaining_counts(obs_current, my_idx):
+    """[v24.5] 我方牌库追踪 (轻量): 剩余 = DECK 构成 - 已见(手牌+场上含附属+弃牌)。
+    近似: prize 卡隐藏不可见 → 剩余量含 prize 中的卡 (高估在库量), 仅作概率参考。"""
+    p = _get_my_player(obs_current, my_idx)
+    if not p:
+        return _DECK_COUNTER.copy()
+    act = p.get('active') or []
+    bench = p.get('bench') or []
+    field = [pm for pm in (list(act) + list(bench)) if isinstance(pm, dict)]
+    lists = [p.get('hand') or [], p.get('discard') or [], field]
+    for pm in field:
+        lists.append(pm.get('energies') or pm.get('energyCards') or [])
+    seen = _count_visible_cards(lists)
+    rem = _DECK_COUNTER.copy()
+    rem.subtract(seen)
+    return +rem  # 丢弃非正计数
+
+
+def _lillie_waste_line():
+    """[v24.5] リーリエ waste 线: 对方ジャッジ耗尽时按 om_judge_relax 放宽 (默认 0 中性)。"""
+    _P = _PARAMS
+    line = _P['lillie_waste_hand']
+    if (_P['opponent_model_enabled'] and _P['om_judge_relax']
+            and _GAME_STATE.get('judge_used', 0) >= _P['om_judge_max']):
+        line += _P['om_judge_relax']
+    return line
+
+
+def _maybe_reset_game_state(obs):
+    """[v24.4/v24.5] 新对局信号重置 _OSC + _GAME_STATE:
+    select=None (上牌阶段) 或 SetupActivePokemon。覆盖所有入口 (v22.6-fix4 教训)。"""
+    sel = obs.get('select') if isinstance(obs, dict) else None
+    if sel is None:
+        _OSC['hist'].clear()
+        _reset_game_state()
+        return
+    if isinstance(sel, dict) and _norm_context(sel.get('context')) == _SC_SETUP_ACTIVE:
+        _OSC['hist'].clear()
+        _reset_game_state()
+
+
+def _osc_class_of(action, options):
+    """[v24.4] 决策的 action_class (由首选 option type 映射)。"""
+    if action and isinstance(action[0], int) and 0 <= action[0] < len(options):
+        return _OSC_CLASS_MAP.get(_get_option_type(options[action[0]]), 'other')
+    return 'other'
+
+
+def _osc_record(action, options, obs_current, my_idx):
+    """[v24.4] 记录 Main 决策 (active_cid, action_class), 保留最近 6 次。"""
+    my_active = _get_my_active(obs_current, my_idx)
+    cid = _get_pokemon_card_id(my_active) if my_active else -1
+    h = _OSC['hist']
+    h.append((cid, _osc_class_of(action, options)))
+    del h[:-6]
+
+
+def _osc_intervene(action, options, max_count):
+    """[v24.4] A→B→A 振荡检测: hist[-3]==hist[-1] (动作类) 且当前决策又要重复
+    上上次动作类 (hist[-2]) → 振荡成环, 改为 End 回合 (破环最保守手段)。
+    无 End 选项时维持原决策。"""
+    h = _OSC['hist']
+    if len(h) < 3:
+        return action
+    # [迭代2] 仅 A=retreat 才视为振荡: 正常的 攻击↔贴能 节奏 (A=attack/attach)
+    # 会误触发破环烧节奏 (R1 vs random 0.701 回归根因); 撤退 churn 才是真死循环
+    if h[-1][1] == 'retreat' and h[-1][1] == h[-3][1] and h[-1][1] != h[-2][1]:
+        forbidden = h[-2][1]
+        if _osc_class_of(action, options) == forbidden:
+            for i, opt in enumerate(options):
+                if _get_option_type(opt) == _OT_END:
+                    return _sanitize([i], len(options), max_count)
+    return action
 
 
 # ==================================================================
@@ -2077,6 +2830,7 @@ def _handle_main(options, max_count, context, obs_current, my_idx):
       P7.   进化任意宝可梦
       P8.   active能量不足 → ATTACH to active
       P9.   ATTACK (伤害≥60)
+      [v24.2] P8/P9 冲突区由 TTW 仲裁层裁决 (ttw_arbitration_enabled, 关闭回退 legacy)
       P10.  PLAY训练家卡
       P11.  PLAY宝可梦到bench
       P12.  ATTACH to bench (优先678メガルカリオex)
@@ -2089,6 +2843,7 @@ def _handle_main(options, max_count, context, obs_current, my_idx):
     """
     global _PENDING_SWITCH_TO_WALL  # [v22.4] 换墙意图传递 (保留通用机制)
 
+    _P = _PARAMS  # [v24.0] 热路径局部绑定
     n = len(options)
     if n == 0:
         return []
@@ -2111,7 +2866,7 @@ def _handle_main(options, max_count, context, obs_current, my_idx):
     bench_count = len(bench)
 
     my_prize = _get_my_prize_count(obs_current, my_idx)
-    sprint_mode = my_prize <= _PRIZE_SPRINT_THRESHOLD
+    # [v24.3] sprint/mill 判定移至战略层 _assess_game_state (在下方攻击估值后调用)
 
     my_card_data = _CARD_DB.get(my_cid, {})
     my_needed_energy = my_card_data.get("needed_energy", 0)
@@ -2119,14 +2874,14 @@ def _handle_main(options, max_count, context, obs_current, my_idx):
 
     # [BUG-7 fix] 674 ワイルドプレス 自伤70: HP<=70 时攻击等于自杀,
     # 非 KO 攻击一律不打出 (P5/P9/P14 门控), 由 P16 撤退兜底
-    dying_674 = (my_cid == 674 and my_hp <= 70)
+    dying_674 = (my_cid == 674 and my_hp <= _P['hariyama_self_ko_hp'])
 
     # === 检查对方是否为ex宝可梦 ===
     # [v22.6-fix2] 优先用卡库 rule 判断; 卡库未覆盖时才用 hp>=200 启发式
     opp_cid = _get_pokemon_card_id(opp_active) if opp_active else -1
     _opp_db = _CARD_DB.get(opp_cid, {})
     opp_is_ex = _opp_db.get("rule") in ("ex", "mega_ex") or (
-        not _opp_db and opp_hp >= 200)
+        not _opp_db and opp_hp >= _P['opp_ex_hp_guess'])
 
     # === [v23] 对方 345 イワパレス 墙识别 (免疫 ex 伤害) ===
     # 我方 ex 打手 (678) 对它的攻击无效, 需用非ex的674/676攻击或用ボスの指令
@@ -2228,12 +2983,35 @@ def _handle_main(options, max_count, context, obs_current, my_idx):
     # 打不动判定: 我方最佳攻击无法KO且伤害<对方HP的50% (真正打不动)
     cant_break = (opp_hp > 0 and best_attack_dmg > 0
                   and ko_dmg < opp_hp
-                  and best_attack_dmg < opp_hp * 0.5)
+                  and best_attack_dmg < opp_hp * _P['mill_cant_break_ratio'])
     # 我方有高HP盾在场可抗 (678 340HP 或 674 150HP)
-    have_shield = (my_cid in (678, 674) and my_max_hp >= 150)
+    have_shield = (my_cid in (678, 674) and my_max_hp >= _P['mill_shield_min_hp'])
     # 对方牌库濒临耗尽的优势局面
-    deck_advantage = (opp_deck < my_deck and opp_deck <= 15)
-    mill_mode = cant_break and have_shield and deck_advantage
+    deck_advantage = (opp_deck < my_deck and opp_deck <= _P['mill_deck_max'])
+    # [v24.3] 战略层: 对局模式评估 (等价语义: mill_mode ⇔ mode==MILL,
+    # sprint_mode ⇔ strat['sprint']); multiplier 供仲裁层按模式调制 (默认 1.0)
+    _strat = _assess_game_state(obs_current, my_idx, my_prize,
+                                _get_opp_prize_count(obs_current, my_idx),
+                                cant_break, have_shield, deck_advantage,
+                                my_deck, opp_deck, my_hp, opp_hp)
+    mill_mode = _strat['mode'] == _MODE_MILL
+    sprint_mode = _strat['sprint']
+
+    # [v24.4] 1-ply 前瞻: 对方下回合最大威胁 (仅在有贴能/撤退选项时计算, 热路径优化)
+    _la_threat = None
+    if _P['lookahead_enabled'] and (attach_active_idx or attach_bench_idx or retreat_idx):
+        _la_threat = _opp_best_response(obs_current, my_idx)
+    # [v24.5] 牌库追踪: 能量/检索剩余充足 → 差1能填能目标不视为浪费
+    _energy_plenty = False
+    if (_la_threat is not None and _P['opponent_model_enabled']
+            and _P['om_deck_track_enabled']):
+        _rem = _my_remaining_counts(obs_current, my_idx)
+        _energy_plenty = (_rem.get(6, 0) + _rem.get(20, 0) + _rem.get(1142, 0)
+                          >= _P['om_energy_surplus_min'])
+    # [v24.5] ボスの指令耗尽 → bench 低HP已填能目标被抓杀风险解除, 大胆留场
+    _boss_exhausted = (_P['opponent_model_enabled']
+                       and _GAME_STATE.get('boss_used', 0) >= _P['om_boss_max'])
+
     if mill_mode:
         # 有ジャッジ(1213)在手 → 打出压缩对手牌库 (优先于End)
         if play_trainer_idx:
@@ -2253,8 +3031,9 @@ def _handle_main(options, max_count, context, obs_current, my_idx):
     # [v22.4] ex 打手面对 345 墙时攻击无效, 禁止所有攻击路径
     no_attack_wall = (opp_is_wall and my_is_ex_attacker)
 
-    # P1. KO攻击 (能赢就赢; [P1调优] 多个能KO的攻击选伤害最低的节能, 改变只打270的单一节奏)
-    # 例: 对手HP=120时, 678用Aura Jab(130)即可KO, 省下能量留给下回合Mega Brave 270连续收割
+    # P1. KO攻击 (能赢就赢; [P1调优] 多个能KO的攻击选伤害最低的避免过杀, 改变只打270的单一节奏)
+    # 例: 对手HP=120时, 678用Aura Jab(130)即可KO。注: 本引擎攻击不耗能量,
+    # 且 Mega Brave 270 下回合禁用 (:1561) —— 678 实际节奏是交替 270/130, 非"连续收割"。
     if attack_idx and opp_hp > 0 and not no_attack_wall:
         ko_candidates = []
         for idx in attack_idx:
@@ -2293,6 +3072,27 @@ def _handle_main(options, max_count, context, obs_current, my_idx):
     if my_cid == _BUDEW and attack_idx and best_attack_idx >= 0:
         return _sanitize([best_attack_idx], n, max_count)
 
+    # [F1] 345墙+ex打手 转火 (1084.5 skip-ex-wall 移植): 不撤退送节奏,
+    # 改打ボスの指令(1182)把 bench 非墙高奖品目标抓上来, ex打手留场继续输出。
+    # 仅在 ex打手本回合可攻击(能量够)且有非墙目标时启用; 否则落原撤退逻辑。
+    if (no_attack_wall and _P['f1_wall_retarget'] and attack_idx
+            and my_energy >= my_needed_energy and play_trainer_idx):
+        _gust_i = -1
+        for _i in play_trainer_idx:
+            _o = options[_i] if _i < len(options) else {}
+            _h = _o.get("index", -1) if isinstance(_o, dict) else -1
+            if (0 <= _h < len(hand) and isinstance(hand[_h], dict)
+                    and hand[_h].get("id") == _TRAINER_BOSS):
+                _gust_i = _i
+                break
+        if _gust_i >= 0:
+            _nonwall = any(
+                isinstance(bp, dict) and _get_pokemon_card_id(bp) != 345
+                for bp in _get_opp_bench(obs_current, my_idx))
+            if _nonwall:
+                _F1_STATS["wall_retarget"] += 1
+                return _sanitize([_gust_i], n, max_count)
+
     # [BUG-2 fix] ex 打手面对 345 墙: 换非 ex 打手上场 (674 破墙 / 676 无视效果 /
     # 675/677/673 均可对墙造成伤害), 不再只认 674
     if no_attack_wall and retreat_idx and bench and bench_has_non_ex:
@@ -2318,10 +3118,11 @@ def _handle_main(options, max_count, context, obs_current, my_idx):
             if 0 <= best_trainer_hand_idx < len(hand):
                 best_trainer_cid = hand[best_trainer_hand_idx].get("id", -1) if isinstance(hand[best_trainer_hand_idx], dict) else -1
                 # [v22.4-fix] リーリエの決心 手牌>=6 无收益, 不强制打出
-                lillie_waste = best_trainer_cid == _TRAINER_LILLIE and len(hand) >= 6
+                # [v24.5] 对方ジャッジ耗尽时 waste 线按 om_judge_relax 放宽 (默认 0)
+                lillie_waste = best_trainer_cid == _TRAINER_LILLIE and len(hand) >= _lillie_waste_line()
                 # [v23] ジャッジ: 手牌>=5时打(破坏对手手牌+压缩牌库)
-                judge_good = best_trainer_cid == _TRAINER_JUDGE and len(hand) >= 5
-                if best_trainer_cid in (_TRAINER_GONG, _TRAINER_LILLIE, _TRAINER_POKEPAD, _TRAINER_JUDGE) and not lillie_waste and (best_trainer_cid != _TRAINER_JUDGE or judge_good):
+                judge_good = best_trainer_cid == _TRAINER_JUDGE and len(hand) >= _P['judge_min_hand']
+                if best_trainer_cid in (_TRAINER_GONG, _TRAINER_LILLIE, _TRAINER_POKEPAD, _TRAINER_JUDGE, _TRAINER_SIANO, _TRAINER_MEGASIGNAL, _TRAINER_EACCEL) and not lillie_waste and (best_trainer_cid != _TRAINER_JUDGE or judge_good):
                     return _sanitize([best_trainer], n, max_count)
 
     # P7. 进化任意宝可梦 (进化链推进)
@@ -2332,9 +3133,9 @@ def _handle_main(options, max_count, context, obs_current, my_idx):
     # P7.5 [P1调优] 能量改道: active是低攻辅助(675/676/677/673)且bench有678(核心打手)
     # 时, 跳过贴active(辅助攻击<60低效), 直接给678蓄能 → 减少"贴辅助-干等"空转回合
     # 前提: active已满能或攻击伤害低(<60), 且678能量不足2
-    if attach_bench_idx and bench_has_678 and bench_678_energy < 2:
+    if attach_bench_idx and bench_has_678 and bench_678_energy < _P['reroute_bench_energy_max']:
         _aux_active = my_cid in (675, 676, 677, 673)
-        _aux_dmg_low = my_cid in (675, 676, 677, 673) and best_attack_dmg < 60
+        _aux_dmg_low = my_cid in (675, 676, 677, 673) and best_attack_dmg < _P['reroute_aux_dmg_max']
         if (_aux_active and my_energy >= my_needed_energy) or _aux_dmg_low:
             best_bench_attach = _find_best_bench_attach_mega(attach_bench_idx, bench, options)
             return _sanitize([best_bench_attach], n, max_count)
@@ -2343,15 +3144,35 @@ def _handle_main(options, max_count, context, obs_current, my_idx):
     # 立即撤退换 678 上场 (优先于 P8 贴能给辅助 / P9 弱攻击, 否则 270 斩杀
     # 打手被晾在 bench 干等, 能量还浪费在 50 伤害的辅助上)
     if (my_cid in (675, 676, 677, 673) and bench_has_678
-            and bench_678_energy >= 2 and retreat_idx and not opp_is_wall):
+            and bench_678_energy >= _P['switch_ready_bench_energy'] and retreat_idx and not opp_is_wall):
         return _sanitize([retreat_idx[0]], n, max_count)
 
+    # [v24.2] P8/P9 仲裁层: TTW 估值仲裁 攻击 vs 贴active vs 撤退(生存检查)。
+    # 硬规则否决地位不变 (mill/P1 KO/P2/no_attack_wall/674自杀门控/P3进化均在上方
+    # 已拦截); ttw_arbitration_enabled=False 或无候选时精确回退 v24.0 legacy 顺序。
+    if _P['ttw_arbitration_enabled']:
+        _arb_idx = _arbitrate_ttw(
+            _strat, obs_current, my_idx, my_active, opp_active, my_hp,
+            my_energy, my_needed_energy, my_can_attack,
+            attack_idx, best_attack_idx, best_attack_dmg, opp_hp,
+            attach_active_idx, retreat_idx, bench,
+            no_attack_wall, dying_674)
+        if _arb_idx is not None:
+            return _sanitize([_arb_idx], n, max_count)
+
     # P8. active能量不足 → ATTACH to active
-    if attach_active_idx and my_can_attack and my_energy < my_needed_energy:
-        return _sanitize([attach_active_idx[0]], n, max_count)
+    # [v24.7 F2a] active是677リオル时按 mega 成型的 2 能计需求(而非其自身1能),
+    # 否则贴1能即误判"就绪"停灌, 进化后678永远差1能 (vs_first诊断实锤)
+    _req_energy = 2 if _get_pokemon_card_id(my_active) == 677 else my_needed_energy
+    if attach_active_idx and my_can_attack and my_energy < _req_energy:
+        # [v24.4/v24.5] 填能前瞻: 贴完仍不就绪且将被一击KO → 不贴, fall through
+        # (v24.5: 差1能且能量补给充足时豁免)
+        if not (_P['la_attach_foresight_enabled'] and _la_threat is not None
+                and _la_attach_wasteful(my_active, _la_threat['max_dmg'], _energy_plenty)):
+            return _sanitize([attach_active_idx[0]], n, max_count)
 
     # P9. ATTACK (伤害≥60, 不浪费回合在弱攻击上; [BUG-7] 674自杀线不攻)
-    if attack_idx and best_attack_dmg >= 60 and not no_attack_wall and not dying_674:
+    if attack_idx and best_attack_dmg >= _P['p9_attack_dmg_min'] and not no_attack_wall and not dying_674:
         return _sanitize([best_attack_idx], n, max_count)
 
     # P10. PLAY训练家卡
@@ -2363,7 +3184,7 @@ def _handle_main(options, max_count, context, obs_current, my_idx):
             hand_idx = opt.get("index", -1) if isinstance(opt, dict) else -1
             if 0 <= hand_idx < len(hand):
                 cid = hand[hand_idx].get("id", -1) if isinstance(hand[hand_idx], dict) else -1
-                if cid == _TRAINER_LILLIE and len(hand) >= 6:
+                if cid == _TRAINER_LILLIE and len(hand) >= _lillie_waste_line():
                     continue
             play_trainer_filtered.append(i)
         if play_trainer_filtered:
@@ -2377,8 +3198,19 @@ def _handle_main(options, max_count, context, obs_current, my_idx):
 
     # P12. ATTACH to bench (优先678メガルカリオex, 为斩杀做准备)
     if attach_bench_idx:
-        best_bench_attach = _find_best_bench_attach_mega(attach_bench_idx, bench, options)
-        return _sanitize([best_bench_attach], n, max_count)
+        # [v24.4] 填能前瞻: 过滤 贴完仍不就绪且将被一击KO 的 bench 目标;
+        # 全部候选被过滤 (返回-1) → 跳过贴能 fall through
+        _wfn = None
+        if (_P['la_attach_foresight_enabled'] and _P['lookahead_enabled']
+                and not _boss_exhausted):  # [v24.5] ボス耗尽 → bench 不被抓, 豁免过滤
+            def _wfn(bp):
+                return _la_attach_wasteful(
+                    bp, _opp_best_response(obs_current, my_idx, bp)['max_dmg'],
+                    _energy_plenty)
+        best_bench_attach = _find_best_bench_attach_mega(
+            attach_bench_idx, bench, options, _wfn)
+        if best_bench_attach >= 0:
+            return _sanitize([best_bench_attach], n, max_count)
 
     # P13. ABILITY (675ルナトーン ルナサイクル: 弃1斗能抽3, 能量加速核心)
     if ability_idx:
@@ -2391,7 +3223,10 @@ def _handle_main(options, max_count, context, obs_current, my_idx):
 
     # P15. ATTACH to active (积攒能量备用)
     if attach_active_idx:
-        return _sanitize([attach_active_idx[0]], n, max_count)
+        # [v24.4/v24.5] 填能前瞻: 同 P8 (差1能且补给充足时豁免), 浪费则不贴
+        if not (_P['la_attach_foresight_enabled'] and _la_threat is not None
+                and _la_attach_wasteful(my_active, _la_threat['max_dmg'], _energy_plenty)):
+            return _sanitize([attach_active_idx[0]], n, max_count)
     if attach_other_idx:
         return _sanitize([attach_other_idx[0]], n, max_count)
 
@@ -2411,11 +3246,19 @@ def _handle_main(options, max_count, context, obs_current, my_idx):
             return _sanitize([retreat_idx[0]], n, max_count)
         # [BUG-7 fix] 674 ワイルドプレス 自伤70: HP<=70 时不自杀式攻击,
         # 有替补就撤退换人, 避免打出210后自我KO轻敌
-        if my_cid == 674 and my_hp <= 70 and bench_has_non_ex:
+        if my_cid == 674 and my_hp <= _P['hariyama_self_ko_hp'] and bench_has_non_ex:
             return _sanitize([retreat_idx[0]], n, max_count)
+        # [v24.4] 撤退估值: active 将被对方估算一击KO 且携带能量资产 →
+        # 撤退保全 (save_credit + asset_weight×能量 >= la_retreat_save_min)
+        if (_P['lookahead_enabled'] and _la_threat is not None
+                and _la_threat['can_ko_active'] and my_energy > 0):
+            _save = (_P['ttw_retreat_save_credit']
+                     + _P['la_energy_asset_weight'] * my_energy)
+            if _save >= _P['la_retreat_save_min']:
+                return _sanitize([retreat_idx[0]], n, max_count)
         # HP低于30% + bench有打手 → 撤退
         hp_ratio = my_hp / my_max_hp if my_max_hp > 0 else 0
-        if hp_ratio < 0.3:
+        if hp_ratio < _P['retreat_hp_ratio']:
             bench_has_attacker = any(
                 _CARD_DB.get(_get_pokemon_card_id(bp), {}).get("can_attack", False)
                 for bp in bench if bp and isinstance(bp, dict)
@@ -2444,6 +3287,7 @@ def _handle_card(options, max_count, context, obs_current, my_idx):
     """
     global _PENDING_SWITCH_TO_WALL  # [v22.4] 换墙意图消费
 
+    _P = _PARAMS  # [v24.0] 热路径局部绑定
     n = len(options)
     if n == 0:
         return []
@@ -2460,6 +3304,18 @@ def _handle_card(options, max_count, context, obs_current, my_idx):
             for i, opt in enumerate(options):
                 if _resolve_card_id_from_option(opt, obs_current, my_idx) == _BUDEW:
                     return _sanitize([i], n, max_count)
+        # [v24.7 F1] 开局选将锁定：必开 677 リオル（→678 Mega 主线）。
+        # vs_first 诊断（n=2000 seed0=9000）：开 677 wr=0.435，开 675/676/673 仅 0.21-0.29；
+        # 旧通用打分 677 与 673 同分 580（power30+500basic+50evolve），平局由 option
+        # 下标决定 → 约一半概率错开 673（0.209）。回退顺序也按实测修正为 675>676>673。
+        for i, opt in enumerate(options):
+            if _resolve_card_id_from_option(opt, obs_current, my_idx) == 677:
+                return _sanitize([i], n, max_count)
+        _setup_rank = {675: 3, 676: 2, 673: 1}
+        scored = [(_setup_rank.get(_resolve_card_id_from_option(o, obs_current, my_idx), 0), j)
+                  for j, o in enumerate(options)]
+        scored.sort(reverse=True)
+        return _sanitize([j for _, j in scored[:max_count]], n, max_count)
 
     # [B4] Switch/ToActive 场景：判断是 ボスの指令（对方）还是 撤退（我方）
     if context in (_SC_SWITCH, _SC_TO_ACTIVE):
@@ -2472,6 +3328,51 @@ def _handle_card(options, max_count, context, obs_current, my_idx):
                     break
 
         if targets_opp:
+            if _P['f1_gust_target_score']:
+                # [F1] ボスの指令选靶 (1084.5 target_score 移植): prize 框架,
+                # KO 主导 (杀不掉按伤害比例折让); ex 打手跳过 345 免疫墙
+                _me_pl = (obs_current.get("players") or [{}, {}])[my_idx]
+                _op_pl = (obs_current.get("players") or [{}, {}])[1 - my_idx]
+                _my_act = (_me_pl.get("active") or [])
+                _my_pk = _my_act[0] if _my_act and isinstance(_my_act[0], dict) else None
+                _my_cid_g = _get_pokemon_card_id(_my_pk)
+                _my_ex = _CARD_DB.get(_my_cid_g, {}).get("rule") in ("ex", "mega_ex")
+                _my_pow = _CARD_DB.get(_my_cid_g, {}).get("power", 0) if _my_cid_g >= 0 else 0
+                _opp_prize_n = len(_op_pl.get("prize") or [])
+                scored = []
+                for i, opt in enumerate(options):
+                    cid_opt = _resolve_card_id_from_option(opt, obs_current, my_idx)
+                    pk = _resolve_opp_pokemon_from_option(opt, obs_current, my_idx)
+                    if (pk is not None and cid_opt >= 0
+                            and _get_pokemon_card_id(pk) != cid_opt):
+                        pk = None  # 索引语义不符, 不信任
+                    cid = _get_pokemon_card_id(pk) if pk else cid_opt
+                    if _my_ex and cid == 345:
+                        scored.append((-10 ** 9, i))   # ex 免疫墙, 抓了白打
+                        continue
+                    if pk:
+                        hp = _get_pokemon_hp(pk)
+                        base = _target_score(pk)
+                        dmg = _calculate_ko_damage(_my_pow, _my_cid_g, pk)
+                    else:
+                        hp = (opt.get("hp") if isinstance(opt, dict)
+                              and isinstance(opt.get("hp"), int)
+                              else _CARD_DB.get(cid, {}).get("hp", 1))
+                        st = _poke_stage(cid)
+                        base = (_prize_count(cid) * 1000
+                                + (250 if st == 2 else (130 if st == 1 else 0)) + hp)
+                        dmg = _my_pow
+                    pc = _prize_count(cid)
+                    if hp > 0 and dmg >= hp:
+                        sc = base + pc * 2000
+                        if _opp_prize_n <= pc:
+                            sc = 10 ** 8               # 直接获胜级优先
+                    else:
+                        sc = base * (dmg / max(hp, 1))  # 杀不掉按比例折让
+                    scored.append((sc, i))
+                scored.sort(reverse=True)
+                _F1_STATS["gust_ts"] += 1
+                return _sanitize([idx for _, idx in scored[:max_count]], n, max_count)
             # ボスの指令：选 HP 最低的对方 bench 宝可梦（便于击杀拿奖赏卡）
             scored = []
             for i, opt in enumerate(options):
@@ -2482,22 +3383,35 @@ def _handle_card(options, max_count, context, obs_current, my_idx):
                         continue
                     cid = _resolve_card_id_from_option(opt, obs_current, my_idx)
                     if cid >= 0:
-                        card_hp = _CARD_DB.get(cid, {}).get("hp", 999)
+                        card_hp = _CARD_DB.get(cid, {}).get("hp", _P['boss_unknown_hp'])
                         scored.append((card_hp, i))
                         continue
-                scored.append((999, i))  # 未知 HP，排最后
+                scored.append((_P['boss_unknown_hp'], i))  # 未知 HP，排最后
 
             scored.sort()  # HP 低的排前面
             return _sanitize([idx for _, idx in scored[:max_count]], n, max_count)
         # else: 撤退（我方换人），fall through 到 power+HP 排序
 
+    # [v24.8] AttachFrom (1235エネルギー加速 选贴能目标): 能量贴核心
+    # 进化链 678>677>674, 其余按 power。此前随下方通用组走 power+基础分,
+    # 会把能量贴给随机基础宝可梦而非 678/677。
+    if context == _SC_ATTACH_FROM:
+        scored = []
+        for i, opt in enumerate(options):
+            cid = _resolve_card_id_from_option(opt, obs_current, my_idx)
+            card_data = _CARD_DB.get(cid, {}) if cid >= 0 else {}
+            power = card_data.get("power", 0)
+            hp = card_data.get("hp", 0)
+            core = 1000 if cid == 678 else (800 if cid == 677 else (400 if cid == 674 else 0))
+            scored.append((core + power, hp, i))
+        scored.sort(reverse=True)
+        return _sanitize([idx for _, _, idx in scored[:max_count]], n, max_count)
+
     # 通用逻辑：setup 按 power+hp 排序; switch/toActive/toBench/evolvesTo
     # 按 打手优先级 排序 ([BUG-1 fix] 禁止 basic_bonus 让基础宝可梦碾压已进化打手)
     if context in (_SC_SETUP_ACTIVE, _SC_SETUP_BENCH, _SC_SWITCH,
                    _SC_TO_ACTIVE, _SC_TO_BENCH, _SC_EVOLVES_FROM,
-                   _SC_EVOLVES_TO, _SC_ATTACH_FROM):
-        # [v22.4] 消费换墙意图 (一次性, 防止跨决策/跨局泄漏)
-        switch_to_wall = switch_to_wall_intent
+                   _SC_EVOLVES_TO):
         # [v22.5] 被动换人(active阵亡): 对方 ex 在场时优先678 (340HP主力),
         # 对方345墙在场时优先674 (210非ex破墙) / 非ex打手兜底
         opp_act = _get_opp_active(obs_current, my_idx)
@@ -2505,7 +3419,7 @@ def _handle_card(options, max_count, context, obs_current, my_idx):
         opp_hp = _get_pokemon_hp(opp_act)
         _opp_db = _CARD_DB.get(opp_cid, {})
         opp_is_ex_t = _opp_db.get("rule") in ("ex", "mega_ex") or (
-            not _opp_db and opp_hp >= 200)
+            not _opp_db and opp_hp >= _P['opp_ex_hp_guess'])
         opp_is_wall_t = (opp_cid == 345)
         # 只有"选谁上场/选谁进化"才用打手优先级; AttachFrom/EvolvesFrom 等
         # 场景 (选能量来源等) 保持 power 排序, 避免把 678/674 选为能量移出方
@@ -2521,17 +3435,17 @@ def _handle_card(options, max_count, context, obs_current, my_idx):
                 # 起手选位/能量来源: 只有基础宝可梦可上场时基本卡加分,
                 # 进化链卡加 50 鼓励铺链
                 is_basic = "evolves_from" not in card_data
-                basic_bonus = 500 if is_basic else 0
+                basic_bonus = _P['setup_basic_bonus'] if is_basic else 0
                 evolves_to = card_data.get("evolves_to", None)
-                evolve_bonus = 50 if evolves_to else 0
+                evolve_bonus = _P['setup_evolve_bonus'] if evolves_to else 0
                 score = power + basic_bonus + evolve_bonus
             else:
                 # [BUG-1 fix] 切换/替补上场: 核心打手 678 (对面非345墙时) >
                 # 674 破墙打手 > 非ex打手(对345墙) > 其余按 power
-                core_bonus = 2000 if (cid == 678 and not opp_is_wall_t) else 0
-                breaker_bonus = 1500 if cid == 674 else 0
-                wall_bonus = 1100 if (opp_is_wall_t and cid == 674) else 0
-                wall_fallback = 900 if (opp_is_wall_t and cid in (676, 675, 677, 673)) else 0
+                core_bonus = _P['switch_core_bonus'] if (cid == 678 and not opp_is_wall_t) else 0
+                breaker_bonus = _P['switch_breaker_bonus'] if cid == 674 else 0
+                wall_bonus = _P['switch_wall_bonus'] if (opp_is_wall_t and cid == 674) else 0
+                wall_fallback = _P['switch_wall_fallback'] if (opp_is_wall_t and cid in (676, 675, 677, 673)) else 0
                 score = power + core_bonus + breaker_bonus + wall_bonus + wall_fallback
             scored.append((score, hp, i))
         scored.sort(reverse=True)
@@ -2544,13 +3458,13 @@ def _handle_card(options, max_count, context, obs_current, my_idx):
             cid = _resolve_card_id_from_option(opt, obs_current, my_idx)
             card_data = _CARD_DB.get(cid, {}) if cid >= 0 else {}
             if cid in _TRAINER_IDS:
-                priority = 200 + _TRAINER_PRIORITY.get(cid, 0)
+                priority = _P['tohand_trainer_base'] + _TRAINER_PRIORITY.get(cid, 0)
             elif "evolves_from" in card_data:
-                priority = 150
+                priority = _P['tohand_evolved_score']
             elif not card_data.get("is_energy"):
-                priority = 100
+                priority = _P['tohand_basic_score']
             else:
-                priority = 30
+                priority = _P['tohand_energy_score']
             scored.append((priority, i))
         scored.sort(reverse=True)
         return _sanitize([idx for _, idx in scored[:max_count]], n, max_count)
@@ -2562,13 +3476,13 @@ def _handle_card(options, max_count, context, obs_current, my_idx):
             cid = _resolve_card_id_from_option(opt, obs_current, my_idx)
             card_data = _CARD_DB.get(cid, {}) if cid >= 0 else {}
             if cid in _TRAINER_IDS:
-                priority = 10   # 训练家卡最优先保留
+                priority = _P['discard_trainer_score']   # 训练家卡最优先保留
             elif "evolves_from" in card_data:
-                priority = 100  # 进化卡（可能为死卡）优先弃
+                priority = _P['discard_evolved_score']  # 进化卡（可能为死卡）优先弃
             elif card_data.get("is_energy"):
-                priority = 60   # 能量卡次优先弃
+                priority = _P['discard_energy_score']   # 能量卡次优先弃
             else:
-                priority = 30   # 基础宝可梦中优先弃
+                priority = _P['discard_basic_score']   # 基础宝可梦中优先弃
             scored.append((priority, i))
         scored.sort(reverse=True)
         return _sanitize([idx for _, idx in scored[:max_count]], n, max_count)
@@ -2580,13 +3494,13 @@ def _handle_card(options, max_count, context, obs_current, my_idx):
             cid = _resolve_card_id_from_option(opt, obs_current, my_idx)
             card_data = _CARD_DB.get(cid, {}) if cid >= 0 else {}
             if cid in _TRAINER_IDS:
-                priority = 100
+                priority = _P['todeck_trainer_score']
             elif card_data.get("is_energy"):
-                priority = 80
+                priority = _P['todeck_energy_score']
             elif "evolves_from" in card_data:
-                priority = 30
+                priority = _P['todeck_evolved_score']
             else:
-                priority = 50
+                priority = _P['todeck_basic_score']
             scored.append((priority, i))
         scored.sort(reverse=True)
         return _sanitize([idx for _, idx in scored[:max_count]], n, max_count)
@@ -2725,8 +3639,11 @@ def _handle_count(options, max_count, context, obs_current, my_idx):
 #   'nn_first'        NN 输出直接采用（非法值过滤后），规则仅作异常兜底
 #   'off'             停用 NN
 # 仅对 Main/Card/Attack 三类高价值决策启用，其余 context 规则已足够稳定。
-_NN_MODE = 'rerank'
-_NN_GAP = 1.0
+# [2026-08-08] env 覆盖（sweep 用，默认值不变，pack 安全）：
+#   PTCG_NN_MODE=off|rerank|nn_first   PTCG_NN_GAP=<float>
+import os as _os
+_NN_MODE = _os.environ.get('PTCG_NN_MODE', 'rerank')
+_NN_GAP = float(_os.environ.get('PTCG_NN_GAP', '1.0'))
 _NN_SEL_TYPES = (_ST_MAIN, _ST_CARD, _ST_ATTACK)
 _NN = {'tried': False, 'ok': False, 'w': None, 'lut': None, 'np': None, 'card_dim': 0}
 
@@ -2962,6 +3879,9 @@ def agent(obs, config=None):
     if obs is None:
         return []
 
+    # [v24.4] 对局状态生命周期 (防死循环 _OSC; 覆盖所有入口, v22.6-fix4 教训)
+    _maybe_reset_game_state(obs)
+
     # ---- Phase 0: 初始上牌阶段 ----
     if obs.get("select") is None:
         _PENDING_SWITCH_TO_WALL = False  # [v22.6-fix4] 新对局开始, 清除历史残留
@@ -2986,6 +3906,10 @@ def agent(obs, config=None):
         if sel_type != _ST_CARD:
             _PENDING_SWITCH_TO_WALL = False
 
+        # [v24.5] 对手建模: 可见区状态更新 (幂等; off 时不更新, 各应用点惰性)
+        if _PARAMS['opponent_model_enabled']:
+            _update_game_state(obs_current, my_idx)
+
         # [C4] max_count 类型守卫
         if not isinstance(max_count, int) or max_count <= 0:
             max_count = 1
@@ -3006,8 +3930,15 @@ def agent(obs, config=None):
         handler = _HANDLERS.get(sel_type)
         if handler:
             _rule_action = handler(options, max_count, context, obs_current, my_idx)
+            # [v24.4] 防死循环: A→B→A 振荡干预 (仅 Main 决策; 取 End 破环)
+            if sel_type == _ST_MAIN and _PARAMS['osc_break_enabled']:
+                _rule_action = _osc_intervene(_rule_action, options, max_count)
             # [v24] NN Advisor: 规则为锚, NN 高置信分歧时纠偏; 任何异常内部消化
-            return _nn_consult(obs, sel_type, options, max_count, _rule_action)
+            _action = _nn_consult(obs, sel_type, options, max_count, _rule_action)
+            # [v24.4] 记录 Main 决策历史 (Step 5 _GAME_STATE 复用)
+            if sel_type == _ST_MAIN:
+                _osc_record(_action, options, obs_current, my_idx)
+            return _action
 
         if sel_type == _ST_NONE:
             return _sanitize(list(range(min(max_count, n))), n, max_count)

@@ -290,8 +290,8 @@ def main() -> int:
         if len(deck) != 60:
             raise SystemExit(f"opponent deck missing from replay ep={episode_id}")
         archetype = _classify_deck(deck)
-        game_raw_counts = Counter()
-        game_reached_counts = Counter()
+        game_raw_counts: Counter[str] = Counter()
+        game_reached_counts: Counter[str] = Counter()
         game_calls = 0
         game_mismatches = 0
 

@@ -61,3 +61,37 @@ reports/trae-reply-*.txt
 kaggle_oauth.json
 access_token
 inference/backup_to_baidu/
+
+# ===== 本地保留/生成产物（不上传）=====
+# Kaggle 提交暂存目录
+.kaggle_stage_ckpt/
+.kaggle_stage_code/
+.kaggle_stage_tensors/
+
+# 工具状态与缓存
+.playwright-mcp/
+.trae/
+.trae-html-share-packages/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+
+# 模型权重（本地可重新生成）
+*.npz
+
+# 大体积生成数据
+experiments/.tensor_dataset/
+inference/dataset/data-selfplay/
+inference/dataset/data-selfplay-quality/
+inference/dataset/splits-selfplay/
+inference/selfplay_replay/
+inference/comp_data/
+inference/rl_plan_imgs/
+
+# 备份文件
+*.bak
+*.bak-*
+
+# AI 会话复盘日志（本地保留）
+codex复盘*.txt
+codex回复_*.txt
